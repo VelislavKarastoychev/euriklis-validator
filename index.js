@@ -1,8 +1,3 @@
 'use strict'
-const validator = require('./src/validator')
-new validator(12).is_boolean().or().is_object()
-.on(false, () => {
-    console.log('yess')
-})
-
+let validator = require('./src/validator')
 module.exports = validator
