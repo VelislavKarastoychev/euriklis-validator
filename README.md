@@ -18,7 +18,8 @@ This command will add the package to your node_modules folder.
 To use the validator or the message library you have to get it from the package:
 
 ```js
-const {validator, message} = require ('euriklis-validator')
+const validator = require ('@euriklis/validator')
+const message = require('@euriklis/message')
 let text = 'Test string'
 new validator(text).is_string().on(true, () => {
     console.log('Yes, the text is string')
