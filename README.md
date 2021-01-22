@@ -8,7 +8,7 @@ The ***euriklis - validator*** package is a javascript tool for analyzing, testi
 To install the euriklis-validator package just run in the terminal the following command.
 
 ```sh
-npm install euriklis-validator --save --save-exact
+npm install @euriklis/validator @euriklis/message --save --save-exact
 ```
 
 This command will add the package to your node_modules folder.
