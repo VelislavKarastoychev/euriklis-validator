@@ -173,7 +173,10 @@ method <em>or()</em>: an operational method that sets the the or operand to true
 Everyone who wants to inform me about useful things and practices can sends me an email to exel_mmm@abv.bg or euriklis@hotmail.com. 
 
 ## Donations
-Donations are welcome at 
+Donations are welcome at :
+```
+BG27FINV915010BGN0A9G5 BGN
+```
 
 ## License
 MIT License.
