@@ -73,8 +73,8 @@ let result = new validator(a)
 console.log(result) // true
 ```
 
-the validator class has the following important methods:
--method is_string():  
+The validator class has the following important methods:
+- method is_string():  
 a method that checks if the value property of the current validator instance is string and sets the returned validator answer property to true or false respectively. For example:
 ```js
 const validator = require('@euriklis/validator')
