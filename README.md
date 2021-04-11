@@ -147,7 +147,7 @@ let question = new validator(a).is_same(11).and()
 console.log(question.answer) // true
 ```
 - method <em>is_same_with_any(parameter_array)</em>: checks if the value property of the current validator instance contains some of the parameters that exists in the parameter array variable.
-- method <em>for_all (some_function)</em>: checks if every value of an array/object in the value property of the validator instance, fulfills the conditions of the function. The argument of the some_function is assumed to be a validator type.
+- method <em>for_all (callback(element, index))</em>: checks if every value of an array/object in the value property of the validator instance, fulfills the conditions of the function. The first argument of the callback is assumed to be validator type and the second argument corresponds to the index of the element into the array or the object.
 
 ```js
 new validator(Array.form({length : 60}).map(Math.random))
@@ -157,7 +157,31 @@ new validator(Array.form({length : 60}).map(Math.random))
     }) // probably true!
 ```
 
-- method <em>for_any(some_function)</em>: similar to the for_all() method but requites the some_function to be true at least for one element of the array or object value property of the current validator instance.
+- method <em>for_any(callback(element, index))</em>: similar to the for_all() method but requites the callback to be true at least for one element of the array or object value property of the current validator instance.
+
+*In version 1.0.5 was added the methods* **is_array_and_for_every(callback(element, index))**, **is_array_and_for_any(callback(element, index))**, which are similar to the *for_all()* and *for_any()* with only distinction that the last two methods can be applied on arrays as well as on objects.
+
+*In version 1.0.5 was added the method* **interface2(object)** which is similar to the interface(object), but in the interface2, the values of the object are not strings (as in the original interface method), but callback functions that has as argument the value of the object with key the key of the parameter of the method and this argument is assumed to be of validator type. For example:
+```js
+const validator = require('@euriklis/validator')
+const user = {
+    'First name' : 'John',
+    'Last name' : 'Jones',
+    age : 24,
+    email : 'john_jones@somemail.com',
+    account : 400
+}
+new validator(user).interface2({
+    'First name' : (name) => name.is_string(),
+    'Last name' : (name) => name.is_string(),
+    age : age => age.is_integer()
+       .and().is_bigger_than(0).and().is_lesser_than(200),
+    email : mail => mail.is_string(),
+    account : account.is_float().and().is_equal_or_bigger_than(100)
+}).on(true, () => giveGiftToTheUser(user))
+.on(false, () => console.log('Your account is insufficient for gift.'))
+```
+
 - method <em>not()</em>: an operational method that sets the not operand to true and negate the next active validator atomic sentence.
 - method <em>and()</em>: an operational method that sets the and operand to true and makes conjunction with the next active validator atomic sentence.
 method <em>or()</em>: an operational method that sets the the or operand to true and makes disjunction with the next active validator atomic sentence.
@@ -175,7 +199,7 @@ Everyone who wants to inform me about useful things and practices can sends me a
 ## Donations
 Donations are welcome at :
 ```
-BG27FINV915010BGN0A9G5 BGN
+BG52FINV91502015033152 EUR
 ```
 
 ## License
