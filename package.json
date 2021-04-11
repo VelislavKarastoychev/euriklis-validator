@@ -1,0 +1,29 @@
+{
+  "name": "@euriklis/validator",
+  "version": "1.0.5",
+  "description": "A javascript package for testing and managing of type coonditions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VelislavKarastoychev/euriklis-validator.git"
+  },
+  "keywords": [
+    "validator",
+    "javascript",
+    "\"type",
+    "verification\"",
+    "\"conditional",
+    "type",
+    "manipulation\"",
+    "testing"
+  ],
+  "author": "Euriklis <euriklis@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VelislavKarastoychev/euriklis-validator/issues"
+  },
+  "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme"
+}
