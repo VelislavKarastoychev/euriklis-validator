@@ -202,8 +202,9 @@ class validator {
         return this._set_answer_()
     }
     /**
-     * 
-     * @param {Number} a a real number that
+     *
+     * @method is_bigger_than() 
+     * @param {number} a a real number that
      * has to be lesser or equal to than the
      * validator instance value property.
      * @returns {validator}
@@ -219,7 +220,8 @@ class validator {
     }
     /**
      * 
-     * @param {Number} a a real number that
+     * @method is_lesser_than(a)
+     * @param {number} a a real number that
      * has to be greater or equal to the current
      * value property of the validator instance.
      * @returns {validator}
@@ -235,10 +237,11 @@ class validator {
     }
     /**
      * 
-     * @param {Number} a a real number that has to
+     * @method is_in_range(a, b)
+     * @param {number} a a real number that has to
      * be smaller than to the value property
      * of the current validator instance. 
-     * @param {Number} b a real number that has to be
+     * @param {number} b a real number that has to be
      * greater than the value property of the current
      * validator instance.
      * @returns {validator}
@@ -258,10 +261,11 @@ class validator {
     }
     /**
      * 
-     * @param {Number} a a real number that has to
+     * @method is_in_closed_range
+     * @param {number} a a real number that has to
      * be smaller than or equal to the current value
      * property of the validator instance.  
-     * @param {Number} b a real number that has to be
+     * @param {number} b a real number that has to be
      * greater or equal to the current value property
      * of the validator instance.
      * @description  a method that checks if the value of 
@@ -277,7 +281,8 @@ class validator {
     }
     /**
      * 
-     * @param {Number} a a real number that
+     * @method equal_or_bigger_than
+     * @param {number} a a real number that
      * has to be smaller or equal to the value
      * property of the current validator instance
      * @returns {validator}
@@ -294,7 +299,8 @@ class validator {
     }
     /**
      * 
-     * @param {Number} a a real number that has
+     * @method equal_or_lesser_than
+     * @param {number} a a real number that has
      * to be greater or equal to the current value
      * property of the validator instance.
      * @returns {validator}
@@ -419,7 +425,9 @@ class validator {
         return this._set_answer_()
     }
     /**
-     * @param {Object | String} options
+     * 
+     * @method is_array_with_elements_that_satisfy
+     * @param {{conditions : string}} options
      * an object parameter
      * with condition key property with
      * string value that is a legal validator
@@ -570,7 +578,8 @@ class validator {
     }
     /**
      * 
-     * @param {function} callback
+     * @method for_all
+     * @param {function(validator, number)} callback
      * @description This method can
      * be active if and only if the
      * this.value is of type array
@@ -603,7 +612,7 @@ class validator {
                         // array (object). Case array:
                         for (i = 0; i < val.value.length; i++) {
                             item = new validator(val.value[i])
-                            if (callback(item).answer) {
+                            if (callback(item, i).answer) {
                                 this._question = true
                             }
                             else {
@@ -625,7 +634,7 @@ class validator {
                                 keys = Object.keys(val.value)
                                 for (i = 0; i < keys.length; i++) {
                                     item = new validator(val.value[keys[i]])
-                                    if (callback(item).answer) this.answer = true
+                                    if (callback(item, i).answer) this.answer = true
                                     else {
                                         this._question = false
                                         break
@@ -641,7 +650,8 @@ class validator {
     }
     /**
      * 
-     * @param {function} callback
+     * @method for_any
+     * @param {function(validator, number)} callback
      * @description this method is
      * valid for array and object
      * and compute if some item of the
@@ -674,7 +684,7 @@ class validator {
                         // this.value is array case...
                         for (i = 0; i < val.value.length; i++) {
                             item = new validator(val.value[i])
-                            if (callback(item).answer) {
+                            if (callback(item, i).answer) {
                                 this._question = true
                                 break
                             } else {
@@ -693,7 +703,7 @@ class validator {
                                 keys = Object.keys(val.value)
                                 for (i = 0; i < keys[i].length; i++) {
                                     item = new validator(val.value[keys[i]])
-                                    if (callback(item).answer) {
+                                    if (callback(item, i).answer) {
                                         this._question = true
                                         break
                                     } else {
@@ -714,7 +724,8 @@ class validator {
     }
     /**
      * 
-     * @param {Number} n an integer number that
+     * @method has_length
+     * @param {number} n an integer number that
      * describes the length of the array/string/Object
      * @returns {validator}
      * @description a method that checks if the
@@ -734,6 +745,7 @@ class validator {
     }
     /**
      * 
+     * @method is_this_string_contains_expression_k_times
      * @param {string | object} options
      * @description this method checks if
      * a given string contains an expression
@@ -908,6 +920,7 @@ class validator {
     }
     /**
      * 
+     * @method is_same_with_any
      * @param {Array} arr_param an array
      * with arbitrary elements.
      * @returns {validator}
@@ -1136,7 +1149,7 @@ class validator {
     /**
      * 
      * @method interface2
-     * @param {{keys : function}} params
+     * @param {{keys : function(validator)}} params
      * @description This method is a variation of the
      * interface method. The difference between these two
      * methods is that the second accept arrow functions as
@@ -1181,7 +1194,8 @@ class validator {
     }
     /**
      * 
-     * @param {function (validator, i)} func_arg
+     * @method is_array_and_for_every(func_arg)
+     * @param {function (validator, number)} func_arg
      * @description this method gets like argument
      * a function with validator argument and returns
      * true if the function is true for every elements of
@@ -1211,7 +1225,7 @@ class validator {
      * @method is_array_and_for_any
      * @param {function (validator, number)} func_arg
      * @returns {validator} 
-     * @descrioption returns a validator instance that is
+     * @description returns a validator instance that is
      * the result of the execution of the function of 
      * all elements. The method stops if for some element the
      * validator is true.
@@ -1242,6 +1256,7 @@ class validator {
     }
     /**
      * 
+     * @method on()
      * @param {boolean} state - true or false
      * @param {function | arrow function} callback
      * the function that will be run when the condition of the
