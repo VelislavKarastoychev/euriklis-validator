@@ -271,8 +271,8 @@ class validator {
      */
     is_in_closed_range(a, b) {
         this._question = this.copy()
-        .is_equal_or_lesser_than(b).and()
-        .is_equal_or_bigger_than(a).answer 
+            .is_equal_or_lesser_than(b).and()
+            .is_equal_or_bigger_than(a).answer
         return this._set_answer_()
     }
     /**
@@ -289,7 +289,7 @@ class validator {
      */
     is_equal_or_bigger_than(a) {
         this._question = this.copy()
-        .is_same(a).or().is_bigger_than(a).answer
+            .is_same(a).or().is_bigger_than(a).answer
         return this._set_answer_()
     }
     /**
@@ -304,9 +304,9 @@ class validator {
      * the answer property of the returned validator 
      * instance to true or false respectively.
      */
-    is_equal_or_lesser_than (a) {
+    is_equal_or_lesser_than(a) {
         this._question = this.copy()
-        .is_same(a).or().is_lesser_than(a).answer
+            .is_same(a).or().is_lesser_than(a).answer
         return this._set_answer_()
     }
     /**
@@ -1131,6 +1131,113 @@ class validator {
                     break
             }
         }
+        return this._set_answer_()
+    }
+    /**
+     * 
+     * @method interface2
+     * @param {{keys : function}} params
+     * @description This method is a variation of the
+     * interface method. The difference between these two
+     * methods is that the second accept arrow functions as
+     * value. The argument of the arrow (or the conventional)
+     * javascript function is assumed to be the validaor instance of
+     * the key value of the this.value object.
+     * @example
+     * new validator({a : 12, rand : Math.random, sqrt : Math.sqrt })
+     *     .instance2({
+     *         a : a => {return a.is_number().and().is_integer()},
+     *         rand : r => {return r.is_function()},
+     *         sqrt : sqrt => {return sqrt.is_function()}
+     *     }).answer // true
+     * 
+     */
+    interface2(params) {
+        new validator(params).is_object().and()
+            .bind(this.copy().value.is_object())
+            .on(false, () => this._question = false)
+            .on(true, () => {
+                new validator(Object.keys(params)).not().is_empty()
+                    .and().bind(
+                        new validator(Object.values(params)).not()
+                            .for_any(parameter => {
+                                return parameter.not().is_function()
+                            })
+                    )
+                    .on(true, () => {
+                        for (let key of Object.keys(params)) {
+                            this._question = params[key](new validator(this.value[key])).answer
+                            new validator(this._question).not().is_boolean()
+                            .on(true, () => {
+                                throw new Error('The argument function of the interface2 method has to return a validator instance.')
+                            })
+                            if (this._question) continue
+                            else break
+                        }
+                    })
+                    .on(false, () => this._question = false)
+            })
+        return this._set_answer_()
+    }
+    /**
+     * 
+     * @param {function (validator, i)} func_arg
+     * @description this method gets like argument
+     * a function with validator argument and returns
+     * true if the function is true for every elements of
+     * the array. If the value property of the validator
+     * is not array or the func_arg parameter is not a function
+     * then the function returns false. 
+     */
+    is_array_and_for_every (func_arg) {
+        new validator(func_arg).is_function()
+            .on(true, () => {
+                new validator(this.value).is_array()
+                    .on(true, () => {
+                        for (let i = 0; i < this.value.length;i++) {
+                            let item = this.value[i]
+                            this._question = func_arg(new validator(item), i).answer
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => { 
+                                    throw new Error('Illegal usage of the argument function of the method. The function has to return validator type.') })
+                            if (this._question) continue
+                            else break
+                        }
+                    }).on(false, () => this._question = false)
+            }).on(false, () => this._question = false)
+        return this._set_answer_()
+    }
+    /**
+     * @method is_array_and_for_any
+     * @param {function (validator, number)} func_arg
+     * @returns {validator} 
+     * @descrioption returns a validator instance that is
+     * the result of the execution of the function of 
+     * all elements. The method stops if for some element the
+     * validator is true.
+     * @example
+     * new validator([1, 2, 3, 4, 5, 6, 7])
+     *     .is_array_and_for_any(element => {
+     *         return element.is_integer().and().is_in_range(0, 8)
+     *     }) // true value.
+     */
+    is_array_and_for_any(func_arg) {
+        new validator(func_arg).is_function()
+        .on(true, () => {
+            new validator(this.value).is_array()
+            .on(true, () => {
+                for (let i = 0;i < this.value.length;i++) {
+                    let item = this.value[i]
+                    this._question = func_arg(new validator(item), i).answer
+                    new validator(this._question).not().is_boolean()
+                    .on(true, () => {
+                        throw new Error('Error in the is_array_and_for_any(). Illegal argument in the parameter of the method.')
+                    })
+                    if (this._question) break
+                    else continue
+                }
+            }).on(false, () => this._question = false)
+        }).on(false, () => this._question = false)
         return this._set_answer_()
     }
     /**
