@@ -1167,7 +1167,7 @@ class validator {
      */
     interface2(params) {
         new validator(params).is_object().and()
-            .bind(this.copy().value.is_object())
+            .bind(this.copy().is_object())
             .on(false, () => this._question = false)
             .on(true, () => {
                 new validator(Object.keys(params)).not().is_empty()
