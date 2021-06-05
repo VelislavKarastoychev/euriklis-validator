@@ -177,8 +177,8 @@ new validator(user).interface2({
     age : age => age.is_integer()
        .and().is_bigger_than(0).and().is_lesser_than(200),
     email : mail => mail.is_string(),
-    account : account.is_float().and().is_equal_or_bigger_than(100)
-}).on(true, () => giveGiftToTheUser(user))
+    account : account : account.is_float().and().is_equal_or_bigger_than(100)
+}).on(true, () => console.log(`Dear user, ${user.name}, you will get a gift.`))
 .on(false, () => console.log('Your account is insufficient for gift.'))
 ```
 
