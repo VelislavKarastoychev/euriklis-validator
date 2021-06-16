@@ -147,7 +147,7 @@ let question = new validator(a).is_same(11).and()
 console.log(question.answer) // true
 ```
 - method <em>is_same_with_any(parameter_array)</em>: checks if the value property of the current validator instance contains some of the elements that exists in the parameter array variable. In version 1.0.9, this method was fixed because the output of the method was incorrect when the method was used with not() operator. 
-- method <em>for_all (callback(element, index))</em>: checks if every value of an array/object in the value property of the validator instance, fulfills the conditions of the function. The first argument of the callback is assumed to be validator type and the second argument corresponds to the index of the element into the array or the object.
+- method <em>for_all (callback(element, index))</em>: checks if every value of an array/object in the value property of the validator instance, fulfills the conditions of the function. The first argument of the callback is assumed to be validator type and the second argument corresponds to the index of the element into the array or the object. A bug was fixed in version 1.1.10 which was responsible for the incorrect output of the method when the input is an object. (this.answer was set to true instead the this._question)
 
 ```js
 new validator(Array.form({length : 60}).map(Math.random))
