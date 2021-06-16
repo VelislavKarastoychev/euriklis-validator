@@ -1,4 +1,4 @@
 'use strict'
 let validator = require('./src/validator')
-validator.version = '1.0.6'
+validator.version = require('./package.json').version
 module.exports = validator
