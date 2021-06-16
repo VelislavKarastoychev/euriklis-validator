@@ -634,7 +634,7 @@ class validator {
                                 keys = Object.keys(val.value)
                                 for (i = 0; i < keys.length; i++) {
                                     item = new validator(val.value[keys[i]])
-                                    if (callback(item, i).answer) this.answer = true
+                                    if (callback(item, i).answer) this._question = true
                                     else {
                                         this._question = false
                                         break
@@ -1299,9 +1299,9 @@ class validator {
     is_date() {
         let cp = this.copy()
         if (cp.value instanceof Date || cp.value.toString() === '[object Date]') {
-            cp._question = true
-        } else cp._question = false
-        return cp._set_answer_()
+            this._question = true
+        } else this._question = false
+        return this._set_answer_()
     }
 }
 module.exports = validator
