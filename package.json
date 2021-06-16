@@ -1,6 +1,6 @@
 {
   "name": "@euriklis/validator",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A javascript package for testing and managing of type coonditions.",
   "main": "index.js",
   "scripts": {
