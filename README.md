@@ -146,7 +146,7 @@ let question = new validator(a).is_same(11).and()
     )
 console.log(question.answer) // true
 ```
-- method <em>is_same_with_any(parameter_array)</em>: checks if the value property of the current validator instance contains some of the parameters that exists in the parameter array variable.
+- method <em>is_same_with_any(parameter_array)</em>: checks if the value property of the current validator instance contains some of the elements that exists in the parameter array variable. In version 1.0.9, this method was fixed because the output of the method was incorrect when the method was used with not() operator. 
 - method <em>for_all (callback(element, index))</em>: checks if every value of an array/object in the value property of the validator instance, fulfills the conditions of the function. The first argument of the callback is assumed to be validator type and the second argument corresponds to the index of the element into the array or the object.
 
 ```js
@@ -177,7 +177,7 @@ new validator(user).interface2({
     age : age => age.is_integer()
        .and().is_bigger_than(0).and().is_lesser_than(200),
     email : mail => mail.is_string(),
-    account : account : account.is_float().and().is_equal_or_bigger_than(100)
+    account : account => account.is_float().and().is_equal_or_bigger_than(100)
 }).on(true, () => console.log(`Dear user, ${user.name}, you will get a gift.`))
 .on(false, () => console.log('Your account is insufficient for gift.'))
 ```
@@ -195,6 +195,14 @@ method <em>or()</em>: an operational method that sets the the or operand to true
 ## Bugs and tips
 
 Everyone who wants to inform me about useful things and practices can sends me an email to exel_mmm@abv.bg or euriklis@hotmail.com. 
+
+## Tests
+
+Tests of the package are available in the github.com. To get the tests of the package run in the terminal:
+```sh
+git clone http://github.com/VelislavKarastoychev/tests-for-validator
+cd tests-for-validator && npm t
+```
 
 ## Donations
 Donations are welcome at :
