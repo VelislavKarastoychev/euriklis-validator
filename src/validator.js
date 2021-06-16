@@ -950,10 +950,8 @@ class validator {
                     }
                 }
             })
-        ans = this.copy()
-        ans._question = q
-        ans._set_answer_()
-        return ans
+        this._question = q
+        return this._set_answer_()
     }
     /**
      * 
