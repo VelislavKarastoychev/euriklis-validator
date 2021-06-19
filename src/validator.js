@@ -1,4 +1,5 @@
 'use strict'
+import {version} from '../package.json';
 class validator {
     /**
      * 
@@ -1304,4 +1305,5 @@ class validator {
         return this._set_answer_()
     }
 }
-module.exports = validator
+validator.version = version;
+export default validator;
