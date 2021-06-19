@@ -1,7 +1,7 @@
 {
   "name": "@euriklis/validator",
   "esm": "auto",
-  "version": "1.0.11",
+  "version": "1.2.0",
   "description": "A javascript package for testing and managing of type coonditions.",
   "main": "index.js",
   "scripts": {
