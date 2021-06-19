@@ -1,12 +1,12 @@
 {
   "name": "@euriklis/validator",
-  "esm" : "auto",
+  "esm": "auto",
   "version": "1.0.11",
   "description": "A javascript package for testing and managing of type coonditions.",
   "main": "index.js",
   "scripts": {
     "test": "echo 'to run the tests download the code on github and run it: https://github.com/VelislavKarastoychev/tests-for-validator'",
-    "start" : "node -r esm index.js"
+    "start": "node -r esm index.js"
   },
   "repository": {
     "type": "git",
