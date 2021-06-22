@@ -1,12 +1,11 @@
 {
   "name": "@euriklis/validator",
-  "esm": "auto",
-  "version": "1.2.0",
+  "version": "1.1.12",
   "description": "A javascript package for testing and managing of type coonditions.",
   "main": "index.js",
   "scripts": {
     "test": "echo 'to run the tests download the code on github and run it: https://github.com/VelislavKarastoychev/tests-for-validator'",
-    "start": "node -r esm index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -27,8 +26,5 @@
   "bugs": {
     "url": "https://github.com/VelislavKarastoychev/euriklis-validator/issues"
   },
-  "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme",
-  "dependencies": {
-    "esm": "^3.2.25"
-  }
+  "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme"
 }
