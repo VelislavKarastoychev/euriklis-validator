@@ -23,11 +23,6 @@ So to execute the methods that the validator library provides, you have to decla
 ```js
 const validator = require('@euriklis/validator')
 ```
-
-From version 1.2.x the validator was configured with esm pattern. So to use @euriklis/validator methods you may define the validator by the following way:
-```js
-import validator form '@euriklis/validator';
-```
 # Usage:
 
 To use the validator or the message library you have to get it from the package:
