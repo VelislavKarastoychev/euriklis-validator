@@ -1,5 +1,5 @@
 'use strict'
-import {version} from '../package.json';
+const {version} = require('../package.json');
 class validator {
     /**
      * 
@@ -1306,4 +1306,4 @@ class validator {
     }
 }
 validator.version = version;
-export default validator;
+module.exports = validator;
