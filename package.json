@@ -26,5 +26,6 @@
   "bugs": {
     "url": "https://github.com/VelislavKarastoychev/euriklis-validator/issues"
   },
-  "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme"
+  "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme",
+  "dependencies": {}
 }
