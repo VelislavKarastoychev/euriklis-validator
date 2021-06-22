@@ -15,7 +15,9 @@ or the more strict mode:
 ```sh
 npm install @euriklis/validator --save-exact
 ```
-(Under the save-exact mode the user will load a particular version)
+(Under the save-exact mode the user will load a particular version).
+
+Note that the version 1.2.1 is written in esm mode and is not stable, so we recommend you to do not use it. The last version 1.2.2 is the latest cjs version i.e., 1.1.11.
 
 These commands will add the package to your node_modules folder.
 So to execute the methods that the validator library provides, you have to declare:
