@@ -1,3 +1,3 @@
 'use strict'
-import validator from './src/validator';
-export default validator;
+const validator = require('./src/validator');
+module.exports = validator
