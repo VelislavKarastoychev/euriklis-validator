@@ -2,6 +2,7 @@
   "name": "@euriklis/validator",
   "version": "1.2.2",
   "description": "A javascript package for testing and managing of type coonditions.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo 'to run the tests download the code on github and run it: https://github.com/VelislavKarastoychev/tests-for-validator'",
@@ -27,5 +28,11 @@
     "url": "https://github.com/VelislavKarastoychev/euriklis-validator/issues"
   },
   "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme",
-  "dependencies": {}
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0"
+  }
 }
