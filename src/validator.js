@@ -1,5 +1,9 @@
-'use strict'
-const {version} = require('../package.json');
+'use strict';
+import * as errors from './Errors/index.js'
+import * as warnings from './Warnings/index.js';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const { version } = require('../package.json');
 class validator {
     /**
      * 
@@ -20,12 +24,12 @@ class validator {
      * the methods of the validator class for more information.   
      */
     constructor(parameter) {
-        this.value = parameter
-        this.answer = null
-        this.required = false
+        this.value = parameter;
+        this.answer = null;
+        this.required = false;
         this.description = `This is a validator Object.` +
             `This library provides functionalities for checking, ` +
-            `testing and validating of some data in javascript language.`
+            `testing and validating of some data in javascript language.`;
     }
     /**
      * @internal an internal method for obtaining
@@ -34,21 +38,21 @@ class validator {
      */
     _set_answer_() {
         if (this._not) {
-            this._question = !this._question
+            this._question = !this._question;
         }
         if (this._operand === 'or') {
-            this.answer = this.answer || this._question
+            this.answer = this.answer || this._question;
         }
         if (this._operand === 'and') {
-            this.answer = this.answer && this._question
+            this.answer = this.answer && this._question;
         }
         if (typeof this._operand === 'undefined') {
-            this.answer = this._question
+            this.answer = this._question;
         }
-        delete this._not
-        delete this._operand
-        delete this._question
-        return this
+        delete this._not;
+        delete this._operand;
+        delete this._question;
+        return this;
     }
     /**
      * @method copy() creates a new instance
@@ -59,7 +63,7 @@ class validator {
      * returned instance is undefined.
      */
     copy() {
-        return new validator(this.value)
+        return new validator(this.value);
     }
     /**
      * @method absolute_copy() create a new instance
@@ -71,12 +75,12 @@ class validator {
      * of the current validator instance.
      */
     absolute_copy() {
-        let v = new validator(this.value)
-        v._not = this._not
-        v._operand = this._operand
-        v._question = this._question
-        v.answer = this.answer
-        return v
+        let v = new validator(this.value);
+        v._not = this._not;
+        v._operand = this._operand;
+        v._question = this._question;
+        v.answer = this.answer;
+        return v;
     }
     /**
      * @method and() set the operator
@@ -86,8 +90,8 @@ class validator {
      * logical conjunction. 
      */
     and() {
-        this._operand = 'and'
-        return this
+        this._operand = 'and';
+        return this;
     }
     /**
      * @method or() set the operator
@@ -96,7 +100,7 @@ class validator {
      * operation disjunction.
      */
     or() {
-        this._operand = 'or'
+        this._operand = 'or';
         return this
     }
     /**
@@ -108,8 +112,8 @@ class validator {
      * value property of the validator instance.
      */
     not() {
-        this._not = true
-        return this
+        this._not = true;
+        return this;
     }
     /**
      * @method required()
@@ -121,8 +125,8 @@ class validator {
      * for the interface() method.
      */
     is_required() {
-        this.required = true
-        return this
+        this.required = true;
+        return this;
     }
     /**
      * @method is_undefined()
@@ -133,9 +137,9 @@ class validator {
      * returns false. 
      */
     is_undefined() {
-        let q = typeof this.value === 'undefined'
-        this._question = q
-        return this._set_answer_()
+        let q = typeof this.value === 'undefined';
+        this._question = q;
+        return this._set_answer_();
     }
     /**
      * @method is_boolean()
@@ -144,8 +148,8 @@ class validator {
      * of the current validator instance is of boolean type.
      */
     is_boolean() {
-        this._question = typeof this.value === 'boolean'
-        return this._set_answer_()
+        this._question = typeof this.value === 'boolean';
+        return this._set_answer_();
     }
     /**
      * @method is_string()
@@ -156,8 +160,8 @@ class validator {
      * fulfilled, otherwise returns false.
      */
     is_string() {
-        this._question = typeof this.value === 'string'
-        return this._set_answer_()
+        this._question = typeof this.value === 'string';
+        return this._set_answer_();
     }
     /**
      * @method is_number()
@@ -169,8 +173,8 @@ class validator {
      * or can be floating point number or integer number.
      */
     is_number() {
-        this._question = (typeof this.value === 'number') && !isNaN(this.value)
-        return this._set_answer_()
+        this._question = (typeof this.value === 'number') && !isNaN(this.value);
+        return this._set_answer_();
     }
     /**
      * @method is_integer()
@@ -182,8 +186,8 @@ class validator {
      * property. 
      */
     is_integer() {
-        this._question = Number.isInteger(this.value)
-        return this._set_answer_()
+        this._question = Number.isInteger(this.value);
+        return this._set_answer_();
     }
     /**
      * @method is_float()
@@ -199,8 +203,8 @@ class validator {
             .is_number()
             .and()
             .not()
-            .is_integer().answer
-        return this._set_answer_()
+            .is_integer().answer;
+        return this._set_answer_();
     }
     /**
      *
@@ -216,8 +220,8 @@ class validator {
      * validator instance to true or false respectively.  
      */
     is_bigger_than(a) {
-        this._question = this.copy().is_number().answer && this.value > a
-        return this._set_answer_()
+        this._question = this.copy().is_number().answer && this.value > a;
+        return this._set_answer_();
     }
     /**
      * 
@@ -233,8 +237,8 @@ class validator {
      * to true or false respectively.
      */
     is_lesser_than(a) {
-        this._question = this.copy().is_number().answer && this.value < a
-        return this._set_answer_()
+        this._question = this.copy().is_number().answer && this.value < a;
+        return this._set_answer_();
     }
     /**
      * 
@@ -257,8 +261,8 @@ class validator {
             .and()
             .is_bigger_than(a)
             .and()
-            .is_lesser_than(b).answer
-        return this._set_answer_()
+            .is_lesser_than(b).answer;
+        return this._set_answer_();
     }
     /**
      * 
@@ -277,8 +281,8 @@ class validator {
     is_in_closed_range(a, b) {
         this._question = this.copy()
             .is_equal_or_lesser_than(b).and()
-            .is_equal_or_bigger_than(a).answer
-        return this._set_answer_()
+            .is_equal_or_bigger_than(a).answer;
+        return this._set_answer_();
     }
     /**
      * 
@@ -295,8 +299,8 @@ class validator {
      */
     is_equal_or_bigger_than(a) {
         this._question = this.copy()
-            .is_same(a).or().is_bigger_than(a).answer
-        return this._set_answer_()
+            .is_same(a).or().is_bigger_than(a).answer;
+        return this._set_answer_();
     }
     /**
      * 
@@ -313,8 +317,8 @@ class validator {
      */
     is_equal_or_lesser_than(a) {
         this._question = this.copy()
-            .is_same(a).or().is_lesser_than(a).answer
-        return this._set_answer_()
+            .is_same(a).or().is_lesser_than(a).answer;
+        return this._set_answer_();
     }
     /**
      * @method is_array()
@@ -326,8 +330,8 @@ class validator {
      * false respectively.
      */
     is_array() {
-        this._question = this.value instanceof Array
-        return this._set_answer_()
+        this._question = this.value instanceof Array;
+        return this._set_answer_();
     }
     /**
      * @method is_string_array()
@@ -340,42 +344,42 @@ class validator {
      * respectively.
      */
     is_string_array() {
-        let step = 'Is array'
+        let step = 'Is array';
         while (step) {
             switch (step) {
                 case 'Is array':
                     if (this.copy().is_array().answer) {
-                        step = 'Is every element string'
+                        step = 'Is every element string';
                     } else {
-                        step = 'It is not string array'
+                        step = 'It is not string array';
                         this.description = `The type of the
                         value parameter of the validator object
-                        is of type ${typeof this.value} and is not array.`
+                        is of type ${typeof this.value} and is not array.`;
                     }
-                    break
+                    break;
                 case 'It is not string array':
-                    this._question = false
-                    step = 'stop'
-                    break
+                    this._question = false;
+                    step = 'stop';
+                    break;
                 case 'Is every element string':
                     if (this.value.some(element => {
-                        return typeof element !== 'string'
+                        return typeof element !== 'string';
                     })) {
-                        step = 'It is not string array'
+                        step = 'It is not string array';
                         this.description = `Some of the elements
                         of the array are (is) not string types and so
-                        this array is not string type.`
+                        this array is not string type.`;
                     } else {
-                        this._question = true
-                        step = 'stop'
+                        this._question = true;
+                        step = 'stop';
                     }
-                    break
+                    break;
                 case 'stop':
-                    step = 0
-                    break
+                    step = 0;
+                    break;
             }
         }
-        return this._set_answer_()
+        return this._set_answer_();
     }
     /**
      * @method is_number_array()
@@ -388,42 +392,42 @@ class validator {
      * validator instance to true or false respectively.
      */
     is_number_array() {
-        let step = 'Is array'
+        let step = 'Is array';
         while (step) {
             switch (step) {
                 case 'Is array':
                     if (this.copy().is_array().answer) {
-                        step = 'Is every element number'
+                        step = 'Is every element number';
                     } else {
-                        step = 'It is not number array'
+                        step = 'It is not number array';
                         this.description = `The type of the
                         value parameter of the validator object
-                        is of type ${typeof this.value} and is not array.`
+                        is of type ${typeof this.value} and is not array.`;
                     }
-                    break
+                    break;
                 case 'It is not number array':
-                    this._question = false
-                    step = 'stop'
-                    break
+                    this._question = false;
+                    step = 'stop';
+                    break;
                 case 'Is every element number':
                     if (this.value.some(element => {
-                        return typeof element !== 'number'
+                        return typeof element !== 'number';
                     })) {
-                        step = 'It is not number array'
+                        step = 'It is not number array';
                         this.description = `Some of the elements
                         of the array are (is) not number types and so
-                        this array is not string type.`
+                        this array is not string type.`;
                     } else {
-                        this._question = true
-                        step = 'stop'
+                        this._question = true;
+                        step = 'stop';
                     }
-                    break
+                    break;
                 case 'stop':
-                    step = 0
-                    break
+                    step = 0;
+                    break;
             }
         }
-        return this._set_answer_()
+        return this._set_answer_();
     }
     /**
      * 
@@ -449,96 +453,95 @@ class validator {
     is_array_with_elements_that_satisfy(options) {
         let i, k, temp_methods, temp_validator,
             methods = Object.getOwnPropertyNames(validator.prototype),
-            conditions, tmpv, areLegalMethods, step = 'Initialization'
-
+            conditions, tmpv, areLegalMethods, step = 'Initialization';
         while (step) {
             switch (step) {
                 case 'Initialization':
                     if (this.copy().not().is_array().answer) {
                         this.description = `In the validator method ` +
                             `"is_array_with_elements_that_satisfy" the value` +
-                            `property is not of array type.Error value type.`
-                        step = 'Error or false result'
+                            `property is not of array type.Error value type.`;
+                        step = 'Error or false result';
                     }
                     if (new validator(options).is_string().answer) {
-                        options = { conditions: options }
-                        step = 'Preparation'
+                        options = { conditions: options };
+                        step = 'Preparation';
                     } else if (new validator(options)
-                        .interface({
-                            conditions: 'is_string().is_required()'
+                        .interface2({
+                            conditions: c => c.is_string().is_required()
                         }).answer) {
-                        step = "Preparation"
+                        step = "Preparation";
                     } else {
                         this.description = `In the validator method ` +
                             `"is_array_with_elements_that_satisfy" the argument options ` +
-                            `is not of object type with conditions key parameter.Error incorrect parameter.`
-                        step = 'Error or false result'
+                            `is not of object type with conditions key parameter.Error incorrect parameter.`;
+                        step = 'Error or false result';
                     }
-                    break
+                    break;
                 case "Preparation":
-                    conditions = options.conditions
-                    temp_methods = conditions.split('.')
-                    step = 'Is validator-type expressions'
-                    break
+                    conditions = options.conditions;
+                    temp_methods = conditions.split('.');
+                    step = 'Is validator-type expressions';
+                    break;
                 case 'Is validator-type expressions':
                     for (i = 0; i < temp_methods.length; i++) {
                         for (k = 0; k < methods.length; k++) {
-                            tmpv = temp_methods[i].split(methods[k])
-                            if (tmpv.length === 1) areLegalMethods = false
+                            tmpv = temp_methods[i].split(methods[k]);
+                            if (tmpv.length === 1) areLegalMethods = false;
                             else if (tmpv[0] === ""
                                 && tmpv[1][0] === '('
                                 && tmpv[1][tmpv[1].length - 1] === ')') {
-                                areLegalMethods = true
+                                areLegalMethods = true;
                                 temp_methods[i] = {
                                     method: methods[k],
                                     argument: eval(tmpv[1].substring(0, tmpv[1][tmpv[1].length - 1]))
-                                }
-                                break
+                                };
+                                break;
                             } else areLegalMethods = false
                         }
-                        if (!areLegalMethods) break
+                        if (!areLegalMethods) break;
                     }
                     if (!areLegalMethods) {
                         this.description = `In the validator method ` +
                             `"is_array_with_elements_that_satisfy" the ` +
                             `method ${conditions.split('.')[i]} is illegal ` +
-                            `validator expression method.Error invalid validator method.`
-                        step = 'Error or false result'
+                            `validator expression method.Error invalid validator method.`;
+                        step = 'Error or false result';
                     } else {
-                        i = 0
-                        step = 'Validate array data'
+                        i = 0;
+                        step = 'Validate array data';
                     }
-                    break
+                    break;
                 case 'Validate array data':
-                    if (i === this.value.length) step = 'Return true and success result'
+                    if (i === this.value.length) step = 'Return true and success result';
                     else {
-                        temp_validator = new validator(this.value[i])
+                        temp_validator = new validator(this.value[i]);
                         temp_methods.forEach(temp_method => {
                             let method = temp_method.method,
-                                argument = temp_method.argument
-                            temp_validator = temp_validator[method](argument)
-                        })
-                        if (temp_validator.answer) ++i
+                                argument = temp_method.argument;
+                            temp_validator = temp_validator[method](argument);
+                        });
+                        if (temp_validator.answer) ++i;
                         else {
                             this.description = `In the validator method ` +
                                 `"is_array_with_elements_that_satisfy" the element ${i} of the ` +
                                 `value array, i.e. ${this.value[i]} do not satisfy the required conditions.` +
-                                `Successful executed method.`
-                            step = 'Error or false result'
+                                `Successful executed method.`;
+                            step = 'Error or false result';
                         }
                     }
-                    break
+                    break;
                 case 'Error or false result':
-                    this._question = false
-                    step = 0
-                    break
+                    this._question = false;
+                    step = 0;
+                    break;
                 case 'Return true and success result':
-                    this._question = true
-                    step = 0
-                    break
+                    this._question = true;
+                    step = 0;
+                    break;
             }
         }
-        return this._set_answer_()
+        return this._set_answer_();
     }
     /**
      * @method is_object()
@@ -550,8 +553,8 @@ class validator {
      * true or false respectively.
      */
     is_object() {
-        this._question = Object.prototype.toString.call(this.value) === '[object Object]'
-        return this._set_answer_()
+        this._question = Object.prototype.toString.call(this.value) === '[object Object]';
+        return this._set_answer_();
     }
     /**
      * @method is_empty()
@@ -564,18 +567,18 @@ class validator {
     is_empty() {
         this.copy().is_undefined()
             .on(true, () => {
-                this._question = true
+                this._question = true;
             })
             .on(false, () => {
                 if (this.copy().is_array().answer) {
-                    this._question = this.value.length === 0
+                    this._question = this.value.length === 0;
                 } else if (this.copy().is_object().answer) {
-                    this._question = Object.keys(this.value).length === 0
+                    this._question = Object.keys(this.value).length === 0;
                 } else if (this.copy().is_string().answer) {
-                    this._question = this.value === ''
-                } else throw new Error('This method can be used only for string, array and object types.')
-            })
-        return this._set_answer_()
+                    this._question = this.value === '';
+                } else errors.IncorrectArgumentInIsEmpty();
+            });
+        return this._set_answer_();
     }
     /**
      * 
@@ -596,13 +599,13 @@ class validator {
      */
     for_all(callback) {
         // initialization
-        const val = this.copy()
-        const callback_val = new validator(callback)
-        let i, keys, item
+        const val = this.copy();
+        const callback_val = new validator(callback);
+        let i, keys, item;
         // check if the parameters are correct
         callback_val.is_function()
             .on(false, () => {
-                throw new Error('The callback argument of the for_all method of the euriklis validator module has to be funuction type.')
+                errors.IncorrectFunctionArgumentInForAll();
             })
             .on(true, () => {
                 val.is_array()
@@ -611,7 +614,7 @@ class validator {
                         // and we have to check every 
                         // element (key value) of the 
                         // array (object). Case array:
-                        for (i = 0; i < val.value.length; i++) {
+                        /*for (i = 0; i < val.value.length; i++) {
                             item = new validator(val.value[i])
                             if (callback(item, i).answer) {
                                 this._question = true
@@ -620,6 +623,54 @@ class validator {
                                 this._question = false
                                 break
                             }
+                        }*/
+                        for (i = 0; i < val.value.length >> 2; i++) {
+                            item = new validator(val.value[i << 2]);
+                            if (callback(item, i << 2).answer) {
+                                this._question = true;
+                            } else {
+                                this._question = false;
+                                break;
+                            }
+                            item = new validator(val.value[(i << 2) + 1]);
+                            if (callback(item, (i << 2) + 1).answer) {
+                                this._question = true;
+                            } else {
+                                this._question = false;
+                                break;
+                            }
+                            item = new validator(val.value[(i << 2) + 2]);
+                            if (callback(item, (i << 2) + 2).answer) {
+                                this._question = true;
+                            } else {
+                                this._question = false;
+                                break;
+                            }
+                            item = new validator(val.value[(i << 2) + 3]);
+                            if (callback(item, (i << 2) + 3).answer) {
+                                this._question = true;
+                            } else {
+                                this._question = false;
+                                break;
+                            }
+                        }
+                        if (val.value.length % 4 >= 1 && this._question) {
+                            i = val.value.length - 1;
+                            item = new validator(val.value[i]);
+                            if (callback(item, i).answer) this._question = true;
+                            else this._question = false;
+                        }
+                        if (val.value.length % 4 >= 2 && this._question) {
+                            i = val.value.length - 2;
+                            item = new validator(val.value[i]);
+                            if (callback(item, i).answer) this._question = true;
+                            else this._question = false;
+                        }
+                        if (val.value.length % 4 >= 3 && this._question) {
+                            i = val.value.length - 3;
+                            item = new validator(val.value[i]);
+                            if (callback(item, i).answer) this._question = true;
+                            else this._question = false;
                         }
                     })
                     .on(false, () => {
@@ -633,21 +684,69 @@ class validator {
                                 // this.value and check 
                                 // every value...
                                 keys = Object.keys(val.value)
-                                for (i = 0; i < keys.length; i++) {
+                                /*for (i = 0; i < keys.length; i++) {
                                     item = new validator(val.value[keys[i]])
-                                    if (callback(item, i).answer) this._question = true
+                                    if (callback(item, i).answer) this._question = true;
                                     else {
-                                        this._question = false
-                                        break
+                                        this._question = false;
+                                        break;
                                     }
+                                }*/
+                                for (i = 0; i < keys.length >> 2; i++) {
+                                    item = new validator(val.value[keys[i << 2]]);
+                                    if (callback(item, i << 2).answer) {
+                                        this._question = true;
+                                    } else {
+                                        this._question = false;
+                                        break;
+                                    }
+                                    item = new validator(val.value[keys[(i << 2) + 1]]);
+                                    if (callback(item, (i << 2) + 1).answer) {
+                                        this._question = true;
+                                    } else {
+                                        this._question = false;
+                                        break;
+                                    }
+                                    item = new validator(val.value[keys[(i << 2) + 2]]);
+                                    if (callback(item, (i << 2) + 2).answer) {
+                                        this._question = true;
+                                    } else {
+                                        this._question = false;
+                                        break;
+                                    }
+                                    item = new validator(val.value[keys[(i << 2) + 3]]);
+                                    if (callback(item, (i << 2) + 3).answer) {
+                                        this._question = true;
+                                    } else {
+                                        this._question = false;
+                                        break;
+                                    }
+                                }
+                                if (keys.length % 4 >= 1 && this._question) {
+                                    i = keys.length - 1;
+                                    item = new validator(val.value[keys[i]]);
+                                    if (callback(item, i).answer) this._question = true;
+                                    else this._question = false;
+                                }
+                                if (keys.length % 4 >= 2 && this._question) {
+                                    i = keys.length - 2;
+                                    item = new validator(val.value[keys[i]]);
+                                    if (callback(item, i).answer) this._question = true;
+                                    else this._question = false;
+                                }
+                                if (keys.length % 4 >= 3 && this._question) {
+                                    i = keys.length - 3;
+                                    item = new validator(val.value[keys[i]]);
+                                    if (callback(item, i).answer) this._question = true;
+                                    else this._question = false;
                                 }
                             })
                             .on(false, () => {
-                                this._question = false
-                            })
-                    })
-            })
-        return this._set_answer_()
+                                this._question = false;
+                            });
+                    });
+            });
+        return this._set_answer_();
     }
     /**
      * 
@@ -683,7 +782,7 @@ class validator {
                     .not().is_empty()
                     .on(true, () => {
                         // this.value is array case...
-                        for (i = 0; i < val.value.length; i++) {
+                        /*for (i = 0; i < val.value.length; i++) {
                             item = new validator(val.value[i])
                             if (callback(item, i).answer) {
                                 this._question = true
@@ -692,6 +791,46 @@ class validator {
                                 this._question = false
                                 continue
                             }
+                        }*/
+                        for (i = 0; i < val.value.length; i++) {
+                            item = new validator(val.value[i << 2]);
+                            if (callback(item, i << 2).answer) {
+                                this._question = true;
+                                break;
+                            } else this._question = false;
+                            item = new validator(val.value[(i << 2) + 1]);
+                            if (callback(item, (i << 2) + 1).answer) {
+                                this._question = true;
+                                break;
+                            } else this._question = false;
+                            item = new validator(val.value[(i << 2) + 2]);
+                            if (callback(item, (i << 2) + 2).answer) {
+                                this._question = true;
+                                break;
+                            } else this._question = false;
+                            item = new validator(val.value[(i << 2) + 3]);
+                            if (callback(item, (i << 2) + 3).answer) {
+                                this._question = true;
+                                break;
+                            } else this._question = false;
+                        }
+                        if (val.value.length % 4 >= 1 && !this._question) {
+                            i = val.value.length - 1;
+                            item = new validator(val.value[i]);
+                            if (callback(item, i).answer) this._question = true;
+                            else this._question = false;
+                        }
+                        if (val.value.length % 4 >= 2 && !this._question) {
+                            i = val.value.length - 2;
+                            item = new validator(val.value[i]);
+                            if (callback(item, i).answer) this._question = true;
+                            else this._question = false;
+                        }
+                        if (val.value % 4 >= 3 && !this._question) {
+                            i = val.value.length - 3;
+                            item = new validator(val.value[i]);
+                            if (callback(item, i).answer) this._question = true;
+                            else this._question = false;
                         }
                     })
                     .on(false, () => {
@@ -702,7 +841,7 @@ class validator {
                             .on(true, () => {
                                 // this.value is non empty object
                                 keys = Object.keys(val.value)
-                                for (i = 0; i < keys[i].length; i++) {
+                                /*for (i = 0; i < keys[i].length; i++) {
                                     item = new validator(val.value[keys[i]])
                                     if (callback(item, i).answer) {
                                         this._question = true
@@ -711,15 +850,52 @@ class validator {
                                         this._question = false
                                         continue
                                     }
+                                }*/
+                                for (i = 0; i < keys.length >> 2; i++) {
+                                    item = new validator(val.value[keys[i << 2]]);
+                                    if (callback(item, i << 2).answer) {
+                                        this._question = true;
+                                        break;
+                                    } else this._question = false;
+                                    item = new validator(val.value[keys[(i << 2) + 1]]);
+                                    if (callback(item, (i << 2) + 1).answer) {
+                                        this._question = true;
+                                        break;
+                                    } this._question = false;
+                                    item = new validator(val.value[keys[(i << 2) + 2]]);
+                                    if (callback(item, (i << 2) + 2).answer) {
+                                        this._question = true;
+                                        break;
+                                    } else this._question = false;
+                                    item = new validator(val.value[keys[(i << 2) + 3]]);
+                                    if (callback(item, (i << 2) + 3).answer) {
+                                        this._question = true;
+                                        break;
+                                    } else this._question = false;
+                                }
+                                if (keys.length % 4 >= 1 && !this._question) {
+                                    i = keys.length - 1;
+                                    item = new validator(val.value[keys[i]]);
+                                    if (callback(item, i).answer) this._question = true;
+                                    else this._question = false;
+                                }
+                                if (keys.length % 4 >= 2 && !this._question) {
+                                    i = keys.length - 2;
+                                    item = new validator(val.value[keys[i]]);
+                                    if (callback(item, i).answer) this._question = true;
+                                    else this._question = false;
+                                }
+                                if (keys.length % 4 >= 3 && !this._question) {
+                                    i = keys.length - 3;
+                                    if (callback(item, i).answer) this._question = true;
+                                    else this._question = false;
                                 }
                             })
-                            .on(false, () => {
-                                throw new Error(`Illegal type of the this.value in the "for_any" method of euriklis validator module. The value has to be array or object type. The value of the current validator is ${typeof this.value} type.`)
-                            })
+                            .on(false, () => errors.IllegalTypeInForAny(this.value));
                     })
             })
             .on(false, () => {
-                throw new Error('The callback argument of the for_any method of the euriklis validator module has to be a function with argument a validator instance.')
+                errors.IncorrectFunctionArgumentInForAny();
             })
         return this._set_answer_()
     }
@@ -737,7 +913,7 @@ class validator {
      */
     has_length(n) {
         if (Number.isInteger(n)) n = Number(n)
-        else throw new Error('The argument of the has length method is not integer.')
+        else errors.IncorrectArgumentInHasLength();
         let cp_instance = this.copy()
         if (cp_instance.is_array().or().is_string().answer) {
             this._question = this.value.length === n
@@ -773,9 +949,7 @@ class validator {
                 .not().is_string()
                 .and()
                 .not().is_object()
-                .on(true, () => {
-                    throw new Error('The argument of the "is_this_string_contains_expression_k_times" method has to be string or object type.')
-                })
+                .on(true, () => errors.IncorrectArgumentInStringContainsExpression())
                 .on(false, () => {
                     // if options is string
                     // then assume k or the
@@ -828,7 +1002,7 @@ class validator {
                                     }
                                 })
                                 .on(false, () => {
-                                    throw new Error('The expression property of the argument in the "is_this_string_contains_expression_k_times" method is incorrectly defined.')
+                                    errors.IncorrectTypeInStringContains();
                                 })
                         })
                 })
@@ -974,9 +1148,7 @@ class validator {
      * console.log(a.answer) // true
      */
     bind(otherValidator) {
-        if (!(otherValidator instanceof validator)) {
-            throw new Error('The argument has to be validator type.')
-        }
+        if (!(otherValidator instanceof validator)) errors.IncorrectArgumentInBindMethod();
         this._question = otherValidator.answer
         return this._set_answer_()
     }
@@ -1180,9 +1352,7 @@ class validator {
                         for (let key of Object.keys(params)) {
                             this._question = params[key](new validator(this.value[key])).answer
                             new validator(this._question).not().is_boolean()
-                            .on(true, () => {
-                                throw new Error('The argument function of the interface2 method has to return a validator instance.')
-                            })
+                                .on(true, () => errors.IncorrectArgumentsInInterface2());
                             if (this._question) continue
                             else break
                         }
@@ -1194,7 +1364,7 @@ class validator {
     /**
      * 
      * @method is_array_and_for_every(func_arg)
-     * @param {function (validator, number)} func_arg
+     * @param {function (validator, number):validator} func_arg
      * @description this method gets like argument
      * a function with validator argument and returns
      * true if the function is true for every elements of
@@ -1202,19 +1372,65 @@ class validator {
      * is not array or the func_arg parameter is not a function
      * then the function returns false. 
      */
-    is_array_and_for_every (func_arg) {
+    is_array_and_for_every(func_arg) {
+        let i, j, item, n;
         new validator(func_arg).is_function()
             .on(true, () => {
                 new validator(this.value).is_array()
                     .on(true, () => {
-                        for (let i = 0; i < this.value.length;i++) {
+                        n = this.value.length;
+                        /*for (let i = 0; i < this.value.length; i++) {
                             let item = this.value[i]
                             this._question = func_arg(new validator(item), i).answer
                             new validator(this._question).not().is_boolean()
-                                .on(true, () => { 
-                                    throw new Error('Illegal usage of the argument function of the method. The function has to return validator type.') })
+                                .on(true, () => {
+                                    throw new Error('Illegal usage of the argument function of the method. The function has to return validator type.')
+                                })
                             if (this._question) continue
                             else break
+                        }*/
+                        for (i = 0; i < n >> 2; i++) {
+                            j = i << 2;
+                            item = this.value[j];
+                            this._question = func_arg(new validator(item, j)).answer;
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
+                            j = (i << 2) + 1;
+                            item = this.value[j];
+                            this._question = func_arg(new validator(item, j)).answer;
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
+                            j = (i << 2) + 2;
+                            item = this.value[j];
+                            this._question = func_arg(new validator(item, j)).answer;
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
+                            j = (i << 2) + 3;
+                            item = this.value[j];
+                            this._question = func_arg(new validator(item, j)).answer;
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
+                        }
+                        if (n % 4 >= 1 && !this._question) {
+                            j = n - 1;
+                            item = this.value[j];
+                            this._question = func_arg(new validator(item, j)).answer;
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
+                        }
+                        if (n % 4 >= 2 && !this._question) {
+                            j = n - 2;
+                            item = this.value[j];
+                            this._question = func_arg(new validator(item, j)).answer;
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
+                        }
+                        if (n % 4 >= 3 && !this._question) {
+                            j = n - 3;
+                            item = this.value[j];
+                            this._question = func_arg(new validator(item, j)).answer;
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                         }
                     }).on(false, () => this._question = false)
             }).on(false, () => this._question = false)
@@ -1236,21 +1452,21 @@ class validator {
      */
     is_array_and_for_any(func_arg) {
         new validator(func_arg).is_function()
-        .on(true, () => {
-            new validator(this.value).is_array()
             .on(true, () => {
-                for (let i = 0;i < this.value.length;i++) {
-                    let item = this.value[i]
-                    this._question = func_arg(new validator(item), i).answer
-                    new validator(this._question).not().is_boolean()
+                new validator(this.value).is_array()
                     .on(true, () => {
-                        throw new Error('Error in the is_array_and_for_any(). Illegal argument in the parameter of the method.')
-                    })
-                    if (this._question) break
-                    else continue
-                }
+                        for (let i = 0; i < this.value.length; i++) {
+                            let item = this.value[i]
+                            this._question = func_arg(new validator(item), i).answer
+                            new validator(this._question).not().is_boolean()
+                                .on(true, () => {
+                                    errors.IncorrectArgumentInIsArrayAndForAny();
+                                })
+                            if (this._question) break
+                            else continue
+                        }
+                    }).on(false, () => this._question = false)
             }).on(false, () => this._question = false)
-        }).on(false, () => this._question = false)
         return this._set_answer_()
     }
     /**
@@ -1282,9 +1498,9 @@ class validator {
                 callback()
             }
         } else if (incorrectFunction) {
-            console.warn('Incorrect function argument in on method of the validatgor mudule.')
+            warnings.IncorrectFunctionInOnMethod();
         } else if (incorrectState) {
-            console.warn('Incorrect state argument of the on method in the validator madule.')
+            warnings.IncorrectStateInOnMethod();
         }
         return this
     }
@@ -1306,4 +1522,4 @@ class validator {
     }
 }
 validator.version = version;
-module.exports = validator;
+export default validator;
