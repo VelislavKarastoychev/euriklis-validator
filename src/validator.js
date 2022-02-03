@@ -83,6 +83,15 @@ class validator {
         return v;
     }
     /**
+     * @method absoluteCopy
+     * @returns {validator}
+     * @description this is a getter variant of the
+     * absolute_copy() method.
+     */
+    get absoluteCopy() {
+        return this.absolute_copy();
+    }
+    /**
      * @method and() set the operator
      * of the current validator instance
      * to the logical and (&) and in the
@@ -92,6 +101,16 @@ class validator {
     and() {
         this._operand = 'and';
         return this;
+    }
+    /**
+     * @method And - a getter method.
+     * @returns {validator}
+     * @description this method simulates the and method and
+     * is used for more comfort of the code. The user may Note
+     * use the parenthesis symbol when uses this method.
+     */
+    get And() {
+        return this.and();
     }
     /**
      * @method or() set the operator
@@ -104,6 +123,16 @@ class validator {
         return this
     }
     /**
+     * @method Or - a simulation of the or method.
+     * @returns {validator}
+     * @description this method is written for more comfort
+     * of the code. The user may not use the parenthesis symbol
+     * to generate or statement with the library.
+     */
+    get Or() {
+        return this.or();
+    }
+    /**
      * @method not() set the operator to logical
      * negation for the current validator instance.
      * When the next non operational method is run
@@ -114,6 +143,16 @@ class validator {
     not() {
         this._not = true;
         return this;
+    }
+    /**
+     * @method Not
+     * @returns {validator}
+     * @description this method is created for more comfort in the
+     * codding procedure. The user may not use the parenthesis symbol
+     * to generate the not statement method of the library.
+     */
+    get Not() {
+        return this.not();
     }
     /**
      * @method required()
@@ -142,6 +181,14 @@ class validator {
         return this._set_answer_();
     }
     /**
+     * @method isUndefined
+     * @returns {validator}
+     * @description this method simulates the is_undefined method.
+     */
+    get isUndefined() {
+        return this.is_undefined();
+    }
+    /**
      * @method is_boolean()
      * @returns {validator}
      * @description This method checks if the value property
@@ -150,6 +197,14 @@ class validator {
     is_boolean() {
         this._question = typeof this.value === 'boolean';
         return this._set_answer_();
+    }
+    /**
+     * @method isBoolean
+     * @returns {validator}
+     * @description this method simulates the is_boolean() method.
+     */
+    get isBoolean() {
+        return this.is_boolean();
     }
     /**
      * @method is_string()
@@ -162,6 +217,14 @@ class validator {
     is_string() {
         this._question = typeof this.value === 'string';
         return this._set_answer_();
+    }
+    /**
+     * @method isString
+     * @returns {validator}
+     * @description this method simulates the is_string() method.
+     */
+    get isString() {
+        return this.is_string();
     }
     /**
      * @method is_number()
@@ -177,6 +240,14 @@ class validator {
         return this._set_answer_();
     }
     /**
+     * @method isNumber
+     * @returns {validator}
+     * @description this method simulates the is_number() method.
+     */
+    get isNumber() {
+        return this.is_number();
+    }
+    /**
      * @method is_integer()
      * @returns {validator}
      * @description a void method that checks
@@ -188,6 +259,15 @@ class validator {
     is_integer() {
         this._question = Number.isInteger(this.value);
         return this._set_answer_();
+    }
+    /**
+     * @method isInteger
+     * @returns {validator}
+     * @description this method is the getter variant
+     * of the is_integer() method.
+     */
+    get isInteger() {
+        return this.is_integer();
     }
     /**
      * @method is_float()
@@ -205,6 +285,15 @@ class validator {
             .not()
             .is_integer().answer;
         return this._set_answer_();
+    }
+    /**
+     * @method isFloat 
+     * @returns {validator}
+     * @description this method is the getter variant of
+     * the is_float() method of the validator library.
+     */
+    get isFloat() {
+        return this.is_float();
     }
     /**
      *
@@ -334,6 +423,16 @@ class validator {
         return this._set_answer_();
     }
     /**
+     * @method isArray
+     * @returns {validator}
+     * @description this method is the getter variant
+     * of the is_array() method of the validator library.
+     */
+    get isArray() {
+        return this.is_array();
+    }
+
+    /**
      * @method is_string_array()
      * @returns {validator}
      * @description a method that checks if the
@@ -382,6 +481,62 @@ class validator {
         return this._set_answer_();
     }
     /**
+     * @method isStringArray
+     * @returns {validator}
+     * @description this method is the getter variant of the
+     * is_string_array() method of the validator library.
+     * Note that this method is faster than the equivalent
+     * is_string_array() normal method. In this case we do not
+     * recall the corresponded method but implement an other
+     * approach.
+     */
+    get isStringArray() {
+        let i, j;
+        this._question = true;
+        this.isArray.on(true, () => {
+            // check if some element is not string...
+            for (i = 0; i < this.value.length >> 2; i++) {
+                j = i << 2;
+                if (typeof this.value[j] !== 'string') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+                ++j;
+                if (typeof this.value[j] !== 'string') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+                ++j;
+                if (typeof this.value[j] !== 'string') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+                ++j;
+                if (typeof this.value[j] !== 'string') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+            }
+            if (this._question && this.value.length % 4 >= 1) {
+                j = this.value.length - 1;
+                if (typeof this.value[j] !== 'string') this._question = false;
+                else this._question = true;
+            }
+            if (this._question && this.value.length % 4 >= 2) {
+                j = this.value.length - 2;
+                if (typeof this.value[j] !== 'string') this._question = false;
+                else this._question = true;
+            }
+            if (this._question && this.value.length % 4 >= 3) {
+                j = this.value.length - 3;
+                if (typeof this.value[j] !== 'string') this._question = false;
+                else this._question = true;
+            }
+        }).on(false, () => this._question = false);
+        return this._set_answer_();
+    }
+
+    /**
      * @method is_number_array()
      * @returns {validator}
      * @description a method that checks if
@@ -427,6 +582,61 @@ class validator {
                     break;
             }
         }
+        return this._set_answer_();
+    }
+    /**
+     * @method isNumberArray
+     * @returns {validator}
+     * @description this is a getter variant of the
+     * method is_number_array of the validator library.
+     * Note that this method is faster than the conventional method,
+     * because we use different approach.
+     */
+    get isNumberArray() {
+        let i, j, n;
+        this._question = true;
+        this.copy().isArray.on(true, () => {
+            // check if some element of the array
+            // is not number.
+            n = this.value.length;
+            for (i = 0; i < n >> 2; i++) {
+                j = i << 2;
+                if (this._question && typeof this.value[j] !== 'number') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+                ++j;
+                if (this._question && typeof this.value[j] !== 'number') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+                ++j;
+                if (this._question && typeof this.value[j] !== 'number') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+                ++j;
+                if (this._question && typeof this.value[j] !== 'number') {
+                    this._question = false;
+                    break;
+                } else this._question = true;
+            }
+            if (this._question && n % 4 >= 1) {
+                j = n - 1;
+                if (typeof this.value[j] !== 'number') this._question = false;
+                else this._question = true;
+            }
+            if (this._question && n % 4 >= 2) {
+                j = n - 2;
+                if (typeof this.value[j] !== 'number') this._question = false;
+                else this._question = true;
+            }
+            if (this._question && n % 4 >= 3) {
+                j = n - 3;
+                if (typeof this.value[j] !== 'number') this._question = false;
+                else this._question = true;
+            }
+        }).on(false, () => this._question = false);
         return this._set_answer_();
     }
     /**
@@ -557,6 +767,15 @@ class validator {
         return this._set_answer_();
     }
     /**
+     * @method isObject
+     * @returns {validator}
+     * @description this method is a getter variant of the
+     * is_object() method of the validator library.
+     */
+    get isObject () {
+        return this.is_object();
+    }
+    /**
      * @method is_empty()
      * @returns {validator}
      * @description this method checks if the value
@@ -579,6 +798,16 @@ class validator {
                 } else errors.IncorrectArgumentInIsEmpty();
             });
         return this._set_answer_();
+    }
+    /**
+     * 
+     * @method isEmpty 
+     * @returns {validator}
+     * @description this method is a getter variant of the
+     * is_empty() method of the validator library.
+     */
+    get isEmpty () {
+        return this.is_empty();
     }
     /**
      * 
@@ -1021,6 +1250,15 @@ class validator {
     is_function() {
         this._question = this.value instanceof Function || typeof this.value === 'function'
         return this._set_answer_()
+    }
+    /**
+     * @method isFunction
+     * @returns {validator}
+     * @description this method is a getter variant of the
+     * is_function() validator method. 
+     */
+    get isFunction () {
+        return this.is_function();
     }
     /**
      * 
