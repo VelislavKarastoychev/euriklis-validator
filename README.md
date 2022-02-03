@@ -17,21 +17,17 @@ npm install @euriklis/validator --save-exact
 ```
 (Under the save-exact mode the user will load a particular version).
 
-Note that the version 1.2.1 is written in esm mode and is not stable, so we recommend you to do not use it. The last version 1.2.2 is the latest cjs version i.e., 1.1.11.
-
 These commands will add the package to your node_modules folder.
 So to execute the methods that the validator library provides, you have to declare:
 
 ```js
-const validator = require('@euriklis/validator')
+import validator from '@euriklis/validator';
 ```
 # Usage:
-
-To use the validator or the message library you have to get it from the package:
-
+An example for the usage of the library follows. In this example we also use an additional library named @euriklis/message. However, it is not needed to install the message library if you have installed the validator package, because the message library is automatically installed in the validator package.
 ```js
-const validator = require ('@euriklis/validator')
-const message = require('@euriklis/message')
+import validator from '@euriklis/validator';
+import message from '@euriklis/message';
 let text = 'Test string'
 new validator(text).is_string().on(true, () => {
     console.log('Yes, the text is string')
@@ -51,39 +47,43 @@ new validator(text).is_string().on(true, () => {
         })
 })
 ```
-
+In the new version (2.0.0) we add getter methods for the methods which does not requires arguments (except the copy method). If you want to use the methods 
+```js 
+and() not() is_array() is_number() is_string() is_object() is_undefined() is_empty() and etc...
+```
+you can use them in the mode postulated from version 1.x.x. But the same methods may be used without the parenthesis. The operands and, or and not have to be written with capital first letter. For the other methods the camel case is used, i.e. isArray, isEmpty, isObject and etc.
 # Methods:
 
 ## validator methods:
 All methods of the validator return a validator type. So the architecture of the library allows you to chain its methods. The result of the comparison (the answer) and the condition fulfillment is recorded into the "answer" property. For example:
 
 ```js
-const validator = require('@euriklis/validator')
-let a = 5, b = 12, c = [11, 13]
+import validator from '@euriklis/validator';
+let a = 5, b = 12, c = [11, 13];
 let result = new validator(a)
-    .is_integer().and()
-    .is_lesser_than(6).or().is_in_closed_range(5,6)
-    .and().bind(
-        new validator(b).is_integer().and()
+    .is_integer().And
+    .is_lesser_than(6).Or.is_in_closed_range(5,6)
+    .And.bind(
+        new validator(b).isInteger.And
             .is_bigger_than(10)
-    ).and().bind(
-        new validator(c).is_number_array()
-            .and().not().for_any(number => {
+    ).And.bind(
+        new validator(c).isNumberArray
+            .And.Not.for_any(number => {
                 return number.is_float()
         })
-    ).answer
-console.log(result) // true
+    ).answer;
+console.log(result); // true
 ```
 
 The validator class has the following important methods:
 - method <em>is_string()</em>:  
 a method that checks if the value property of the current validator instance is string and sets the returned validator answer property to true or false respectively. For example:
 ```js
-const validator = require('@euriklis/validator')
-const message = require('@euriklis/message')
-let name = 'This is a string message.'
-let id = 1343242
-let result = new validator(name).is_string()
+import validator from '@euriklis/validator';
+import message from '@euriklis/message';
+let name = 'This is a string message.';
+let id = 1343242;
+let result = new validator(name).isString
     .on(true, () => new message().bold()
         .set_color_green()
         .append_check_mark().append_white_space()
@@ -94,8 +94,8 @@ let result = new validator(name).is_string()
         .set_color_cyan()
         .append('Error declaration of the name.')
         .reset().log()
-    ).and().bind(
-        new validator(id).not().is_string().and().is_number()
+    ).And.bind(
+        new validator(id).Not.isString().And.isNumber
     ).on(true, () => {
         new message().bold().set_color_yellow()
         .append('The id is not string so this is fine...')
@@ -104,14 +104,14 @@ let result = new validator(name).is_string()
         .append('Error:the id is string.').reset().log()
     )
 // if we check the result, then the validator answer will be true
-console.log(result.answer) // true
+console.log(result.answer); // true
 ```
 - method <em>is_number()</em>:
 checks if the value property of the current validator instance is number of not (integer and float). For example:
 
 ```js
 let id = 1123
-new validator(id).is_number().on(true, () => console.log('yes'))
+new validator(id).isNumber.on(true, () => console.log('yes'))
     .on(false, () => console.log('Not')) // yes
 ```
 
@@ -130,18 +130,18 @@ new validator(id).is_number().on(true, () => console.log('yes'))
 
 ```js
 let a = null
-new validator(a).is_undefined().or().is_same(null) 
+new validator(a).isUndefined.Or.is_same(null) 
 ```
 - method <em>is_same(parameter)</em>: checks if the value property of the current validator instance is equals to the type and value of the parameter argument of the method. Note that if the value of the parameter is object of array or  string, then the method will compare the values of every property or item and will return true if the value property of the current validator instance is equal to the parameter. For example:
 ```js
 let a = 11, b = [1, 2, 3], c = 'same', 
     d = {is_same : 'is a validator method'}
-let question = new validator(a).is_same(11).and()
-    .bind(
+let question = new validator(a).is_same(11)
+    .And.bind(
         new validator(b).is_same([1, 2, 3])
-    ).and().bind(
+    ).And.bind(
         new validator(c).is_same('same')
-    ).and().bind(
+    ).And.bind(
         new validator(d)
             .is_same({is_same : 'is a validator method'})
     )
@@ -151,10 +151,11 @@ console.log(question.answer) // true
 - method <em>for_all (callback(element, index))</em>: checks if every value of an array/object in the value property of the validator instance, fulfills the conditions of the function. The first argument of the callback is assumed to be validator type and the second argument corresponds to the index of the element into the array or the object. A bug was fixed in version 1.1.9 which was responsible for the incorrect output of the method when the input is an object. (this.answer was set to true instead the this._question)
 
 ```js
+import validator from '@euriklis/validator';
 new validator(Array.form({length : 60}).map(Math.random))
     .for_all(rand_number => {
-        return rand_number.not().is_same(0)
-            .and().not().is_same(1)
+        return rand_number.Not.is_same(0)
+            .And.Not.is_same(1)
     }) // probably true!
 ```
 
@@ -164,7 +165,7 @@ new validator(Array.form({length : 60}).map(Math.random))
 
 *In version 1.0.5 was added the method* **interface2(object)** which is similar to the interface(object), but in the interface2, the values of the object are not strings (as in the original interface method), but callback functions that has as argument the value of the object with key the key of the parameter of the method and this argument is assumed to be of validator type. For example:
 ```js
-const validator = require('@euriklis/validator')
+import validator from '@euriklis/validator';
 const user = {
     'First name' : 'John',
     'Last name' : 'Jones',
@@ -173,12 +174,12 @@ const user = {
     account : 400
 }
 new validator(user).interface2({
-    'First name' : (name) => name.is_string(),
-    'Last name' : (name) => name.is_string(),
-    age : age => age.is_integer()
-       .and().is_bigger_than(0).and().is_lesser_than(200),
-    email : mail => mail.is_string(),
-    account : account => account.is_float().and().is_equal_or_bigger_than(100)
+    'First name' : (name) => name.isString,
+    'Last name' : (name) => name.isString,
+    age : age => age.isInteger
+       .And.is_bigger_than(0).And.is_lesser_than(200),
+    email : mail => mail.isString,
+    account : account => account.isFloat.And.is_equal_or_bigger_than(100)
 }).on(true, () => console.log(`Dear user, ${user.name}, you will get a gift.`))
 .on(false, () => console.log('Your account is insufficient for gift.'))
 ```
@@ -204,13 +205,6 @@ Tests of the package are available in the github.com. To get the tests of the pa
 git clone http://github.com/VelislavKarastoychev/tests-for-validator
 cd tests-for-validator && npm t
 ```
-
-## Donations
-Donations are welcome at :
-```
-BG52FINV91502015033152 EUR
-```
-Every cent of your donated money will be used for the implementing of a library for artificial intelligence and econometric estimations (The required or wished donation is from 1 to 5 euro or dollars).
 ## License
 MIT License.
 This package will be provided for free to any user that use it for personal and non commercial usage. The author of the package is not liable for any errors in third party software, libraries, packages and source code used at these libraries. The author also may not responsible for some possible bugs that may exists in the library.
