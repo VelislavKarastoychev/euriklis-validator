@@ -491,11 +491,12 @@ class validator {
      * approach.
      */
     get isStringArray() {
-        let i, j;
+        let i, j, n;
         this._question = true;
-        this.isArray.on(true, () => {
+        this.copy().isArray.on(true, () => {
             // check if some element is not string...
-            for (i = 0; i < this.value.length >> 2; i++) {
+            n = this.value.length;
+            for (i = 0; i < n >> 2; i++) {
                 j = i << 2;
                 if (typeof this.value[j] !== 'string') {
                     this._question = false;
@@ -517,18 +518,18 @@ class validator {
                     break;
                 } else this._question = true;
             }
-            if (this._question && this.value.length % 4 >= 1) {
-                j = this.value.length - 1;
+            if (this._question && n % 4 >= 1) {
+                j = n - 1;
                 if (typeof this.value[j] !== 'string') this._question = false;
                 else this._question = true;
             }
-            if (this._question && this.value.length % 4 >= 2) {
-                j = this.value.length - 2;
+            if (this._question && n % 4 >= 2) {
+                j = n - 2;
                 if (typeof this.value[j] !== 'string') this._question = false;
                 else this._question = true;
             }
-            if (this._question && this.value.length % 4 >= 3) {
-                j = this.value.length - 3;
+            if (this._question && n % 4 >= 3) {
+                j = n - 3;
                 if (typeof this.value[j] !== 'string') this._question = false;
                 else this._question = true;
             }
@@ -1021,7 +1022,7 @@ class validator {
                                 continue
                             }
                         }*/
-                        for (i = 0; i < val.value.length; i++) {
+                        for (i = 0; i < val.value.length >> 2; i++) {
                             item = new validator(val.value[i << 2]);
                             if (callback(item, i << 2).answer) {
                                 this._question = true;
