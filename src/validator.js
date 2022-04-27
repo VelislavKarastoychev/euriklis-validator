@@ -1,12 +1,8 @@
 'use strict';
 import * as errors from './Errors/index.js'
 import * as warnings from './Warnings/index.js';
-import fs from 'fs';
-import path from 'path';
-import {fileURLToPath} from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const version = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8')).version;
+const author = 'Velislav S. Karastoychev';
+const version = '2.1.2';
 class validator {
     /**
      * 
@@ -1744,5 +1740,6 @@ class validator {
         return this._set_answer_()
     }
 }
+validator.author = author;
 validator.version = version;
 export default validator;
