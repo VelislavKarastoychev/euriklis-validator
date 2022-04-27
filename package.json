@@ -36,6 +36,6 @@
         "eslint-plugin-promise": "^5.2.0"
     },
     "dependencies": {
-        "@euriklis/message": "^2.0.0"
+        "@euriklis/message": "^2.0.1"
     }
 }
