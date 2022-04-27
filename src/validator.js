@@ -1,10 +1,12 @@
 'use strict';
 import * as errors from './Errors/index.js'
 import * as warnings from './Warnings/index.js';
-import { createRequire } from 'module';
-const require = createRequire(
-    import.meta.url);
-const { version } = require('../package.json');
+import fs from 'fs';
+import path from 'path';
+import {fileURLToPath} from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const version = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8')).version;
 class validator {
     /**
      * 
