@@ -2,7 +2,7 @@
 import * as errors from './Errors/index.js'
 import * as warnings from './Warnings/index.js';
 const author = 'Velislav S. Karastoychev';
-const version = '2.1.2';
+const version = '2.1.3';
 class validator {
     /**
      * 
@@ -1555,25 +1555,25 @@ class validator {
                             for (i = 0; i < n >> 2; i++) {
                                 j = i << 2;
                                 item = this.value[j];
-                                this._question = func_arg(new validator(item, j)).answer;
+                                this._question = func_arg(new validator(item), j).answer;
                                 new validator(this._question).not().is_boolean()
                                     .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                                 if (!this._question) break;
                                 j = (i << 2) + 1;
                                 item = this.value[j];
-                                this._question = func_arg(new validator(item, j)).answer;
+                                this._question = func_arg(new validator(item), j).answer;
                                 new validator(this._question).not().is_boolean()
                                     .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                                 if (!this._question) break
                                 j = (i << 2) + 2;
                                 item = this.value[j];
-                                this._question = func_arg(new validator(item, j)).answer;
+                                this._question = func_arg(new validator(item), j).answer;
                                 new validator(this._question).not().is_boolean()
                                     .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                                 if (!this._question) break;
                                 j = (i << 2) + 3;
                                 item = this.value[j];
-                                this._question = func_arg(new validator(item, j)).answer;
+                                this._question = func_arg(new validator(item), j).answer;
                                 new validator(this._question).not().is_boolean()
                                     .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                                 if (!this._question) break;
@@ -1581,21 +1581,21 @@ class validator {
                             if (n % 4 >= 1 && this._question !== false) {
                                 j = n - 1;
                                 item = this.value[j];
-                                this._question = func_arg(new validator(item, j)).answer;
+                                this._question = func_arg(new validator(item), j).answer;
                                 new validator(this._question).not().is_boolean()
                                     .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                             }
                             if (n % 4 >= 2 && this._question !== false) {
                                 j = n - 2;
                                 item = this.value[j];
-                                this._question = func_arg(new validator(item, j)).answer;
+                                this._question = func_arg(new validator(item), j).answer;
                                 new validator(this._question).not().is_boolean()
                                     .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                             }
                             if (n % 4 >= 3 && this._question !== false) {
                                 j = n - 3;
                                 item = this.value[j];
-                                this._question = func_arg(new validator(item, j)).answer;
+                                this._question = func_arg(new validator(item), j).answer;
                                 new validator(this._question).not().is_boolean()
                                     .on(true, () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery());
                             }
