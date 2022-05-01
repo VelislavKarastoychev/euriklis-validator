@@ -2,7 +2,7 @@
 import * as errors from './Errors/index.js'
 import * as warnings from './Warnings/index.js';
 const author = 'Velislav S. Karastoychev';
-const version = '2.1.3';
+const version = '2.1.4';
 class validator {
     /**
      * 
