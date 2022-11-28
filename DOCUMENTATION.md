@@ -1,6 +1,6 @@
 # Documentation of ***@euriklis/validator***
 
-The validator library contains a lot of methods, which tests the javascript types for some conditions. The getters also returns validator instance.
+The validator library contains a lot of methods, which tests the javascript types under some conditions. The getters also return validator instances.
 
 1. The <em>validator</em> ***constructor***.
 To create a new validator instance you have to write:
@@ -320,3 +320,53 @@ new validator(5).isInteger
 ```
 48. <em>is_date(Date)</em> - checks if the argument of the method is of Date instance.
 49. Operators <em>or()/Or</em>, <em>and()/And</em> and <em>not()/Not</em> - allows logical chaining of the different methods of the validator library.
+50. <em>is_integer_like()</em> or as getter <em>isIntegerLike</em> - tests if the value property is positive integer or string which may be converted to integer.
+Example: 
+```js
+new validator('-31415926536').isIntegerLike
+    .on(true, () => console.log('This string can be converted to integer'));
+```
+51. <em>is_number_like</em> or as getter <em>isNumberLike</em> - tests if the value property is number or is a string which may be converted to number.
+Example:
+```js
+new validator('3.1415926536').isNumberLike
+    .on(true, () => console.log('This is the pi number but like a string.'));
+```
+52. <em>is_positive_number_like()</em> or as getter isPositiveNumberLike - tests if the value property is a number or a string which may be converted to a number and if this number will be positive.
+53. <em>is_negative_number_like()</em> or as getter <em>isNegativeNumberLike</em> - tests if the value property is a negative number or a string which may be converted to negative number.
+54. <em>is_positive_integer_like()</em> or as getter <em>isPositiveIntegerLike</em> - tests if the value property is a positive integer or a string which may be converted to a positive integer.
+55. <em>is_negative_integer_like()</em> or as getter <em>isNegativeIntegerLike</em> - tests if the value property is a negative integer or a string which may be converted to a negative integer.
+56. <em>is_array_of_positive_integers()</em> or as getter <em>isArrayOfPositiveIntegers</em> - tests if the value property is an array each element of which is positive integer.
+Example:
+```js
+const arr = Array.from({ length: 100 }).map(el => (Math.random() * 20) >> 0);
+new validator(arr).isArrayOfPositiveIntegers
+    .on(true, () => console.log('Correct'))
+```
+57. <em>is_array_of_negative_integers()</em> or as getter <em>isArrayOfNegativeIntegers</em> - tests if the value property is an array, each element of which is negative integer.
+Example:
+```js
+const arr = Array.from({ length: 100 }).map(el => -(Math.random() * 20) >> 0 || -100);
+new validator(arr).isArrayOfNegativeIntegers
+    .on(true, () => console.log('Correct'))
+    .on(false, () => console.log('Something went wrong!'))
+```
+58. <em>is_array_of_positive_numbers()</em> or as getter <em>isArrayOfPositiveNumbers</em> - tests if the value property is an array of positive numbers.
+Example:
+```js
+new validator(Array.from({length: 100}).map(Math.random))
+    .isArrayOfPositiveNumbers
+    .on(true, () => console.log('Correct!'));
+```
+59. <em>is_array_of_negative_numbers()</em> or as getter <em>isArrayOfNegativeNumbers</em> - tests if the value property is an array each element of which is negative number.
+Example:
+```js
+const arr = Array.from({ length: 100 }).map(el => {
+    el = -(Math.random() * 20);
+    el = Math.abs(el) > 10 ? el + '': el;
+    return el;
+});
+new validator(arr).Not.isArrayOfNegativeNumbers
+    .on(true, () => console.log('Correct'))
+    .on(false, () => console.log('Something went wrong!'))
+```
