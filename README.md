@@ -28,7 +28,7 @@ in eslint convention or with the require statement in nodejs environment:
 const validator = require('@euriklis/validator');
 ```
 # Usage:
-The library @euriklis/validator is created for conditional testing and allows to the user to creates compositions of checking criteria and to obtain the logical result of these tests. If for example we have an user, a registration protocol and database the validator may test if the registration criteria are fulfilled:
+The library @euriklis/validator is created for conditional testing and allows to the user to creates compositions of checking criteria and to obtain the logical result of these tests. If for example we have an user, a registration protocol and database, the validator may test if the registration criteria are fulfilled:
 ```js
 const user = {
     username: 'Harris',
@@ -50,9 +50,9 @@ new validator(user).interface2({
     .on(false, () => requireInfo(users, user, has_payment));
 ```
 
-From version 2.0.0 we add getter methods for the methods which does not requires arguments (except the copy method). If you want to use the methods 
+From version 2.0.0 we add getter methods for the methods which does not require arguments (except the copy method). If you want to use the methods 
 ```js 
-and() not() is_array() is_number() is_string() is_object() is_undefined() is_empty() and etc...
+and() not() is_array() is_number() is_string() is_object() is_undefined() is_empty() etc...
 ```
 you can use them in the mode postulated from version 1.x.x. But the same methods may be used without the parenthesis. The operands and, or and not have to be written with capital first letter. For the other methods the camel case is used, i.e. isArray, isEmpty, isObject etc.
 For example:
@@ -97,7 +97,7 @@ let result = new validator(a)
     ).answer;
 console.log(result); // true
 ```
-You can see the [documentation](./DOCUMENTATION.md) of the methods of the library.
+You can see the [documentation](./DOCUMENTATION.md) of the library methods.
 ## Bugs and tips
 
 Everyone who wants to inform me about useful things and practices can sends me an email to exel_mmm@abv.bg or euriklis@hotmail.com. 
