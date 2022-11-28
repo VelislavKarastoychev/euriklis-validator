@@ -140,6 +140,7 @@ new validator(arr).isEmpty
     ).on(true, (empty) => console.log(`the current property ${empty.value} is empty type for the validator.`))
 ```
 Note that this method can be used only when the type of the variable is string, array or object. For different types the method THROWS error message for incorrect type of the validator.
+
 29. <em> for_all(function(validator, index))</em> - this method works only on arrays or object types and gets two parameters - the first one is assumed to be the current item and the second the index of the element. The current item is transformed to validator type.
 
 Example:
@@ -155,6 +156,7 @@ new validator(arr).for_all(element => element
     .on(false, () => console.log('Error!!!'))
     // Correct!
 ```
+
 30. <em> for_any(function(elementAsValidator, index))</em> - this method works only on array or object types value properties of the validator. If the value is not array or object the method sets the answer to false. If the value is array then checks if some element of the array/object satisfies the callback function. As in the for_all() method the element is transformed to validator from the method. If the callback is not a function, then an error message will be thrown. 
 
 Example:
@@ -164,6 +166,7 @@ new validator(arr)
     .for_any(element => element.is_same('word'))
     .on(true, () => console.log('the array contains the expression "word".'));
 ```
+
 31. <em> interface2({key: function(valueAsValidator)}) </em> - this method is the second version of the method interface, which is deprecated. The method requires the value property to be an object. If the value is not object, then sets the answer property to false. The method gets an object with keys which have to be equal to the value keys of the value. The values of the object have to be functions and the arguments are assumed to be of validator type.
 
 Example:
@@ -182,6 +185,7 @@ new validator(user).interface2({
 }).on(true, () => console.log('valid user declaration ...'))
 .on(false, () => console.log('Something went wrong'));
 ```
+
 32. has_length(number) - tests if the current value is string or array or object with length which is equals to the argument of the method and set the answer property correspondingly.
 
 Example:
@@ -194,6 +198,7 @@ new validator('abc').has_length(3)
         new validator({a: 1, b: 2, c: 3}).has_length(3)
      ).on(true, () => console.log('the string, the array and the object has length equals to 3'))
 ```
+
 33. has_length_bigger_than(number) - tests if the current value property is a string or an array or an object with length, which is equals to the argument of the method and sets the answer property correspondingly.
 
 Example:
@@ -205,6 +210,7 @@ new validator('abc').has_length_bigger_than(2)
         new validator({a: 1, b: 2, c: 3}).has_length_bigger_than(2)
     ).on(true, () => console.log('Correct!!!'))
 ```
+
 34. has_length_equals_or_bigger_than(number) - tests if the value prperty of the current validator instance is a string or an array or an object which length is equals or bigger than the argument of the method and sets the answer property correspondingly.
 
 Example:
@@ -212,8 +218,11 @@ Example:
 new validator('validator').has_length_equals_or_bigger_than(6)
     .on(true, (instance) => console.log(`The word ${instance.value} has length bigger or equals to 6.`));
 ```
+
 35. has_length_lesser_than(number) - tests if the value property of the current validator instance is an array or a string or an object which length is lesser than the argument of the method and sets the answer property correspondingly.
+
 36. has_length_equals_or_lesser_than(number) - tests if the value property of the current validator instance is an array or a string or an object with length which is equals or lesser than the argument of the method and sets the answer property correspondingly.
+
 37. has_length_in_range(number, number) - tests if the value property of the current validator instance is an array or an object or a string with length in the open range (a, b), where the a and b are the arguments of the method.
 
 Example:
@@ -222,7 +231,9 @@ const word = 'validator';
 new validator(word).has_length_in_range(6, 10)
     .on(true, (w) => console.log(`The ${w.value} has length form 6 to 10.`))
 ```
+
 38. has_length_in_closed_range(number, number) - tests if the value property of the curren validator instance is a string or an array or an object in the closed range [a, b], where the a and the b are the arguments of the method. 
+
 39. is_this_string_contains_expression_k_times({expression: string, count: integer}) - tests if the value property of the current validator instance is string, tests if the string contains the expression value k times , where the k is the value of the count property of the object argument of the method. This method accept also a string argument. If the argument of the method is a string, then the k is assumed to be equals to 1.
 
 Example:
@@ -234,6 +245,7 @@ new validator(sentence)
     .is_this_string_contains_expression_k_times({expression: 'I', count: 2})
     .on(true, () => console.log('Donald Trump is egocentric!'))
 ```
+
 40. is_function() or as getter method isFunction - tests if the value property of the current validator instance is a function and sets the answer property correspondingly.
 
 Example:
@@ -241,6 +253,7 @@ Example:
 new validator(Math.random)
 .isFunction.on(true, () => console.log('the Math.random is a function...'))
 ```
+
 41. contains(array | string | number | object). 
 
 This method tests if the value of the current validator instance is array and if each of its elements may be identified with any of the elements of the argument of the method.
@@ -278,6 +291,7 @@ const professions = users.map(el => el.profession);
 new validator(professions).contains(['worker', 'student', 'professor', 'doctor'])
     .on(true, () => console.log('Correct!!!'));
 ```
+
 42. is_same(any) - tests if the value of the current validator property is equals (identical) to the argument of the method and sets the answer property correspondingly.
 
 Example:
@@ -285,6 +299,7 @@ Example:
 new validator(Math.random() < 1).is_same(true)
     .on(true, () => console.log('the random function of js is normalized.'))
 ```
+
 43. </em>is_same_with_any(Array(...elements))</em> - tests if the value property of the current validator instance is equals to any of the elements of the argument of the method.
 
 Example:
@@ -324,6 +339,7 @@ const user = {
 new validator(user).is_same_with_any(users)
     .on(true, () => console.log('the user exists'))
 ```
+
 44. <em>is_array_and_for_every(function(itemAsValidator, index))</em> - tests if the value property of the current validator instance is array and if for each element is valid a function condition. The first argument of the callback function is assumed to be of validator type and represent the item of the array and the second is assumed to be the index of the method. 
 
 Example:
@@ -332,7 +348,9 @@ const random_array = Array.from({ length: 100}).map(Math.random);
 new validator(random_array).is_array_and_for_every(item => item.isFloat.And.is_in_range(0, 1))
     .on(true, () => console.log('The random array is normalized'));
 ```
+
 45. <em>is_array_and_for_any(itemAsValidator, index)</em> - the method is similar to the previous with the distinction that the method tests if the value property is array and if for some of the elements of this array is completed a function condition. The function argument of the method is similar to the previous.
+
 46. <em>on(boolean, function(validatorInstance))</em> - this method executes a callback function depending on the answer property value. The first argument of the method is of boolean type and represents the required value of the answer and the second argument is a callback function with argument the current validator instance.
 
 Example:
@@ -342,6 +360,7 @@ new validator(5)
     .on(true, (n) => console.log(`${n.value + 5} is also integer.`))
     .on(false, () => console.log('Something went wrong...'));
 ```
+
 47. <em>bind(validatorInstanceWithSetAnswer)</em> - this method allows to be created chains of different validator instances. The method gets a validator instance. Note that if the validator argument of the bind method does not have answer property, then the final answer of the chain will be null.
 
 Example:
@@ -356,8 +375,11 @@ new validator(5).isInteger
     ).on(true, () => console.log('It does not work, because the argument of the bind has not question.'))
     .on(false, () => console.log('Also does not work, because the answer of the chain is null.'))
 ```
+
 48. <em>is_date(Date)</em> - checks if the argument of the method is of Date instance.
+
 49. Operators <em>or()/Or</em>, <em>and()/And</em> and <em>not()/Not</em> - allows logical chaining of the different methods of the validator library.
+
 50. <em>is_integer_like()</em> or as getter <em>isIntegerLike</em> - tests if the value property is positive integer or string which may be converted to integer.
 
 Example: 
@@ -365,6 +387,7 @@ Example:
 new validator('-31415926536').isIntegerLike
     .on(true, () => console.log('This string can be converted to integer'));
 ```
+
 51. <em>is_number_like</em> or as getter <em>isNumberLike</em> - tests if the value property is number or is a string which may be converted to number.
 
 Example:
@@ -372,10 +395,15 @@ Example:
 new validator('3.1415926536').isNumberLike
     .on(true, () => console.log('This is the pi number but like a string.'));
 ```
+
 52. <em>is_positive_number_like()</em> or as getter isPositiveNumberLike - tests if the value property is a number or a string which may be converted to a number and if this number will be positive.
+
 53. <em>is_negative_number_like()</em> or as getter <em>isNegativeNumberLike</em> - tests if the value property is a negative number or a string which may be converted to negative number.
+
 54. <em>is_positive_integer_like()</em> or as getter <em>isPositiveIntegerLike</em> - tests if the value property is a positive integer or a string which may be converted to a positive integer.
+
 55. <em>is_negative_integer_like()</em> or as getter <em>isNegativeIntegerLike</em> - tests if the value property is a negative integer or a string which may be converted to a negative integer.
+
 56. <em>is_array_of_positive_integers()</em> or as getter <em>isArrayOfPositiveIntegers</em> - tests if the value property is an array each element of which is positive integer.
 
 Example:
@@ -384,6 +412,7 @@ const arr = Array.from({ length: 100 }).map(el => (Math.random() * 20) >> 0);
 new validator(arr).isArrayOfPositiveIntegers
     .on(true, () => console.log('Correct'))
 ```
+
 57. <em>is_array_of_negative_integers()</em> or as getter <em>isArrayOfNegativeIntegers</em> - tests if the value property is an array, each element of which is negative integer.
 
 Example:
@@ -393,6 +422,7 @@ new validator(arr).isArrayOfNegativeIntegers
     .on(true, () => console.log('Correct'))
     .on(false, () => console.log('Something went wrong!'))
 ```
+
 58. <em>is_array_of_positive_numbers()</em> or as getter <em>isArrayOfPositiveNumbers</em> - tests if the value property is an array of positive numbers.
 
 Example:
@@ -401,6 +431,7 @@ new validator(Array.from({length: 100}).map(Math.random))
     .isArrayOfPositiveNumbers
     .on(true, () => console.log('Correct!'));
 ```
+
 59. <em>is_array_of_negative_numbers()</em> or as getter <em>isArrayOfNegativeNumbers</em> - tests if the value property is an array each element of which is negative number.
 
 Example:
