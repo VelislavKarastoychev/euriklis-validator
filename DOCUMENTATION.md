@@ -11,7 +11,7 @@ The constructor contains four properties:
 - the <em>value</em> property or the parameter value.
 - the <em> answer </em> property which is the result of the testing execution (If no tests are made the answer will be null).
 - the <em> required </em> property which is set to false initially and is not used widely in the library after the version 2.x.x.
-- the <em>description</em> property. This property is not used in the library but if the user wishes to store some data which may be useful then it may store it in this property.
+- the <em>description</em> property. This property is not used in the library, but if the user wishes to store some data which may be useful, then it may store it in this property.
 For example:
 ```js
 const condition = new validator({a: 1, b: 2, c: 3});
