@@ -58,8 +58,8 @@ const a = new validator(123)
 const b = a.absolute_copy(); // value --> 123, answer --> true, ...
 // b = a.absoluteCopy;
 ```
-5. <em>is_undefined()</em> or as getter <em>isUndefined</em> - set the answer to true if the value property is undefined.
-6. <em> is_boolean() </em> or as getter <em>isBoolean</em> - set the answer to true if the value property is of boolean type.
+5. <em>is_undefined()</em> or as getter <em>isUndefined</em> - sets the answer to true if the value property is undefined.
+6. <em> is_boolean() </em> or as getter <em>isBoolean</em> - sets the answer to true if the value property is of boolean type.
 
 Example:
 ```js
@@ -68,15 +68,15 @@ new validator(suiJuris(23)).isBoolean
     .on(true, (age) => console.log(`The age is correctly declared.`))
 // new validator(age).is_boolean() is also available 
 ```
-7. <em>is_string()</em> or as getter <em> isString </em>. Set answer to true if the value property is string.
-8.  <em>is_number()</em> or as getter <em> isNumber </em>. Set answer to true if the value property is number.
-9.  <em>is_integer()</em> or as getter <em> isInteger </em>. Set answer to true if the value property is integer number.
-10.  <em>is_positive_integer()</em> or as getter <em> isPositiveInteger </em>. Set answer to true if the value property is positive integer.
-11.  <em>is_negative_integer()</em> or as getter <em> isNegativeInteger </em>. Set answer to true if the value property is negative integer number.
-12.  <em>is_float()</em> or as getter <em> isFloat </em>. Set answer to true if the value property is float number. Note that if is integer the method returns false.
-13.  <em>is_negative()</em> or as getter <em> isNegative </em>. Set answer to true if the value property is negative number (float or integer).
-14.  <em>is_positive()</em> or as getter <em> isPositive </em>. Set answer to true if the value property is positive number (float or integer).
-15.  <em>is_bigger_than(number)</em> - Sets answer to true if the value property is number bigger than the argument of the method.
+7. <em>is_string()</em> or as getter <em> isString </em> - sets answer to true if the value property is string.
+8.  <em>is_number()</em> or as getter <em> isNumber </em> - sets answer to true if the value property is number.
+9.  <em>is_integer()</em> or as getter <em> isInteger </em> - sets answer to true if the value property is integer number.
+10.  <em>is_positive_integer()</em> or as getter <em> isPositiveInteger </em> - sets answer to true if the value property is positive integer.
+11.  <em>is_negative_integer()</em> or as getter <em> isNegativeInteger </em> - sets answer to true if the value property is negative integer number.
+12.  <em>is_float()</em> or as getter <em> isFloat </em> - sets answer to true if the value property is float number. Note that if is integer the method returns false.
+13.  <em>is_negative()</em> or as getter <em> isNegative </em> - sets answer to true if the value property is negative number (float or integer).
+14.  <em>is_positive()</em> or as getter <em> isPositive </em> - sets answer to true if the value property is positive number (float or integer).
+15.  <em>is_bigger_than(number)</em> - sets answer to true if the value property is number bigger than the argument of the method.
 16. <em> is_lesser_than(number) </em> - sets the answer to true if the value property is number lesser than the argument of the method.
 
 Example:
@@ -238,7 +238,8 @@ Example:
 new validator(Math.random)
 .isFunction.on(true, () => console.log('the Math.random is a function...'))
 ```
-41. contains(array | string | number | object)
+41. contains(array | string | number | object). 
+
 This method tests if the value of the current validator instance is array and if each of its elements may be identified with any of the elements of the argument of the method.
 
 Example:
