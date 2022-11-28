@@ -125,7 +125,9 @@ new validator(arr)
     .on(true, () => console.log('This array contains only integers or strings.'));
 ```
 This method is deprecated and if you want to use it only the pure validator methods are available. Our goal was to create a database and for that reason the management of the data was needed to be controlled from the validator library via strings. However now the for_all(), for_any() and is_array_and_for_every() or is_array_and_for_any() are available methods which allow you to test the structure of an array or list.
+
 27. <em>is_object()</em> or as getter <em> isObject</em> - tests if the value is an object and sets the answer to true or false respectively.
+
 28. <em> is_empty()</em> or as getter <em>isEmpty</em> - if the value property of the current validator instance is empty string or empty array or object without keys or undefined or null type, then sets the answer to true.
 
 Example:
