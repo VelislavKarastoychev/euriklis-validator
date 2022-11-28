@@ -186,7 +186,7 @@ new validator(user).interface2({
 .on(false, () => console.log('Something went wrong'));
 ```
 
-32. has_length(number) - tests if the current value is string or array or object with length which is equals to the argument of the method and set the answer property correspondingly.
+32. has_length(number) - tests if the current value is string or array or object with length which is equals to the argument of the method and sets the answer property correspondingly.
 
 Example:
 ```js
@@ -234,7 +234,7 @@ new validator(word).has_length_in_range(6, 10)
 
 38. has_length_in_closed_range(number, number) - tests if the value property of the curren validator instance is a string or an array or an object in the closed range [a, b], where the a and the b are the arguments of the method. 
 
-39. is_this_string_contains_expression_k_times({expression: string, count: integer}) - tests if the value property of the current validator instance is string, tests if the string contains the expression value k times , where the k is the value of the count property of the object argument of the method. This method accept also a string argument. If the argument of the method is a string, then the k is assumed to be equals to 1.
+39. is_this_string_contains_expression_k_times({expression: string, count: integer}) - tests if the value property of the current validator instance is string, checks if the string contains the expression value k times , where the k is the value of the count property of the object argument in the method. This method allows also a string argument. If the argument of the method is a string, then the count is assumed to be equals to 1.
 
 Example:
 ```js
@@ -340,7 +340,7 @@ new validator(user).is_same_with_any(users)
     .on(true, () => console.log('the user exists'))
 ```
 
-44. <em>is_array_and_for_every(function(itemAsValidator, index))</em> - tests if the value property of the current validator instance is array and if for each element is valid a function condition. The first argument of the callback function is assumed to be of validator type and represent the item of the array and the second is assumed to be the index of the method. 
+44. <em>is_array_and_for_every(function(itemAsValidator, index))</em> - tests if the value property of the current validator instance is array and the function condition on each element of the array to obtain the answer. The first argument of the callback function is assumed to be of validator type and represent the item of the array and the second is assumed to be the index of the array. 
 
 Example:
 ```js
@@ -349,7 +349,7 @@ new validator(random_array).is_array_and_for_every(item => item.isFloat.And.is_i
     .on(true, () => console.log('The random array is normalized'));
 ```
 
-45. <em>is_array_and_for_any(itemAsValidator, index)</em> - the method is similar to the previous with the distinction that the method tests if the value property is array and if for some of the elements of this array is completed a function condition. The function argument of the method is similar to the previous.
+45. <em>is_array_and_for_any(itemAsValidator, index)</em> - the method is similar to the previous with the distinction that the method tests if the value property is array and if for some of the elements of this array is fulfilled the function condition. The function argument of the method is similar to the previous.
 
 46. <em>on(boolean, function(validatorInstance))</em> - this method executes a callback function depending on the answer property value. The first argument of the method is of boolean type and represents the required value of the answer and the second argument is a callback function with argument the current validator instance.
 
@@ -376,7 +376,7 @@ new validator(5).isInteger
     .on(false, () => console.log('Also does not work, because the answer of the chain is null.'))
 ```
 
-48. <em>is_date(Date)</em> - checks if the argument of the method is of Date instance.
+48. <em>is_date(Date)</em> - checks if the value property of the current validator instance is of Date instance.
 
 49. Operators <em>or()/Or</em>, <em>and()/And</em> and <em>not()/Not</em> - allows logical chaining of the different methods of the validator library.
 
@@ -396,7 +396,7 @@ new validator('3.1415926536').isNumberLike
     .on(true, () => console.log('This is the pi number but like a string.'));
 ```
 
-52. <em>is_positive_number_like()</em> or as getter isPositiveNumberLike - tests if the value property is a number or a string which may be converted to a number and if this number will be positive.
+52. <em>is_positive_number_like()</em> or as getter isPositiveNumberLike - tests if the value property is a number or a string which may be converted to a number and if this number is  positive.
 
 53. <em>is_negative_number_like()</em> or as getter <em>isNegativeNumberLike</em> - tests if the value property is a negative number or a string which may be converted to negative number.
 
@@ -404,7 +404,7 @@ new validator('3.1415926536').isNumberLike
 
 55. <em>is_negative_integer_like()</em> or as getter <em>isNegativeIntegerLike</em> - tests if the value property is a negative integer or a string which may be converted to a negative integer.
 
-56. <em>is_array_of_positive_integers()</em> or as getter <em>isArrayOfPositiveIntegers</em> - tests if the value property is an array each element of which is positive integer.
+56. <em>is_array_of_positive_integers()</em> or as getter <em>isArrayOfPositiveIntegers</em> - tests if the value property is an array, each element of which is positive integer.
 
 Example:
 ```js
@@ -432,7 +432,7 @@ new validator(Array.from({length: 100}).map(Math.random))
     .on(true, () => console.log('Correct!'));
 ```
 
-59. <em>is_array_of_negative_numbers()</em> or as getter <em>isArrayOfNegativeNumbers</em> - tests if the value property is an array each element of which is negative number.
+59. <em>is_array_of_negative_numbers()</em> or as getter <em>isArrayOfNegativeNumbers</em> - tests if the value property is an array, each element of which is negative number.
 
 Example:
 ```js
