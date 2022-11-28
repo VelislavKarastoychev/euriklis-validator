@@ -1,3 +1,3 @@
 'use strict'
 import validator from './src/validator.js';
-export default  validator
+export default validator
