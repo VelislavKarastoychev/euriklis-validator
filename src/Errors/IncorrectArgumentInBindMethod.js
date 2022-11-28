@@ -1,10 +1,9 @@
 'use strict';
-import {Printer as printer} from '../Printer/index.js';
 import * as texts from './texts.js';
 const error = () => {
     const error = new Error();
-    error.name = printer.HeaderMessage(texts.ErrorMessage);
-    error.message = printer.ErrorMessage(texts.IncorrectArgumentInBindMethod());
+    error.name = texts.ErrorMessage;
+    error.message = texts.IncorrectArgumentInBindMethod();
     throw error;
 };
 export default error;
