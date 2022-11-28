@@ -15,15 +15,16 @@ The constructor contains four properties:
 For example:
 ```js
 const condition = new validator({a: 1, b: 2, c: 3});
-console:log(condition);
+condition.description = 'This is an object with integer number values.'
+console.log(condition);
 ```
 output:
 ```js
-=> validator {
-  value: 123,
+validator {
+  value: { a: 1, b: 2, c: 3 },
   answer: null,
   required: false,
-  description: 'This is a validator Object.This library provides functionalities for checking, testing and validating of some data in javascript language.'
+  description: 'This is an object with integer number values.'
 }
 ```
 2. <em>show_warnings</em> - getter/setter method which is responsible for the warnings management. If is set to true, then the methods which have problems will print messages for the nature of the problem. By default this property is set to false (the instance does not shows warning messages).
