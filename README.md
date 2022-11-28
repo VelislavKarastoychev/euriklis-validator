@@ -74,7 +74,10 @@ new validator(array)
     .on(true, () => console.log('the array contains only integers or strings.'))
 ```
 The user may choose which of both paradigms to use.
+
 From version 3.0.0 the library was rewritten in such a way that private methods was inserted for the operands, the not property and the set_answer function and the @euriklis/message was not used in the package. Also new methods was inserted like is_integer_array()/isIntegerArray, is_object_array() / isObjectArray, has_length_bigger/lesser_than(), has_length_equals_or_bigger/lesser_than(),has_length_in_range() , has_length_in_closed_range(), is_positive_integer() / isPositiveInteger, is_negative_integer() /isNegativeInteger,is_positive() / isPositive and is_negative() / isNegative and many others.
+
+Note that the private methods require the versions of nodejs >= 12.0.0 , Chrome >= 74 and Firefox >= 90 (See more for the usage of the [private methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields) in javascript) 
 # Methods:
 
 ## validator methods:
