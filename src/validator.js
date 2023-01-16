@@ -446,7 +446,7 @@ class validator {
      * number and which is smaller than zero.
      * @returns {validator}
      */
-    is_negative_number_like () {
+    is_negative_number_like() {
         this.#question = !isNaN(this.value) ? +this.copy().value < 0 : false;
         return this.#set_answer();
     }
@@ -458,7 +458,7 @@ class validator {
      * and is negative.
      * @returns {validator}
      */
-    get isNegativeNumberLike () { return this.is_negative_number_like(); }
+    get isNegativeNumberLike() { return this.is_negative_number_like(); }
     /**
      * @method is_positive_number_like
      * @description this method tests if the value
@@ -467,8 +467,8 @@ class validator {
      * converted to positive number.
      * @returns {validator}
      */
-    is_positive_number_like () {
-        this.#question = !isNaN(this.value) ? +this.copy().value >= 0: false;
+    is_positive_number_like() {
+        this.#question = !isNaN(this.value) ? +this.copy().value >= 0 : false;
         return this.#set_answer();
     }
     /**
@@ -479,7 +479,7 @@ class validator {
      * positive number.
      * @returns {validator}
      */
-    get isPositiveNumberLike () { return this.is_positive_number_like(); }
+    get isPositiveNumberLike() { return this.is_positive_number_like(); }
     /**
      * @method is_negative_integer_like
      * @description this method tests if the value
@@ -488,7 +488,7 @@ class validator {
      * converted to negative integer.
      * @returns {validator}
      */
-    is_negative_integer_like () { 
+    is_negative_integer_like() {
         this.#question = !isNaN(this.value) ? Number.isInteger(+this.copy().value) && (+this.copy().value < 0) : false;
         return this.#set_answer();
     }
@@ -500,7 +500,7 @@ class validator {
      * converted to negative integer.
      * @returns {validator}
      */
-    get isNegativeIntegerLike () { return this.is_negative_integer_like(); }
+    get isNegativeIntegerLike() { return this.is_negative_integer_like(); }
     /**
      * @method is_positive_integer_like
      * @description this method tests if the value
@@ -509,8 +509,8 @@ class validator {
      * converted to positive integer.
      * @returns {validator}
      */
-    is_positive_integer_like() { 
-        this.#question = !isNaN(this.value) ? Number.isInteger(+this.copy().value) && (+this.copy().value >= 0): false;
+    is_positive_integer_like() {
+        this.#question = !isNaN(this.value) ? Number.isInteger(+this.copy().value) && (+this.copy().value >= 0) : false;
         return this.#set_answer();
     }
     /**
@@ -521,7 +521,7 @@ class validator {
      * which may be converted to positive integer.
      * @returns {validator}
      */
-    get isPositiveIntegerLike () { return this.is_positive_integer_like(); }
+    get isPositiveIntegerLike() { return this.is_positive_integer_like(); }
     /**
      *
      * @method is_bigger_than() 
@@ -1220,6 +1220,82 @@ class validator {
                 }
             }
         } else this.#question = false;
+        return this.#set_answer();
+    }
+    /**
+     * 
+     * @param {number} a 
+     * @param {number} b 
+     * @returns {validator}
+     * @description this method checks if the validator
+     * value is an array which element of which is an
+     * integer in the open interval (a, b).
+     */
+    is_array_of_integers_in_range(a, b) {
+        this.#question = true;
+        if (this.copy().Not.isArray.answer) this.#question = false;
+        else {
+            const n = this.value.length;
+            let i, j;
+            for (i = 0; i < n >> 2; i++) {
+                j = i << 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value <= a || this.value >= b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value <= a || this.value >= b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value <= a || this.value >= b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value <= a || this.value >= b) {
+                    this.#question = false;
+                    break;
+                }
+            }
+            if ((n % 4 >= 3) && this.#question) {
+                j = n - 3;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value <= a || this.value >= b) {
+                    this.#question = false;
+                }
+            }
+            if ((n % 4 >= 2) && this.#question) {
+                j = n - 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value <= a || this.value >= b) {
+                    this.#question = false;
+                }
+            }
+            if ((n % 4 >= 1) && this.#question) {
+                j = n - 1;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value <= a || this.value >= b) {
+                    this.#question = false;
+                }
+            }
+        }
         return this.#set_answer();
     }
     /**
