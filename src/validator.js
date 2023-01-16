@@ -1242,7 +1242,7 @@ class validator {
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
                     break;
-                } else if (this.value[j] !== (this.value[j] | 0) && (this.value <= a || this.value >= b)) {
+                } else if (this.value[j] !== (this.value[j] | 0) || (this.value <= a || this.value >= b)) {
                     this.#question = false;
                     break;
                 }
@@ -1250,7 +1250,7 @@ class validator {
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
                     break;
-                } else if (this.value[j] !== (this.value[j] | 0) && (this.value <= a || this.value >= b)) {
+                } else if (this.value[j] !== (this.value[j] | 0) || (this.value <= a || this.value >= b)) {
                     this.#question = false;
                     break;
                 }
@@ -1258,7 +1258,7 @@ class validator {
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
                     break;
-                } else if (this.value[j] !== (this.value[j] | 0) && (this.value <= a || this.value >= b)) {
+                } else if (this.value[j] !== (this.value[j] | 0) || (this.value <= a || this.value >= b)) {
                     this.#question = false;
                     break;
                 }
@@ -1266,7 +1266,7 @@ class validator {
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
                     break;
-                } else if (this.value[j] !== (this.value[j] | 0) && (this.value <= a || this.value >= b)) {
+                } else if (this.value[j] !== (this.value[j] | 0) || (this.value <= a || this.value >= b)) {
                     this.#question = false;
                     break;
                 }
@@ -1275,7 +1275,7 @@ class validator {
                 j = n - 3;
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
-                } else if (this.value[j] !== (this.value[j] | 0) && (this.value <= a || this.value >= b)) {
+                } else if (this.value[j] !== (this.value[j] | 0) || (this.value <= a || this.value >= b)) {
                     this.#question = false;
                 }
             }
@@ -1283,7 +1283,7 @@ class validator {
                 j = n - 2;
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
-                } else if (this.value[j] !== (this.value[j] | 0) && (this.value <= a || this.value >= b)) {
+                } else if (this.value[j] !== (this.value[j] | 0) || (this.value <= a || this.value >= b)) {
                     this.#question = false;
                 }
             }
@@ -1291,7 +1291,7 @@ class validator {
                 j = n - 1;
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
-                } else if (this.value[j] !== (this.value[j] | 0) && (this.value <= a || this.value >= b)) {
+                } else if (this.value[j] !== (this.value[j] | 0) || (this.value <= a || this.value >= b)) {
                     this.#question = false;
                 }
             }
