@@ -1233,6 +1233,11 @@ class validator {
      */
     is_array_of_integers_in_range(a, b) {
         this.#question = true;
+        new validator(a).isInteger
+            .And.bind(new validator(b).isInteger)
+            .And.bind(
+                new validator(a).is_lesser_than(b)
+            ).on(false, () => errors.IllegalParametersInIsArrayOfIntegersInRange());
         if (this.copy().Not.isArray.answer) this.#question = false;
         else {
             const n = this.value.length;
@@ -1296,6 +1301,315 @@ class validator {
                 }
             }
         }
+        return this.#set_answer();
+    }
+    /**
+     * 
+     * @param {number} a 
+     * @param {number} b 
+     * @returns {validator}
+     * @description this method checks if the
+     * current validator instance is an array of
+     * integer elements which lies on the closed
+     * interval [a, b], where the a and b are
+     * arbitrary NUMBER$S.
+     */
+    is_array_of_integers_in_closed_range(a, b) {
+        new validator(a).isNumber
+            .And.bind(new validator(b).isNumber)
+            .And.bind(
+                new validator(a).is_lesser_than(b)
+            ).on(false, () => errors.IllegalParametersInIsArrayOfIntegersInClosedRange());
+        this.#question = true;
+        if (this.copy().isArray.answer) {
+            const n = this.value.length;
+            let i, j;
+            for (i = 0; i < n >> 2; i++) {
+                j = i << 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+            }
+            if (this.#question && (n % 4 >= 3)) {
+                j = n - 3;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                }
+            }
+            if (this.#question && (n % 4 >= 2)) {
+                j = n - 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                }
+            }
+            if (this.#question && (n % 4 >= 1)) {
+                j = n - 1;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] !== (this.value[j] | 0) || this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                }
+            }
+        } else this.#question = true;
+        return this.#set_answer();
+    }
+    /**
+     * 
+     * @param {number} a 
+     * @param {number} b
+     * @returns {validator}
+     * @description this method checks if the 
+     * current validator instance is an array with elements
+     * which are numbers in an open interval (a, b).
+     */
+    is_array_of_numbers_in_range(a, b) {
+        new validator(a).isNumber
+            .And.bind(new validator(b).isNumber)
+            .And.bind(
+                new validator(a).is_lesser_than(b)
+            ).on(false, () => errors.IllegalParametersInIsArrayOfNumbersInRange());
+        this.#question = true;
+        // check if every element of the array is a number
+        // which belong in the open interval (a, b):
+        if (this.copy().isArray.answer) {
+            const n = this.value.length;
+            let i, j;
+            for (i = 0; i < n >> 2; i++) {
+                j = i << 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] <= a || this.value[j] >= b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] <= a || this.value[j] >= b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] <= a || this.value[j] >= b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] <= a || this.value[j] >= b) {
+                    this.#question = false;
+                    break;
+                }
+            }
+            if ((n % 4 >= 3) && this.#question) {
+                j = n - 3;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] <= a || this.value[j] >= b) {
+                    this.#question = false;
+                }
+            }
+            if ((n % 4 >= 2) && this.#question) {
+                j = n - 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] <= a || this.value[j] >= b) {
+                    this.#question = false;
+                }
+            }
+            if ((n % 4 >= 1) && this.#question) {
+                j = n - 1;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] <= a || this.value[j] >= b) {
+                    this.#question = false;
+                }
+            }
+        } else this.#question = false;
+        return this.#set_answer();
+    }
+    /**
+     * 
+     * @param {number} a 
+     * @param {number} b 
+     * @returns {validator}
+     * @description this method checks if
+     * the current validator instance is an
+     * array of numbers which lies on the closed
+     * interval [a, b].
+     */
+    is_array_of_numbers_in_closed_range(a, b) {
+        new validator(a).isNumber
+            .And.bind(new validator(b).isNumber)
+            .And.bind(
+                new validator(a).is_lesser_than(b)
+            ).on(false, () => errors.IllegalParametersInIsArrayOfNumbersInClosedRange());
+        // check if every element of the array is number in the interval [a, b].
+        this.#question = true;
+        if (this.copy().isArray.answer) {
+            const n = this.value.length;
+            let i, j;
+            for (i = 0;i < n >> 2;i++) {
+                j = i << 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                    break;
+                } else if (this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                    break;
+                }
+            }
+            if (this.#question && (n % 4 >= 3)) {
+                j = n - 3;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                }
+            }
+            if (this.#question && (n % 4 >= 2)) {
+                j = n - 2;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                }
+            }
+            if (this.#question && (n % 4 >= 1)) {
+                j = n - 1;
+                if (typeof this.value[j] !== 'number') {
+                    this.#question = false;
+                } else if (this.value[j] < a || this.value[j] > b) {
+                    this.#question = false;
+                }
+            }
+        } else this.#question = false;
+        return this.#set_answer();
+    }
+    /**
+     * @description this method checks if the 
+     * current validator instance is an array
+     * with elements that satisfy the condition
+     * to be a javascript function type.
+     * @returns {validator}
+     */
+    is_array_of_functions() { return this.isArrayOfFunctions; }
+    /**
+     * @description this method checks if the
+     * current validator instance is an array
+     * with elements that satisfy the condition
+     * to be a javascript function type.
+     * @returns {validator}
+     */
+    get isArrayOfFunctions() {
+        this.#question = true;
+        if (this.copy().isArray.answer) {
+            const n = this.value.length;
+            let i, j;
+            for (i = 0; i < n >> 2; i++) {
+                j = i << 2;
+                if (typeof this.value[j] !== 'function') {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'function') {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'function') {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'function') {
+                    this.#question = false;
+                    break;
+                }
+            }
+            if ((n % 4 >= 3) && this.#question) {
+                j = n - 3;
+                if (typeof this.value[j] !== 'function') {
+                    this.#question = false;
+                }
+            }
+            if ((n % 4 >= 2) && this.#question) {
+                j = n - 2;
+                if (typeof this.value[j] !== 'function') {
+                    this.#question = false;
+                }
+            }
+            if ((n % 4 >= 1) && this.#question) {
+                j = n - 1;
+                if (typeof this.value[j] !== 'function') {
+                    this.#question = false;
+                }
+            }
+        } else this.#question = false;
         return this.#set_answer();
     }
     /**
