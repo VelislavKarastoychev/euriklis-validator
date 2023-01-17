@@ -1,4 +1,8 @@
 'use strict';
+export { default as IllegalParametersInIsArrayOfIntegersInClosedRange } from './IllegalParametersInIsArrayOfIntegersInClosedRange.js';
+export { default as IllegalParametersInIsArrayOfIntegersInRange } from './IllegalParametersInIsArrayOfIntegersInRange.js';
+export { default as IllegalParametersInIsArrayOfNumbersInClosedRange } from './IllegalParametersInIsArrayOfNumbersInClosedRange.js';
+export { default as IllegalParametersInIsArrayOfNumbersInRange } from './IllegalParametersInIsArrayOfNumbersInRange.js';
 export { default as IllegalTypeInForAny } from './IllegalTypeInForAny.js';
 export { default as IllegalUsageOfArgumentInIsArrayAndForEvery } from './IllegalUsageOfArgumentInIsArrayAndForEvery.js';
 export { default as IncorrectArgumentInBindMethod } from './IncorrectArgumentInBindMethod.js';
