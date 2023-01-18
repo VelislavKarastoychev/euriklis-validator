@@ -1944,41 +1944,41 @@ class validator {
                 let i, j;
                 for (i = 0;i < n >> 2;i++) {
                     j = i << 2;
-                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m).answer) {
                         this.#question = false;
                         break;
                     }
                     ++j;
-                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m).answer) {
                         this.#question = false;
                         break;
                     }
                     ++j;
-                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m).answer) {
                         this.#question = false;
                         break;
                     }
                     ++j;
-                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m).answer) {
                         this.#question = false;
                         break;
                     }
                 }
                 if (this.#question && (n % 4 >= 3)) {
                     j = n - 3;
-                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m).answer) {
                         this.#question = false;
                     }
                 }
                 if (this.#question && (n % 4 >= 2)) {
                     j = n - 2;
-                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m).answer) {
                         this.#question = false;
                     }
                 }
                 if (this.#question && (n % 4 >= 1)) {
                     j = n - 1;
-                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m).answer) {
                         this.#question = false;
                     }
                 }
