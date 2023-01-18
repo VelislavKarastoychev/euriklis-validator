@@ -1749,13 +1749,13 @@ class validator {
      */
     is_array_of_arrays_with_equal_size() { return this.isArrayOfArraysWithEqualSize; }
     /**
- * @description this method checks if the
- * current validator instance is an array
- * with elements which are arrays with equal
- * size (length). The elements of the nested 
- * arrays may be of arbitrary type. 
- * @returns {validator}
- */
+     * @description this method checks if the
+     * current validator instance is an array
+     * with elements which are arrays with equal
+     * size (length). The elements of the nested 
+     * arrays may be of arbitrary type. 
+     * @returns {validator}
+     */
     get isArrayOfArraysWithEqualSize() {
         this.#question = true;
         if (this.copy().isArray.answer) {
@@ -1808,6 +1808,77 @@ class validator {
         } else this.#question = false;
         return this.#set_answer();
     }
+    /**
+     * @description this method checks if the
+     * current validator instance value is an
+     * array, which contains only number arrays.
+     * The length of every array is not interested.
+     * @returns {validator}
+     */
+    is_array_of_number_arrays() { return this.isArrayOfNumberArrays; }
+    /**
+     * @description this method checks if the current
+     * validator instance is an array which consists
+     * of number arrays.
+     * @returns {validator}
+     */
+    get isArrayOfNumberArrays() {
+        this.#question = true;
+        return this.#set_answer();
+    }
+    is_array_of_string_arrays() { return this.isArrayOfStringArrays; }
+    get isArrayOfStringArrays() {
+        this.#question = true;
+        if (this.copy().isArray.answer) {
+            const is_first_item_array = new validator(this.value[0]).isArray.answer;
+            const n = this.value.length;
+            if (is_first_item_array) {
+                let i, j;
+                for (i = 0; i < n >> 2; i++) {
+                    j = i << 2;
+                    if (!new validator(this.value[j]).isStringArray.answer) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isStringArray.answer) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isStringArray.answer) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isStringArray.answer) {
+                        this.#question = false;
+                        break;
+                    }
+                }
+                if (this.#question && (n % 4 >= 3)) {
+                    j = n - 3;
+                    if (!new validator(this.value[j]).isStringArray.answer) {
+                        this.#question = false;
+                    }
+                }
+                if (this.#question && (n % 4 >= 2)) {
+                    j = n - 2;
+                    if (!new validator(this.value[j]).isStringArray.answer) {
+                        this.#question = false;
+                    }
+                }
+                if (this.#question && (n % 4 >= 1)) {
+                    j = n - 1;
+                    if (!new validator(this.value[j]).isStringArray.answer) {
+                        this.#question = false;
+                    }
+                }
+            } else this.#question = false;
+        } else this.#question = false;
+        return this.#set_answer();
+    }
+
     /**
      * 
      * @method is_array_with_elements_that_satisfy
