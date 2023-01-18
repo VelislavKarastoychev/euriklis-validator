@@ -683,7 +683,66 @@ class validator {
     get isArray() {
         return this.is_array();
     }
-
+    /**
+     * @description this method tests if the 
+     * current validator instance is an array
+     * of boolean elements.
+     * @returns {validator}
+     */
+    is_boolean_array () { return this.isBooleanArray; }
+    /**
+     * @description this method tests if the 
+     * current validator instance is an array
+     * of boolean elements.
+     * @returns {validator}
+     */
+    get isBooleanArray () {
+        if (this.copy().isArray.answer) {
+            const n = this.value.length;
+            let i, j;
+            for (i = 0;i < n >> 2;i++) {
+                j = i << 2;
+                if (typeof this.value[j] !== 'boolean') {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'boolean') {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'boolean') {
+                    this.#question = false;
+                    break;
+                }
+                ++j;
+                if (typeof this.value[j] !== 'boolean') {
+                    this.#question = false;
+                    break;
+                }
+            }
+            if (this.#question && (n % 4 >= 3)) {
+                j = n - 3;
+                if (typeof this.value[j] !== 'boolean') {
+                    this.#question = false;
+                }
+            }
+            if (this.#question && (n % 4 >= 2)) {
+                j = n - 2;
+                if (typeof this.value[j] !== 'boolean') {
+                    this.#question = false;
+                }
+            }
+            if (this.#question && (n % 4 >= 1)) {
+                j = n - 1;
+                if (typeof this.value[j] !== 'boolean') {
+                    this.#question = false;
+                }
+            }
+        } else this.#question = false;
+        return this.#set_answer();
+    }
     /**
      * @method is_string_array()
      * @returns {validator}
@@ -1877,7 +1936,7 @@ class validator {
                 errors.IncorrectFunctionArgumentInForAll();
             })
             .on(true, () => {
-                val.is_array()
+                val.isArray
                     .on(true, () => {
                         // the parameters are correct
                         // and we have to check every 
