@@ -1925,7 +1925,67 @@ class validator {
         } else this.#question = false;
         return this.#set_answer();
     }
-
+    /**
+     * 
+     * @description this method checks if the current
+     * validator instance is an array contained from
+     * string arrays with every array to has the same
+     * length with the other arrays.
+     * @returns {validator}
+     */
+    is_array_of_string_arrays_with_same_size () { return this.isArrayOfStringArraysWithSameSize; }
+    get isArrayOfStringArraysWithSameSize () { 
+        this.#question = true;
+        if (this.copy().isArray.answer) {
+            const is_first_item_array = new validator(this.value[0]).isArray.answer;
+            const n = this.value.length;
+            if (is_first_item_array) {
+                const m = this.value[0].length;
+                let i, j;
+                for (i = 0;i < n >> 2;i++) {
+                    j = i << 2;
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                        this.#question = false;
+                        break;
+                    }
+                }
+                if (this.#question && (n % 4 >= 3)) {
+                    j = n - 3;
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                        this.#question = false;
+                    }
+                }
+                if (this.#question && (n % 4 >= 2)) {
+                    j = n - 2;
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                        this.#question = false;
+                    }
+                }
+                if (this.#question && (n % 4 >= 1)) {
+                    j = n - 1;
+                    if (!new validator(this.value[j]).isStringArray.And.has_length(m)) {
+                        this.#question = false;
+                    }
+                }
+            } else this.#question = false;
+        } else this.#question = false;
+        return this.#set_answer();
+    }
     /**
      * 
      * @method is_array_with_elements_that_satisfy
