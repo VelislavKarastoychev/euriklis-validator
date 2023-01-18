@@ -1933,7 +1933,7 @@ class validator {
      * length with the other arrays.
      * @returns {validator}
      */
-    is_array_of_string_arrays_with_equal_size () { return this.isArrayOfStringArraysWithSameSize; }
+    is_array_of_string_arrays_with_equal_size () { return this.isArrayOfStringArraysWithEqualSize; }
     get isArrayOfStringArraysWithEqualSize () { 
         this.#question = true;
         if (this.copy().isArray.answer) {
