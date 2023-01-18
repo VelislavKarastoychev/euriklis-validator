@@ -1933,8 +1933,8 @@ class validator {
      * length with the other arrays.
      * @returns {validator}
      */
-    is_array_of_string_arrays_with_same_size () { return this.isArrayOfStringArraysWithSameSize; }
-    get isArrayOfStringArraysWithSameSize () { 
+    is_array_of_string_arrays_with_equal_size () { return this.isArrayOfStringArraysWithSameSize; }
+    get isArrayOfStringArraysWithEqualSize () { 
         this.#question = true;
         if (this.copy().isArray.answer) {
             const is_first_item_array = new validator(this.value[0]).isArray.answer;
