@@ -689,19 +689,19 @@ class validator {
      * of boolean elements.
      * @returns {validator}
      */
-    is_boolean_array () { return this.isBooleanArray; }
+    is_boolean_array() { return this.isBooleanArray; }
     /**
      * @description this method tests if the 
      * current validator instance is an array
      * of boolean elements.
      * @returns {validator}
      */
-    get isBooleanArray () {
+    get isBooleanArray() {
         this.#question = true;
         if (this.copy().isArray.answer) {
             const n = this.value.length;
             let i, j;
-            for (i = 0;i < n >> 2;i++) {
+            for (i = 0; i < n >> 2; i++) {
                 j = i << 2;
                 if (typeof this.value[j] !== 'boolean') {
                     this.#question = false;
@@ -1548,7 +1548,7 @@ class validator {
         if (this.copy().isArray.answer) {
             const n = this.value.length;
             let i, j;
-            for (i = 0;i < n >> 2;i++) {
+            for (i = 0; i < n >> 2; i++) {
                 j = i << 2;
                 if (typeof this.value[j] !== 'number') {
                     this.#question = false;
@@ -1736,6 +1736,75 @@ class validator {
                     this.#question = false;
                 }
             }
+        } else this.#question = false;
+        return this.#set_answer();
+    }
+    /**
+     * @description this method checks if the
+     * current validator instance is an array
+     * with elements which are arrays with equal
+     * size (length). The elements of the nested 
+     * arrays may be of arbitrary type. 
+     * @returns {validator}
+     */
+    is_array_of_arrays_with_equal_size() { return this.isArrayOfArraysWithEqualSize; }
+    /**
+ * @description this method checks if the
+ * current validator instance is an array
+ * with elements which are arrays with equal
+ * size (length). The elements of the nested 
+ * arrays may be of arbitrary type. 
+ * @returns {validator}
+ */
+    get isArrayOfArraysWithEqualSize() {
+        this.#question = true;
+        if (this.copy().isArray.answer) {
+            const n = this.value.length,
+                is_first_item_array = new validator(this.value[0]).isArray.answer;
+            let i, j;
+            if (is_first_item_array) {
+                const m = this.value[0].length;
+                for (i = 0; i < n >> 2; i++) {
+                    j = i << 2;
+                    if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
+                        this.#question = false;
+                        break;
+                    }
+                    ++j;
+                    if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
+                        this.#question = false;
+                        break;
+                    }
+                }
+                if (this.#question && (n % 4 >= 3)) {
+                    j = n - 3;
+                    if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
+                        this.#question = false;
+                    }
+                }
+                if (this.#question && (n % 4 >= 2)) {
+                    j = n - 2;
+                    if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
+                        this.#question = false;
+                    }
+                }
+                if (this.#question && (n % 4 >= 1)) {
+                    j = n - 1;
+                    if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
+                        this.#question = false;
+                    }
+                }
+            } else this.#question = false;
         } else this.#question = false;
         return this.#set_answer();
     }
