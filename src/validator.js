@@ -697,6 +697,7 @@ class validator {
      * @returns {validator}
      */
     get isBooleanArray () {
+        this.#question = true;
         if (this.copy().isArray.answer) {
             const n = this.value.length;
             let i, j;
