@@ -113,7 +113,24 @@ new validator(obj).isArray.on(false, obj => console.log('the obj variable is not
 ```
 22. <em>is_string_array()</em> or as getter method <em>isStringArray</em> - sets the answer to true if the value property of the current validator instance is string array.
 23. <em>is_number_array()</em> or as getter <em>isNumberArray</em> - checks if the value property of the current validator instance is array which elements are numbers.
-24. <em>is_integer_array()</em> or as getter method <em>isIntegerArray</em> - checks if the value property of the current validator instance is array of integers and sets answer property appropriately. The method is available from versions 3.x.x
+24. <em>is_integer_array()</em> or as getter method <em>isIntegerArray</em> - checks if the value property of the current validator instance is array of integers and sets answer property appropriately. The method is available from versions 3.x.x.
+
+Note: In version 3.1.0 was observed an error in this method. The last three numbers of every array was tested incorrectly. The condition was:
+
+```js
+if (typeof  this.value[j] !== 'number' || Number.isInteger(this.value[j])) {
+    ...
+}
+```
+
+However the correct test condition has to be:
+
+```js
+if (typeof this.value[j] !== 'number' || !Number.isInteger(this.value[j])) {
+    ...
+}
+```
+
 25. <em>is_object_array()</em> or as getter method <em>isObjectArray</em> - checks if the value property is array of object - type elements and sets the answer property appropriately. The method is available from versions 3.x.x
 26. is_array_with_elements_that_satisfy({condition: string}) - if the value property is array, checks if every element satisfies the functional condition and if the condition returns true for each element of the array, sets the answer property to true. In all other cases sets the answer to false. This method is deprecated and if the user wants to make condition testing of an array, he may use the is_array_and_for_every() or is_array_and_for_any() methods.
 
