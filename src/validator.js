@@ -1943,41 +1943,41 @@ class validator {
             if (is_first_item_array) {
                 for (i = 0;i < n >> 2;i++) {
                     j = i << 2;
-                    if (new validator(this.value[0]).isIntegerArray.answer) {
+                    if (!new validator(this.value[0]).isIntegerArray.answer) {
                         this.#question = false;
                         break;
                     }
                     ++j;
-                    if (new validator(this.value[0]).isIntegerArray.answer) {
+                    if (!new validator(this.value[0]).isIntegerArray.answer) {
                         this.#question = false;
                         break;
                     }
                     ++j;
-                    if (new validator(this.value[0]).isIntegerArray.answer) {
+                    if (!new validator(this.value[0]).isIntegerArray.answer) {
                         this.#question = false;
                         break;
                     }
                     ++j;
-                    if (new validator(this.value[0]).isIntegerArray.answer) {
+                    if (!new validator(this.value[0]).isIntegerArray.answer) {
                         this.#question = false;
                         break;
                     }
                 }
                 if (this.#question && (n % 4 >= 3)) {
                     j = n - 3;
-                    if (new validator(this.value[0]).isIntegerArray.answer) {
+                    if (!new validator(this.value[0]).isIntegerArray.answer) {
                         this.#question = false;
                     }
                 }
                 if (this.#question && (n % 4 >= 2)) {
                     j = n - 2;
-                    if (new validator(this.value[0]).isIntegerArray.answer) {
+                    if (!new validator(this.value[0]).isIntegerArray.answer) {
                         this.#question = false;
                     }
                 }
                 if (this.#question && (n % 4 >= 1)) {
                     j = n - 1;
-                    if (new validator(this.value[0]).isIntegerArray.answer) {
+                    if (!new validator(this.value[0]).isIntegerArray.answer) {
                         this.#question = false;
                     }
                 }
