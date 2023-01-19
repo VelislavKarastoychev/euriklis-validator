@@ -445,3 +445,158 @@ new validator(arr).Not.isArrayOfNegativeNumbers
     .on(true, () => console.log('Correct'))
     .on(false, () => console.log('Something went wrong!'))
 ```
+
+From version 3.1.0 was added new methods for array structures validation.
+
+60. <em>is_array_of_integers_in_range(lower_bound, upper_bound)</em>.
+
+The method sets the answer property to true if the value property is an array and in addition if every item of the array is integer which lies in the open interval (lower_bound, upper_bound). If the ***lower_bound*** ≥ ***upper_bound*** the method will throws an error message.
+
+Example:
+
+```js
+const int_array = Array.from({length: 100}).map(el => ((Math.random() * 100) >> 0));
+new validator(int_array).is_array_of_integers_in_range(0, 100)
+    .on(true, () => {
+        console.log('Array of integers in which every number lies in the interval (0, 1).')
+    }).on(false, () => console.log('Something went wrong!'));
+```
+61. <em>is_array_of_integers_in_closed_range(lower_bound, upper_bound)</em>.
+
+The method sets the answer property to true if the value property is an array and in addition if every item of the array is integer which lies in the closed interval [lower_bound, upper_bound]. If the ***lower_bound*** ≥ ***upper_bound*** the method will throws an error message.
+
+Example:
+
+```js
+const int_array = Array.from({length: 100}).map(el => ((Math.random() * 100) >> 0));
+int_array.push(0);
+int_array.push(100);
+new validator(int_array).is_array_of_integers_in_closed_range(0, 100)
+    .on(true, () => {
+        console.log('Array of integers in which every number lies in the interval [0, 1].')
+    }).on(false, () => console.log('Something went wrong!'));
+```
+62. <em>is_array_of_numbers_in_range(lower_bound, upper_bound)</em>.
+
+This method sets the answer property to true if the current validator value property is an array of numbers and in addition every item (number) of the array lies in the open interval (lower_bound, upper_bound).
+
+If the ***lower_bound*** ≥ ***upper_bound*** , then an error message will be thrown because of incorrect input parameters.
+
+Example: 
+
+```js
+const array = Array.from({length: 100}).map(Math.random);
+new validator(array).is_array_of_numbers_in_range(0, 1)
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong!'));
+```
+63.  <em>is_array_of_numbers_in_closed_range(lower_bound, upper_bound)</em>.
+
+This method sets the answer property to true if the current validator value property is an array of numbers and in addition every item (number) of the array lies in the closed interval [lower_bound, upper_bound].
+
+If the ***lower_bound*** ≥ ***upper_bound***, then the method will throws an error message for incorrect input parameters.
+
+Example: 
+
+```js
+const array = Array.from({length: 100}).map(Math.random);
+new validator(array).is_array_of_numbers_in_closed_range(0, 1)
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong!'));
+```
+64. <em>is_array_of_functions()</em> or as getter <em>isArrayOfFunctions</em>.
+
+This method sets the answer property of the current validator instance to true, if the value property is an array, each element of which is a function type. 
+
+Example: 
+
+```js
+const f_collection = [() => 'Hello world', () => 'Hello function', () => 'HelloIsArrayOfFunctions method!'];
+new validator(f_collection).isArrayOfFunctions
+    .Or.is_array_of_functions()
+    .on(true, () => console.log('Correct!'))
+    .on(false, () => console.log('Something went wrong!!!'));
+```
+
+65. <em>is_array_of_arrays_with_equal_size()</em> or as getter <em>isArrayOfArraysWithEqualSize</em>.
+
+This method checks if the current validator instance value property is an array and if every element of that array is also array and all the elements have the same length.
+
+Example: 
+
+```js
+const array = [
+    ['a', 'b', 'c'],
+    [() => console.log('a'), [() => console.log('b')], 'c'],
+    [1, 2, 3]
+];
+new validator(array).is_array_of_arrays_with_equal_size()
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong!'));
+```
+
+66. <em>is_array_of_number_arrays()</em> or as getter <em>isArrayOfNumberArrays</em>.
+
+This method sets the answer property of the current validator instance to true if the value property is array and every element of this array is number array.
+
+Example:
+
+```js
+const arr = Array.from({length: 10})
+    .map(el => {
+        return Array.from({length: 10}).map(Math.random())
+    });
+new validator(arr).isArrayOfNumberArrays
+    .on(true, () => console.log('Correct!'))
+    .on(false, () => console.log('Something went wrong!'));
+```
+
+67. <em>is_array_of_number_arrays_with_equal_size()</em> or as getter <em>isArrayOfArraysWithEqualSize</em>.
+
+This method sets the answer property of the current validator instance to true if the value property if an array which have elements which are numeric arrays with the same length.
+
+Example: The previous example can be also applied here, with the observation that in the previous example the method will return true even the arrays are not with equal size.
+
+```js
+const matrix = Array.from({length: 10})
+    .map(el => {
+        return el = Array.from({length: 10}).map(Math.random);
+    });
+new validator(matrix).isArrayOfNumberArraysWithEqualSize
+    .on(true, () => console.log('Correct!'))
+    .on(false, () => console.log('Something went wrong!!!'));
+```
+
+68. <em>is_array_of_integer_arrays()</em> or as getter method <em>isArrayOfIntegerArrays</em>.
+
+This method sets the answer property to true of the current validator instance if the value property is array with elements which are integer arrays. The length of the array elements does not matter.
+
+Example: 
+
+```js
+const arr = [
+    [1, 2, 3],
+    [44,441],
+    [1, 2, 56, 985],
+    [8]
+];
+new validator(arr).isArrayOfIntegerArrays
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong!'));
+```
+
+69. <em>is_array_of_integer_arrays_with_equal_size()</em> or as getter <em>isArrayOfIntegerArraysWithEqualSize</em>.
+
+This method sets the answer of the current validator instance to true if the value property is an array which elements are integer arrays with equal length. 
+
+```js
+const intMatrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+new validator(intMatrix).isArrayOfIntegerArraysWithEqualSize
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong!'));
+```
+
