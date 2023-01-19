@@ -2040,7 +2040,7 @@ class validator {
         return this.#set_answer();
     }
     is_array_of_string_arrays() { return this.isArrayOfStringArrays; }
-    get isArrayOfStringArrays() {``
+    get isArrayOfStringArrays() {
         this.#question = true;
         if (this.copy().isArray.answer) {
             const is_first_item_array = new validator(this.value[0]).isArray.answer;
