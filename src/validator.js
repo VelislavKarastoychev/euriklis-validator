@@ -2020,7 +2020,7 @@ class validator {
                 }
                 if (this.#question && (n % 4 >= 3)) {
                     j = n - 3;
-                    console.log(new validator(this.value[j]).isIntegerArray.And.has_length(m).answer)
+                    console.log(new validator(this.value[j]).isIntegerArray.answer)
                     if (!new validator(this.value[j]).isIntegerArray.And.has_length(m).answer) {
                         this.#question = false;
                     }
