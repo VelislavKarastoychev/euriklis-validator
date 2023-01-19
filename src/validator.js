@@ -1994,6 +1994,7 @@ class validator {
             const n = this.value.length;
             if (is_first_item_array) {
                 const m = this.value[0].length;
+                console.log(m)
                 let i, j;
                 for (i = 0;i < n >> 2;i++) {
                     j = i << 2;
@@ -2019,6 +2020,7 @@ class validator {
                 }
                 if (this.#question && (n % 4 >= 3)) {
                     j = n - 3;
+                    console.log(new validator(this.value[j]).isIntegerArray.And.has_length(m).answer)
                     if (!new validator(this.value[j]).isIntegerArray.And.has_length(m).answer) {
                         this.#question = false;
                     }
