@@ -1941,6 +1941,7 @@ class validator {
             const is_first_item_array = new validator(this.value[0]).isArray.answer;
             const n = this.value.length;
             if (is_first_item_array) {
+                let i, j;
                 for (i = 0;i < n >> 2;i++) {
                     j = i << 2;
                     if (!new validator(this.value[0]).isIntegerArray.answer) {
