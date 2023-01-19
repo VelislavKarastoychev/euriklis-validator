@@ -925,19 +925,19 @@ class validator {
             }
             if (this.#question && (n % 4 >= 3)) {
                 j = n - 3;
-                if (typeof this.value[j] !== 'number' || Number.isInteger(this.value[j])) {
+                if (typeof this.value[j] !== 'number' || !Number.isInteger(this.value[j])) {
                     this.#question = false;
                 }
             }
             if (this.#question && (n % 4 >= 2)) {
                 j = n - 2;
-                if (typeof this.value[j] !== 'number' || Number.isInteger(this.value[j])) {
+                if (typeof this.value[j] !== 'number' || !Number.isInteger(this.value[j])) {
                     this.#question = false;
                 }
             }
             if (this.#question && (n % 4 >= 1)) {
                 j = n - 1;
-                if (typeof this.value[j] !== 'number' || Number.isInteger(this.value[j])) {
+                if (typeof this.value[j] !== 'number' || !Number.isInteger(this.value[j])) {
                     this.#question = false;
                 }
             }
@@ -2020,7 +2020,7 @@ class validator {
                 }
                 if (this.#question && (n % 4 >= 3)) {
                     j = n - 3;
-                    console.log(new validator(this.value[j]).value)
+                    console.log(new validator(this.value[j]).isIntegerArray.answer)
                     if (!new validator(this.value[j]).isIntegerArray.And.has_length(m).answer) {
                         this.#question = false;
                     }
