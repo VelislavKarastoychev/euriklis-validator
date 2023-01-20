@@ -655,6 +655,8 @@ new validator(array_of_string_arrays).isArrayOfStringArraysWithEqualSize
 
 This method sets the answer property of the current validator instance to true if the value property is an array with boolean elements. 
 
+Example:
+
 ```js
 const booleanArray = Array.from({ length: 20}).map(el => Math.random() > 0.5 ? true : false);
 new validator(booleanArray).isBooleanArray
