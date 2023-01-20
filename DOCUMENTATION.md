@@ -650,3 +650,14 @@ new validator(array_of_string_arrays).isArrayOfStringArraysWithEqualSize
     .on(true, () => console.log('Correct!!!'))
     .on(false, () => console.log('Something went wrong');)
 ```
+
+72. <em>is_boolean_array()</em> or as getter method <em>isBooleanArray</em>.
+
+This method sets the answer property of the current validator instance to true if the value property is an array with boolean elements. 
+
+```js
+const booleanArray = Array.from({ length: 20}).map(el => Math.random() > 0.5 ? true : false);
+new validator(booleanArray).isBooleanArray
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong!'));
+```
