@@ -617,3 +617,36 @@ new validator(intMatrix).isArrayOfIntegerArraysWithEqualSize
     .on(false, () => console.log('Something went wrong!'));
 ```
 
+70. <em>is_array_of_string_arrays()</em> or as getter method <em>isArrayOfStringArrays</em>.
+
+This method sets the answer property of the current validator instance to true if the value property is an array of string arrays.
+
+Example:
+
+```js
+const array_of_str_arrays = [
+    ['hello', 'world'],
+    ['this', 'is', 'a', 'sentence'],
+    ['This', 'is', 'another', 'sentence.']
+];
+new validator(array_of_str_arrays).isArrayOfStringArrays
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong!'))
+```
+
+71. <em>is_array_of_string_arrays_with_equal_size()</em> or as getter method <em>isArrayOfStringArraysWithEqualSize</em>.
+
+This method sets the answer property of the current validator instance to true if the value property is an array which elements are string arrays with equal length.
+
+Example:
+
+```js
+const array_of_string_arrays = [
+    ['This', 'is', 'a', 'text'],
+    ['1', '2', '3', '4'],
+    ['this', 'is', 'a', 'sentence.'],
+]
+new validator(array_of_string_arrays).isArrayOfStringArraysWithEqualSize
+    .on(true, () => console.log('Correct!!!'))
+    .on(false, () => console.log('Something went wrong');)
+```
