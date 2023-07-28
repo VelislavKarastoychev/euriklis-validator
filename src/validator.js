@@ -252,7 +252,7 @@ class validator {
      * or can be floating point number or integer number.
      */
     is_number() {
-        this.#question = (typeof this.value === 'number') && !isNaN(this.value);
+        this.#question = models.IsNumber(this.value);
         return this.#set_answer();
     }
     /**
@@ -273,7 +273,7 @@ class validator {
      * property. 
      */
     is_integer() {
-        this.#question = (typeof this.value === 'number') && (Number.isInteger(this.value));
+        this.#question = models.IsInteger(this.value);
         return this.#set_answer();
     }
     /**
