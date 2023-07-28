@@ -231,7 +231,7 @@ class validator {
      * fulfilled, otherwise returns false.
      */
     is_string() {
-        this.#question = typeof this.value === 'string';
+        this.#question = models.IsString(this.value);
         return this.#set_answer();
     }
     /**
