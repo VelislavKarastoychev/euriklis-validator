@@ -2,6 +2,7 @@
 export { IsBoolean } from "./IsBoolean.js";
 export { IsInteger } from "./IsInteger.js";
 export { IsIntegerLike } from "./IsIntegerLike.js";
+export { IsNegativeIntegerLike } from "./IsNegativeIntegerLike.js";
 export { IsNegativeNumberLike } from "./IsNegativeNumberLike.js";
 export { IsNumber } from "./IsNumber.js";
 export { IsNumberLike } from "./IsNumberLike.js";
