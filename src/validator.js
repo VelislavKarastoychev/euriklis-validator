@@ -1,6 +1,7 @@
 'use strict';
 import * as errors from './Errors/index.js'
 import * as warnings from './Warnings/index.js';
+import * as models from './Models/index.js';
 const author = 'Velislav S. Karastoychev';
 const version = '3.0.0';
 class validator {
@@ -191,7 +192,7 @@ class validator {
      * returns false. 
      */
     is_undefined() {
-        let q = typeof this.value === 'undefined';
+        let q = models.IsUndefined(this.value);
         this.#question = q;
         return this.#set_answer();
     }
@@ -210,7 +211,7 @@ class validator {
      * of the current validator instance is of boolean type.
      */
     is_boolean() {
-        this.#question = typeof this.value === 'boolean';
+        this.#question = models.IsBoolean(this.value);
         return this.#set_answer();
     }
     /**
