@@ -5,5 +5,6 @@ export { IsIntegerLike } from "./IsIntegerLike.js";
 export { IsNegativeNumberLike } from "./IsNegativeNumberLike.js";
 export { IsNumber } from "./IsNumber.js";
 export { IsNumberLike } from "./IsNumberLike.js";
+export { IsPositiveNumberLike } from "./IsPositiveNumberLike.js";
 export { IsString } from "./IsString.js";
 export { IsUndefined } from "./IsUndefined.js";
