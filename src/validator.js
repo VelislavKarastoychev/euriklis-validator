@@ -511,9 +511,7 @@ class validator {
    * @returns {validator}
    */
   is_negative_integer_like() {
-    this.#question = !isNaN(this.value)
-      ? Number.isInteger(+this.copy().value) && (+this.copy().value < 0)
-      : false;
+    this.#question = models.IsNegativeIntegerLike(this.value);
     return this.#set_answer();
   }
   /**
@@ -536,9 +534,7 @@ class validator {
    * @returns {validator}
    */
   is_positive_integer_like() {
-    this.#question = !isNaN(this.value)
-      ? Number.isInteger(+this.copy().value) && (+this.copy().value >= 0)
-      : false;
+    this.#question = models.IsPositiveIntegerLike(this.value);
     return this.#set_answer();
   }
   /**
@@ -695,7 +691,7 @@ class validator {
    * false respectively.
    */
   is_array() {
-    this.#question = this.value instanceof Array;
+    this.#question = models.IsArray(this.value);
     return this.#set_answer();
   }
   /**
