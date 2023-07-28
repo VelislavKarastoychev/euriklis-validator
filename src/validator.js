@@ -488,7 +488,7 @@ class validator {
    * @returns {validator}
    */
   is_positive_number_like() {
-    this.#question = !isNaN(this.value) ? +this.copy().value >= 0 : false;
+    this.#question = models.IsPositiveNumberLike(this.value);
     return this.#set_answer();
   }
   /**
