@@ -1,13 +1,13 @@
 "use strict";
 /**
- * Tests if an array is contained from boolean elements.
+ * Tests if an array contains only boolean elements.
  * Utility function for the isBooleanArray method.
  * @param {Array.<boolean>} value
- * @param {boolean} question
+ * @returns {boolean}
  */
-export const IsBooleanArray = (value, question) => {
+export const IsBooleanArray = (value) => {
   const n = value.length;
-  let i, j;
+  let i, j, question = true;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (typeof value[j] !== "boolean") {
@@ -48,4 +48,6 @@ export const IsBooleanArray = (value, question) => {
       question = false;
     }
   }
+  return question;
 };
+
