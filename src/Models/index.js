@@ -1,13 +1,16 @@
 "use strict";
+export { Benchmark } from "./Benchmark.js";
 export { IsArray } from "./IsArray.js";
 export { IsBoolean } from "./IsBoolean.js";
+export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsInteger } from "./IsInteger.js";
 export { IsIntegerLike } from "./IsIntegerLike.js";
 export { IsNegativeIntegerLike } from "./IsNegativeIntegerLike.js";
 export { IsNegativeNumberLike } from "./IsNegativeNumberLike.js";
 export { IsNumber } from "./IsNumber.js";
 export { IsNumberLike } from "./IsNumberLike.js";
-export { IsPositiveIntegerLike } from "./IsPositiveIntegerLike.js";
-export { IsPositiveNumberLike } from "./IsPositiveNumberLike.js";
+export { IsPositiveIntegerLike } from "./IsPositiveIntegerLike.js"; 
+export { IsPositiveNumberLike } from "./IsPositiveNumberLike.js"; 
 export { IsString } from "./IsString.js";
+export { IsStringArray } from "./IsStringArray.js";
 export { IsUndefined } from "./IsUndefined.js";
