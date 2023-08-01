@@ -185,6 +185,26 @@ class validator {
     return this;
   }
   /**
+   * A callback function which will be executed
+   * from the validator benchmark method in order
+   * to measure its performance.
+   * 
+   * @callback benchmarkCallback
+   * @param {any} parameters the value of the current
+   * validator instance.
+   **/
+  /**
+   * @param {benchmarkCallback} f a functin which will
+   * be executed "iteration" times.
+   * @param {number} iterations - a positive integer, which
+   * is set to 100 by default. The number of iterations needed
+   * to measure the benchmark of the benchmark callback function.
+   * @returns {{mean: number, std: number}}
+   **/
+  benchmark (f, iterations = 100) {
+    return models.Benchmark(this.value, f, iterations);
+  }
+  /**
    * @method is_undefined()
    * @returns {validator}
    * @description this method checks if the
@@ -296,8 +316,11 @@ class validator {
    * than 0.
    */
   is_positive_integer() {
-    this.#question =
-      this.copy().isInteger.And.is_equal_or_bigger_than(0).answer;
+    this.#question = this.copy()
+      .isInteger
+      .And
+      .is_equal_or_bigger_than(0)
+      .answer;
     return this.#set_answer();
   }
   /**
@@ -320,7 +343,11 @@ class validator {
    * instance integer which is smaller than 0.
    */
   is_negative_integer() {
-    this.#question = this.copy().isInteger.And.is_lesser_than(0).answer;;
+    this.#question = this.copy()
+      .isInteger
+      .And
+      .is_lesser_than(0)
+      .answer;
     return this.#set_answer();
   }
   /**
@@ -371,7 +398,9 @@ class validator {
         warnings.IncorrectValueInIsNegative();
       }
     });
-    this.#quetion = this.copy().is_lesser_than(0).answer;;
+    this.#quetion = this.copy()
+      .is_lesser_than(0)
+      .answer;
     return this.#set_answer();
   }
   /**
@@ -397,7 +426,9 @@ class validator {
     this.copy().isNumber.on(false, () => {
       if (this.show_warnings) warnings.IncorrectValueInIsPositive();
     });
-    this.#question = this.copy().is_equal_or_bigger_than(0).answer;
+    this.#question = this.copy()
+      .is_equal_or_bigger_than(0)
+      .answer;
     return this.#set_answer();
   }
   /**
@@ -586,7 +617,7 @@ class validator {
     if (new validator(a).Not.isNumber.answer) {
       errors.IncorrectArgumentInIsLesserThan();
     }
-    this.copy().is_number()
+    this.copy().isNumber
       .on(true, () => this.#question = this.value < a)
       .on(false, () => this.#question = false);
     return this.#set_answer();
@@ -594,7 +625,7 @@ class validator {
   /**
    * @method is_in_range(a, b)
    * @param {number} a a real number that has to
-   * be smaller than to the value property
+   * be smaller than the value property
    * of the current validator instance.
    * @param {number} b a real number that has to be
    * greater than the value property of the current
@@ -721,48 +752,7 @@ class validator {
   get isBooleanArray() {
     this.#question = true;
     if (this.copy().isArray.answer) {
-      const n = this.value.length;
-      let i, j;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (typeof this.value[j] !== "boolean") {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "boolean") {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "boolean") {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "boolean") {
-          this.#question = false;
-          break;
-        }
-      }
-      if (this.#question && (n % 4 >= 3)) {
-        j = n - 3;
-        if (typeof this.value[j] !== "boolean") {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 2)) {
-        j = n - 2;
-        if (typeof this.value[j] !== "boolean") {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 1)) {
-        j = n - 1;
-        if (typeof this.value[j] !== "boolean") {
-          this.#question = false;
-        }
-      }
+      models.IsBooleanArray(this.value, this.#question);
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -790,49 +780,10 @@ class validator {
    * approach.
    */
   get isStringArray() {
-    let i, j, n;
     this.#question = true;
-    this.copy().isArray.on(true, () => {
-      // check if some element is not string...
-      n = this.value.length;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (typeof this.value[j] !== "string") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-        ++j;
-        if (typeof this.value[j] !== "string") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-        ++j;
-        if (typeof this.value[j] !== "string") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-        ++j;
-        if (typeof this.value[j] !== "string") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-      }
-      if (this.#question && n % 4 >= 1) {
-        j = n - 1;
-        if (typeof this.value[j] !== "string") this.#question = false;
-        else this.#question = true;
-      }
-      if (this.#question && n % 4 >= 2) {
-        j = n - 2;
-        if (typeof this.value[j] !== "string") this.#question = false;
-        else this.#question = true;
-      }
-      if (this.#question && n % 4 >= 3) {
-        j = n - 3;
-        if (typeof this.value[j] !== "string") this.#question = false;
-        else this.#question = true;
-      }
-    }).on(false, () => this.#question = false);
+    if (this.copy().isArray.answer){
+      models.IsStringArray(this.value, this.#question);
+    } else this.#question = false;
     return this.#set_answer();
   }
 
