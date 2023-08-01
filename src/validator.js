@@ -398,7 +398,7 @@ class validator {
         warnings.IncorrectValueInIsNegative();
       }
     });
-    this.#quetion = this.copy()
+    this.#question = this.copy()
       .is_lesser_than(0)
       .answer;
     return this.#set_answer();
