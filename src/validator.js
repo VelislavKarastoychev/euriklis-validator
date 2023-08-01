@@ -750,9 +750,8 @@ class validator {
    * @returns {validator}
    */
   get isBooleanArray() {
-    this.#question = true;
     if (this.copy().isArray.answer) {
-      models.IsBooleanArray(this.value, this.#question);
+      this.#question = models.IsBooleanArray(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
