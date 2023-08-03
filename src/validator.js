@@ -188,11 +188,11 @@ class validator {
    * A callback function which will be executed
    * from the validator benchmark method in order
    * to measure its performance.
-   * 
+   *
    * @callback benchmarkCallback
    * @param {any} parameters the value of the current
    * validator instance.
-   **/
+   */
   /**
    * @param {benchmarkCallback} f a functin which will
    * be executed "iteration" times.
@@ -200,8 +200,8 @@ class validator {
    * is set to 100 by default. The number of iterations needed
    * to measure the benchmark of the benchmark callback function.
    * @returns {{mean: number, std: number}}
-   **/
-  benchmark (f, iterations = 100) {
+   */
+  benchmark(f, iterations = 100) {
     return models.Benchmark(this.value, f, iterations);
   }
   /**
@@ -595,10 +595,9 @@ class validator {
     if (new validator(a).Not.isNumber.answer) {
       errors.IncorrectArgumentInIsBiggerThan();
     }
-    this.copy().is_number()
-      .on(true, () => {
-        this.#question = this.value > a;
-      }).on(false, () => this.#question = false);
+    if (this.copy().isNumber.answer) {
+      this.#question = this.value > a;
+    } else this.#question = false;
     return this.#set_answer();
   }
   /**
@@ -617,9 +616,9 @@ class validator {
     if (new validator(a).Not.isNumber.answer) {
       errors.IncorrectArgumentInIsLesserThan();
     }
-    this.copy().isNumber
-      .on(true, () => this.#question = this.value < a)
-      .on(false, () => this.#question = false);
+    if (this.copy().isNumber.answer) {
+      this.#question = this.value < a;
+    } else this.#question = false;
     return this.#set_answer();
   }
   /**
@@ -642,10 +641,10 @@ class validator {
     }
     if (a >= b) errors.IncorrectArgumentsInIsInRange();
     this.#question = this.copy()
-      .is_number()
-      .and()
+      .isNumber
+      .And
       .is_bigger_than(a)
-      .and()
+      .And
       .is_lesser_than(b).answer;
     return this.#set_answer();
   }
@@ -668,8 +667,8 @@ class validator {
     }
     if (a >= b) errors.IncorrectArgumentsInIsInClosedRange();
     this.#question = this.copy()
-      .is_equal_or_lesser_than(b).and()
-      .is_equal_or_bigger_than(a).answer;
+      .is_equal_or_lesser_than(b)
+      .And.is_equal_or_bigger_than(a).answer;
     return this.#set_answer();
   }
   /**
@@ -751,7 +750,7 @@ class validator {
    */
   get isBooleanArray() {
     if (this.copy().isArray.answer) {
-      this.#question = models.IsBooleanArray(this.value);
+      this.#question = models.IsBooleanArray(this.value, this.#question);
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -772,16 +771,15 @@ class validator {
    * @method isStringArray
    * @returns {validator}
    * @description this method is the getter variant of the
-   * is_string_array() method of the validator library.
+   * is_string_array() kkkmethod of the validator library.
    * Note that this method is faster than the equivalent
    * is_string_array() normal method. In this case we do not
    * recall the corresponded method but implement an other
    * approach.
    */
   get isStringArray() {
-    this.#question = true;
-    if (this.copy().isArray.answer){
-      models.IsStringArray(this.value, this.#question);
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsStringArray(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -808,50 +806,9 @@ class validator {
    * because we use different approach.
    */
   get isNumberArray() {
-    let i, j, n;
-    this.#question = true;
-    this.copy().isArray.on(true, () => {
-      // check if some element of the array
-      // is not number.
-      n = this.value.length;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (this.#question && typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-        ++j;
-        if (this.#question && typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-        ++j;
-        if (this.#question && typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-        ++j;
-        if (this.#question && typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else this.#question = true;
-      }
-      if (this.#question && n % 4 >= 1) {
-        j = n - 1;
-        if (typeof this.value[j] !== "number") this.#question = false;
-        else this.#question = true;
-      }
-      if (this.#question && n % 4 >= 2) {
-        j = n - 2;
-        if (typeof this.value[j] !== "number") this.#question = false;
-        else this.#question = true;
-      }
-      if (this.#question && n % 4 >= 3) {
-        j = n - 3;
-        if (typeof this.value[j] !== "number") this.#question = false;
-        else this.#question = true;
-      }
-    }).on(false, () => this.#question = false);
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsNumberArray(this.value);
+    } else this.#question = false;
     return this.#set_answer();
   }
   /**
@@ -874,63 +831,8 @@ class validator {
    */
   get isIntegerArray() {
     this.#question = true;
-    let cp_arr = this.copy(), i, j;
-    if (cp_arr.isArray.answer) {
-      const n = this.value.length;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (
-          typeof this.value[j] !== "number" || !Number.isInteger(this.value[j])
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (
-          typeof this.value[j] !== "number" || !Number.isInteger(this.value[j])
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (
-          typeof this.value[j] !== "number" || !Number.isInteger(this.value[j])
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (
-          typeof this.value[j] !== "number" || !Number.isInteger(this.value[j])
-        ) {
-          this.#question = false;
-          break;
-        }
-      }
-      if (this.#question && (n % 4 >= 3)) {
-        j = n - 3;
-        if (
-          typeof this.value[j] !== "number" || !Number.isInteger(this.value[j])
-        ) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 2)) {
-        j = n - 2;
-        if (
-          typeof this.value[j] !== "number" || !Number.isInteger(this.value[j])
-        ) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 1)) {
-        j = n - 1;
-        if (
-          typeof this.value[j] !== "number" || !Number.isInteger(this.value[j])
-        ) {
-          this.#question = false;
-        }
-      }
+    if (this.copy().isArray.answer) {
+     this.#question = models.IsIntegerArray(this.value); 
     } else this.#question = false;
     return this.#set_answer();
   }
