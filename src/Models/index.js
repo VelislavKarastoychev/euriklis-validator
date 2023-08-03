@@ -1,6 +1,7 @@
 "use strict";
-export { Benchmark } from "./Benchmark.js";
 export { IsArray } from "./IsArray.js";
+export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js"
+export { Benchmark } from "./Benchmark.js";
 export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsInteger } from "./IsInteger.js";
