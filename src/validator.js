@@ -902,68 +902,8 @@ class validator {
    */
   get isArrayOfPositiveNumbers() {
     this.#question = true;
-    const cp_instance = this.copy();
-    let i, j;
-    if (cp_instance.isArray.answer) {
-      const n = cp_instance.value.length;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] < 0) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] < 0) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] < 0) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] < 0) {
-          this.#question = false;
-          break;
-        }
-      }
-      if (this.#question && (n % 4 >= 3)) {
-        j = n - 3;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (this.value[j] < 0) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 2)) {
-        j = n - 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (this.value[j] < 0) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 1)) {
-        j = n - 1;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (this.value[j] < 0) {
-          this.#question = false;
-        }
-      }
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfPositiveNumbers(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
