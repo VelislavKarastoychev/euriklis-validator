@@ -1,6 +1,7 @@
 "use strict";
 export { IsArray } from "./IsArray.js";
 export { IsArrayOfNegativeIntegers } from "./IsArrayOfNegativeIntegers.js";
+export { IsArrayOfNegativeNumbers } from "./IsArrayOfNegativeNumbers.js";
 export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js"
 export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { Benchmark } from "./Benchmark.js";
