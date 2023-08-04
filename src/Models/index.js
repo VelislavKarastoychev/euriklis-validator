@@ -2,6 +2,7 @@
 export { IsArray } from "./IsArray.js";
 export { IsArrayOfNegativeIntegers } from "./IsArrayOfNegativeIntegers.js";
 export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js"
+export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { Benchmark } from "./Benchmark.js";
 export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
