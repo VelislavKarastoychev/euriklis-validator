@@ -832,7 +832,7 @@ class validator {
   get isIntegerArray() {
     this.#question = true;
     if (this.copy().isArray.answer) {
-     this.#question = models.IsIntegerArray(this.value); 
+      this.#question = models.IsIntegerArray(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -940,96 +940,13 @@ class validator {
    * integer in the open interval (a, b).
    */
   is_array_of_integers_in_range(a, b) {
-    this.#question = true;
     new validator(a).isInteger
       .And.bind(new validator(b).isInteger)
       .And.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfIntegersInRange());
     if (this.copy().Not.isArray.answer) this.#question = false;
-    else {
-      const n = this.value.length;
-      let i, j;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) ||
-          (this.value[j] <= a || this.value[j] >= b)
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) ||
-          (this.value[j] <= a || this.value[j] >= b)
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) ||
-          (this.value[j] <= a || this.value[j] >= b)
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) ||
-          (this.value[j] <= a || this.value[j] >= b)
-        ) {
-          this.#question = false;
-          break;
-        }
-      }
-      if ((n % 4 >= 3) && this.#question) {
-        j = n - 3;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) ||
-          (this.value[j] <= a || this.value[j] >= b)
-        ) {
-          this.#question = false;
-        }
-      }
-      if ((n % 4 >= 2) && this.#question) {
-        j = n - 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) ||
-          (this.value[j] <= a || this.value[j] >= b)
-        ) {
-          this.#question = false;
-        }
-      }
-      if ((n % 4 >= 1) && this.#question) {
-        j = n - 1;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) ||
-          (this.value[j] <= a || this.value[j] >= b)
-        ) {
-          this.#question = false;
-        }
-      }
-    }
+    else this.#question = models.IsArrayOfIntegersInRange(this.value, a, b);
     return this.#set_answer();
   }
   /**
@@ -3206,9 +3123,13 @@ class validator {
     return this.#set_answer();
   }
   /**
+   * @callback eventCallback
+   * @param {validator} value - the current validator property.
+   */
+  /**
    * @method on()
    * @param {boolean} state - true or false
-   * @param {function(validator)} callback
+   * @param {eventCallback} callback
    * the function that will be run when the condition of the
    * answer property has value equals to state.
    * @returns {validator}
@@ -3218,15 +3139,15 @@ class validator {
    */
   on(state, callback) {
     let incorrectState = new validator(state)
-      .not()
-      .is_boolean()
-      .and().not()
+      .Not
+      .isBoolean
+      .And.Not
       .is_same("true")
-      .and().not()
+      .And.Not
       .is_same("false")
       .answer;
     let incorrectFunction = new validator(callback)
-      .not().is_function()
+      .Not.isFunction
       .answer;
     if (!incorrectState && !incorrectFunction) {
       if (state === this.answer) {
