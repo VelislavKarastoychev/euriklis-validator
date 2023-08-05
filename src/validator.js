@@ -986,70 +986,8 @@ class validator {
       .And.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfNumbersInRange());
-    this.#question = true;
-    // check if every element of the array is a number
-    // which belong in the open interval (a, b):
     if (this.copy().isArray.answer) {
-      const n = this.value.length;
-      let i, j;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] <= a || this.value[j] >= b) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] <= a || this.value[j] >= b) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] <= a || this.value[j] >= b) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (this.value[j] <= a || this.value[j] >= b) {
-          this.#question = false;
-          break;
-        }
-      }
-      if ((n % 4 >= 3) && this.#question) {
-        j = n - 3;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (this.value[j] <= a || this.value[j] >= b) {
-          this.#question = false;
-        }
-      }
-      if ((n % 4 >= 2) && this.#question) {
-        j = n - 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (this.value[j] <= a || this.value[j] >= b) {
-          this.#question = false;
-        }
-      }
-      if ((n % 4 >= 1) && this.#question) {
-        j = n - 1;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (this.value[j] <= a || this.value[j] >= b) {
-          this.#question = false;
-        }
-      }
+      this.#question = models.IsArrayOfNumbersInRange(this.value, a, b);
     } else this.#question = false;
     return this.#set_answer();
   }
