@@ -960,97 +960,15 @@ class validator {
    * arbitrary NUMBER$S.
    */
   is_array_of_integers_in_closed_range(a, b) {
-    new validator(a).isNumber
-      .And.bind(new validator(b).isNumber)
+    new validator([a, b]).isNumberArray
       .And.bind(
         new validator(a).is_lesser_than(b),
       ).on(
         false,
         () => errors.IllegalParametersInIsArrayOfIntegersInClosedRange(),
       );
-    this.#question = true;
     if (this.copy().isArray.answer) {
-      const n = this.value.length;
-      let i, j;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) || this.value[j] < a ||
-          this.value[j] > b
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) || this.value[j] < a ||
-          this.value[j] > b
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) || this.value[j] < a ||
-          this.value[j] > b
-        ) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-          break;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) || this.value[j] < a ||
-          this.value[j] > b
-        ) {
-          this.#question = false;
-          break;
-        }
-      }
-      if (this.#question && (n % 4 >= 3)) {
-        j = n - 3;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) || this.value[j] < a ||
-          this.value[j] > b
-        ) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 2)) {
-        j = n - 2;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) || this.value[j] < a ||
-          this.value[j] > b
-        ) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 1)) {
-        j = n - 1;
-        if (typeof this.value[j] !== "number") {
-          this.#question = false;
-        } else if (
-          this.value[j] !== (this.value[j] | 0) || this.value[j] < a ||
-          this.value[j] > b
-        ) {
-          this.#question = false;
-        }
-      }
+      this.#question = models.IsArrayOfIntegersInClosedRange(this.value, a, b);
     } else this.#question = true;
     return this.#set_answer();
   }
