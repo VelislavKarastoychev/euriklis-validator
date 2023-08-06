@@ -1,5 +1,6 @@
 "use strict";
 export { IsArray } from "./IsArray.js";
+export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
 export { IsArrayOfIntegersInClosedRange } from "./IsArrayOfIntegersInClosedRange.js";
 export { IsArrayOfIntegersInRange } from "./IsArrayOfIntegersInRange.js";
 export { IsArrayOfNegativeIntegers } from "./IsArrayOfNegativeIntegers.js";
