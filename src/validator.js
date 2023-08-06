@@ -1032,50 +1032,8 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfFunctions() {
-    this.#question = true;
     if (this.copy().isArray.answer) {
-      const n = this.value.length;
-      let i, j;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (typeof this.value[j] !== "function") {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "function") {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "function") {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (typeof this.value[j] !== "function") {
-          this.#question = false;
-          break;
-        }
-      }
-      if ((n % 4 >= 3) && this.#question) {
-        j = n - 3;
-        if (typeof this.value[j] !== "function") {
-          this.#question = false;
-        }
-      }
-      if ((n % 4 >= 2) && this.#question) {
-        j = n - 2;
-        if (typeof this.value[j] !== "function") {
-          this.#question = false;
-        }
-      }
-      if ((n % 4 >= 1) && this.#question) {
-        j = n - 1;
-        if (typeof this.value[j] !== "function") {
-          this.#question = false;
-        }
-      }
+      this.#question = models.IsArrayOfFunctions(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
