@@ -1057,50 +1057,8 @@ class validator {
    * of which is object.
    */
   get isObjectArray() {
-    this.#question = true;
-    let i, j, cp_arr = this.copy();
-    if (cp_arr.isArray.answer) {
-      const n = this.value.length;
-      for (i = 0; i < n >> 2; i++) {
-        j = i << 2;
-        if (!new validator(this.value[j]).isObject.answer) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (!new validator(this.value[j]).isObject.answer) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (!new validator(this.value[j]).isObject.answer) {
-          this.#question = false;
-          break;
-        }
-        ++j;
-        if (!new validator(this.value[j]).isObject.answer) {
-          this.#question = false;
-          break;
-        }
-      }
-      if (this.#question && (n % 4 >= 3)) {
-        j = n - 3;
-        if (!new validator(this.value[j]).isObject.answer) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 2)) {
-        j = n - 2;
-        if (!new validator(this.value[j]).isObject.answer) {
-          this.#question = false;
-        }
-      }
-      if (this.#question && (n % 4 >= 1)) {
-        j = n - 1;
-        if (!new validator(this.value[j]).isObject.answer) {
-          this.#question = false;
-        }
-      }
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsObjectArray(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
