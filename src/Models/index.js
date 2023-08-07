@@ -20,6 +20,7 @@ export { IsNegativeNumberLike } from "./IsNegativeNumberLike.js";
 export { IsNumber } from "./IsNumber.js";
 export { IsNumberArray } from "./IsNumberArray.js";
 export { IsNumberLike } from "./IsNumberLike.js";
+export { IsObjectArray } from "./IsObjectArray.js";
 export { IsPositiveIntegerLike } from "./IsPositiveIntegerLike.js";
 export { IsPositiveNumberLike } from "./IsPositiveNumberLike.js";
 export { IsString } from "./IsString.js";
