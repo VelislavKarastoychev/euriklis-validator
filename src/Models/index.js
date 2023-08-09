@@ -1,10 +1,12 @@
 "use strict";
 export { IsArray } from "./IsArray.js";
+export { IsArrayOfArraysWithEqualSize } from "./IsArrayOfArraysWithEqualSize.js";
 export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
 export { IsArrayOfIntegersInClosedRange } from "./IsArrayOfIntegersInClosedRange.js";
 export { IsArrayOfIntegersInRange } from "./IsArrayOfIntegersInRange.js";
 export { IsArrayOfNegativeIntegers } from "./IsArrayOfNegativeIntegers.js";
 export { IsArrayOfNegativeNumbers } from "./IsArrayOfNegativeNumbers.js";
+export { IsArrayOfNumberArrays } from "./IsArrayOfNumberArrays.js";
 export { IsArrayOfNumbersInClosedRange } from "./IsArrayOfNumbersInClosedRange.js";
 export { IsArrayOfNumbersInRange } from "./IsArrayOfNumbersInRange.js";
 export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js"
