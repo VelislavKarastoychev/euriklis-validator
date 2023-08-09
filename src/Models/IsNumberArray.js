@@ -1,4 +1,10 @@
 "use strict";
+/**
+ * Implements the isNumberArray method.
+ *
+ * @param {number []} value - the current validator value.
+ * @returns {boolean} if the "value" is a number array returns true, otherwise returns false.
+ **/
 export const IsNumberArray = (value) => {
   let i, j, question = true;
   const n = value.length;
