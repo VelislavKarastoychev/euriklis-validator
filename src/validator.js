@@ -1,4 +1,4 @@
-"use strict";
+" use strict";
 import * as errors from "./Errors/index.js";
 import * as warnings from "./Warnings/index.js";
 import * as models from "./Models/index.js";
@@ -1082,54 +1082,8 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfArraysWithEqualSize() {
-    this.#question = true;
-    if (this.copy().isArray.answer) {
-      const n = this.value.length,
-        is_first_item_array = new validator(this.value[0]).isArray.answer;
-      let i, j;
-      if (is_first_item_array) {
-        const m = this.value[0].length;
-        for (i = 0; i < n >> 2; i++) {
-          j = i << 2;
-          if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
-            this.#question = false;
-            break;
-          }
-        }
-        if (this.#question && (n % 4 >= 3)) {
-          j = n - 3;
-          if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 2)) {
-          j = n - 2;
-          if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 1)) {
-          j = n - 1;
-          if (!new validator(this.value[j]).isArray.And.has_length(m).answer) {
-            this.#question = false;
-          }
-        }
-      } else this.#question = false;
+    if (this.copy().isArray.answer){
+      this.#question = models.IsArrayOfArraysWithEqualSize(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -1150,53 +1104,8 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfNumberArrays() {
-    this.#question = true;
     if (this.copy().isArray.answer) {
-      const is_first_item_array = new validator(this.value[0]).isArray.answer;
-      const n = this.value.length;
-      let i, j;
-      if (is_first_item_array) {
-        for (i = 0; i < n >> 2; i++) {
-          j = i << 2;
-          if (!new validator(this.value[j]).isNumberArray.answer) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (!new validator(this.value[j]).isNumberArray.answer) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (!new validator(this.value[j]).isNumberArray.answer) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (!new validator(this.value[j]).isNumberArray.answer) {
-            this.#question = false;
-            break;
-          }
-        }
-        if (this.#question && (n % 4 >= 3)) {
-          j = n - 3;
-          if (!new validator(this.value[j]).isNumberArray.answer) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 2)) {
-          j = n - 2;
-          if (!new validator(this.value[j]).isNumberArray.answer) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 1)) {
-          j = n - 1;
-          if (!new validator(this.value[j]).isNumberArray.answer) {
-            this.#question = false;
-          }
-        }
-      } else this.#question = false;
+      this.#question = models.IsArrayOfNumberArrays(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
