@@ -5,9 +5,22 @@ import * as models from "./Models/index.js";
 const author = "Velislav S. Karastoychev";
 const version = "3.0.0";
 class validator {
+  /**
+   * @private not - stores the current value of the not flag.
+   **/
   #not = null;
+  /**
+   * @private operand - stores the current operand in the validator queue.
+   **/
   #operand = null;
+  /**
+   * @private question - stores the value of the question or
+   * the truth of the last executed logical test from the validator.
+   **/
   #question = null;
+  /**
+   * @private warnings - stores the value of the show_warnings sttter value.
+   **/
   #warnings = false;
   /**
    * @param {any} parameter a javascript
@@ -34,16 +47,25 @@ class validator {
       `This library provides functionalities for checking, ` +
       `testing and validating of some data in javascript language.`;
   }
+  /**
+   * @description the getter method "show_warnings" retunns the status of showing warning or error messages to the user.
+   * @returns {boolean} if is true, then warning messages will be printed on the console, when an inaccuracy is made from the user.
+   **/
   get show_warnings() {
     return this.#warnings;
   }
+  /**
+   * @param {boolean} warnings - the status value which has to be set.
+   * @description the setter method "show_warnings" sets the value of the status for error or warning printing in the console.
+   * 
+   **/
   set show_warnings(warnings) {
     new validator(warnings)
       .isBoolean
       .on(true, () => this.#warnings = warnings);
   }
   /**
-   * @internal an internal method for obtaining
+   * @private an internal method for obtaining
    * of the result of some logical operations.
    * @returns {validator}
    */
@@ -215,7 +237,7 @@ class validator {
   is_undefined() {
     let q = models.IsUndefined(this.value);
     this.#question = q;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isUndefined
@@ -233,7 +255,7 @@ class validator {
    */
   is_boolean() {
     this.#question = models.IsBoolean(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isBoolean
@@ -253,7 +275,7 @@ class validator {
    */
   is_string() {
     this.#question = models.IsString(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isString
@@ -274,7 +296,7 @@ class validator {
    */
   is_number() {
     this.#question = models.IsNumber(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isNumber
@@ -295,7 +317,7 @@ class validator {
    */
   is_integer() {
     this.#question = models.IsInteger(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isInteger
@@ -321,7 +343,7 @@ class validator {
       .And
       .is_equal_or_bigger_than(0)
       .answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isPositiveInteger
@@ -348,7 +370,7 @@ class validator {
       .And
       .is_lesser_than(0)
       .answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isNegativeInteger
@@ -374,7 +396,7 @@ class validator {
     this.#question = this.copy()
       .isNumber.And.Not.isInteger
       .answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isFloat
@@ -401,7 +423,7 @@ class validator {
     this.#question = this.copy()
       .is_lesser_than(0)
       .answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isNegative
@@ -429,7 +451,7 @@ class validator {
     this.#question = this.copy()
       .is_equal_or_bigger_than(0)
       .answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isPositive
@@ -451,7 +473,7 @@ class validator {
    */
   is_number_like() {
     this.#question = models.IsNumberLike(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isNumberLike
@@ -474,7 +496,7 @@ class validator {
    */
   is_integer_like() {
     this.#question = models.IsIntegerLike(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isIntegerLike
@@ -497,7 +519,7 @@ class validator {
    */
   is_negative_number_like() {
     this.#question = models.IsNegativeNumberLike(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isNegativeNumberLike
@@ -520,7 +542,7 @@ class validator {
    */
   is_positive_number_like() {
     this.#question = models.IsPositiveNumberLike(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isPositiveNumberLike
@@ -543,7 +565,7 @@ class validator {
    */
   is_negative_integer_like() {
     this.#question = models.IsNegativeIntegerLike(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isNegativeIntegerLike
@@ -566,7 +588,7 @@ class validator {
    */
   is_positive_integer_like() {
     this.#question = models.IsPositiveIntegerLike(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isPositiveIntegerLike
@@ -598,7 +620,7 @@ class validator {
     if (this.copy().isNumber.answer) {
       this.#question = this.value > a;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_lesser_than(a)
@@ -619,7 +641,7 @@ class validator {
     if (this.copy().isNumber.answer) {
       this.#question = this.value < a;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_in_range(a, b)
@@ -646,7 +668,7 @@ class validator {
       .is_bigger_than(a)
       .And
       .is_lesser_than(b).answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_in_closed_range
@@ -669,7 +691,7 @@ class validator {
     this.#question = this.copy()
       .is_equal_or_lesser_than(b)
       .And.is_equal_or_bigger_than(a).answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method equal_or_bigger_than
@@ -689,7 +711,7 @@ class validator {
     }
     this.#question = this.copy()
       .is_same(a).Or.is_bigger_than(a).answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method equal_or_lesser_than
@@ -709,7 +731,7 @@ class validator {
     }
     this.#question = this.copy()
       .is_same(a).Or.is_lesser_than(a).answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array()
@@ -722,7 +744,7 @@ class validator {
    */
   is_array() {
     this.#question = models.IsArray(this.value);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isArray
@@ -752,7 +774,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsBooleanArray(this.value, this.#question);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_string_array()
@@ -781,7 +803,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsStringArray(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
 
   /**
@@ -809,7 +831,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsNumberArray(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_integer_array
@@ -834,7 +856,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsIntegerArray(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array_of_positive_integers
@@ -858,7 +880,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfPositiveIntegers(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array_of_negative_integers
@@ -881,7 +903,7 @@ class validator {
     if (this.isArray.answer) {
       this.#question = models.IsArrayOfNegativeIntegers(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array_of_positive_numbers
@@ -905,7 +927,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfPositiveNumbers(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array_of_negative_numbers
@@ -929,7 +951,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfNegativeNumbers(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @param {number} a
@@ -947,7 +969,7 @@ class validator {
       ).on(false, () => errors.IllegalParametersInIsArrayOfIntegersInRange());
     if (this.copy().Not.isArray.answer) this.#question = false;
     else this.#question = models.IsArrayOfIntegersInRange(this.value, a, b);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @param {number} a
@@ -970,7 +992,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfIntegersInClosedRange(this.value, a, b);
     } else this.#question = true;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @param {number} a
@@ -989,7 +1011,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfNumbersInRange(this.value, a, b);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @param {number} a
@@ -1012,7 +1034,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfNumbersInClosedRange(this.value, a, b);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @description this method checks if the
@@ -1035,7 +1057,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfFunctions(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_object_array
@@ -1060,7 +1082,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsObjectArray(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @description this method checks if the
@@ -1085,7 +1107,7 @@ class validator {
     if (this.copy().isArray.answer){
       this.#question = models.IsArrayOfArraysWithEqualSize(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @description this method checks if the
@@ -1107,7 +1129,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfNumberArrays(this.value);
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   is_array_of_number_arrays_with_equal_size() {
     return this.isArrayOfNumberArraysWithEqualSize;
@@ -1176,7 +1198,7 @@ class validator {
         }
       } else this.#question = false;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @description this method checks if the
@@ -1236,7 +1258,7 @@ class validator {
         }
       } else this.#question = false;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   is_array_of_integer_arrays_with_equal_size() {
     return this.isArrayOfIntegerArraysWithEqualSize;
@@ -1312,7 +1334,7 @@ class validator {
         }
       } else this.#question = false;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   is_array_of_string_arrays() {
     return this.isArrayOfStringArrays;
@@ -1366,7 +1388,7 @@ class validator {
         }
       } else this.#question = false;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @description this method checks if the current
@@ -1442,7 +1464,7 @@ class validator {
         }
       } else this.#question = false;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array_with_elements_that_satisfy
@@ -1569,7 +1591,7 @@ class validator {
           break;
       }
     }
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_object()
@@ -1583,7 +1605,7 @@ class validator {
   is_object() {
     this.#question =
       Object.prototype.toString.call(this.value) === "[object Object]";
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isObject
@@ -1616,7 +1638,7 @@ class validator {
           this.#question = this.value === "";
         } else errors.IncorrectArgumentInIsEmpty();
       });
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isEmpty
@@ -1792,7 +1814,7 @@ class validator {
               });
           });
       });
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method for_any
@@ -1943,7 +1965,7 @@ class validator {
       .on(false, () => {
         errors.IncorrectFunctionArgumentInForAny();
       });
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method has_length
@@ -1965,7 +1987,7 @@ class validator {
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length === n;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method has_length_bigger_than
@@ -1985,7 +2007,7 @@ class validator {
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length > n;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method has_length_equals_or_bigger_than
@@ -2006,7 +2028,7 @@ class validator {
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length >= n;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method has_length_lesser_than
@@ -2027,7 +2049,7 @@ class validator {
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length < n;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method has_length_equals_or_lesser_than
@@ -2047,7 +2069,7 @@ class validator {
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length <= n;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   has_length_in_range(a, b) {
     if (Number.isInteger(a) && Number.isInteger(b)) {
@@ -2062,7 +2084,7 @@ class validator {
       const len = Object.keys(cp_instance.value).length;
       this.#question = len > a && len < b;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   has_length_in_closed_range(a, b) {
     if (Number.isInteger(a) && Number.isInteger(b)) {
@@ -2077,7 +2099,7 @@ class validator {
       const len = Object.keys(cp_instance.value).length;
       this.#question = len >= a && len <= b;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_this_string_contains_expression_k_times
@@ -2166,7 +2188,7 @@ class validator {
             });
         });
     }
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_function()
@@ -2180,7 +2202,7 @@ class validator {
   is_function() {
     this.#question = this.value instanceof Function ||
       typeof this.value === "function";
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method isFunction
@@ -2231,7 +2253,7 @@ class validator {
             ).answer,
         );
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_same(param)
@@ -2272,7 +2294,7 @@ class validator {
     if (param_type.value === null) {
       this.#question = param_type.value === this.value;
     }
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_same_with_any
@@ -2306,7 +2328,7 @@ class validator {
         }
       });
     this.#question = q;
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method bind(otherValidator)
@@ -2331,7 +2353,7 @@ class validator {
       errors.IncorrectArgumentInBindMethod();
     }
     this.#question = otherValidator.answer;
-    return this.#set_answer();
+    this.#set_answer();
   }
 
   /**
@@ -2513,7 +2535,7 @@ class validator {
           break;
       }
     }
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method interface2
@@ -2556,7 +2578,7 @@ class validator {
           })
           .on(false, () => this.#question = false);
       });
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array_and_for_every(func_arg)
@@ -2655,7 +2677,7 @@ class validator {
             }
           }).on(false, () => this.#question = false);
       }).on(false, () => this.#question = false);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @method is_array_and_for_any
@@ -2740,7 +2762,7 @@ class validator {
             }
           }).on(false, () => this.#question = false);
       }).on(false, () => this.#question = false);
-    return this.#set_answer();
+    this.#set_answer();
   }
   /**
    * @callback eventCallback
@@ -2794,7 +2816,7 @@ class validator {
     if (cp.value instanceof Date || cp.value.toString() === "[object Date]") {
       this.#question = true;
     } else this.#question = false;
-    return this.#set_answer();
+    this.#set_answer();
   }
   static version = version;
   static author = author;
