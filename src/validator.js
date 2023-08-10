@@ -15,10 +15,10 @@ class validator {
    * can be an arbitrary valid expression in
    * javascript or a type defined in this language.
    * @description The validator class is a javascript
-   * library with tool for condition verification in
+   * library for conditional verification in
    * javascript. Every validator has properties answer,
    * value and internal (not for user usage) properties
-   * #question, #operand, _required. Do declare an validator
+   * #question, #operand, _required. To declare an validator
    * expression just type new validator(<some expression>). To
    * verify if this expression covers some conditions use the
    * methods of the class and for more complex logical sentences
