@@ -1138,68 +1138,8 @@ class validator {
     return this.isArrayOfNumberArraysWithEqualSize;
   }
   get isArrayOfNumberArraysWithEqualSize() {
-    this.#question = true;
     if (this.copy().isArray.answer) {
-      const is_first_item_array = new validator(this.value[0]).isArray.answer;
-      const n = this.value.length;
-      if (is_first_item_array) {
-        const m = this.value[0].length;
-        let i, j;
-        for (i = 0; i < n >> 2; i++) {
-          j = i << 2;
-          if (
-            !new validator(this.value[j]).isNumberArray.And.has_length(m).answer
-          ) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (
-            !new validator(this.value[j]).isNumberArray.And.has_length(m).answer
-          ) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (
-            !new validator(this.value[j]).isNumberArray.And.has_length(m).answer
-          ) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (
-            !new validator(this.value[j]).isNumberArray.And.has_length(m).answer
-          ) {
-            this.#question = false;
-            break;
-          }
-        }
-        if (this.#question && (n % 4 >= 3)) {
-          j = n - 3;
-          if (
-            !new validator(this.value[j]).isNumberArray.And.has_length(m).answer
-          ) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 2)) {
-          j = n - 2;
-          if (
-            !new validator(this.value[j]).isNumberArray.And.has_length(m).answer
-          ) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 1)) {
-          j = n - 1;
-          if (
-            !new validator(this.value[j]).isNumberArray.And.has_length(m).answer
-          ) {
-            this.#question = false;
-          }
-        }
-      } else this.#question = false;
+      this.#question = models.IsArrayOfNumberArraysWithEqualSize(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
