@@ -10,7 +10,7 @@ export const IllegalParametersInIsArrayOfIntegersInClosedRange = () => executeEr
 export const IllegalParametersInIsArrayOfIntegersInRange = () => executeError(texts.IllegalParametersInIsArrayOfIntegersInRangeTxt);
 export const IllegalParametersInIsArrayOfNumbersInClosedRange = () => executeError(texts.IllegalParametersInIsArrayOfNumbersInClosedRangeTxt);
 export const IllegalParametersInIsArrayOfNumbersInRange = () => executeError(texts.IllegalParametersInIsArrayOfNumbersInRangeTxt);
-export { default as IllegalTypeInForAny } from './IllegalTypeInForAny.js';
+export const IllegalTypeInForAny = () => executeError(texts.IllegalTypeInForAnyTxt);
 export { default as IllegalUsageOfArgumentInIsArrayAndForEvery } from './IllegalUsageOfArgumentInIsArrayAndForEvery.js';
 export { default as IncorrectArgumentInBindMethod } from './IncorrectArgumentInBindMethod.js';
 export { default as IncorrectArgumentInIsEmpty } from './IncorrectArgumentInIsEmpty.js';
