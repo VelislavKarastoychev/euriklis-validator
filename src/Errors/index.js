@@ -32,5 +32,5 @@ export const IncorrectArgumentsInIsInClosedRange = () => executeError(texts.Inco
 export const IncorrectArgumentsInIsInRange = () => executeError(texts.IncorrectArgumentsInIsInRangeTxt);
 export const IncorrectFunctionArgumentInForAll = () => executeError(texts.IncorrectFunctionArgumentInForAllTxt);
 export const IncorrectFunctionArgumentInForAny = () => executeError(texts.IncorrectFunctionArgumentInForAnyTxt);
-export const IncorrectIterationsParameterInBenchmark = executeError(texts.IncorrectIterationsParameterInBenchmarkTxt);
+export const IncorrectIterationsParameterInBenchmark = () => executeError(texts.IncorrectIterationsParameterInBenchmarkTxt);
 export const IncorrectTypeInStringContains = () => executeError(texts.IncorrectTypeInStringContainsTxt);
