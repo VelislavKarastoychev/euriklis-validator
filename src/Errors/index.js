@@ -24,7 +24,7 @@ export const IncorrectArgumentInIsEmpty = () => executeError(texts.IncorrectArgu
 export const IncorrectArgumentInIsEqualOrBiggerThan = () => executeError(texts.IncorrectArgumentInIsEqualOrBiggerThanTxt);
 export const IncorrectArgumentInIsEqualOrLesserThan = () => executeError(texts.IncorrectArgumentInIsEqualOrLesserThanTxt);
 export const IncorrectArgumentInIsLesserThan = () => executeError(texts.IncorrectArgumentInIsLesserThanTxt);
-export { default as IncorrectArgumentInStringContainsExpression } from './IncorrectArgumentInStringContainsExpression.js';
+export const IncorrectArgumentInStringContainsExpression = () => executeError(texts.IncorrectArgumentInStringContainsExpressionTxt);
 export { default as IncorrectArgumentsInInterface2 } from './IncorrectArgumentsInInterface2.js';
 export { default as IncorrectArgumentsInHasLengthInRange } from './IncorrectArgumentsInHasLengthInRange.js';
 export { default as IncorrectArgumentsInHasLengthInClosedRange } from './IncorrectArgumentsInHasLengthInClosedRange.js';
