@@ -15,11 +15,11 @@ export const IllegalUsageOfArgumentInIsArrayAndForEvery = () => executeError(tex
 export const IncorrectArgumentInHasLengthBiggerThan = () => executeError(texts.IncorrectArgumentInHasLengthBiggerThanTxt);
 export const IncorrectArgumentInHasLength = () => executeError(texts.IncorrectArgumentInHasLengthTxt);
 export const IncorrectArgumentInBindMethod = () => executeError(texts.IncorrectArgumentInBindMethodTxt);
+export const IncorrectArgumentInHasLengthEqualsOrBiggerThan = () => executeError(texts.IncorrectArgumentInHasLengthEqualsOrBiggerThanTxt);
 export { default as IncorrectArgumentInIsEmpty } from './IncorrectArgumentInIsEmpty.js';
 export { default as IncorrectArgumentInIsEqualOrBiggerThan } from './IncorrectArgumentInIsEqualOrBiggerThan.js';
 export { default as IncorrectArgumentInIsEqualOrLesserThan } from './IncorrectArgumentInIsEqualOrLesserThan.js';
 export { default as IncorrectArgumentInStringContainsExpression } from './IncorrectArgumentInStringContainsExpression.js';
-export { default as IncorrectArgumentInHasLengthEqualsOrBiggerThan } from './IncorrectArgumentInHasLengthEqualsOrBiggerThan.js';
 export { default as IncorrectArgumentInHasLengthLesserThan } from './IncorrectArgumentInHasLengthLesserThan.js';
 export { default as IncorrectArgumentInHasLengthEqualsOrLesserThan } from './IncorrectArgumentInHasLengthEqualsOrLesserThan.js';
 export { default as IncorrectArgumentInIsBiggerThan } from './IncorrectArgumentInIsBiggerThan.js';
