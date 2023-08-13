@@ -18,6 +18,7 @@ export const IncorrectArgumentInBindMethod = () => executeError(texts.IncorrectA
 export const IncorrectArgumentInHasLengthEqualsOrBiggerThan = () => executeError(texts.IncorrectArgumentInHasLengthEqualsOrBiggerThanTxt);
 export const IncorrectArgumentInHasLengthEqualsOrLesserThan = () => executeError(texts.IncorrectArgumentInHasLengthEqualsOrLesserThanTxt);
 export const IncorrectArgumentInHasLengthLesserThan = () => executeError(texts.IncorrectArgumentInHasLengthLesserThanTxt);
+export const IncorrectArgumentInIsArrayAndForAny = () => executeError(texts.IncorrectArgumentInIsArrayAndForAnyTxt);
 export { default as IncorrectArgumentInIsEmpty } from './IncorrectArgumentInIsEmpty.js';
 export { default as IncorrectArgumentInIsEqualOrBiggerThan } from './IncorrectArgumentInIsEqualOrBiggerThan.js';
 export { default as IncorrectArgumentInIsEqualOrLesserThan } from './IncorrectArgumentInIsEqualOrLesserThan.js';
