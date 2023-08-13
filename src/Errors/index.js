@@ -17,11 +17,11 @@ export const IncorrectArgumentInHasLength = () => executeError(texts.IncorrectAr
 export const IncorrectArgumentInBindMethod = () => executeError(texts.IncorrectArgumentInBindMethodTxt);
 export const IncorrectArgumentInHasLengthEqualsOrBiggerThan = () => executeError(texts.IncorrectArgumentInHasLengthEqualsOrBiggerThanTxt);
 export const IncorrectArgumentInHasLengthEqualsOrLesserThan = () => executeError(texts.IncorrectArgumentInHasLengthEqualsOrLesserThanTxt);
+export const IncorrectArgumentInHasLengthLesserThan = () => executeError(texts.IncorrectArgumentInHasLengthLesserThanTxt);
 export { default as IncorrectArgumentInIsEmpty } from './IncorrectArgumentInIsEmpty.js';
 export { default as IncorrectArgumentInIsEqualOrBiggerThan } from './IncorrectArgumentInIsEqualOrBiggerThan.js';
 export { default as IncorrectArgumentInIsEqualOrLesserThan } from './IncorrectArgumentInIsEqualOrLesserThan.js';
 export { default as IncorrectArgumentInStringContainsExpression } from './IncorrectArgumentInStringContainsExpression.js';
-export { default as IncorrectArgumentInHasLengthLesserThan } from './IncorrectArgumentInHasLengthLesserThan.js';
 export { default as IncorrectArgumentInIsBiggerThan } from './IncorrectArgumentInIsBiggerThan.js';
 export { default as IncorrectArgumentInIsLesserThan } from './IncorrectArgumentInIsLesserThan.js';
 export { default as IncorrectArgumentsInInterface2 } from './IncorrectArgumentsInInterface2.js';
