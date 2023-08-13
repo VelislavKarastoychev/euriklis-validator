@@ -30,6 +30,6 @@ export const IncorrectArgumentsInHasLengthInRange = () => executeError(texts.Inc
 export const IncorrectArgumentInInterface2 = () => executeError(texts.IncorrectArgumentInInterface2Txt);
 export const IncorrectArgumentsInIsInClosedRange = () => executeError(texts.IncorrectArgumentsInIsInClosedRangeTxt);
 export const IncorrectArgumentsInIsInRange = () => executeError(texts.IncorrectArgumentsInIsInRangeTxt);
-export { default as IncorrectFunctionArgumentInForAll } from './IncorrectFunctionArgumentInForAll.js';
+export const IncorrectFunctionArgumentInForAll = () => executeError(texts.IncorrectFunctionArgumentInForAllTxt);
 export { default as IncorrectFunctionArgumentInForAny } from './IncorrectFunctionArgumentInForAny.js';
 export { default as IncorrectTypeInStringContains } from './IncorrectTypeInStringContains.js'
