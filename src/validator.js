@@ -224,7 +224,7 @@ class validator {
    * @returns {{mean: number, std: number}}
    */
   benchmark(f, iterations = 100) {
-    if (new validator(iterations).Not.isNumber.answer) {
+    if (new validator(iterations).Not.isInteger.answer) {
       errors.IncorrectIterationsParameterInBenchmark();
     }
     return models.Benchmark(this.value, f, iterations);
