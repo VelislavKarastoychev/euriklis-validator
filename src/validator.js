@@ -903,7 +903,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfNegativeIntegers() {
-    if (this.isArray.answer) {
+    if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfNegativeIntegers(this.value);
     } else this.#question = false;
     return this.#set_answer();
