@@ -28,7 +28,7 @@ export const IncorrectArgumentInStringContainsExpression = () => executeError(te
 export const IncorrectArgumentsInHasLengthInClosedRange = () => executeError(texts.IncorrectArgumentsInHasLengthInClosedRangeTxt);
 export const IncorrectArgumentsInHasLengthInRange = () => executeError(texts.IncorrectArgumentsInHasLengthInRangeTxt);
 export const IncorrectArgumentInInterface2 = () => executeError(texts.IncorrectArgumentInInterface2Txt);
-export { default as IncorrectArgumentsInIsInClosedRange } from './IncorrectArgumentsInIsInClosedRange.js';
+export const IncorrectArgumentsInIsInClosedRange = () => executeError(texts.IncorrectArgumentsInIsInClosedRangeTxt);
 export { default as IncorrectArgumentsInIsInRange } from './IncorrectArgumentsInIsInRange.js';
 export { default as IncorrectFunctionArgumentInForAll } from './IncorrectFunctionArgumentInForAll.js';
 export { default as IncorrectFunctionArgumentInForAny } from './IncorrectFunctionArgumentInForAny.js';
