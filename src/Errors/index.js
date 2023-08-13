@@ -32,4 +32,4 @@ export const IncorrectArgumentsInIsInClosedRange = () => executeError(texts.Inco
 export const IncorrectArgumentsInIsInRange = () => executeError(texts.IncorrectArgumentsInIsInRangeTxt);
 export const IncorrectFunctionArgumentInForAll = () => executeError(texts.IncorrectFunctionArgumentInForAllTxt);
 export const IncorrectFunctionArgumentInForAny = () => executeError(texts.IncorrectFunctionArgumentInForAnyTxt);
-export { default as IncorrectTypeInStringContains } from './IncorrectTypeInStringContains.js'
+export const IncorrectTypeInStringContains = () => executeError(texts.IncorrectTypeInStringContainsTxt);
