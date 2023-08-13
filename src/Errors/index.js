@@ -11,7 +11,7 @@ export const IllegalParametersInIsArrayOfIntegersInRange = () => executeError(te
 export const IllegalParametersInIsArrayOfNumbersInClosedRange = () => executeError(texts.IllegalParametersInIsArrayOfNumbersInClosedRangeTxt);
 export const IllegalParametersInIsArrayOfNumbersInRange = () => executeError(texts.IllegalParametersInIsArrayOfNumbersInRangeTxt);
 export const IllegalTypeInForAny = () => executeError(texts.IllegalTypeInForAnyTxt);
-export { default as IllegalUsageOfArgumentInIsArrayAndForEvery } from './IllegalUsageOfArgumentInIsArrayAndForEvery.js';
+export const IllegalUsageOfArgumentInIsArrayAndForEvery = () => executeError(texts.IllegalUsageOfArgumentInIsArrayAndForEveryTxt);
 export { default as IncorrectArgumentInBindMethod } from './IncorrectArgumentInBindMethod.js';
 export { default as IncorrectArgumentInIsEmpty } from './IncorrectArgumentInIsEmpty.js';
 export { default as IncorrectArgumentInIsEqualOrBiggerThan } from './IncorrectArgumentInIsEqualOrBiggerThan.js';
