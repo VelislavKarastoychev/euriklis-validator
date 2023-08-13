@@ -1,5 +1,12 @@
 'use strict';
-export { default as IllegalParametersInIsArrayOfIntegersInClosedRange } from './IllegalParametersInIsArrayOfIntegersInClosedRange.js';
+import * as texts from "./texts.js";
+const executeError = (message) => {
+  const error = new Error();
+  error.name = texts.ErrorMessage;
+  error.message = message;
+  throw error;
+}
+export const IllegalParametersInIsArrayOfIntegersInClosedRange = () => executeError(texts.IllegalParametersInIsArrayOfIntegersInClosedRangeTxt);
 export { default as IllegalParametersInIsArrayOfIntegersInRange } from './IllegalParametersInIsArrayOfIntegersInRange.js';
 export { default as IllegalParametersInIsArrayOfNumbersInClosedRange } from './IllegalParametersInIsArrayOfNumbersInClosedRange.js';
 export { default as IllegalParametersInIsArrayOfNumbersInRange } from './IllegalParametersInIsArrayOfNumbersInRange.js';
