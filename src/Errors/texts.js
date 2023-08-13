@@ -2,6 +2,7 @@
 export const ErrorMessage = 'Euriklis validator error message:';
 export const IllegalParametersInIsArrayOfIntegersInClosedRangeTxt = 'Illegal parameters in the is_array_of_integers_in_closed_range() method. Note that the parameters of this method have to be numbers with the first parameter to be less than the second.';
 export const IllegalParametersInIsArrayOfIntegersInRangeTxt = 'Illegal parameters in the is_array_of_integers_in_range() method. The parameters have to be integers and the first to be smaller than the second.';
+export const IllegalParametersInIsArrayOfNumbersInClosedRangeTxt = 'Illegal parameters in is_array_of_numbers_in_closed_range(a, b) method. Note that the parameters of the method have to be numbers and in addition the first has to be smaller than the second.';
 export const IllegalTypeInForAnyTxt = (value) => `Illegal type of the this.value in the "for_any" method of euriklis validator module. The value has to be array or object type. The value of the current validator is ${typeof value} type.`
 export const IllegalUsageOfArgumentInIsArrayAndForEveryTxt = 'Illegal usage of the argument function of the method. The function has to return validator type.';
 export const IncorrectArgumentInIsArrayAndForAnyTxt = 'Error in the is_array_and_for_any(). Illegal argument in the parameter of the method.';
