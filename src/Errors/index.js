@@ -29,7 +29,7 @@ export const IncorrectArgumentsInHasLengthInClosedRange = () => executeError(tex
 export const IncorrectArgumentsInHasLengthInRange = () => executeError(texts.IncorrectArgumentsInHasLengthInRangeTxt);
 export const IncorrectArgumentInInterface2 = () => executeError(texts.IncorrectArgumentInInterface2Txt);
 export const IncorrectArgumentsInIsInClosedRange = () => executeError(texts.IncorrectArgumentsInIsInClosedRangeTxt);
-export { default as IncorrectArgumentsInIsInRange } from './IncorrectArgumentsInIsInRange.js';
+export const IncorrectArgumentsInIsInRange = () => executeError(texts.IncorrectArgumentsInIsInRangeTxt);
 export { default as IncorrectFunctionArgumentInForAll } from './IncorrectFunctionArgumentInForAll.js';
 export { default as IncorrectFunctionArgumentInForAny } from './IncorrectFunctionArgumentInForAny.js';
 export { default as IncorrectTypeInStringContains } from './IncorrectTypeInStringContains.js'
