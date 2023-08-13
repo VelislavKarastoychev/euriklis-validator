@@ -7,9 +7,10 @@ export { IsArrayOfIntegersInRange } from "./IsArrayOfIntegersInRange.js";
 export { IsArrayOfNegativeIntegers } from "./IsArrayOfNegativeIntegers.js";
 export { IsArrayOfNegativeNumbers } from "./IsArrayOfNegativeNumbers.js";
 export { IsArrayOfNumberArrays } from "./IsArrayOfNumberArrays.js";
+export { IsArrayOfNumberArraysWithEqualSize } from "./IsArrayOfNumberArraysWithEqualSize.js";
 export { IsArrayOfNumbersInClosedRange } from "./IsArrayOfNumbersInClosedRange.js";
 export { IsArrayOfNumbersInRange } from "./IsArrayOfNumbersInRange.js";
-export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js"
+export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js";
 export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { Benchmark } from "./Benchmark.js";
 export { IsBoolean } from "./IsBoolean.js";
