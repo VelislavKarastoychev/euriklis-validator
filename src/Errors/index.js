@@ -12,12 +12,12 @@ export const IllegalParametersInIsArrayOfNumbersInClosedRange = () => executeErr
 export const IllegalParametersInIsArrayOfNumbersInRange = () => executeError(texts.IllegalParametersInIsArrayOfNumbersInRangeTxt);
 export const IllegalTypeInForAny = () => executeError(texts.IllegalTypeInForAnyTxt);
 export const IllegalUsageOfArgumentInIsArrayAndForEvery = () => executeError(texts.IllegalUsageOfArgumentInIsArrayAndForEveryTxt);
+export const IncorrectArgumentInHasLength = () => executeError(texts.IncorrectArgumentInHasLengthTxt);
 export const IncorrectArgumentInBindMethod = () => executeError(texts.IncorrectArgumentInBindMethodTxt);
 export { default as IncorrectArgumentInIsEmpty } from './IncorrectArgumentInIsEmpty.js';
 export { default as IncorrectArgumentInIsEqualOrBiggerThan } from './IncorrectArgumentInIsEqualOrBiggerThan.js';
 export { default as IncorrectArgumentInIsEqualOrLesserThan } from './IncorrectArgumentInIsEqualOrLesserThan.js';
 export { default as IncorrectArgumentInStringContainsExpression } from './IncorrectArgumentInStringContainsExpression.js';
-export { default as IncorrectArgumentInHasLength } from './IncorrectArgumentInHasLength.js';
 export { default as IncorrectArgumentInHasLengthBiggerThan } from './IncorrectArgumentInHasLengthBiggerThan.js';
 export { default as IncorrectArgumentInHasLengthEqualsOrBiggerThan } from './IncorrectArgumentInHasLengthEqualsOrBiggerThan.js';
 export { default as IncorrectArgumentInHasLengthLesserThan } from './IncorrectArgumentInHasLengthLesserThan.js';
