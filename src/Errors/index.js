@@ -8,7 +8,7 @@ const executeError = (message) => {
 }
 export const IllegalParametersInIsArrayOfIntegersInClosedRange = () => executeError(texts.IllegalParametersInIsArrayOfIntegersInClosedRangeTxt);
 export const IllegalParametersInIsArrayOfIntegersInRange = () => executeError(texts.IllegalParametersInIsArrayOfIntegersInRangeTxt);
-export { default as IllegalParametersInIsArrayOfNumbersInClosedRange } from './IllegalParametersInIsArrayOfNumbersInClosedRange.js';
+export const IllegalParametersInIsArrayOfNumbersInClosedRange = () => executeError(texts.IllegalParametersInIsArrayOfNumbersInClosedRangeTxt);
 export { default as IllegalParametersInIsArrayOfNumbersInRange } from './IllegalParametersInIsArrayOfNumbersInRange.js';
 export { default as IllegalTypeInForAny } from './IllegalTypeInForAny.js';
 export { default as IllegalUsageOfArgumentInIsArrayAndForEvery } from './IllegalUsageOfArgumentInIsArrayAndForEvery.js';
