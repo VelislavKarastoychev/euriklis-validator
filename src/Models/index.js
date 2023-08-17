@@ -19,6 +19,7 @@ export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsInteger } from "./IsInteger.js";
 export { IsIntegerArray } from "./IsIntegerArray.js";
 export { IsIntegerLike } from "./IsIntegerLike.js";
+export { IsInstanceof } from "./IsInstanceof.js";
 export { IsNegativeIntegerLike } from "./IsNegativeIntegerLike.js";
 export { IsNegativeNumberLike } from "./IsNegativeNumberLike.js";
 export { IsNumber } from "./IsNumber.js";
