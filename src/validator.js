@@ -7,20 +7,20 @@ const version = "3.0.0";
 class validator {
   /**
    * @private not - stores the current value of the not flag.
-   **/
+   */
   #not = null;
   /**
    * @private operand - stores the current operand in the validator queue.
-   **/
+   */
   #operand = null;
   /**
    * @private question - stores the value of the question or
    * the truth of the last executed logical test from the validator.
-   **/
+   */
   #question = null;
   /**
    * @private warnings - stores the value of the show_warnings sttter value.
-   **/
+   */
   #warnings = false;
   /**
    * @param {any} parameter a javascript
@@ -50,15 +50,14 @@ class validator {
   /**
    * @description the getter method "show_warnings" retunns the status of showing warning or error messages to the user.
    * @returns {boolean} if is true, then warning messages will be printed on the console, when an inaccuracy is made from the user.
-   **/
+   */
   get show_warnings() {
     return this.#warnings;
   }
   /**
    * @param {boolean} warnings - the status value which has to be set.
    * @description the setter method "show_warnings" sets the value of the status for error or warning printing in the console.
-   * 
-   **/
+   */
   set show_warnings(warnings) {
     new validator(warnings)
       .isBoolean
@@ -737,6 +736,16 @@ class validator {
     return this.#set_answer();
   }
   /**
+   * Checks if the current validator value is instanceof
+   * the "instance" parameter.
+   * @param {InstanceType} instance
+   * @returns {validator}
+   **/
+  is_instanceof(instance) {
+    this.#question = models.IsInstanceof(this.value, instance);
+    return this.#set_answer();
+  }
+  /**
    * @method is_array()
    * @returns {validator}
    * @description a method that checks if
@@ -1107,7 +1116,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfArraysWithEqualSize() {
-    if (this.copy().isArray.answer){
+    if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfArraysWithEqualSize(this.value);
     } else this.#question = false;
     return this.#set_answer();
