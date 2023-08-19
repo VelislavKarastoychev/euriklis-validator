@@ -1015,8 +1015,7 @@ class validator {
    * which are numbers in an open interval (a, b).
    */
   is_array_of_numbers_in_range(a, b) {
-    new validator(a).isNumber
-      .And.bind(new validator(b).isNumber)
+    new validator([a, b]).isNumberArray
       .And.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfNumbersInRange());
@@ -1163,7 +1162,7 @@ class validator {
   }
   get isArrayOfIntegerArrays() {
     if (this.copy().isArray.answer) {
-      this.#question = models.IsArrayOfIntegerArrays(this.value);
+   /*   */  this.#question = models.IsArrayOfIntegerArrays(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
