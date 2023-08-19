@@ -3,6 +3,7 @@ export { IsArray } from "./IsArray.js";
 export { IsArrayOfArraysWithEqualSize } from "./IsArrayOfArraysWithEqualSize.js";
 export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
 export { IsArrayOfIntegerArrays } from "./IsArrayOfIntegerArrays.js";
+export { IsArrayOfIntegerArraysWithEqualSize } from "./IsArrayOfIntegerArraysWithEqualSize.js";
 export { IsArrayOfIntegersInClosedRange } from "./IsArrayOfIntegersInClosedRange.js";
 export { IsArrayOfIntegersInRange } from "./IsArrayOfIntegersInRange.js";
 export { IsArrayOfNegativeIntegers } from "./IsArrayOfNegativeIntegers.js";
