@@ -24,6 +24,7 @@ export const IncorrectArgumentsInHasLengthInClosedRangeTxt = 'Incorrect argument
 export const IncorrectArgumentsInHasLengthInRangeTxt = 'Incorrect arguments in has_length_in_range() method. Note that the both parameters have to be integers with the first element to be smaller than the second.';
 export const IncorrectArgumentsInIsInClosedRangeTxt = 'Incorrect arguments in is_in_closed_range() method. Note that both of these arguments have to be numbers with the first argument to be smaller than the second.';
 export const IncorrectArgumentsInIsInRangeTxt = 'Incorrect arguments in the is_in_range() method of the validator instance. Note that these parameters have to be arbitrary numbers and in addition the first has to be smaller than the second.';
+export const IncorrectArgumentInIsInstanceofTxt = 'Incorrect parameter instance. The instance has to be InstanceType.';
 export const IncorrectFunctionArgumentInForAllTxt = 'The callback argument of the for_all method of the euriklis validator module has to be function type.';
 export const IncorrectFunctionArgumentInForAnyTxt = 'The callback argument of the for_any method of the euriklis validator module has to be a function with argument a validator instance.';
 export const IncorrectIterationsParameterInBenchmarkTxt = 'Incorrect parameter iterations in the benchmark function. The "iterations" has to be a positive integer.';
