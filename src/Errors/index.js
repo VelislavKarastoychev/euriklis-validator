@@ -30,6 +30,7 @@ export const IncorrectArgumentsInHasLengthInRange = () => executeError(texts.Inc
 export const IncorrectArgumentInInterface2 = () => executeError(texts.IncorrectArgumentInInterface2Txt);
 export const IncorrectArgumentsInIsInClosedRange = () => executeError(texts.IncorrectArgumentsInIsInClosedRangeTxt);
 export const IncorrectArgumentsInIsInRange = () => executeError(texts.IncorrectArgumentsInIsInRangeTxt);
+export const IncorrectArgumentInIsInstanceof = () => executeError(texts.IncorrectArgumentInIsInstanceofTxt);
 export const IncorrectFunctionArgumentInForAll = () => executeError(texts.IncorrectFunctionArgumentInForAllTxt);
 export const IncorrectFunctionArgumentInForAny = () => executeError(texts.IncorrectFunctionArgumentInForAnyTxt);
 export const IncorrectIterationsParameterInBenchmark = () => executeError(texts.IncorrectIterationsParameterInBenchmarkTxt);
