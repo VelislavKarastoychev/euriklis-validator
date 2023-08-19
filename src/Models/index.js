@@ -14,6 +14,7 @@ export { IsArrayOfNumbersInClosedRange } from "./IsArrayOfNumbersInClosedRange.j
 export { IsArrayOfNumbersInRange } from "./IsArrayOfNumbersInRange.js";
 export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js";
 export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
+export { IsArrayOfStringArrays } from "./IsArrayOfStringArrays.js";
 export { Benchmark } from "./Benchmark.js";
 export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
