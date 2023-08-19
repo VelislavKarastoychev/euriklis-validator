@@ -740,9 +740,11 @@ class validator {
    * the "instance" parameter.
    * @param {InstanceType} instance
    * @returns {validator}
-   **/
+   */
   is_instanceof(instance) {
-    this.#question = models.IsInstanceof(this.value, instance);
+    if (models.IsInstanceType(instance)) {
+      this.#question = models.IsInstanceof(this.value, instance);
+    } else errors.IncorrectParameterInIsInstanceof();
     return this.#set_answer();
   }
   /**
@@ -1162,7 +1164,7 @@ class validator {
   }
   get isArrayOfIntegerArrays() {
     if (this.copy().isArray.answer) {
-   /*   */  this.#question = models.IsArrayOfIntegerArrays(this.value);
+      /*   */ this.#question = models.IsArrayOfIntegerArrays(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -1173,9 +1175,9 @@ class validator {
    * @returns {validator} if the current value property
    * is an array of integer arrays with equal size or
    * integer matrix, then the current validator answer
-   * property will be set to true, otherwese, the 
+   * property will be set to true, otherwese, the
    * answer property will be set to false.
-   **/
+   */
 
   is_array_of_integer_arrays_with_equal_size() {
     return this.isArrayOfIntegerArraysWithEqualSize;
@@ -1187,9 +1189,9 @@ class validator {
    * @returns {validator} if the current value property
    * is an array of integer arrays with equal size or
    * integer matrix, then the current validator answer
-   * property will be set to true, otherwese, the 
+   * property will be set to true, otherwese, the
    * answer property will be set to false.
-   **/
+   */
   get isArrayOfIntegerArraysWithEqualSize() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfIntegerArraysWithEqualSize(this.value);
