@@ -56,20 +56,20 @@ export const IsArrayOfNumberArraysWithEqualSize = (value) => {
   }
   if (n % 4 >= 3 && question) {
     j = n - 3;
-    if (value[j] instanceof Array) {
-      question = IsNumberArray(value[j]) && value[j].length !== l;
+   if (value[j] instanceof Array) {
+      question = IsNumberArray(value[j]) && value[j].length === l;
     } else question = false;
   }
   if (n % 4 >= 2 && question) {
     j = n - 2;
     if (value[j] instanceof Array) {
-      question = IsNumberArray(value[j]) && value[j].length !== l;
+      question = IsNumberArray(value[j]) && value[j].length === l;
     } else question = false;
   }
   if (n % 4 >= 1 && question) {
     j = n - 1;
     if (value[j] instanceof Array) {
-      question = IsNumberArray(value[j]) && value[j].length !== l;
+      question = IsNumberArray(value[j]) && value[j].length === l;
     } else question = false;
   }
   return question;
