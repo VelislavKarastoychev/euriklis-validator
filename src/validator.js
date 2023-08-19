@@ -976,8 +976,7 @@ class validator {
    * integer in the open interval (a, b).
    */
   is_array_of_integers_in_range(a, b) {
-    new validator(a).isInteger
-      .And.bind(new validator(b).isInteger)
+    new validator([a, b]).isIntegerArray
       .And.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfIntegersInRange());
