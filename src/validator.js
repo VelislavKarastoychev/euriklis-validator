@@ -744,7 +744,7 @@ class validator {
   is_instanceof(instance) {
     if (models.IsInstanceType(instance)) {
       this.#question = models.IsInstanceof(this.value, instance);
-    } else errors.IncorrectParameterInIsInstanceof();
+    } else errors.IncorrectArgumentInIsInstanceof();
     return this.#set_answer();
   }
   /**
