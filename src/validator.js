@@ -1167,79 +1167,33 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
+  /**
+   * This getter method checks if the current validator
+   * property is integer matrix.
+   *
+   * @returns {validator} if the current value property
+   * is an array of integer arrays with equal size or
+   * integer matrix, then the current validator answer
+   * property will be set to true, otherwese, the 
+   * answer property will be set to false.
+   **/
+
   is_array_of_integer_arrays_with_equal_size() {
     return this.isArrayOfIntegerArraysWithEqualSize;
   }
+  /**
+   * This getter method checks if the current validator
+   * property is integer matrix.
+   *
+   * @returns {validator} if the current value property
+   * is an array of integer arrays with equal size or
+   * integer matrix, then the current validator answer
+   * property will be set to true, otherwese, the 
+   * answer property will be set to false.
+   **/
   get isArrayOfIntegerArraysWithEqualSize() {
-    this.#question = true;
     if (this.copy().isArray.answer) {
-      const is_first_item_array = new validator(this.value[0]).isArray.answer;
-      const n = this.value.length;
-      if (is_first_item_array) {
-        const m = this.value[0].length;
-        let i, j;
-        for (i = 0; i < n >> 2; i++) {
-          j = i << 2;
-          if (
-            !new validator(this.value[j]).isIntegerArray.And.has_length(m)
-              .answer
-          ) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (
-            !new validator(this.value[j]).isIntegerArray.And.has_length(m)
-              .answer
-          ) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (
-            !new validator(this.value[j]).isIntegerArray.And.has_length(m)
-              .answer
-          ) {
-            this.#question = false;
-            break;
-          }
-          ++j;
-          if (
-            !new validator(this.value[j]).isIntegerArray.And.has_length(m)
-              .answer
-          ) {
-            this.#question = false;
-            break;
-          }
-        }
-        if (this.#question && (n % 4 >= 3)) {
-          j = n - 3;
-          if (
-            !new validator(this.value[j]).isIntegerArray.And.has_length(m)
-              .answer
-          ) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 2)) {
-          j = n - 2;
-          if (
-            !new validator(this.value[j]).isIntegerArray.And.has_length(m)
-              .answer
-          ) {
-            this.#question = false;
-          }
-        }
-        if (this.#question && (n % 4 >= 1)) {
-          j = n - 1;
-          if (
-            !new validator(this.value[j]).isIntegerArray.And.has_length(m)
-              .answer
-          ) {
-            this.#question = false;
-          }
-        }
-      } else this.#question = false;
+      this.#question = models.IsArrayOfIntegerArraysWithEqualSize(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
