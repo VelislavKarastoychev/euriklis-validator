@@ -4,7 +4,7 @@ import { IsStringArray } from "./IsStringArray.js";
  * Implements isArrayOfStringArrays.
  *
  * @param {string [][]} value - the "value" property of the current validator instance.
- * @returns {boolean} if the "value" is a string matrix, returns true, otherwise returns false.
+ * @returns {boolean} if the "value" is an array of string arrays, returns true, otherwise returns false.
  */
 export const IsArrayOfStringArrays = (value) => {
   const n = value.length;
