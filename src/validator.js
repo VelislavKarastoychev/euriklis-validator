@@ -1232,7 +1232,7 @@ class validator {
    * true or false respectively.
    */
   is_object() {
-    this.#question = models.IsObject(this.value); 
+    this.#question = models.IsObject(); 
     return this.#set_answer();
   }
   /**
