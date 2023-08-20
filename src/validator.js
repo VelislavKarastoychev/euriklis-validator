@@ -1232,8 +1232,7 @@ class validator {
    * true or false respectively.
    */
   is_object() {
-    this.#question =
-      Object.prototype.toString.call(this.value) === "[object Object]";
+    this.#question = models.IsObject(this.value); 
     return this.#set_answer();
   }
   /**
