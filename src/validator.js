@@ -139,10 +139,11 @@ class validator {
    */
   absolute_copy() {
     let v = new validator(this.value);
-    v.answer = this.answer;
+    v.#answer = this.#answer;
     v.#not = this.#not;
     v.#operand = this.#operand;
     v.#question = this.#question;
+    v.#error = this.#error;
     v.required = this.required;
     return v;
   }
@@ -258,6 +259,25 @@ class validator {
       errors.IncorrectIterationsParameterInBenchmark();
     }
     return models.Benchmark(this.value, f, iterations);
+  }
+  /**
+   * Implements the is_error() method or as getter isError.
+   * If the current "value" property is of Error type and this error is not thrown,
+   * then the method sets the answer property to true accounting the other constraints.
+   * @returns {validator} the updated validator property.
+   **/
+  get isError () {
+    this.#question = models.IsError(this.value, this.#error);
+    return this.#set_answer();
+  }
+  /**
+   * Implements the is_error() method or as getter isError.
+   * If the current "value" property is of Error type and this error is not thrown,
+   * then the method sets the answer property to true accounting the other constraints.
+   * @returns {validator} the updated validator property.
+   **/
+  is_error () {
+    return this.isError;
   }
   /**
    * @method is_undefined()
