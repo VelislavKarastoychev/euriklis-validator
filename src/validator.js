@@ -5,6 +5,7 @@ import * as models from "./Models/index.js";
 const author = "Velislav S. Karastoychev";
 const version = "3.0.0";
 class validator {
+  #value = undefined;
   /**
    * @private not - stores the current value of the not flag.
    */
@@ -19,9 +20,14 @@ class validator {
    */
   #question = null;
   /**
+   * @private answer - stores the result of the logical operation.
+   **/
+  #answer = null;
+  /**
    * @private warnings - stores the value of the show_warnings sttter value.
    */
   #warnings = false;
+  #error = false;
   /**
    * @param {any} parameter a javascript
    * valid variable. The type of the parameter
@@ -41,11 +47,36 @@ class validator {
    */
   constructor(parameter) {
     this.value = parameter;
-    this.answer = null;
     this.required = false;
-    this.description = `This is a validator Object.` +
-      `This library provides functionalities for checking, ` +
-      `testing and validating of some data in javascript language.`;
+    this.description = '';
+  }
+  /**
+   * @returns {any} the defined value property.
+   **/
+  get value () {
+    return this.#value;
+  }
+  /**
+   * Sets the value property of the current validator instance.
+   * @param {any} parameter - the "value" property of the current validator instance.
+   **/
+  set value (parameter) {
+    try {
+      this.#value = parameter;
+    } catch (error) {
+      this.#error = true;
+      this.value = error;
+    }
+  }
+  /**
+   * This getter method obtains the answer from the logical computations and sets to null the operand and question states.
+   * @returns {boolean} the result from the validator logical computations.
+   **/
+  get answer () {
+    this.#not = null;
+    this.#operand = null;
+    this.#question = null;
+    return this.#answer;
   }
   /**
    * @description the getter method "show_warnings" retunns the status of showing warning or error messages to the user.
@@ -73,19 +104,19 @@ class validator {
       this.#question = !this.#question;
     }
     if (this.#operand === "or") {
-      this.answer = this.answer || this.#question;
+      this.#answer = this.#answer || this.#question;
     }
     if (this.#operand === "and") {
-      this.answer = this.answer && this.#question;
+      this.#answer = this.#answer && this.#question;
     }
     if (this.#operand === null) {
-      this.answer = this.#question;
+      this.#answer = this.#question;
     }
     this.#not = null;
     this.#operand = null;
     this.#question = null;
     return this;
-  }
+  } 
   /**
    * @method copy() creates a new instance
    * with value parameter the current value
@@ -1221,7 +1252,7 @@ class validator {
       this.#question = models.IsArrayOfStringArraysWithEqualSize(this.value);
     } else this.#question = false;
     return this.#set_answer();
-  } 
+  }
   /**
    * @method is_object()
    * @returns {validator}
@@ -1232,7 +1263,7 @@ class validator {
    * true or false respectively.
    */
   is_object() {
-    this.#question = models.IsObject(); 
+    this.#question = models.IsObject(this.value);
     return this.#set_answer();
   }
   /**
@@ -1253,19 +1284,18 @@ class validator {
    * string or is an undefined type.
    */
   is_empty() {
-    this.copy().is_undefined()
-      .on(true, () => {
-        this.#question = true;
-      })
-      .on(false, () => {
-        if (this.copy().is_array().answer) {
-          this.#question = this.value.length === 0;
-        } else if (this.copy().is_object().answer) {
-          this.#question = Object.keys(this.value).length === 0;
-        } else if (this.copy().is_string().answer) {
-          this.#question = this.value === "";
-        } else errors.IncorrectArgumentInIsEmpty();
-      });
+    const test = this.copy();
+    if (test.isUndefined.answer) {
+      this.#question = true;
+    } else {
+      if (test.isArray.answer) {
+        this.#question = this.value.length === 0;
+      } else if (test.isObject.answer) {
+        this.#question = Object.keys(this.value).length === 0;
+      } else if (test.isString.answer) {
+        this.#question = this.value === "";
+      } else errors.IncorrectArgumentInIsEmpty();
+    }
     return this.#set_answer();
   }
   /**
