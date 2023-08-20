@@ -19,6 +19,7 @@ export { IsArrayOfStringArraysWithEqualSize } from "./IsArrayOfStringArraysWithE
 export { Benchmark } from "./Benchmark.js";
 export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
+export { IsError } from "./IsError.js";
 export { IsInstanceof } from "./IsInstanceof.js";
 export { IsInstanceType } from "./IsInstanceType.js";
 export { IsInteger } from "./IsInteger.js";
