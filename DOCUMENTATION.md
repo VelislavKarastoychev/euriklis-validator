@@ -1,7 +1,7 @@
 # Documentation of ***@euriklis/validator***
 
 The validator library contains a lot of methods, which tests the javascript types under some conditions. The getters also return validator instances.
-
+In version 4.0.0 the methods is_array_of_elements_that_satisfy was removed (In the previous versions this method was deprecated).
 1. The <em>validator</em> ***constructor***.
 To create a new validator instance you have to write:
 ```js
