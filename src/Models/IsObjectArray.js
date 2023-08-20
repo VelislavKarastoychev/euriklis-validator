@@ -1,4 +1,5 @@
 "use strict";
+import { IsObject } from "./IsObject.js";
 /**
  * Implements the isObjectArray method.
  *
@@ -10,37 +11,40 @@ export const IsObjectArray = (value) => {
   const n = value.length;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (!(value[j] instanceof Object) || value[j] instanceof Array) {
+    if (!IsObject(value[j])) {
       question = false;
       break;
     }
     ++j;
-    if (!(value[j] instanceof Object) || value[j] instanceof Array) {
+    if (!IsObject(value[j])) {
       question = false;
       break;
     }
     ++j;
-    if (!(value[j] instanceof Object) || value[j] instanceof Array) {
+    if (!IsObject(value[j])) {
       question = false;
       break;
     }
+
     ++j;
-    if (!(value[j] instanceof Object) || value[j] instanceof Array) {
+    
+if (!IsObject(value[j])) {
       question = false;
       break;
     }
+
   }
   if (n % 4 >= 3 && question) {
     j = n - 3;
-    question = value[j] instanceof Object && !(value[j] instanceof Array);
+    question = IsObject(value[j]);
   }
   if (n % 4 >= 2 && question) {
     j = n - 2;
-    question = value[j] instanceof Object && !(value[j] instanceof Array);
+    question = IsObject(value[j]);
   }
   if (n % 4 >= 1 && question) {
     j = n - 1;
-    question = value[j] instanceof Object && !(value[j] instanceof Array);
+    question = IsObject(value[j]);
   }
   return question;
 };
