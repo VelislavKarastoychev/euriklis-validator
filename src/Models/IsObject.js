@@ -2,7 +2,7 @@
 /**
  * Implements the isObject method.
  *
- * @param {Object} value - the current validator "value" property
+ * @param {object} value - the current validator "value" property
  * @returns {boolean} if the "value" property is object type, then returns true, otherwise returns false.
  * @description this utility function tests if its parameter is of Object type/instance.
  * Because all in javascript is object type, we can not use the expression "value instanceof Object",
