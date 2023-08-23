@@ -286,7 +286,7 @@ class validator {
    * function with arguments the inserted parameters in the
    * method. It is good practice to use the copy method before
    * this method.
-   * @param {...any} param 
+   * @param {...any} params 
    * @returns {validator} the current validator with "value" property
    * which is equals to the result of the previous "value" property.
    * 
