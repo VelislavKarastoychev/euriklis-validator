@@ -280,6 +280,29 @@ class validator {
     return this.isError;
   }
   /**
+   * Implements the throwsError method.
+   * If the "value" property of the current validator
+   * instance is function, then the method executes the
+   * function with arguments the inserted parameters in the
+   * method. It is good practice to use the copy method before
+   * this method.
+   * @param {...any} param 
+   * @returns {validator} the current validator with "value" property
+   * which is equals to the result of the previous "value" property.
+   * 
+   **/
+  throwsError (...params) {
+    try {
+      this.#value = this.value(...params);
+    } catch (error) {
+      this.value = error;
+      this.#error = true;
+
+    }
+    this.#question = models.IsError(this.value, !this.#error);
+    return this.#set_answer();
+  }
+  /**
    * @method is_undefined()
    * @returns {validator}
    * @description this method checks if the
