@@ -21,7 +21,7 @@ class validator {
   #question = null;
   /**
    * @private answer - stores the result of the logical operation.
-   **/
+   */
   #answer = null;
   /**
    * @private warnings - stores the value of the show_warnings sttter value.
@@ -48,19 +48,19 @@ class validator {
   constructor(parameter) {
     this.value = parameter;
     this.required = false;
-    this.description = '';
+    this.description = "";
   }
   /**
    * @returns {any} the defined value property.
-   **/
-  get value () {
+   */
+  get value() {
     return this.#value;
   }
   /**
    * Sets the value property of the current validator instance.
    * @param {any} parameter - the "value" property of the current validator instance.
-   **/
-  set value (parameter) {
+   */
+  set value(parameter) {
     try {
       this.#value = parameter;
     } catch (error) {
@@ -71,8 +71,8 @@ class validator {
   /**
    * This getter method obtains the answer from the logical computations and sets to null the operand and question states.
    * @returns {boolean} the result from the validator logical computations.
-   **/
-  get answer () {
+   */
+  get answer() {
     this.#not = null;
     this.#operand = null;
     this.#question = null;
@@ -116,7 +116,7 @@ class validator {
     this.#operand = null;
     this.#question = null;
     return this;
-  } 
+  }
   /**
    * @method copy() creates a new instance
    * with value parameter the current value
@@ -265,8 +265,8 @@ class validator {
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
    * @returns {validator} the updated validator property.
-   **/
-  get isError () {
+   */
+  get isError() {
     this.#question = models.IsError(this.value, this.#error);
     return this.#set_answer();
   }
@@ -275,8 +275,8 @@ class validator {
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
    * @returns {validator} the updated validator property.
-   **/
-  is_error () {
+   */
+  is_error() {
     return this.isError;
   }
   /**
@@ -286,18 +286,16 @@ class validator {
    * function with arguments the inserted parameters in the
    * method. It is good practice to use the copy method before
    * this method.
-   * @param {...any} params 
+   * @param {...any} params
    * @returns {validator} the current validator with "value" property
    * which is equals to the result of the previous "value" property.
-   * 
-   **/
-  throwsError (...params) {
+   */
+  throwsError(...params) {
     try {
       this.#value = this.value(...params);
     } catch (error) {
       this.value = error;
       this.#error = true;
-
     }
     this.#question = models.IsError(this.value, !this.#error);
     return this.#set_answer();
@@ -1372,149 +1370,119 @@ class validator {
     const callback_val = new validator(callback);
     let i, keys, item;
     // check if the parameters are correct
-    callback_val.is_function()
-      .on(false, () => {
-        errors.IncorrectFunctionArgumentInForAll();
-      })
-      .on(true, () => {
-        val.isArray
-          .on(true, () => {
-            // the parameters are correct
-            // and we have to check every
-            // element (key value) of the
-            // array (object). Case array:
-            /*for (i = 0; i < val.value.length; i++) {
-                            item = new validator(val.value[i])
-                            if (callback(item, i).answer) {
-                                this.#question = true
-                            }
-                            else {
-                                this.#question = false
-                                break
-                            }
-                        }*/
-            for (i = 0; i < val.value.length >> 2; i++) {
-              item = new validator(val.value[i << 2]);
-              if (callback(item, i << 2).answer) {
-                this.#question = true;
-              } else {
-                this.#question = false;
-                break;
-              }
-              item = new validator(val.value[(i << 2) + 1]);
-              if (callback(item, (i << 2) + 1).answer) {
-                this.#question = true;
-              } else {
-                this.#question = false;
-                break;
-              }
-              item = new validator(val.value[(i << 2) + 2]);
-              if (callback(item, (i << 2) + 2).answer) {
-                this.#question = true;
-              } else {
-                this.#question = false;
-                break;
-              }
-              item = new validator(val.value[(i << 2) + 3]);
-              if (callback(item, (i << 2) + 3).answer) {
-                this.#question = true;
-              } else {
-                this.#question = false;
-                break;
-              }
-            }
-            if (val.value.length % 4 >= 1 && this.#question !== false) {
-              i = val.value.length - 1;
-              item = new validator(val.value[i]);
-              if (callback(item, i).answer) this.#question = true;
-              else this.#question = false;
-            }
-            if (val.value.length % 4 >= 2 && this.#question !== false) {
-              i = val.value.length - 2;
-              item = new validator(val.value[i]);
-              if (callback(item, i).answer) this.#question = true;
-              else this.#question = false;
-            }
-            if (val.value.length % 4 >= 3 && this.#question !== false) {
-              i = val.value.length - 3;
-              item = new validator(val.value[i]);
-              if (callback(item, i).answer) this.#question = true;
-              else this.#question = false;
-            }
-          })
-          .on(false, () => {
-            // Here we will examine the
-            // case in which the this.value
-            // is object type...
-            val.is_object().and()
-              .not().is_empty()
-              .on(true, () => {
-                // get the keys of the
-                // this.value and check
-                // every value...
-                keys = Object.keys(val.value);
-                /*for (i = 0; i < keys.length; i++) {
-                                    item = new validator(val.value[keys[i]])
-                                    if (callback(item, i).answer) this.#question = true;
-                                    else {
-                                        this.#question = false;
-                                        break;
-                                    }
-                                }*/
-                for (i = 0; i < keys.length >> 2; i++) {
-                  item = new validator(val.value[keys[i << 2]]);
-                  if (callback(item, i << 2).answer) {
-                    this.#question = true;
-                  } else {
-                    this.#question = false;
-                    break;
-                  }
-                  item = new validator(val.value[keys[(i << 2) + 1]]);
-                  if (callback(item, (i << 2) + 1).answer) {
-                    this.#question = true;
-                  } else {
-                    this.#question = false;
-                    break;
-                  }
-                  item = new validator(val.value[keys[(i << 2) + 2]]);
-                  if (callback(item, (i << 2) + 2).answer) {
-                    this.#question = true;
-                  } else {
-                    this.#question = false;
-                    break;
-                  }
-                  item = new validator(val.value[keys[(i << 2) + 3]]);
-                  if (callback(item, (i << 2) + 3).answer) {
-                    this.#question = true;
-                  } else {
-                    this.#question = false;
-                    break;
-                  }
-                }
-                if (keys.length % 4 >= 1 && this.#question !== false) {
-                  i = keys.length - 1;
-                  item = new validator(val.value[keys[i]]);
-                  if (callback(item, i).answer) this.#question = true;
-                  else this.#question = false;
-                }
-                if (keys.length % 4 >= 2 && this.#question !== false) {
-                  i = keys.length - 2;
-                  item = new validator(val.value[keys[i]]);
-                  if (callback(item, i).answer) this.#question = true;
-                  else this.#question = false;
-                }
-                if (keys.length % 4 >= 3 && this.#question !== false) {
-                  i = keys.length - 3;
-                  item = new validator(val.value[keys[i]]);
-                  if (callback(item, i).answer) this.#question = true;
-                  else this.#question = false;
-                }
-              })
-              .on(false, () => {
-                this.#question = false;
-              });
-          });
-      });
+    if (callback_val.Not.isFunction.answer) {
+      errors.IncorrectFunctionArgumentInForAll();
+    }
+    if (val.isArray.answer) {
+      // the parameters are correct
+      // and we have to check every
+      // element (key value) of the
+      // array (object). Case array:
+      for (i = 0; i < val.value.length >> 2; i++) {
+        item = new validator(val.value[i << 2]);
+        if (callback(item, i << 2).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+        item = new validator(val.value[(i << 2) + 1]);
+        if (callback(item, (i << 2) + 1).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+        item = new validator(val.value[(i << 2) + 2]);
+        if (callback(item, (i << 2) + 2).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+        item = new validator(val.value[(i << 2) + 3]);
+        if (callback(item, (i << 2) + 3).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+      }
+      if (val.value.length % 4 >= 1 && this.#question !== false) {
+        i = val.value.length - 1;
+        item = new validator(val.value[i]);
+        if (callback(item, i).answer) this.#question = true;
+        else this.#question = false;
+      }
+      if (val.value.length % 4 >= 2 && this.#question !== false) {
+        i = val.value.length - 2;
+        item = new validator(val.value[i]);
+        if (callback(item, i).answer) this.#question = true;
+        else this.#question = false;
+      }
+      if (val.value.length % 4 >= 3 && this.#question !== false) {
+        i = val.value.length - 3;
+        item = new validator(val.value[i]);
+        if (callback(item, i).answer) this.#question = true;
+        else this.#question = false;
+      }
+    } else if (val.isObject.And.Not.isEmpty) {
+      // get the keys of the
+      // this.value and check
+      // every value...
+      keys = Object.keys(val.value);
+      for (i = 0; i < keys.length >> 2; i++) {
+        item = new validator(val.value[keys[i << 2]]);
+        if (callback(item, i << 2).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+        item = new validator(val.value[keys[(i << 2) + 1]]);
+        if (callback(item, (i << 2) + 1).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+        item = new validator(val.value[keys[(i << 2) + 2]]);
+        if (callback(item, (i << 2) + 2).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+        item = new validator(val.value[keys[(i << 2) + 3]]);
+        if (callback(item, (i << 2) + 3).answer) {
+          this.#question = true;
+        } else {
+          this.#question = false;
+          break;
+        }
+      }
+      if (keys.length % 4 >= 1 && this.#question !== false) {
+        i = keys.length - 1;
+        item = new validator(val.value[keys[i]]);
+        if (callback(item, i).answer) this.#question = true;
+        else this.#question = false;
+      }
+      if (keys.length % 4 >= 2 && this.#question !== false) {
+        i = keys.length - 2;
+        item = new validator(val.value[keys[i]]);
+        if (callback(item, i).answer) this.#question = true;
+        else this.#question = false;
+      }
+      if (keys.length % 4 >= 3 && this.#question !== false) {
+        i = keys.length - 3;
+        item = new validator(val.value[keys[i]]);
+        if (callback(item, i).answer) this.#question = true;
+        else this.#question = false;
+      }
+    } else {
+      this.#question = false;
+    }
+
     return this.#set_answer();
   }
   /**
