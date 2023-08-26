@@ -1368,121 +1368,14 @@ class validator {
     // initialization
     const val = this.copy();
     const callback_val = new validator(callback);
-    let i, keys, item;
-    // check if the parameters are correct
     if (callback_val.Not.isFunction.answer) {
       errors.IncorrectFunctionArgumentInForAll();
     }
     if (val.isArray.answer) {
-      // the parameters are correct
-      // and we have to check every
-      // element (key value) of the
-      // array (object). Case array:
-      for (i = 0; i < val.value.length >> 2; i++) {
-        item = new validator(val.value[i << 2]);
-        if (callback(item, i << 2).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-        item = new validator(val.value[(i << 2) + 1]);
-        if (callback(item, (i << 2) + 1).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-        item = new validator(val.value[(i << 2) + 2]);
-        if (callback(item, (i << 2) + 2).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-        item = new validator(val.value[(i << 2) + 3]);
-        if (callback(item, (i << 2) + 3).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-      }
-      if (val.value.length % 4 >= 1 && this.#question !== false) {
-        i = val.value.length - 1;
-        item = new validator(val.value[i]);
-        if (callback(item, i).answer) this.#question = true;
-        else this.#question = false;
-      }
-      if (val.value.length % 4 >= 2 && this.#question !== false) {
-        i = val.value.length - 2;
-        item = new validator(val.value[i]);
-        if (callback(item, i).answer) this.#question = true;
-        else this.#question = false;
-      }
-      if (val.value.length % 4 >= 3 && this.#question !== false) {
-        i = val.value.length - 3;
-        item = new validator(val.value[i]);
-        if (callback(item, i).answer) this.#question = true;
-        else this.#question = false;
-      }
+      this.#question = models.ForAllArrayEdition(val.value, callback);
     } else if (val.isObject.And.Not.isEmpty) {
-      // get the keys of the
-      // this.value and check
-      // every value...
-      keys = Object.keys(val.value);
-      for (i = 0; i < keys.length >> 2; i++) {
-        item = new validator(val.value[keys[i << 2]]);
-        if (callback(item, i << 2).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-        item = new validator(val.value[keys[(i << 2) + 1]]);
-        if (callback(item, (i << 2) + 1).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-        item = new validator(val.value[keys[(i << 2) + 2]]);
-        if (callback(item, (i << 2) + 2).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-        item = new validator(val.value[keys[(i << 2) + 3]]);
-        if (callback(item, (i << 2) + 3).answer) {
-          this.#question = true;
-        } else {
-          this.#question = false;
-          break;
-        }
-      }
-      if (keys.length % 4 >= 1 && this.#question !== false) {
-        i = keys.length - 1;
-        item = new validator(val.value[keys[i]]);
-        if (callback(item, i).answer) this.#question = true;
-        else this.#question = false;
-      }
-      if (keys.length % 4 >= 2 && this.#question !== false) {
-        i = keys.length - 2;
-        item = new validator(val.value[keys[i]]);
-        if (callback(item, i).answer) this.#question = true;
-        else this.#question = false;
-      }
-      if (keys.length % 4 >= 3 && this.#question !== false) {
-        i = keys.length - 3;
-        item = new validator(val.value[keys[i]]);
-        if (callback(item, i).answer) this.#question = true;
-        else this.#question = false;
-      }
-    } else {
-      this.#question = false;
-    }
-
+      this.#question = models.ForAllObjectEdition(val.value, callback);
+    } else this.#question = false;
     return this.#set_answer();
   }
   /**
