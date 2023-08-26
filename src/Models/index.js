@@ -1,5 +1,6 @@
 "use strict";
 export { ForAllArrayEdition, ForAllObjectEdition } from "./ForAll.js";
+export { ForAnyArrayEdition, ForAnyObjectEdition } from "./ForAny.js";
 export { IsArray } from "./IsArray.js";
 export { IsArrayOfArraysWithEqualSize } from "./IsArrayOfArraysWithEqualSize.js";
 export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
