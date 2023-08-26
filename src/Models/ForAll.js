@@ -53,7 +53,7 @@ export const ForAllArrayEdition = (value, callback) => {
  * @returns {boolean} if the callback function returns truthy values for all the elements of the array, then returns true, otherwise returns false.
  **/
 export const ForAllObjectEdition = (value, callback) => {
-  const keys = value.keys, n = keys.length;
+  const keys = Object.keys(value), n = keys.length;
   let i, j, question = true;
   for (i = 0;i < n >> 2;i++) {
     j = i << 2;
