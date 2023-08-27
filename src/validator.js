@@ -252,7 +252,8 @@ class validator {
    * @param {number} iterations - a positive integer, which
    * is set to 100 by default. The number of iterations needed
    * to measure the benchmark of the benchmark callback function.
-   * @returns {{mean: number, std: number}}
+   * @returns {{mean: number, std: number, iterations: number}} an object
+   * with keys "mean", "std" (standard deviation) and iterations.
    */
   benchmark(f, iterations = 100) {
     if (new validator(iterations).Not.isInteger.answer) {
