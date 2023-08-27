@@ -13,8 +13,8 @@
  * executed "iteration" times.
  * @param {number} iterations - a positive integer which represents
  * the number of the iterations.
- * @returns {mean: number, std: number} an object with properties mean and
- * std, which has the values of the average 
+ * @returns {mean: number, std: number, iterations: number} an object with properties mean,
+ * std and iterations. 
  **/
 export const Benchmark = (params, f, iterations) => {
  let dt1, dt2, times = [];
@@ -32,5 +32,5 @@ export const Benchmark = (params, f, iterations) => {
     return sigma + diff * diff;
   }, 0);
   const std = Math.sqrt(dispersion / (iterations - 1));
-  return { mean, std };
+  return { mean, std, iterations };
 }
