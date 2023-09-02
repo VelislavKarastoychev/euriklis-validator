@@ -1089,6 +1089,7 @@ class validator {
    * which are numbers in an open interval (a, b).
    */
   is_array_of_numbers_in_range(a, b) {
+    
     new validator([a, b]).isNumberArray
       .And.bind(
         new validator(a).is_lesser_than(b),
