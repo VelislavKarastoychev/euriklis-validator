@@ -1,6 +1,6 @@
 "use strict";
 import validator from "../index.js";
-import { intArray } from "./data.js";
+import { intArray, print } from "./data.js";
 new validator(intArray).is_array_of_integers_in_closed_range(0, 100).on(
   true,
   (v) => {
