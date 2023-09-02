@@ -1,5 +1,5 @@
-import validator from '../index.js';
-import {print, intArray} from './data.js';
+import validator from "../index.js";
+import { intArray, print } from "./data.js";
 new validator(intArray).isArrayOfPositiveIntegers.on(true, (v) => {
   const t1 = v.benchmark((n) =>
     new validator(n).isArrayOfPositiveIntegers.answer
@@ -11,4 +11,3 @@ new validator(intArray).isArrayOfPositiveIntegers.on(true, (v) => {
   );
   print("isArrayOfPositiveIntegers with 1000000 elements", t1, t2);
 });
-
