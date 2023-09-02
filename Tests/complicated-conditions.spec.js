@@ -1,5 +1,23 @@
 import validator from '../index.js';  
 import { print } from "./data.js";
+const test = new validator(123);
+
+const tests = {
+  "value": test.value,
+  "is string": test.isString.answer,
+  "is number": test.isNumber.answer,
+  "is object": test.isObject.answer,
+  "is integer": test.isInteger.answer,
+  "is negative integer": test.isNegativeInteger.answer,
+  "is numeric array": test.isNumberArray.answer,
+  "is number like": test.isNumberLike.answer,
+  "is integer and is in range (0, 200) or is string":
+    test.isInteger.And.is_in_range(0, 200).Or.isString.answer,
+  "is object + And": test.isObjectArray.And.answer,
+  "is positive (number)": test.isPositive.answer,
+};
+console.table(tests);
+
 new validator(Math.PI + "").isString.Or.isPositive.And.Not.isBoolean.on(
   true,
   (v) => {
