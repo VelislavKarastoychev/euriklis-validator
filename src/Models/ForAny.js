@@ -5,22 +5,22 @@ export const ForAnyArrayEdition = (value, callback) => {
   const n = value.length;
   for (i = 0;i < n >> 2;i++) {
     j = i << 2;
-    if (callback(value[j],j)) {
+    if (callback(new validator(value[j]),j)) {
       question = true;
       break;
     }
     ++j;
-    if (callback(value[j], j)) {
+    if (callback(new validator(value[j]), j)) {
       question = true;
       break;
     }
     ++j;
-    if (callback(value[j], j)) {
+    if (callback(new validator(value[j]), j)) {
       question = true;
       break;
     }
     ++j;
-    if (callback(value[j], j)) {
+    if (callback(new validator(value[j]), j)) {
       question = true;
       break;
     }
