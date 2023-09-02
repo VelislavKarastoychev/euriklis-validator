@@ -1,6 +1,6 @@
 "use strict";
 import validator from "../index.js";
-import { matrix } from "./data.js";
+import { matrix, print } from "./data.js";
 new validator(matrix).isArrayOfArraysWithEqualSize.on(true, (v) => {
   const t1 = v.benchmark((n) =>
     new validator(n).isArrayOfArraysWithEqualSize.answer
