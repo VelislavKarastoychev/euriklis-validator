@@ -1,6 +1,6 @@
 "use strict";
 import validator from "../index.js";
-import { objectArray } from "./data.js";
+import { objectArray, print } from "./data.js";
 new validator(objectArray).isObjectArray.on(true, (v) => {
   const t1 = v.benchmark((n) => new validator(n).isObjectArray.answer);
   const t2 = v.benchmark((n) =>

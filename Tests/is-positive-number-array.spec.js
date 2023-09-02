@@ -1,6 +1,6 @@
 "use strict";
 import validator from "../index.js";
-import { numericArray } from "./data.js";
+import { numericArray, print } from "./data.js";
 new validator(numericArray).isArrayOfPositiveNumbers.on(true, (v) => {
   const t1 = v.benchmark((n) =>
     new validator(n).isArrayOfPositiveNumbers.answer
