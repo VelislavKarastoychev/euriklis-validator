@@ -26,6 +26,7 @@ export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsError } from "./IsError.js";
 export { IsInstanceof } from "./IsInstanceof.js";
 export { IsInstanceType } from "./IsInstanceType.js";
+export { IsInt8Array } from "./IsInt8Array.js";
 export { IsInteger } from "./IsInteger.js";
 export { IsIntegerArray } from "./IsIntegerArray.js";
 export { IsIntegerLike } from "./IsIntegerLike.js";
