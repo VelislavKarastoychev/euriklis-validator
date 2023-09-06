@@ -1,7 +1,7 @@
 "use strict";
 import validator from "../index.js";
 import { numericArray,print } from "./data.js";
-new validator(numericArray.is_array_of_numbers_in_closed_range(0, 100).on(
+new validator(numericArray).is_array_of_numbers_in_closed_range(0, 100).on(
   true,
   (v) => {
     const t1 = v.benchmark((n) =>
@@ -21,6 +21,5 @@ new validator(numericArray.is_array_of_numbers_in_closed_range(0, 100).on(
       t1,
       t2,
     );
-  },
-).on(false, () => console.log("Something went wrong ..."));
+  }).on(false, () => console.log("Something went wrong ..."));
 
