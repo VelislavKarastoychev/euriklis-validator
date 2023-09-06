@@ -842,6 +842,13 @@ class validator {
   get isArray() {
     return this.is_array();
   }
+  get isTypedArray () {
+    this.#question = models.IsTypedArray(this.value);
+    return this.#set_answer();
+  }
+  is_typed_array () {
+    return this.isTypedArray;
+  }
   /**
    * @description this method tests if the
    * current validator instance is an array
