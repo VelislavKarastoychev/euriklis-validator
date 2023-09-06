@@ -1,5 +1,6 @@
 "use strict";
 import validator from "../index.js";
+import { print } from "./data.js";
 new validator({
   name: "Dubatur",
   computeAge: () => this.name.length * 10 * Math.random() >> 0,
