@@ -991,6 +991,21 @@ class validator {
     return this.isInt16Array;
   }
   /**
+   * This method sets the "answer" property of the current validator instance to true if the "value" propety is Uint16Array, otherwise sets it to false. The method does not ensure that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   **/
+  get isUint16Array() {
+    this.#question = models.IsUint16Array(this.value);
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property of the current validator instance to true if the "value" propety is Uint16Array, otherwise sets it to false. The method does not ensure that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   **/
+  is_uint16_array() {
+    return this.isUint16Array;
+  }
+  /**
    * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
    * @returns {validator} the current validator property with updated "answer" property.
    **/
