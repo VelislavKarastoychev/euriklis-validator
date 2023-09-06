@@ -1427,7 +1427,7 @@ class validator {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLength();
     let cp_instance = this.copy();
-    if (cp_instance.is_array().or().is_string().answer) {
+    if (cp_instance.isArray.Or.isString.answer) {
       this.#question = this.value.length === n;
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length === n;
@@ -2262,6 +2262,13 @@ class validator {
       this.#question = true;
     } else this.#question = false;
     return this.#set_answer();
+  }
+  test () {
+    if (this.answer) {
+      validator.successMessage(this.description);
+    } else if (this.answer === false) {
+      validator.errorMessage(this.description);
+    } else validator.info(this.description);
   }
 }
 export default validator;
