@@ -930,7 +930,10 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-
+  /**
+   * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
+   * @returns {validator} the current validator property with updated "answer" property.
+   **/
   get isIntegerTypedArray () {
     this.#question = this.copy()
       .isInt8Array
