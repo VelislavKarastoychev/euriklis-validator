@@ -1,38 +1,42 @@
 {
-    "name": "@euriklis/validator",
-    "version": "3.1.0",
-    "description": "A javascript package for testing and managing of type coonditions.",
-    "type": "module",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo 'to run the tests download the code on github and run it: https://github.com/VelislavKarastoychev/tests-for-validator'",
-        "start": "node index.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/VelislavKarastoychev/euriklis-validator.git"
-    },
-    "keywords": [
-        "validator",
-        "javascript",
-        "\"type",
-        "verification\"",
-        "\"conditional",
-        "type",
-        "manipulation\"",
-        "testing"
-    ],
-    "author": "Euriklis <euriklis@hotmail.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/VelislavKarastoychev/euriklis-validator/issues"
-    },
-    "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme",
-    "devDependencies": {
-        "eslint": "^7.32.0",
-        "eslint-config-standard": "^16.0.3",
-        "eslint-plugin-import": "^2.25.4",
-        "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-promise": "^5.2.0"
-    }
+  "name": "@euriklis/validator",
+  "version": "3.1.0",
+  "description": "A javascript package for testing and managing of type coonditions.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'to run the tests download the code on github and run it: https://github.com/VelislavKarastoychev/tests-for-validator'",
+    "start": "node index.js",
+    "test": "bin/validator.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VelislavKarastoychev/euriklis-validator.git"
+  },
+  "bin": {
+    "validator": "./bin/validator.sh $(pwd)"
+  },
+  "keywords": [
+    "validator",
+    "javascript",
+    "\"type",
+    "verification\"",
+    "\"conditional",
+    "type",
+    "manipulation\"",
+    "testing"
+  ],
+  "author": "Euriklis <euriklis@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VelislavKarastoychev/euriklis-validator/issues"
+  },
+  "homepage": "https://github.com/VelislavKarastoychev/euriklis-validator#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0"
+  }
 }
