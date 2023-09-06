@@ -1,6 +1,9 @@
 "use strict";
+
+export { Benchmark } from "./Benchmark.js";
 export { ForAllArrayEdition, ForAllObjectEdition } from "./ForAll.js";
 export { ForAnyArrayEdition, ForAnyObjectEdition } from "./ForAny.js";
+export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
 export { IsArray } from "./IsArray.js";
 export { IsArrayOfArraysWithEqualSize } from "./IsArrayOfArraysWithEqualSize.js";
 export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
@@ -18,7 +21,6 @@ export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js";
 export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { IsArrayOfStringArrays } from "./IsArrayOfStringArrays.js";
 export { IsArrayOfStringArraysWithEqualSize } from "./IsArrayOfStringArraysWithEqualSize.js";
-export { Benchmark } from "./Benchmark.js";
 export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsError } from "./IsError.js";
