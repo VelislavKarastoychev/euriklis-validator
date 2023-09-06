@@ -4,12 +4,12 @@ export const print = (method, t1, t2) => {
 };
 export const booleanArray = Array.from({ length: 1000000 }).map((_) => Math.random() > 0.5);
 export const numericArray = Array.from({ length: 1000000 }).map(Math.random);
-export const intArray = numArr.map((item) => item * 100 | 0);
-export const negativeNumericArray = numArr.map((item) => -item);
+export const intArray = numericArray.map((item) => item * 100 | 0);
+export const negativeNumericArray = numericArray.map((item) => -item);
 export const negativeIntArray = intArray.map((item) => item ? -item : -1);
-export const stringArray = numArr.map((el) => el + "");
-export const functionArray = numArr.map((_, i) => () => console.log(i));
-export const objectArray = numArr.map((_) => {
+export const stringArray = numericArray.map((el) => el + "");
+export const functionArray = numericArray.map((_, i) => () => console.log(i));
+export const objectArray = numericArray.map((_) => {
   return {};
 });
 // objArr.push([]);
