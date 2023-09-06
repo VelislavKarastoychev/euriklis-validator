@@ -922,8 +922,11 @@ class validator {
    * because we use different approach.
    */
   get isNumberArray() {
-    if (this.copy().isArray.answer) {
+    const cp = this.copy();
+    if (cp.isArray.answer) {
       this.#question = models.IsNumberArray(this.value);
+    } else if (cp.isTypedArray.answer) {
+      this.#question = !models.HasNaNInTypedArray(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
