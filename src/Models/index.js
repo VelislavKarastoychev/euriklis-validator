@@ -45,6 +45,7 @@ export { IsString } from "./IsString.js";
 export { IsStringArray } from "./IsStringArray.js";
 export { IsTypedArray } from "./IsTypedArray.js";
 export { IsUint16Array } from "./IsUint16Array.js";
+export { IsUint32Array } from "./IsUint32Array.js";
 export { IsUint8Array } from "./IsUint8Array.js";
 export { IsUint8ClampedArray } from "./IsUint8ClampedArray.js";
 export { IsUndefined } from "./IsUndefined.js";
