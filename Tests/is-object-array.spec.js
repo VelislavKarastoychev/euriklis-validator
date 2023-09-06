@@ -19,7 +19,7 @@ new validator(objectArray).isObjectArray.on(false, (v) => {
       : false
   );
   print(`isObjectArray with ${v.value.length} elements`, t1, t2);
-  objArr.pop(); // finally the objArr will remain an objArr.
+  objectArray.pop(); // finally the objArr will remain an objArr.
 }).on(
   true,
   () => console.log("Something went wrong with isObjectArray method!"),
