@@ -931,6 +931,21 @@ class validator {
     return this.#set_answer();
   }
   /**
+   * This method tests if the current "value" property is Int8Array.
+   * @returns {validator} the current validator instance with updated answer.
+   **/
+  get isInt8Array() {
+    this.#question = models.IsInt8Array(this.value);
+    return this.#set_answer();
+  }
+  /**
+   * This method tests if the current "value" property is Int8Array.
+   * @returns {validator} the current validator instance with updated answer.
+   **/
+  is_int8_array() {
+    return this.isInt8Array;
+  }
+  /**
    * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
    * @returns {validator} the current validator property with updated "answer" property.
    **/
@@ -945,6 +960,10 @@ class validator {
       .Or.isUint32Array.answer;
     return this.#set_answer();
   }
+  /**
+   * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
+   * @returns {validator} the current validator property with updated "answer" property.
+   **/
   is_integer_typed_array() {
     return this.isIntegerTypedArray;
   }
