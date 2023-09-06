@@ -38,4 +38,5 @@ export { IsPositiveIntegerLike } from "./IsPositiveIntegerLike.js";
 export { IsPositiveNumberLike } from "./IsPositiveNumberLike.js";
 export { IsString } from "./IsString.js";
 export { IsStringArray } from "./IsStringArray.js";
+export { IsTypedArray } from "./IsTypedArray.js";
 export { IsUndefined } from "./IsUndefined.js";
