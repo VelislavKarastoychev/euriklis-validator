@@ -961,7 +961,7 @@ class validator {
     return this.isUint8Array;
   }
   /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false.
+   * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
    **/
   get isUint8ClampedArray() {
@@ -969,11 +969,26 @@ class validator {
     return this.#set_answer();
   }
   /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false.
+   * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
    **/
   is_uint8_clamped_array() {
     return this.isUint8ClampedArray;
+  }
+  /**
+   * The method sets the "answer" property of the current validator instance to true if the "value" is an Int16Array. The method does not ensures that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   **/
+  get isInt16Array() {
+    this.#question = models.IsInt16Array(this.value);
+    return this.#set_answer();
+  }
+  /**
+   * The method sets the "answer" property of the current validator instance to true if the "value" is an Int16Array. The method does not ensures that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   **/
+  is_int16_array() {
+    return this.isInt16Array;
   }
   /**
    * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
