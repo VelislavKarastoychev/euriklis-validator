@@ -930,6 +930,21 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
+
+  get isIntegerTypedArray () {
+    this.#question = this.copy()
+      .isInt8Array
+      .Or.isUint8Array
+      .Or.isUint8ClampedArray
+      .Or.isInt16Array
+      .Or.isUint16Array
+      .Or.isInt32Array
+      .Or.isUint32Array.answer;
+    return this.#set_answer();
+  }
+  is_integer_typed_array() {
+    return this.isIntegerTypedArray;
+  }
   /**
    * @method is_integer_array
    * @returns {validator}
@@ -949,9 +964,11 @@ class validator {
    * array each element of which is integer.
    */
   get isIntegerArray() {
-    this.#question = true;
-    if (this.copy().isArray.answer) {
+    const copy = this.copy();
+    if (copy.isArray.answer) {
       this.#question = models.IsIntegerArray(this.value);
+    } else if (copy.isIntegerTypedArray.answer) {
+      this.#question = !models.HasNaNInTypedArray(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
