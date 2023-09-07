@@ -842,11 +842,11 @@ class validator {
   get isArray() {
     return this.is_array();
   }
-  get isTypedArray () {
+  get isTypedArray() {
     this.#question = models.IsTypedArray(this.value);
     return this.#set_answer();
   }
-  is_typed_array () {
+  is_typed_array() {
     return this.isTypedArray;
   }
   /**
@@ -933,7 +933,7 @@ class validator {
   /**
    * This method tests if the current "value" property is Int8Array.
    * @returns {validator} the current validator instance with updated answer.
-   **/
+   */
   get isInt8Array() {
     this.#question = models.IsInt8Array(this.value);
     return this.#set_answer();
@@ -941,29 +941,29 @@ class validator {
   /**
    * This method tests if the current "value" property is Int8Array.
    * @returns {validator} the current validator instance with updated answer.
-   **/
+   */
   is_int8_array() {
     return this.isInt8Array;
   }
   /**
-   * This method sets the "answer" property of the current validator instance if the "value" property is Uint8Array. Note that the method does not ensures that all the elements of the typed array are not NaN. Use isIntegerArray if you have to ensure that every element of the array are numbers. 
+   * This method sets the "answer" property of the current validator instance if the "value" property is Uint8Array. Note that the method does not ensures that all the elements of the typed array are not NaN. Use isIntegerArray if you have to ensure that every element of the array are numbers.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isUint8Array() {
     this.#question = models.IsUint8Array(this.value);
     return this.#set_answer();
   }
   /**
-   * This method sets the "answer" property of the current validator instance if the "value" property is Uint8Array. Note that the method does not ensures that all the elements of the typed array are not NaN. Use isIntegerArray if you have to ensure that every element of the array are numbers. 
+   * This method sets the "answer" property of the current validator instance if the "value" property is Uint8Array. Note that the method does not ensures that all the elements of the typed array are not NaN. Use isIntegerArray if you have to ensure that every element of the array are numbers.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   is_uint8_array() {
     return this.isUint8Array;
   }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isUint8ClampedArray() {
     this.#question = models.IsUint8ClampedArray(this.value);
     return this.#set_answer();
@@ -971,14 +971,14 @@ class validator {
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   is_uint8_clamped_array() {
     return this.isUint8ClampedArray;
   }
   /**
    * The method sets the "answer" property of the current validator instance to true if the "value" is an Int16Array. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isInt16Array() {
     this.#question = models.IsInt16Array(this.value);
     return this.#set_answer();
@@ -986,14 +986,14 @@ class validator {
   /**
    * The method sets the "answer" property of the current validator instance to true if the "value" is an Int16Array. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   is_int16_array() {
     return this.isInt16Array;
   }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" propety is Uint16Array, otherwise sets it to false. The method does not ensure that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isUint16Array() {
     this.#question = models.IsUint16Array(this.value);
     return this.#set_answer();
@@ -1001,14 +1001,14 @@ class validator {
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" propety is Uint16Array, otherwise sets it to false. The method does not ensure that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   is_uint16_array() {
     return this.isUint16Array;
   }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Int32Array instance, otherwise sets the answer to false.The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isInt32Array() {
     this.#question = models.IsInt32Array(this.value);
     return this.#set_answer();
@@ -1016,14 +1016,14 @@ class validator {
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Int32Array instance, otherwise sets the answer to false.The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   is_int32_array() {
     return this.isInt32Array;
   }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint32Array instance. The method does ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isUint32Array() {
     this.#question = models.IsUint32Array(this.value);
     return this.#set_answer();
@@ -1031,15 +1031,15 @@ class validator {
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint32Array instance. The method does ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
-   **/ 
-  is_uint32_array(){
+   */
+  is_uint32_array() {
     return this.isUint32Array;
   }
   /**
    * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
    * @returns {validator} the current validator property with updated "answer" property.
-   **/
-  get isIntegerTypedArray () {
+   */
+  get isIntegerTypedArray() {
     this.#question = this.copy()
       .isInt8Array
       .Or.isUint8Array
@@ -1053,9 +1053,39 @@ class validator {
   /**
    * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
    * @returns {validator} the current validator property with updated "answer" property.
-   **/
+   */
   is_integer_typed_array() {
     return this.isIntegerTypedArray;
+  }
+  /**
+   * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array. The method does not ensures that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   */
+  get isFloat32Array() {
+    this.#question = models.IsFloat32Array(this.value);
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array. The method does not ensures that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   */
+  is_float_32_array() {
+    return this.isFloat32Array;
+  }
+  /**
+   * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array or Float64Array instance. The method does not ensures that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   */
+  get isFloatTypedArray() {
+    this.#question = this.copy().isFloat32Array.Or.isFloat64Array.answer;
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array or Float64Array instance. The method does not ensures that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   */
+  is_float_typed_array() {
+    return this.isFloatTypedArray;
   }
   /**
    * @method is_integer_array
@@ -1103,7 +1133,8 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfPositiveIntegers() {
-    if (this.copy().isArray.answer) {
+    const cp = this.copy();
+    if (cp.isArray.Or.isTypedArray.answer) {
       this.#question = models.IsArrayOfPositiveIntegers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1126,7 +1157,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfNegativeIntegers() {
-    if (this.copy().isArray.answer) {
+    if (this.copy().isArray.Or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNegativeIntegers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1149,8 +1180,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfPositiveNumbers() {
-    this.#question = true;
-    if (this.copy().isArray.answer) {
+    if (this.copy().isArray.Or.isTypedArray.answer) {
       this.#question = models.IsArrayOfPositiveNumbers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1174,7 +1204,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfNegativeNumbers() {
-    if (this.copy().isArray.answer) {
+    if (this.copy().isArray.Or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNegativeNumbers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1192,8 +1222,9 @@ class validator {
       .And.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfIntegersInRange());
-    if (this.copy().Not.isArray.answer) this.#question = false;
-    else this.#question = models.IsArrayOfIntegersInRange(this.value, a, b);
+    if (this.copy().Not.isArray.And.Not.isTypedArray.answer) {
+      this.#question = false;
+    } else this.#question = models.IsArrayOfIntegersInRange(this.value, a, b);
     return this.#set_answer();
   }
   /**
@@ -1214,7 +1245,7 @@ class validator {
         false,
         () => errors.IllegalParametersInIsArrayOfIntegersInClosedRange(),
       );
-    if (this.copy().isArray.answer) {
+    if (this.copy().isArray.Or.isTypedArray.answer) {
       this.#question = models.IsArrayOfIntegersInClosedRange(this.value, a, b);
     } else this.#question = true;
     return this.#set_answer();
@@ -1228,12 +1259,11 @@ class validator {
    * which are numbers in an open interval (a, b).
    */
   is_array_of_numbers_in_range(a, b) {
-    
     new validator([a, b]).isNumberArray
       .And.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfNumbersInRange());
-    if (this.copy().isArray.answer) {
+    if (this.copy().isArray.Or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNumbersInRange(this.value, a, b);
     } else this.#question = false;
     return this.#set_answer();
@@ -1256,7 +1286,7 @@ class validator {
         () => errors.IllegalParametersInIsArrayOfNumbersInClosedRange(),
       );
     // check if every element of the array is number in the interval [a, b].
-    if (this.copy().isArray.answer) {
+    if (this.copy().isArray.Or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNumbersInClosedRange(this.value, a, b);
     } else this.#question = false;
     return this.#set_answer();
@@ -2402,7 +2432,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  test () {
+  test() {
     if (this.answer) {
       validator.successMessage(this.description);
     } else if (this.answer === false) {
