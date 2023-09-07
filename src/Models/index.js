@@ -24,6 +24,7 @@ export { IsArrayOfStringArraysWithEqualSize } from "./IsArrayOfStringArraysWithE
 export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsError } from "./IsError.js";
+export { IsFloat32Array } from "./IsFloat32Array.js";
 export { IsInstanceof } from "./IsInstanceof.js";
 export { IsInstanceType } from "./IsInstanceType.js";
 export { IsInt16Array} from "./IsInt16Array.js";
