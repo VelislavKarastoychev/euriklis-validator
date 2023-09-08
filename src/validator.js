@@ -1843,23 +1843,26 @@ class validator {
     return this.#set_answer();
   }
   /**
-   * @method is_function()
-   * @returns {validator}
-   * @description a method that checks if
+   * A method that checks if
    * the value property of the current validator
    * instance is a javascript function object and
    * sets the answer property of the returned validator
    * instance to true or false respectively.
-   */
+   * @method is_function()
+   * @returns {validator} the updated validator property.
+   **/
   is_function() {
     this.#question = models.IsFunction(this.value);
     return this.#set_answer();
   }
   /**
-   * @method isFunction
-   * @returns {validator}
-   * @description this method is a getter variant of the
-   * is_function() validator method.
+   * A method that checks if
+   * the value property of the current validator
+   * instance is a javascript function object and
+   * sets the answer property of the returned validator
+   * instance to true or false respectively.
+   * @returns {validator} the updated validator property.
+   * 
    */
   get isFunction() {
     return this.is_function();
