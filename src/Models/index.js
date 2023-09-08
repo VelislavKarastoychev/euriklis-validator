@@ -5,6 +5,7 @@ export { ForAllArrayEdition, ForAllObjectEdition } from "./ForAll.js";
 export { ForAnyArrayEdition, ForAnyObjectEdition } from "./ForAny.js";
 export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
 export { IsArray } from "./IsArray.js";
+export { IsArrayBuffer } from "./IsArrayBuffer.js";
 export { IsArrayOfArraysWithEqualSize } from "./IsArrayOfArraysWithEqualSize.js";
 export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
 export { IsArrayOfIntegerArrays } from "./IsArrayOfIntegerArrays.js";
