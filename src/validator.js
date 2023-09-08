@@ -1852,8 +1852,7 @@ class validator {
    * instance to true or false respectively.
    */
   is_function() {
-    this.#question = this.value instanceof Function ||
-      typeof this.value === "function";
+    this.#question = models.IsFunction(this.value);
     return this.#set_answer();
   }
   /**
