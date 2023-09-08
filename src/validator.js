@@ -821,6 +821,26 @@ class validator {
     return this.#set_answer();
   }
   /**
+   * This method tests if the "value" property of the current
+   * validator instance is ArrayBuffer. If the condition is satisfied,
+   * then sets the "answer" property to true, otherwise sets it to false.
+   * @returns {validator} the updated validator instance.
+   **/
+  get isArrayBuffer() {
+    this.#question = models.IsArrayBuffer(this.value);
+    return this.#set_answer();
+  }
+  /**
+   * This method tests if the "value" property of the current
+   * validator instance is ArrayBuffer. If the condition is satisfied,
+   * then sets the "answer" property to true, otherwise sets it to false.
+   * @returns {validator} the updated validator instance.
+   **/
+
+  is_array_buffer() {
+    return this.isArrayBuffer;
+  }
+  /**
    * @method is_array()
    * @returns {validator}
    * @description a method that checks if
