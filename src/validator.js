@@ -836,8 +836,11 @@ class validator {
   /**
    * @method isArray
    * @returns {validator}
-   * @description this method is the getter variant
-   * of the is_array() method of the validator library.
+   * @description a method that checks if
+   * the value of the current validator instance
+   * is of array type and sets the answer property
+   * of the returned validator instance to true or
+   * false respectively.
    */
   get isArray() {
     return this.is_array();
