@@ -1882,11 +1882,11 @@ class validator {
   contains(elements) {
     this.#question = this.copy().is_array().answer;
     let eltype = new validator(elements)
-      .is_array()
-      .or()
-      .is_number()
-      .or()
-      .is_string().answer;
+      .isArray
+      .Or
+      .isNumber
+      .Or
+      .isString.answer;
     if (this.#question && eltype) {
       // the value has to contain
       // all elements of the element.
