@@ -825,7 +825,7 @@ class validator {
    * validator instance is ArrayBuffer. If the condition is satisfied,
    * then sets the "answer" property to true, otherwise sets it to false.
    * @returns {validator} the updated validator instance.
-   **/
+   */
   get isArrayBuffer() {
     this.#question = models.IsArrayBuffer(this.value);
     return this.#set_answer();
@@ -835,7 +835,7 @@ class validator {
    * validator instance is ArrayBuffer. If the condition is satisfied,
    * then sets the "answer" property to true, otherwise sets it to false.
    * @returns {validator} the updated validator instance.
-   **/
+   */
 
   is_array_buffer() {
     return this.isArrayBuffer;
@@ -1098,7 +1098,7 @@ class validator {
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" is an Float64Array instance, otherwise sets the "answer" to false. The method does not ensures that every element of the typed array is nto NaN
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isFloat64Array() {
     this.#question = models.IsFloat64Array(this.value);
     return this.#set_answer();
@@ -1106,7 +1106,7 @@ class validator {
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" is an Float64Array instance, otherwise sets the "answer" to false. The method does not ensures that every element of the typed array is nto NaN
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   is_float64_array() {
     return this.isFloat64Array;
   }
@@ -1850,7 +1850,7 @@ class validator {
    * instance to true or false respectively.
    * @method is_function()
    * @returns {validator} the updated validator property.
-   **/
+   */
   is_function() {
     this.#question = models.IsFunction(this.value);
     return this.#set_answer();
@@ -1862,10 +1862,26 @@ class validator {
    * sets the answer property of the returned validator
    * instance to true or false respectively.
    * @returns {validator} the updated validator property.
-   * 
    */
   get isFunction() {
     return this.is_function();
+  }
+  /**
+   * This method sets the "answer" property to true if the "value" property
+   * is GeneratorFunction, otherwise sets it to false.
+   * @returns {validator} the updated current validator instance.
+   */
+  get isGeneratorFunction() {
+    this.#question = models.IsGeneratorFunction(this.value);
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property to true if the "value" property
+   * is GeneratorFunction, otherwise sets it to false.
+   * @returns {validator} the updated current validator instance.
+   */
+  is_generator_function() {
+    return this.isGeneratorFunction;
   }
   /**
    * @param {Array | String | number} elements an array
