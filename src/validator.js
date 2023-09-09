@@ -1883,9 +1883,36 @@ class validator {
   is_generator() {
     return this.isGeneratorFunction;
   }
+  /**
+   * This method tests if the "value" property of the current validator instance
+   * is Promise type and sets the "answer" property to true or false respectively.
+   * Note that if the "value" property is an async function then the method will set
+   * the "answer" to false. To check if the function is asynchronous you have to use
+   * the isAsync method.
+   * @returns {validator} the updated current validator instance.
+   **/
   get isPromise() {
     this.#question = models.IsPromiseFunction(this.value);
     return this.#set_answer();
+  }
+  /**
+   * This method tests if the "value" property of the current validator instance
+   * is Promise type and sets the "answer" property to true or false respectively.
+   * Note that if the "value" property is an async function then the method will set
+   * the "answer" to false. To check if the function is asynchronous you have to use
+   * the isAsync method.
+   * @returns {validator} the updated current validator instance.
+   **/
+  is_promise() {
+    return this.isPromise;
+  }
+  /**
+   * This method sets the "answer" property to true if the "value" property is a Promise,
+   * otherwise sets the "answer" to false.
+   * @returns {validator} the updated current validator instance.
+   **/
+  is_promise() {
+    return this.isPromise;
   }
   /**
    * @param {Array | String | number} elements an array
