@@ -1868,20 +1868,24 @@ class validator {
   }
   /**
    * This method sets the "answer" property to true if the "value" property
-   * is GeneratorFunction, otherwise sets it to false.
+   * is GeneratorFunction or Generator object, otherwise sets it to false.
    * @returns {validator} the updated current validator instance.
    */
-  get isGeneratorFunction() {
+  get isGenerator() {
     this.#question = models.IsGeneratorFunction(this.value);
     return this.#set_answer();
   }
   /**
    * This method sets the "answer" property to true if the "value" property
-   * is GeneratorFunction, otherwise sets it to false.
+   * is GeneratorFunction or Generator object, otherwise sets it to false.
    * @returns {validator} the updated current validator instance.
    */
-  is_generator_function() {
+  is_generator() {
     return this.isGeneratorFunction;
+  }
+  get isPromise() {
+    this.#question = models.IsPromiseFunction(this.value);
+    return this.#set_answer();
   }
   /**
    * @param {Array | String | number} elements an array
