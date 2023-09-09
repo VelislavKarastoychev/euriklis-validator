@@ -28,6 +28,7 @@ export { IsError } from "./IsError.js";
 export { IsFloat32Array } from "./IsFloat32Array.js";
 export { IsFloat64Array } from "./IsFloat64Array.js";
 export { IsFunction } from "./IsFunction.js";
+export { IsGeneratorFunction } from "./IsGeneratorFunction.js";
 export { IsInstanceof } from "./IsInstanceof.js";
 export { IsInstanceType } from "./IsInstanceType.js";
 export { IsInt16Array } from "./IsInt16Array.js";
