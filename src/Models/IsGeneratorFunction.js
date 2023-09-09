@@ -7,4 +7,6 @@
 export const IsGeneratorFunction = (value) =>
   value instanceof Function
     ? value.constructor.name === "GeneratorFunction"
+    : value instanceof Object
+    ? Object.prototype.toString.call(value) === "[object Generator]"
     : false;
