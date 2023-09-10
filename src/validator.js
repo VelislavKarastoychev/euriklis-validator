@@ -1504,26 +1504,28 @@ class validator {
     return this.#set_answer();
   }
   /**
-   * @method is_object()
-   * @returns {validator}
-   * @description a method that checks if the
-   * value property of the current validator
-   * instance is an object and sets the answer
+   * This method tests if the
+   * "value" property of the current validator
+   * instance is an object and sets the "answer"
    * property of the returned validator instance to
    * true or false respectively.
+   * @method is_object()
+   * @returns {validator} the updated current validator instance.
    */
   is_object() {
-    this.#question = models.IsObject(this.value);
-    return this.#set_answer();
+    return this.isObject;
   }
   /**
-   * @method isObject
-   * @returns {validator}
-   * @description this method is a getter variant of the
-   * is_object() method of the validator library.
+   * This method tests if the
+   * "value" property of the current validator
+   * instance is an object and sets the "answer"
+   * property of the returned validator instance to
+   * true or false respectively.
+   * @returns {validator} the updated current validator instance.
    */
   get isObject() {
-    return this.is_object();
+    this.#question = models.CheckType(this.value, "Object");
+    return this.#set_answer();
   }
   /**
    * @method is_empty()
@@ -1852,8 +1854,7 @@ class validator {
    * @returns {validator} the updated validator property.
    */
   is_function() {
-    this.#question = models.IsFunction(this.value);
-    return this.#set_answer();
+    return this.isFunction;
   }
   /**
    * A method that checks if
@@ -1864,22 +1865,23 @@ class validator {
    * @returns {validator} the updated validator property.
    */
   get isFunction() {
-    return this.is_function();
-  }
-  /**
-   * This method sets the "answer" property of the current validator instance
-   * to true if the "value" property is asyncronous function otherwise set it to false..
-   * @returns {validator} the updated current validator instance.
-   **/
-  get isAsync() {
-    this.#question = models.IsAsyncFunction(this.value);
+    this.#question = models.CheckType(this.value, "Function");
     return this.#set_answer();
   }
   /**
    * This method sets the "answer" property of the current validator instance
    * to true if the "value" property is asyncronous function otherwise set it to false..
    * @returns {validator} the updated current validator instance.
-   **/
+   */
+  get isAsync() {
+    this.#question = models.CheckType(this.value, "AsyncFunction");
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property of the current validator instance
+   * to true if the "value" property is asyncronous function otherwise set it to false..
+   * @returns {validator} the updated current validator instance.
+   */
   is_async() {
     return this.isAsync;
   }
@@ -1889,7 +1891,8 @@ class validator {
    * @returns {validator} the updated current validator instance.
    */
   get isGenerator() {
-    this.#question = models.IsGeneratorFunction(this.value);
+    this.#question = models.CheckType(this.value, "GeneratorFunction") ||
+      models.CheckType(this.value, "Generator");
     return this.#set_answer();
   }
   /**
@@ -1907,9 +1910,9 @@ class validator {
    * the "answer" to false. To check if the function is asynchronous you have to use
    * the isAsync method.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isPromise() {
-    this.#question = models.IsPromiseFunction(this.value);
+    this.#question = models.CheckType(this.value, "Promise");
     return this.#set_answer();
   }
   /**
@@ -1919,17 +1922,45 @@ class validator {
    * the "answer" to false. To check if the function is asynchronous you have to use
    * the isAsync method.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   is_promise() {
     return this.isPromise;
   }
   /**
-   * This method sets the "answer" property to true if the "value" property is a Promise,
+   * This method sets the "answer" property of the current validator
+   * instance to true if the "value" property is a Map instance,
    * otherwise sets the "answer" to false.
    * @returns {validator} the updated current validator instance.
-   **/
-  is_promise() {
-    return this.isPromise;
+   */
+  get isMap() {
+    this.#question = models.CheckType(this.value, "Map");
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property of the current validator
+   * instance to true if the "value" property is a Map instance,
+   * otherwise sets the "answer" to false.
+   * @returns {validator} the updated current validator instance.
+   */
+  is_map() {
+    return this.isMap;
+  }
+  /**
+   * This method sets the "answer" property to true if the "value"
+   * property is a Set instance, otherwise sets the "answer" to false.
+   * @returns {validator} the updated current validator instance.
+   */
+  get isSet() {
+    this.#question = models.CheckType(this.value, "Set");
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property to true if the "value"
+   * property is a Set instance, otherwise sets the "answer" to false.
+   * @returns {validator} the updated current validator instance.
+   */
+  is_set() {
+    return this.isSet;
   }
   /**
    * @param {Array | String | number} elements an array
