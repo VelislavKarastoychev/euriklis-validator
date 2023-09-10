@@ -1,6 +1,7 @@
 "use strict";
 
 export { Benchmark } from "./Benchmark.js";
+export { CheckType } from "./CheckType.js";
 export { ForAllArrayEdition, ForAllObjectEdition } from "./ForAll.js";
 export { ForAnyArrayEdition, ForAnyObjectEdition } from "./ForAny.js";
 export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
@@ -38,6 +39,7 @@ export { IsInt8Array } from "./IsInt8Array.js";
 export { IsInteger } from "./IsInteger.js";
 export { IsIntegerArray } from "./IsIntegerArray.js";
 export { IsIntegerLike } from "./IsIntegerLike.js";
+export { IsMap } from "./IsMap.js";
 export { IsNegativeIntegerLike } from "./IsNegativeIntegerLike.js";
 export { IsNegativeNumberLike } from "./IsNegativeNumberLike.js";
 export { IsNumber } from "./IsNumber.js";
