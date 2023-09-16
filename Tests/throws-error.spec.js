@@ -2,12 +2,15 @@
 import validator from "../index.js";
 import { addMatrices, print } from "./data.js";
 const addMatricesValidator = new validator(addMatrices);
-addMatricesValidator.copy()
+addMatricesValidator.isFunction.And.throws_error_with(null, [[2]]).on(true, () => {
+  console.log('This works correctly!!!')
+});
+addMatricesValidator
   .throwsError(undefined, undefined).on(true, () => {
     const t1 = addMatricesValidator.copy().benchmark((f) =>
-      new validator(f).throwsError().answer
+      new validator(f).throws_error_with().answer
     );
-    const t2 = addMatricesValidator.copy().benchmark((f) => {
+    const t2 = addMatricesValidator.benchmark((f) => {
       try {
         const s = f();
         return s;
@@ -15,6 +18,8 @@ addMatricesValidator.copy()
         return error;
       }
     });
-    print("throwsError", t1, t2);
-  });
+    print("throws_error_with", t1, t2);
+  })
+  .on(false, () => console.log('Something went wrong...'));
+;
 
