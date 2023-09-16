@@ -1,5 +1,16 @@
-'use strict';
-export { default as IncorrectFunctionInOnMethod } from './IncorrectFunctionInOnMethod.js';
-export { default as IncorrectStateInOnMethod } from './IncorrectStateInOnMethod.js';
-export { default as IncorrectValueInIsNegative } from './IncorrectValueInIsNegative.js';
-export { default as IncorrectValueInIsPositive } from './IncorrectValueInIsPositive.js';
+"use strict";
+import * as texts from "./texts.js";
+const executeWarning = (message) => {
+  console.warn(texts.WarningMessage);
+  console.warn(message);
+};
+export const IncorrectFunctionInOnMethod = () =>
+  executeWarning(texts.IncorrectFunctionInOnMethod);
+export const IncorrectStateInOnMethod = () =>
+  executeWarning(texts.IncorrectStateInOnMethod);
+export const IncorrectValueInIsNegative = () =>
+  executeWarning(texts.IncorrectValueInIsNegative);
+export const IncorrectValueInIsPositive = () =>
+  executeWarning(texts.IncorrectValueInIsPositive);
+export const IncorrectTypeInExecuteWith = () =>
+  executeWarning(texts.IncorrectTypeInExecuteWith);
