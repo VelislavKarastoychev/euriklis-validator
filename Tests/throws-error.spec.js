@@ -5,8 +5,10 @@ const addMatricesValidator = new validator(addMatrices);
 addMatricesValidator.isFunction.And.throws_error_with(null, [[2]]).on(true, () => {
   console.log('This works correctly!!!')
 });
+const asyncAddMatrices = async (...params) => addMatrices(...params);
+console.log(new validator(asyncAddMatrices).execute_with([[1]], [[2]]).value);
 addMatricesValidator
-  .throwsError(undefined, undefined).on(true, () => {
+  .throws_error_with(undefined, undefined).on(true, () => {
     const t1 = addMatricesValidator.copy().benchmark((f) =>
       new validator(f).throws_error_with().answer
     );
