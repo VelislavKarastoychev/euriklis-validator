@@ -291,15 +291,44 @@ class validator {
    * @returns {validator} the current validator with "value" property
    * which is equals to the result of the previous "value" property.
    */
-  throwsError(...params) {
+  throws_error_with(...params) {
+    let value = null;
     try {
-      this.#value = this.value(...params);
+      value = this.copy().execute_with(...params).value;
     } catch (error) {
-      this.value = error;
-      this.#error = true;
+      value = error;
     }
-    this.#question = models.IsError(this.value, !this.#error);
+    this.#question = models.IsError(value);
     return this.#set_answer();
+  }
+  /**
+   * This method sets the current validator value
+   * property to the result of the execution of the 
+   * current "value" property if it is a function,
+   * otherwise returns the current "value" property
+   * without any changes.
+   * @param {...any} params
+   * @returns {validator}
+   **/
+  execute_with (...params) {
+    if (this.copy().isFunction.answer) {
+      try {
+        this.#value = this.copy().value(...params);
+      } catch (error) {
+        this.#value = error;
+      }
+    } else if (this.copy().isAsync.answer) {
+      try {
+        this.copy().value(...params)
+          .then(result => this.#value = result)
+          .catch(error => this.#value = error);
+      } catch (error) {
+        this.#value = error;
+      } 
+    } else if (this.show_warnings) {
+      warnings.IncorrectTypeInExecuteWith();
+    }
+    return this;
   }
   /**
    * @method is_undefined()
