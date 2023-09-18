@@ -1621,7 +1621,7 @@ class validator {
     if (callback_val.Not.isFunction.answer) {
       errors.IncorrectFunctionArgumentInForAll();
     }
-    if (val.isArray.answer) {
+    if (val.isArray.Or.isSet.answer) {
       this.#question = models.ForAllArrayEdition(val.value, callback);
     } else if (val.isObject.And.Not.isEmpty) {
       this.#question = models.ForAllObjectEdition(val.value, callback);
@@ -2370,106 +2370,23 @@ class validator {
   }
   /**
    * @method is_array_and_for_every(func_arg)
-   * @param {function (validator, number):validator} func_arg
-   * @description this method gets like argument
+   * @param {function (validator, number):validator} callback
+   * @description this method gets as argument
    * a function with validator argument and returns
    * true if the function is true for every elements of
    * the array. If the value property of the validator
    * is not array or the func_arg parameter is not a function
    * then the function returns false.
    */
-  is_array_and_for_every(func_arg) {
-    let i, j, item, n;
-    new validator(func_arg).is_function()
-      .on(true, () => {
-        new validator(this.value).is_array()
-          .on(true, () => {
-            n = this.value.length;
-            /*for (let i = 0; i < this.value.length; i++) {
-                            let item = this.value[i]
-                            this.#question = func_arg(new validator(item), i).answer
-                            new validator(this.#question).not().is_boolean()
-                                .on(true, () => {
-                                    throw new Error('Illegal usage of the argument function of the method. The function has to return validator type.')
-                                })
-                            if (this.#question) continue
-                            else break
-                        }*/
-            for (i = 0; i < n >> 2; i++) {
-              j = i << 2;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(
-                  true,
-                  () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery(),
-                );
-              if (!this.#question) break;
-              j = (i << 2) + 1;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(
-                  true,
-                  () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery(),
-                );
-              if (!this.#question) break;
-              j = (i << 2) + 2;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(
-                  true,
-                  () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery(),
-                );
-              if (!this.#question) break;
-              j = (i << 2) + 3;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(
-                  true,
-                  () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery(),
-                );
-              if (!this.#question) break;
-            }
-            if (n % 4 >= 1 && this.#question !== false) {
-              j = n - 1;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(
-                  true,
-                  () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery(),
-                );
-            }
-            if (n % 4 >= 2 && this.#question !== false) {
-              j = n - 2;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(
-                  true,
-                  () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery(),
-                );
-            }
-            if (n % 4 >= 3 && this.#question !== false) {
-              j = n - 3;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(
-                  true,
-                  () => errors.IllegalUsageOfArgumentInIsArrayAndForEvery(),
-                );
-            }
-          }).on(false, () => this.#question = false);
-      }).on(false, () => this.#question = false);
+  is_array_and_for_every(callback) {
+    if (this.copy().isArray.answer) {
+      this.#question = models.ForAllArrayEdition(this.value, callback);
+    } else this.#question = false;
     return this.#set_answer();
   }
   /**
    * @method is_array_and_for_any
-   * @param {function (validator, number)} func_arg
+   * @param {function (validator, number)} callback 
    * @returns {validator}
    * @description returns a validator instance that is
    * the result of the execution of the function of
@@ -2481,75 +2398,10 @@ class validator {
    *         return element.is_integer().and().is_in_range(0, 8)
    *     }) // true value.
    */
-  is_array_and_for_any(func_arg) {
-    let j, item;
-    new validator(func_arg).is_function()
-      .on(true, () => {
-        new validator(this.value).is_array()
-          .on(true, () => {
-            for (let i = 0; i < this.value.length >> 2; i++) {
-              j = i << 2;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(true, () => {
-                  errors.IncorrectArgumentInIsArrayAndForAny();
-                });
-              if (this.#question) break;
-              ++j;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(true, () => {
-                  errors.IncorrectArgumentInIsArrayAndForAny();
-                });
-              if (this.#question) break;
-              ++j;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(true, () => {
-                  errors.IncorrectArgumentInIsArrayAndForAny();
-                });
-              if (this.#question) break;
-              ++j;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(true, () => {
-                  errors.IncorrectArgumentInIsArrayAndForAny();
-                });
-              if (this.#question) break;
-            }
-            if (this.value.length % 4 >= 1 && !this.#question) {
-              j = this.value.length - 1;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(true, () => {
-                  errors.IncorrectArgumentInIsArrayAndForAny();
-                });
-            }
-            if (this.value.length % 4 >= 2 && !this.#question) {
-              j = this.value.length - 2;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(true, () => {
-                  errors.IncorrectArgumentInIsArrayAndForAny();
-                });
-            }
-            if (this.value.length % 4 >= 3 && !this.#question) {
-              j = this.value.length - 3;
-              item = this.value[j];
-              this.#question = func_arg(new validator(item), j).answer;
-              new validator(this.#question).not().is_boolean()
-                .on(true, () => {
-                  errors.IncorrectArgumentInIsArrayAndForAny();
-                });
-            }
-          }).on(false, () => this.#question = false);
-      }).on(false, () => this.#question = false);
+  is_array_and_for_any(callback) {
+    if (this.copy().isArray.answer) {
+      this.#question = models.ForAnyArrayEdition(this.value, callback);
+    } else this.#question = false;
     return this.#set_answer();
   }
   /**
