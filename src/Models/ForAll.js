@@ -49,7 +49,7 @@ export const ForAllArrayEdition = (value, callback) => {
 /**
  * Implements the for_all method in the case, where the "value" property is object
  * @param {any} value - the value of the current validator instance.
- * @param {function(validator, number)} callback
+ * @param {function(validator, number):boolean} callback
  * @returns {boolean} if the callback function returns truthy values for all the elements of the array, then returns true, otherwise returns false.
  **/
 export const ForAllObjectEdition = (value, callback) => {
@@ -88,6 +88,40 @@ export const ForAllObjectEdition = (value, callback) => {
   if (n % 4 >= 1 && question) {
     j = n - 1;
     question = callback(new validator(value[keys[j]]), j);
+  }
+  return question;
+}
+/**
+ * Utility function which is used in the implementation
+ * of the for_all method.
+ * @param {Set} value
+ * @param {function(validator):boolean} callback
+ * @returns {boolean}
+ **/
+export const ForAllSetEdition = (value, callback) => {
+  let question = false;
+  for (const element of value) {
+    if (!callback(new validator(element))) {
+      question = false;
+      break;
+    }
+  }
+  return question;
+}
+/**
+ * Utility function which is used in the implementation
+ * of the for_all method.
+ * @param {Map} map
+ * @param {function(validator, number | string):boolean} callback
+ * @returns {boolean}
+ **/
+export const ForAllMapEddition = (map, callback) => {
+  let question = true; 
+ for (const [key, value] of map) {
+    if (!callback(new validator(value), key)) {
+      question = false;
+      break;
+    }
   }
   return question;
 }
