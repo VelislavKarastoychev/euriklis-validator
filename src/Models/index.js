@@ -2,7 +2,12 @@
 
 export { Benchmark } from "./Benchmark.js";
 export { CheckType } from "./CheckType.js";
-export { ForAllArrayEdition, ForAllObjectEdition } from "./ForAll.js";
+export {
+  ForAllArrayEdition,
+  ForAllMapEdition,
+  ForAllObjectEdition,
+  ForAllSetEdition,
+} from "./ForAll.js";
 export { ForAnyArrayEdition, ForAnyObjectEdition } from "./ForAny.js";
 export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
 export { IsArray } from "./IsArray.js";
