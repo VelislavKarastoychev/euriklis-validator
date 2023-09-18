@@ -303,14 +303,21 @@ class validator {
   }
   /**
    * This method sets the current validator value
-   * property to the result of the execution of the 
-   * current "value" property if it is a function,
-   * otherwise returns the current "value" property
-   * without any changes.
+   * property to the result of the execution of the
+   * current "value" property if it is a function.
+   * If the current "value" property is asynchronous
+   * function, then the it will be changed to the executeion
+   * of this async function and will return promise.
+   * If the "value" is neither function or async function,
+   * then returns the current "value" property
+   * without any changes. If the show_warnings property
+   * is set to true for this instance, then when the "value"
+   * is not function or asyncchronous function, the
+   * method  prints a warning message.
    * @param {...any} params
    * @returns {validator}
-   **/
-  execute_with (...params) {
+   */
+  execute_with(...params) {
     if (this.copy().isFunction.answer) {
       try {
         this.#value = this.copy().value(...params);
@@ -318,13 +325,16 @@ class validator {
         this.#value = error;
       }
     } else if (this.copy().isAsync.answer) {
-      try {
-        this.copy().value(...params)
-          .then(result => this.#value = result)
-          .catch(error => this.#value = error);
-      } catch (error) {
-        this.#value = error;
-      } 
+      let response = null;
+      const obtainResponse = async () => {
+        try {
+          response = await this.copy().value(...params);
+        } catch (error) {
+          response = error;
+        }
+        return response;
+      };
+      this.#value = obtainResponse();
     } else if (this.show_warnings) {
       warnings.IncorrectTypeInExecuteWith();
     }
