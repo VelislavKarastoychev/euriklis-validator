@@ -1621,10 +1621,14 @@ class validator {
     if (callback_val.Not.isFunction.answer) {
       errors.IncorrectFunctionArgumentInForAll();
     }
-    if (val.isArray.Or.isSet.answer) {
+    if (val.isArray.And.Not.isEmpty.answer) {
       this.#question = models.ForAllArrayEdition(val.value, callback);
     } else if (val.isObject.And.Not.isEmpty) {
       this.#question = models.ForAllObjectEdition(val.value, callback);
+    } else if (val.isSet.And.Not.isEmpty.answer) {
+      this.#question = models.ForAllSetEdition(val.value, callback);
+    } else if (val.isMap.And.Not.isEmpty.answer) {
+      this.#question = models.ForAllMapEdition(this.value, callback);
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -1657,6 +1661,8 @@ class validator {
       this.#question = models.ForAnyArrayEdition(val.value, callback);
     } else if (val.isObject.And.Not.isEmpty.answer) {
       this.#question = models.ForAnyObjectEdition(val.value, callback);
+    } else if (this.copy().isSet.And.Not.isEmpty.answer) {
+     this.#question = models.ForAnySetEdition(this.value); 
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -2386,7 +2392,7 @@ class validator {
   }
   /**
    * @method is_array_and_for_any
-   * @param {function (validator, number)} callback 
+   * @param {function (validator, number)} callback
    * @returns {validator}
    * @description returns a validator instance that is
    * the result of the execution of the function of
