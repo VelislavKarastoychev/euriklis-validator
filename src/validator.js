@@ -1691,10 +1691,14 @@ class validator {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLength();
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isString.answer) {
+    if (cp_instance.isArray.Or.isTypedArray.Or.isString.answer) {
       this.#question = this.value.length === n;
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length === n;
+    } else if (cp_instance.isArrayBuffer.answer) {
+      this.#question = this.value.byteLength === n;
+    } else if (cp_instance.isMap.Or.isSet.answer) {
+      this.#question = this.value.size === n;
     } else this.#question = false;
     return this.#set_answer();
   }
