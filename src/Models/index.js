@@ -8,7 +8,12 @@ export {
   ForAllObjectEdition,
   ForAllSetEdition,
 } from "./ForAll.js";
-export { ForAnyArrayEdition, ForAnyObjectEdition } from "./ForAny.js";
+export {
+  ForAnyArrayEdition,
+  ForAnyMapEdition,
+  ForAnyObjectEdition,
+  ForAnySetEdition,
+} from "./ForAny.js";
 export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
 export { IsArray } from "./IsArray.js";
 export { IsArrayBuffer } from "./IsArrayBuffer.js";
