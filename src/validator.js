@@ -1608,7 +1608,7 @@ class validator {
   }
   /**
    * @method for_all
-   * @param {function(validator, number)} callback
+   * @param {function(validator, number | string)} callback
    * @description This method can
    * be active if and only if the
    * this.value is of type array
@@ -1642,7 +1642,7 @@ class validator {
   }
   /**
    * @method for_any
-   * @param {function(validator, number)} callback
+   * @param {function(validator, number | string)} callback
    * @description this method is
    * valid for array and object
    * and compute if some item of the
@@ -1665,12 +1665,14 @@ class validator {
     if (callbackIsNotFunction) {
       errors.IncorrectFunctionArgumentInForAny();
     }
-    if (val.isArray.answer) {
+    if (val.isArray.Or.isTypedArray.answer) {
       this.#question = models.ForAnyArrayEdition(val.value, callback);
     } else if (val.isObject.And.Not.isEmpty.answer) {
       this.#question = models.ForAnyObjectEdition(val.value, callback);
-    } else if (this.copy().isSet.And.Not.isEmpty.answer) {
-      this.#question = models.ForAnySetEdition(this.value);
+    } else if (val.isSet.And.Not.isEmpty.answer) {
+      this.#question = models.ForAnySetEdition(this.value, callback);
+    } else if (val.isMap.And.Not.isEmpty.answer) {
+      this.#question = models.ForAnyMapEdition(this.value, callback);
     } else this.#question = false;
     return this.#set_answer();
   }
