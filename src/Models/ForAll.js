@@ -115,7 +115,7 @@ export const ForAllSetEdition = (value, callback) => {
  * @param {function(validator, number | string):boolean} callback
  * @returns {boolean}
  **/
-export const ForAllMapEddition = (map, callback) => {
+export const ForAllMapEdition = (map, callback) => {
   let question = true; 
  for (const [key, value] of map) {
     if (!callback(new validator(value), key)) {
