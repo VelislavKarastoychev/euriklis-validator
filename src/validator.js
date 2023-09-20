@@ -1590,19 +1590,17 @@ class validator {
     if (test.isUndefined.answer) {
       this.#question = true;
     } else {
-      if (test.isArrayBuffer.answer) {
-        this.#question = this.value.byteLength === 0;
-      } else if (test.isArray.Or.isTypedArray.answer) {
-        this.#question = this.value.length === 0;
-      } else if (test.isObject.answer) {
-        this.#question = Object.keys(this.value).length === 0;
-      } else if (test.isString.answer) {
-        this.#question = this.value === "";
-      } else if (test.isSet.answer) {
-        this.#question = this.value.size === 0;
-      } else if (test.isMap.answer) {
-        this.#question = this.value.size === 0;
-      } else errors.IncorrectArgumentInIsEmpty();
+      if (
+        test
+          .isArray
+          .Or.isArrayBuffer
+          .Or.isMap
+          .Or.isObject
+          .Or.isSet
+          .Or.IsString
+          .Or.isTypedArray
+      ) this.#question = test.has_length(0).answer;
+      else errors.IncorrectArgumentInIsEmpty();
     }
     return this.#set_answer();
   }
@@ -1692,13 +1690,17 @@ class validator {
     else errors.IncorrectArgumentInHasLength();
     let cp_instance = this.copy();
     if (cp_instance.isArray.Or.isTypedArray.Or.isString.answer) {
-      this.#question = this.value.length === n;
+      this.#question = models.TestCondition(this.value, "length", n);
     } else if (cp_instance.isObject.answer) {
-      this.#question = Object.keys(cp_instance.value).length === n;
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+      );
     } else if (cp_instance.isArrayBuffer.answer) {
-      this.#question = this.value.byteLength === n;
+      this.#question = models.TestCondition(this.value, "byteLength", n);
     } else if (cp_instance.isMap.Or.isSet.answer) {
-      this.#question = this.value.size === n;
+      this.#question = models.TestCondition(this.value, "size", n);
     } else this.#question = false;
     return this.#set_answer();
   }
