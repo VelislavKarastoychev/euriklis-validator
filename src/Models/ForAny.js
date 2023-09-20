@@ -79,6 +79,13 @@ export const ForAnyObjectEdition = (value, callback) => {
   }
   return question;
 };
+/**
+ * Utility function which is used in the implementation of
+ * the for_any method.
+ * @param {Set} value
+ * @param {function(validator):boolean} callback
+ * @returns {boolean}
+ **/
 export const ForAnySetEdition = (value, callback) => {
   let question = false;
   for (const element of value) {
@@ -88,6 +95,13 @@ export const ForAnySetEdition = (value, callback) => {
   }
   return question;
 };
+/**
+ * Utility function which is used in the implementation of
+ * for_any method.
+ * @param {Map} map
+ * @param {function(validator, string | number):boolean} callback
+ * @returns {boolean}
+ **/
 export const ForAnyMapEdition = (map, callback) => {
   let question = false;
   for (const [key, value] of map) {
