@@ -1575,28 +1575,36 @@ class validator {
    * string or is an undefined type.
    */
   is_empty() {
+    return this.isEmpty;
+  }
+  /**
+   * @method is_empty()
+   * @returns {validator}
+   * @description this method checks if the value
+   * property of the current validator instance is
+   * an empty object or an empty array or a empty
+   * string or is an undefined type.
+   */
+  get isEmpty() {
     const test = this.copy();
     if (test.isUndefined.answer) {
       this.#question = true;
     } else {
-      if (test.isArray.answer) {
+      if (test.isArrayBuffer.answer) {
+        this.#question = this.value.byteLength === 0;
+      } else if (test.isArray.Or.isTypedArray.answer) {
         this.#question = this.value.length === 0;
       } else if (test.isObject.answer) {
         this.#question = Object.keys(this.value).length === 0;
       } else if (test.isString.answer) {
         this.#question = this.value === "";
+      } else if (test.isSet.answer) {
+        this.#question = this.value.size === 0;
+      } else if (test.isMap.answer) {
+        this.#question = this.value.size === 0;
       } else errors.IncorrectArgumentInIsEmpty();
     }
     return this.#set_answer();
-  }
-  /**
-   * @method isEmpty
-   * @returns {validator}
-   * @description this method is a getter variant of the
-   * is_empty() method of the validator library.
-   */
-  get isEmpty() {
-    return this.is_empty();
   }
   /**
    * @method for_all
@@ -1662,7 +1670,7 @@ class validator {
     } else if (val.isObject.And.Not.isEmpty.answer) {
       this.#question = models.ForAnyObjectEdition(val.value, callback);
     } else if (this.copy().isSet.And.Not.isEmpty.answer) {
-     this.#question = models.ForAnySetEdition(this.value); 
+      this.#question = models.ForAnySetEdition(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
