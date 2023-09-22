@@ -680,8 +680,7 @@ class validator {
    * @returns {validator}
    */
   is_negative_integer_like() {
-    this.#question = models.IsNegativeIntegerLike(this.value);
-    return this.#set_answer();
+    return this.isNegativeIntegerLike;
   }
   /**
    * @method isNegativeIntegerLike
@@ -692,7 +691,8 @@ class validator {
    * @returns {validator}
    */
   get isNegativeIntegerLike() {
-    return this.is_negative_integer_like();
+    this.#question = models.IsNegativeIntegerLike(this.value);
+    return this.#set_answer();
   }
   /**
    * @method is_positive_integer_like
