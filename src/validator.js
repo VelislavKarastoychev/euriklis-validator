@@ -704,7 +704,7 @@ class validator {
    */
   is_positive_integer_like() {
     return this.isPositiveIntegerLike;
-      }
+  }
   /**
    * @method isPositiveIntegerLike
    * @description this method tests if the
@@ -716,7 +716,6 @@ class validator {
   get isPositiveIntegerLike() {
     this.#question = models.IsPositiveIntegerLike(this.value);
     return this.#set_answer();
-
   }
   /**
    * @method is_bigger_than()
@@ -1837,7 +1836,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  
+
   /**
    * A method that checks if
    * the value property of the current validator
@@ -1957,7 +1956,7 @@ class validator {
     return this.isSet;
   }
   /**
-   * @param {Array | String | number} elements an array
+   * @param {any} elements an array
    * or string element has to be compared with
    * the value property of the current validator
    * instance.
@@ -1971,31 +1970,27 @@ class validator {
    * validator instance to true or false respectively.
    */
   contains(elements) {
-    this.#question = this.copy().is_array().answer;
-    let eltype = new validator(elements)
-      .isArray
-      .Or
-      .isNumber
-      .Or
-      .isString.answer;
-    if (this.#question && eltype) {
-      // the value has to contain
-      // all elements of the element.
-      new validator(elements).is_array()
-        .on(true, () => {
-          this.#question = this.copy().for_all((item) => {
-            return new validator(elements).for_any((element) =>
-              element.is_same(item.value)
-            );
-          }).answer;
-        }).on(
-          false,
-          () =>
-            this.#question = this.copy().for_any((item) =>
-              item.is_same(elements)
-            ).answer,
-        );
+    const cp = this.copy();
+    const elementsValidator = new validator(elements);
+    const isInstanceArray = this.copy().isArray.Or.isTypedArray.answer; 
+    if (isInstanceArray) {
+      if (elementsValidator.isArray.Or.isTypedArray.Or.isSet.answer) {
+        this.#question = cp.for_all((item) => {
+          const ans = elementsValidator.for_any((element) =>
+            element.is_same(item.value)
+          );
+          console.log(ans);
+          return ans;
+        }).answer;
+        console.log("I am in the first loop")
+      } else {
+        this.#question = cp.for_any((item) =>
+          item.is_same(elements)
+        ).answer;
+      }
     } else this.#question = false;
+    console.log("I am in the contains method...")
+    console.log(this.#question);
     return this.#set_answer();
   }
   /**
