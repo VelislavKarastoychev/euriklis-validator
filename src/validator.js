@@ -561,13 +561,7 @@ class validator {
    * instance is equals or bigger than 0.
    */
   is_positive() {
-    this.copy().isNumber.on(false, () => {
-      if (this.show_warnings) warnings.IncorrectValueInIsPositive();
-    });
-    this.#question = this.copy()
-      .is_equal_or_bigger_than(0)
-      .answer;
-    return this.#set_answer();
+    return this.isPositive;
   }
   /**
    * @method isPositive
@@ -577,7 +571,13 @@ class validator {
    * is positive number.
    */
   get isPositive() {
-    return this.is_positive();
+    if (this.copy().Not.isNumber.answer) {
+      if (this.show_warnings) warnings.IncorrectValueInIsPositive();
+    }
+    this.#question = this.copy()
+      .is_equal_or_bigger_than(0)
+      .answer;
+    return this.#set_answer();
   }
   /**
    * @method is_number_like
@@ -588,8 +588,7 @@ class validator {
    * @returns {validator}
    */
   is_number_like() {
-    this.#question = models.IsNumberLike(this.value);
-    return this.#set_answer();
+    return this.isNumberLike;
   }
   /**
    * @method isNumberLike
@@ -600,7 +599,8 @@ class validator {
    * be converted to number.
    */
   get isNumberLike() {
-    return this.is_number_like();
+    this.#question = models.IsNumberLike(this.value);
+    return this.#set_answer();
   }
   /**
    * @method is_integer_like
