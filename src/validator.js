@@ -428,7 +428,7 @@ class validator {
    * to false.
    * @method is_integer()
    * @returns {validator}
-   **/
+   */
   is_integer() {
     return this.isInteger;
   }
@@ -454,12 +454,7 @@ class validator {
    * than 0.
    */
   is_positive_integer() {
-    this.#question = this.copy()
-      .isInteger
-      .And
-      .is_equal_or_bigger_than(0)
-      .answer;
-    return this.#set_answer();
+    return this.isPositiveInteger;
   }
   /**
    * @method isPositiveInteger
@@ -471,7 +466,12 @@ class validator {
    * bigger than 0.
    */
   get isPositiveInteger() {
-    return this.is_positive_integer();
+    this.#question = this.copy()
+      .isInteger
+      .And
+      .is_equal_or_bigger_than(0)
+      .answer;
+    return this.#set_answer();
   }
   /**
    * @method is_negative_integer
@@ -481,12 +481,7 @@ class validator {
    * instance integer which is smaller than 0.
    */
   is_negative_integer() {
-    this.#question = this.copy()
-      .isInteger
-      .And
-      .is_lesser_than(0)
-      .answer;
-    return this.#set_answer();
+    return this.isNegativeInteger;
   }
   /**
    * @method isNegativeInteger
@@ -497,7 +492,12 @@ class validator {
    * integer which is smaller than 0.
    */
   get isNegativeInteger() {
-    return this.is_negative_integer();
+    this.#question = this.copy()
+      .isInteger
+      .And
+      .is_lesser_than(0)
+      .answer;
+    return this.#set_answer();
   }
   /**
    * @method is_float()
@@ -509,10 +509,7 @@ class validator {
    * to true or false respectively.
    */
   is_float() {
-    this.#question = this.copy()
-      .isNumber.And.Not.isInteger
-      .answer;
-    return this.#set_answer();
+    return this.isFloat;
   }
   /**
    * @method isFloat
@@ -521,7 +518,10 @@ class validator {
    * the is_float() method of the validator library.
    */
   get isFloat() {
-    return this.is_float();
+    this.#question = this.copy()
+      .isNumber.And.Not.isInteger
+      .answer;
+    return this.#set_answer();
   }
   /**
    * @method is_negative
@@ -531,15 +531,7 @@ class validator {
    * instance is a negative number.
    */
   is_negative() {
-    this.copy().is_number().on(false, () => {
-      if (this.show_warnings) {
-        warnings.IncorrectValueInIsNegative();
-      }
-    });
-    this.#question = this.copy()
-      .is_lesser_than(0)
-      .answer;
-    return this.#set_answer();
+    return this.isNegative;
   }
   /**
    * @method isNegative
@@ -551,7 +543,15 @@ class validator {
    * negative number (smaller than 0).
    */
   get isNegative() {
-    return this.is_negative();
+    if (this.copy().Not.isNumber.answer) {
+      if (this.show_warnings) {
+        warnings.IncorrectValueInIsNegative();
+      }
+    }
+    this.#question = this.copy()
+      .is_lesser_than(0)
+      .answer;
+    return this.#set_answer();
   }
   /**
    * @method is_positive
