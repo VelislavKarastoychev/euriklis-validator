@@ -1597,7 +1597,7 @@ class validator {
           .Or.isMap
           .Or.isObject
           .Or.isSet
-          .Or.IsString
+          .Or.isString
           .Or.isTypedArray
       ) this.#question = test.has_length(0).answer;
       else errors.IncorrectArgumentInIsEmpty();
@@ -1609,7 +1609,7 @@ class validator {
    * @param {function(validator, number | string)} callback
    * @description This method can
    * be active if and only if the
-   * this.value is of type array
+   * this.value is of type arraiiiiiiiiiiiiiiiiiiiiiiikkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkjy
    * or object. The callback is a
    * function with argument that is
    * of validator type (instance).
@@ -1717,10 +1717,19 @@ class validator {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLengthBiggerThan(n);
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isString.answer) {
-      this.#question = this.value.length > n;
+    if (cp_instance.isArrayBuffer.answer) {
+      this.#question = models.TestCondition(this.value, "byteLength", n, "gt");
+    } else if (cp_instance.isArray.Or.Or.isTypedArray.isString.answer) {
+      this.#question = models.TestCondition(this.value, "length", n, "gt");
     } else if (cp_instance.isObject.answer) {
-      this.#question = Object.keys(cp_instance.value).length > n;
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+        "gt",
+      );
+    } else if (cp_instance.isSet.Or.isMap.answer) {
+      this.#question = models.TestCondition(this.value, "size", n, "gt");
     } else this.#question = false;
     return this.#set_answer();
   }
@@ -1738,10 +1747,19 @@ class validator {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLengthEqualsOrBiggerThan(n);
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isString.answer) {
-      this.#question = this.value.length >= n;
+    if (cp_instance.isArrayBuffer.answer) {
+      this.#question = models.TestCondition(this.value, "byteLength", n, "geq");
+    } else if (cp_instance.isArray.Or.isTypedArray.Or.isString.answer) {
+      this.#question = models.TestCondition(this.value, "length", n, "geq");
     } else if (cp_instance.isObject.answer) {
-      this.#question = Object.keys(cp_instance.value).length >= n;
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+        "geq",
+      );
+    } else if (cp_instance.isSet.Or.isMap.answer) {
+      this.#question = models.TestCondition(this.value, "size", n, "geq");
     } else this.#question = false;
     return this.#set_answer();
   }
