@@ -703,9 +703,8 @@ class validator {
    * @returns {validator}
    */
   is_positive_integer_like() {
-    this.#question = models.IsPositiveIntegerLike(this.value);
-    return this.#set_answer();
-  }
+    return this.isPositiveIntegerLike;
+      }
   /**
    * @method isPositiveIntegerLike
    * @description this method tests if the
@@ -715,7 +714,9 @@ class validator {
    * @returns {validator}
    */
   get isPositiveIntegerLike() {
-    return this.is_positive_integer_like();
+    this.#question = models.IsPositiveIntegerLike(this.value);
+    return this.#set_answer();
+
   }
   /**
    * @method is_bigger_than()
