@@ -634,8 +634,7 @@ class validator {
    * @returns {validator}
    */
   is_negative_number_like() {
-    this.#question = models.IsNegativeNumberLike(this.value);
-    return this.#set_answer();
+    return this.isNegativeNumberLike;
   }
   /**
    * @method isNegativeNumberLike
@@ -646,7 +645,8 @@ class validator {
    * @returns {validator}
    */
   get isNegativeNumberLike() {
-    return this.is_negative_number_like();
+    this.#question = models.IsNegativeNumberLike(this.value);
+    return this.#set_answer();
   }
   /**
    * @method is_positive_number_like
