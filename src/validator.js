@@ -400,25 +400,26 @@ class validator {
     return this.is_string();
   }
   /**
+   * This method sets the "answer" property
+   * of the current validator instance to
+   * true if the "value" property is a number. 
    * @method is_number()
    * @returns {validator}
-   * @description This method checks if the property
-   * value of the current validator instance if number
-   * type and if this condition is fulfilled returns true
-   * otherwise returns false. Note that the number can be of string type,
-   * or can be floating point number or integer number.
-   */
+   **/
   is_number() {
-    this.#question = models.IsNumber(this.value);
-    return this.#set_answer();
+    return this.isNumber;
   }
-  /**
+   /**
+   * This method sets the "answer" property
+   * of the current validator instance to
+   * true if the "value" property is a number. 
    * @method isNumber
    * @returns {validator}
-   * @description this method simulates the is_number() method.
-   */
+   **/
+
   get isNumber() {
-    return this.is_number();
+    this.#question = models.IsNumber(this.value);
+    return this.#set_answer();
   }
   /**
    * @method is_integer()
