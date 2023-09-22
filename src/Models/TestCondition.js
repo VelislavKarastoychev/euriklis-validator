@@ -15,9 +15,9 @@ export const TestCondition = (value, property = "", item, condition = "eq") => {
       return v === item;
     case "neq":
       return v !== item;
-    case "beq":
+    case "geq":
       return v >= item;
-    case "seq":
+    case "leq":
       return v <= item;
     case "lt":
       return v < item;
