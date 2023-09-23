@@ -1956,6 +1956,7 @@ class validator {
     return this.isSet;
   }
   /**
+   * @todo TO BE IMPLEMENTED WITH MORE EFFICIENT WAY.
    * @param {any} elements an array
    * or string element has to be compared with
    * the value property of the current validator
@@ -1972,25 +1973,21 @@ class validator {
   contains(elements) {
     const cp = this.copy();
     const elementsValidator = new validator(elements);
-    const isInstanceArray = this.copy().isArray.Or.isTypedArray.answer; 
+    const isInstanceArray = cp.isArray.Or.isTypedArray.answer; 
     if (isInstanceArray) {
       if (elementsValidator.isArray.Or.isTypedArray.Or.isSet.answer) {
         this.#question = cp.for_all((item) => {
-          const ans = elementsValidator.for_any((element) =>
-            element.is_same(item.value)
-          );
-          console.log(ans);
+          const ans = elementsValidator.for_any((element) =>{
+            return element.is_same(item.value);
+          });
           return ans;
         }).answer;
-        console.log("I am in the first loop")
       } else {
         this.#question = cp.for_any((item) =>
           item.is_same(elements)
         ).answer;
       }
     } else this.#question = false;
-    console.log("I am in the contains method...")
-    console.log(this.#question);
     return this.#set_answer();
   }
   /**
