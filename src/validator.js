@@ -1847,6 +1847,16 @@ class validator {
     return this.#set_answer();
   }
   /**
+   * This method sets the "answer" property of the current validator
+   * instance to true if the "value" is a Symbol data type in JavaScript
+   * otherwise sets the "answer" to false.
+   * @returns {validator} the updated current validator instance.
+   **/
+  get isSymbol () {
+    this.#question = models.CheckType(this.value, "Symbol");
+    return this.#set_answer();
+  }
+  /**
    * This method sets the "answer" property to true if the 
    * "value" of the current validator instance is a primitive
    * data type, i.e. if it is some of the types:
