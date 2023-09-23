@@ -3,12 +3,11 @@ import validator from "../index.js";
 import { print, matrix } from "./data.js";
 new validator(matrix)
   .for_any((v) => {
-    if(v.is_array_of_numbers_in_range(1, 2).answer) console.log(v.value);
-    return v.is_array_of_numbers_in_range(1, 2);
+    return v.is_array_of_numbers_in_range(0, 1);
   }).on(true, (v) => {
     const t1 = v.benchmark((n) =>
-      new validator(n).Not.for_any((k) => k.is_array_of_numbers_in_range(1, 2))
-        .answer
+      new validator(n).for_any((k) => k.is_array_of_numbers_in_range(0, 1))
+        .answer, 1000
     );
     const t2 = v.benchmark((m) => {
       m instanceof Array
