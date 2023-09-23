@@ -1836,7 +1836,27 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-
+  get isBigInt () {
+    this.#question = models.CheckType(this.value, "BigInt");
+    return this.#set_answer();
+  }
+  /**
+   * This method sets the "answer" property to true if the 
+   * "value" of the current validator instance is a primitive
+   * data type, i.e. if it is some of the types:
+   * string, number, bigInt, symbol, boolean, undefined or null.
+   * @returns {validator} the updated current validator instance.
+   **/
+  get isPrimitiveType() {
+    this.#question = this.copy().isString
+      .Or.isNumber
+      .Or.isBigInt
+      .Or.isBoolean
+      .Or.isUndefined
+      .Or.isNull
+      .Or.isSymbol.answer;
+    return this.#set_answer();
+  }
   /**
    * A method that checks if
    * the value property of the current validator
@@ -1973,19 +1993,17 @@ class validator {
   contains(elements) {
     const cp = this.copy();
     const elementsValidator = new validator(elements);
-    const isInstanceArray = cp.isArray.Or.isTypedArray.answer; 
+    const isInstanceArray = cp.isArray.Or.isTypedArray.answer;
     if (isInstanceArray) {
       if (elementsValidator.isArray.Or.isTypedArray.Or.isSet.answer) {
         this.#question = cp.for_all((item) => {
-          const ans = elementsValidator.for_any((element) =>{
+          const ans = elementsValidator.for_any((element) => {
             return element.is_same(item.value);
           });
           return ans;
         }).answer;
       } else {
-        this.#question = cp.for_any((item) =>
-          item.is_same(elements)
-        ).answer;
+        this.#question = cp.for_any((item) => item.is_same(elements)).answer;
       }
     } else this.#question = false;
     return this.#set_answer();
