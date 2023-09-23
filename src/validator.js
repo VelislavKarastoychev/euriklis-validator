@@ -1857,6 +1857,17 @@ class validator {
     return this.#set_answer();
   }
   /**
+   * This method sets the "answer" property of the current validator 
+   * instance to true, if the "value" property is equals to the null
+   * data type of the JavaScript language, otherwise sets the "answer"
+   * to false and returns the result.
+   * @returns {validator} the updated current validator instance.
+   **/
+  get isNull () {
+    this.#question = this.value === null;
+    return this.#set_answer();
+  }
+  /**
    * This method sets the "answer" property to true if the 
    * "value" of the current validator instance is a primitive
    * data type, i.e. if it is some of the types:
