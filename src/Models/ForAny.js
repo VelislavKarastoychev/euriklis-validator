@@ -32,15 +32,15 @@ export const ForAnyArrayEdition = (value, callback) => {
       break;
     }
   }
-  if (n % 4 >= 3 && question) {
+  if (n % 4 >= 3 && !question) {
     j = n - 3;
     question = callback(new validator(value[j]), j).answer;
   }
-  if (n % 4 >= 2 && question) {
+  if (n % 4 >= 2 && !question) {
     j = n - 2;
     question = callback(new validator(value[j]), j).answer;
   }
-  if (n % 4 >= 1 && question) {
+  if (n % 4 >= 1 && !question) {
     j = n - 1;
     question = callback(new validator(value[j]), j).answer;
   }
@@ -78,15 +78,15 @@ export const ForAnyObjectEdition = (value, callback) => {
       break;
     }
   }
-  if (n % 4 >= 3 && question) {
+  if (n % 4 >= 3 && !question) {
     j = n - 3;
     question = callback(new validator(value[keys[j]]), j).answer;
   }
-  if (n % 4 >= 2 && question) {
+  if (n % 4 >= 2 && !question) {
     j = n - 2;
     question = callback(new validator(value[keys[j]]), j).answer;
   }
-  if (n % 4 >= 1 && question) {
+  if (n % 4 >= 1 && !question) {
     j = n - 1;
     question = callback(new validator(value[keys[j]]), j).answer;
   }
