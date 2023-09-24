@@ -172,7 +172,6 @@ class validator {
     v.#not = this.#not;
     v.#operand = this.#operand;
     v.#question = this.#question;
-    v.#error = this.#error;
     v.required = this.required;
     return v;
   }
