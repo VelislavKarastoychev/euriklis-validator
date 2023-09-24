@@ -93,7 +93,7 @@ class validator {
    * @returns {boolean} The result from the validator's logical computations.
    */
   get answer() {
-    this.reset(); 
+    this.reset();
     return this.#answer;
   }
 
@@ -119,8 +119,8 @@ class validator {
   // In order to apply the functional cohesion
   // and DRY principles we insert here a method
   // which is private (according to the interface segregation
-  // principle of the SOLID paradigm).The method 
-  // #set_answer() is crucial for the validator 
+  // principle of the SOLID paradigm).The method
+  // #set_answer() is crucial for the validator
   // library because in this method is implemented
   // the logical mechanism of the library.
 
@@ -142,7 +142,7 @@ class validator {
     if (this.#operand === null) {
       this.#answer = this.#question;
     }
-    this.reset(); 
+    this.reset();
     return this;
   }
 
@@ -154,11 +154,11 @@ class validator {
   // (and) and the disjunction (or). So we now implement
   // as getters the three logical operators
   // not, or and logical and. The not method sets the
-  // #not field to true if is called and the other two 
+  // #not field to true if is called and the other two
   // methods set the #operator field to "or" and "and".
-  
+
   /**
-   * Sets the operator to logical
+   * Sets the not field to logical
    * negation for the current validator instance.
    * When the next non operational method is run
    * the operation of logical negation will be executed
@@ -170,7 +170,20 @@ class validator {
     this.#not = true;
     return this;
   }
-  
+
+  /**
+   * Sets the operator
+   * of the current validator instance
+   * to the logical and (&) and in the
+   * next not operator method execute a
+   * logical conjunction.
+   * @returns {validator}
+   */
+  get and() {
+    this.#operand = "and";
+    return this;
+  }
+
   /**
    * @method copy() creates a new instance
    * with value parameter the current value
@@ -210,28 +223,8 @@ class validator {
   get absoluteCopy() {
     return this.absolute_copy();
   }
-  /**
-   * @method and() set the operator
-   * of the current validator instance
-   * to the logical and (&) and in the
-   * next not operator method execute a
-   * logical conjunction.
-   * @returns {validator}
-   */
-  and() {
-    this.#operand = "and";
-    return this;
-  }
-  /**
-   * @method And - a getter method.
-   * @returns {validator}
-   * @description this method simulates the and method and
-   * is used for more comfort of the code. The user may Note
-   * use the parenthesis symbol when uses this method.
-   */
-  get And() {
-    return this.and();
-  }
+
+  
   /**
    * @method or() set the operator
    * to logical or (||) and in the next
@@ -253,7 +246,7 @@ class validator {
   get Or() {
     return this.or();
   }
-   
+
   /**
    * @method required()
    * @deprecated
