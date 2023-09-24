@@ -48,7 +48,6 @@ class validator {
    */
   constructor(parameter) {
     this.value = parameter;
-    this.required = false;
     this.description = "";
   }
   // In order to keep the code more clear and
@@ -73,7 +72,6 @@ class validator {
     try {
       this.#value = parameter;
     } catch (error) {
-      this.#error = true;
       this.value = error;
     }
   }
@@ -209,24 +207,10 @@ class validator {
     v.#not = this.#not;
     v.#operand = this.#operand;
     v.#question = this.#question;
-    v.required = this.required;
     return v;
   }
 
-  /**
-   * @method required()
-   * @deprecated
-   * @description a method that set an internal
-   * property of the current validator instance
-   * and this property might be used in the interface()
-   * validator method. See the description and commentaries
-   * for the interface() method.
-   * @returns {validator}
-   */
-  is_required() {
-    this.required = true;
-    return this;
-  }
+
   /**
    * A callback function which will be executed
    * from the validator benchmark method in order
