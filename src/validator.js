@@ -29,11 +29,7 @@ class validator {
   #warnings = false;
   #error = false;
   /**
-   * @param {any} parameter a javascript
-   * valid variable. The type of the parameter
-   * can be an arbitrary valid expression in
-   * javascript or a type defined in this language.
-   * @description The validator class is a javascript
+   * The validator class is a javascript
    * library for conditional verification in
    * javascript. Every validator has properties answer,
    * value and internal (not for user usage) properties
@@ -44,7 +40,11 @@ class validator {
    * use the and, or and not methods. To compare the truth of two
    * validator expressions you have to use the bind method. See
    * the methods of the validator class for more information.
-   */
+   * @param {any} parameter a javascript
+   * valid variable. The type of the parameter
+   * can be an arbitrary valid expression in
+   * javascript or a type defined in this language.
+   **/
   constructor(parameter) {
     this.value = parameter;
     this.required = false;
