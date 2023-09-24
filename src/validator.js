@@ -2,6 +2,13 @@
 import * as errors from "./Errors/index.js";
 import * as warnings from "./Warnings/index.js";
 import * as models from "./Models/index.js";
+
+/**
+ * The `validator` class is a JavaScript library for conditional verification.
+ * It allows you to create expressions and perform various tests on them.
+ * Each validator instance has properties such as `answer`, `value`, and
+ * description.
+ */
 class validator {
   static author = "Velislav S. Karastoychev";
   static version = "3.0.0";
@@ -27,24 +34,12 @@ class validator {
    * @private warnings - stores the value of the show_warnings sttter value.
    */
   #warnings = false;
-  #error = false;
   /**
-   * The validator class is a javascript
-   * library for conditional verification in
-   * javascript. Every validator has properties answer,
-   * value and internal (not for user usage) properties
-   * #question, #operand, _required. To declare an validator
-   * expression just type new validator(<some expression>). To
-   * verify if this expression covers some conditions use the
-   * methods of the class and for more complex logical sentences
-   * use the and, or and not methods. To compare the truth of two
-   * validator expressions you have to use the bind method. See
-   * the methods of the validator class for more information.
-   * @param {any} parameter a javascript
-   * valid variable. The type of the parameter
-   * can be an arbitrary valid expression in
-   * javascript or a type defined in this language.
-   **/
+   * The constructor initializes a new `validator` instance with the given parameter.
+   * @param {any} parameter - A JavaScript valid variable or expression. The
+   * type of the parameter can be any valid JavaScript expression or a type
+   * defined in this language.
+   */
   constructor(parameter) {
     this.value = parameter;
     this.required = false;
@@ -1841,8 +1836,8 @@ class validator {
    * instance to true if the "value" is a BigInt data type, otherwise
    * sets the "answer" to false.
    * @returns {validator} the updated current validator property.
-   **/
-  get isBigInt () {
+   */
+  get isBigInt() {
     this.#question = models.CheckType(this.value, "BigInt");
     return this.#set_answer();
   }
@@ -1851,29 +1846,29 @@ class validator {
    * instance to true if the "value" is a Symbol data type in JavaScript
    * otherwise sets the "answer" to false.
    * @returns {validator} the updated current validator instance.
-   **/
-  get isSymbol () {
+   */
+  get isSymbol() {
     this.#question = models.CheckType(this.value, "Symbol");
     return this.#set_answer();
   }
   /**
-   * This method sets the "answer" property of the current validator 
+   * This method sets the "answer" property of the current validator
    * instance to true, if the "value" property is equals to the null
    * data type of the JavaScript language, otherwise sets the "answer"
    * to false and returns the result.
    * @returns {validator} the updated current validator instance.
-   **/
-  get isNull () {
+   */
+  get isNull() {
     this.#question = this.value === null;
     return this.#set_answer();
   }
   /**
-   * This method sets the "answer" property to true if the 
+   * This method sets the "answer" property to true if the
    * "value" of the current validator instance is a primitive
    * data type, i.e. if it is some of the types:
    * string, number, bigInt, symbol, boolean, undefined or null.
    * @returns {validator} the updated current validator instance.
-   **/
+   */
   get isPrimitiveType() {
     this.#question = this.copy().isString
       .Or.isNumber
