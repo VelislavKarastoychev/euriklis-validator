@@ -185,6 +185,18 @@ class validator {
   }
 
   /**
+   * Sets the operator
+   * to logical or (||) and in the next
+   * non operational method executes the
+   * operation disjunction.
+   * @returns {validator}
+   */
+  get or() {
+    this.#operand = "or";
+    return this;
+  }
+
+  /**
    * @method copy() creates a new instance
    * with value parameter the current value
    * of the validator and ignore the answer
@@ -222,29 +234,6 @@ class validator {
    */
   get absoluteCopy() {
     return this.absolute_copy();
-  }
-
-  
-  /**
-   * @method or() set the operator
-   * to logical or (||) and in the next
-   * non operational method executes the
-   * operation disjunction.
-   * @returns {validator}
-   */
-  or() {
-    this.#operand = "or";
-    return this;
-  }
-  /**
-   * @method Or - a simulation of the or method.
-   * @returns {validator}
-   * @description this method is written for more comfort
-   * of the code. The user may not use the parenthesis symbol
-   * to generate or statement with the library.
-   */
-  get Or() {
-    return this.or();
   }
 
   /**
