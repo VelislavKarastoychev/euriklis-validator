@@ -79,14 +79,21 @@ class validator {
   }
 
   /**
+   * Resets internal state fields, including #not, #operand, and #question.
+   */
+  reset() {
+    this.#not = null;
+    this.#operand = null;
+    this.#question = null;
+  }
+
+  /**
    * Gets the result from the validator's logical computations and reset
    * the operand and question states to null.
    * @returns {boolean} The result from the validator's logical computations.
    */
   get answer() {
-    this.#not = null;
-    this.#operand = null;
-    this.#question = null;
+    this.reset(); 
     return this.#answer;
   }
 
@@ -108,10 +115,19 @@ class validator {
       .isBoolean
       .on(true, () => this.#warnings = warnings);
   }
+
+  // In order to apply the functional cohesion
+  // and DRY principles we insert here a method
+  // which is private (according to the interface segregation
+  // principle of the SOLID paradigm).The method 
+  // #set_answer() is crucial for the validator 
+  // library because in this method is implemented
+  // the logical mechanism of the library.
+
   /**
-   * @private an internal method for obtaining
-   * of the result of some logical operations.
-   * @returns {validator}
+   * @private Internal method for computing the result of logical operations.
+   * This method is crucial for the validator library's logic.
+   * @returns {validator} The current validator instance, allowing method chaining.
    */
   #set_answer() {
     if (this.#not) {
@@ -126,11 +142,10 @@ class validator {
     if (this.#operand === null) {
       this.#answer = this.#question;
     }
-    this.#not = null;
-    this.#operand = null;
-    this.#question = null;
+    this.reset(); 
     return this;
   }
+  
   /**
    * @method copy() creates a new instance
    * with value parameter the current value
