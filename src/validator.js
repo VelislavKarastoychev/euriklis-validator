@@ -155,16 +155,13 @@ class validator {
   // as getters the three logical operators
   // not, or and logical and. The not method sets the
   // #not field to true if is called and the other two
-  // methods set the #operator field to "or" and "and".
+  // methods set the #operator field to "or" and "and.
 
   /**
-   * Sets the not field to logical
-   * negation for the current validator instance.
-   * When the next non operational method is run
-   * the operation of logical negation will be executed
-   * and the obtained result will be written in the
-   * value property of the validator instance.
-   * @returns {validator}
+   * Enables logical negation for the current validator instance.
+   * When combined with other methods, it performs logical negation
+   * of the result.
+   * @returns {validator} The current validator instance.
    */
   get not() {
     this.#not = true;
@@ -172,12 +169,9 @@ class validator {
   }
 
   /**
-   * Sets the operator
-   * of the current validator instance
-   * to the logical and (&) and in the
-   * next not operator method execute a
-   * logical conjunction.
-   * @returns {validator}
+   * Sets the current validator instance to use logical AND (&&)
+   * for subsequent validations.
+   * @returns {validator} The current validator instance.
    */
   get and() {
     this.#operand = "and";
@@ -185,11 +179,9 @@ class validator {
   }
 
   /**
-   * Sets the operator
-   * to logical or (||) and in the next
-   * non operational method executes the
-   * operation disjunction.
-   * @returns {validator}
+   * Sets the current validator instance to use logical OR (||)
+   * for subsequent validations.
+   * @returns {validator} The current validator instance.
    */
   get or() {
     this.#operand = "or";
@@ -197,7 +189,7 @@ class validator {
   }
 
   /**
-   * @method copy() creates a new instance
+   * Creates a new instance
    * with value parameter the current value
    * of the validator and ignore the answer
    * parameter that was obtained.
@@ -208,7 +200,7 @@ class validator {
     return new validator(this.value);
   }
   /**
-   * @method absolute_copy() create a new instance
+   * Creates a new instance
    * of the current validator object and records
    * the obtained answer and other properties of
    * the instance...
