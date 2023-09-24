@@ -145,6 +145,31 @@ class validator {
     this.reset(); 
     return this;
   }
+
+  // In order to make logical decisions we need
+  // some operators. According to the mathematical
+  // logic to make a closed logical system, we need
+  // to introduce (provide) at least three logical
+  // operations - the negation (not), the conjunction
+  // (and) and the disjunction (or). So we now implement
+  // as getters the three logical operators
+  // not, or and logical and. The not method sets the
+  // #not field to true if is called and the other two 
+  // methods set the #operator field to "or" and "and".
+  
+  /**
+   * Sets the operator to logical
+   * negation for the current validator instance.
+   * When the next non operational method is run
+   * the operation of logical negation will be executed
+   * and the obtained result will be written in the
+   * value property of the validator instance.
+   * @returns {validator}
+   */
+  get not() {
+    this.#not = true;
+    return this;
+  }
   
   /**
    * @method copy() creates a new instance
@@ -228,29 +253,7 @@ class validator {
   get Or() {
     return this.or();
   }
-  /**
-   * @method not() set the operator to logical
-   * negation for the current validator instance.
-   * When the next non operational method is run
-   * the operation of logical negation will be executed
-   * and the obtained result will be written in the
-   * value property of the validator instance.
-   * @returns {validator}
-   */
-  not() {
-    this.#not = true;
-    return this;
-  }
-  /**
-   * @method Not
-   * @returns {validator}
-   * @description this method is created for more comfort in the
-   * codding procedure. The user may not use the parenthesis symbol
-   * to generate the not statement method of the library.
-   */
-  get Not() {
-    return this.not();
-  }
+   
   /**
    * @method required()
    * @deprecated
