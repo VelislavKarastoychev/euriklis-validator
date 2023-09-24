@@ -12,26 +12,32 @@ import * as models from "./Models/index.js";
 class validator {
   static author = "Velislav S. Karastoychev";
   static version = "3.0.0";
+  /**
+   * @private {any} #value - field that stores the current parameter
+   * of the validator instance.
+   */
   #value = undefined;
   /**
-   * @private not - stores the current value of the not flag.
+   * @private {boolean} #not - Stores the current value of the not flag.
    */
   #not = null;
   /**
-   * @private operand - stores the current operand in the validator queue.
+   * @private {string} #operand - Stores the current operand in the
+   * validator queue.
    */
   #operand = null;
   /**
-   * @private question - stores the value of the question or
+   * @private {boolean} #question - Stores the value of the question or
    * the truth of the last executed logical test from the validator.
    */
   #question = null;
   /**
-   * @private answer - stores the result of the logical operation.
+   * @private {boolean} #answer - Stores the result of the logical operation.
    */
   #answer = null;
   /**
-   * @private warnings - stores the value of the show_warnings sttter value.
+   * @private {boolean} #warnings - Stores the value of the show_warnings
+   * setter value.
    */
   #warnings = false;
   /**
@@ -45,6 +51,11 @@ class validator {
     this.required = false;
     this.description = "";
   }
+  // In order to keep the code more clear and
+  // to achieve logical and functional cohesion
+  // and also according with the encapsulation
+  // principle we will define getters and setters
+  // for every state of the constructor.
   /**
    * @returns {any} the defined value property.
    */
