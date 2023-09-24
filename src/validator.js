@@ -189,26 +189,21 @@ class validator {
   }
 
   /**
-   * Creates a new instance
-   * with value parameter the current value
-   * of the validator and ignore the answer
-   * parameter that was obtained.
-   * @returns {validator} the answer property of the
-   * returned instance is undefined.
+   * Creates a new instance with the current value of the validator and
+   * discards the obtained answer.
+   * @returns {validator} A new validator instance with an undefined answer.
    */
   copy() {
     return new validator(this.value);
   }
+
   /**
-   * Creates a new instance
-   * of the current validator object and records
-   * the obtained answer and other properties of
-   * the instance...
-   * @returns {validator} the answer property of the
-   * returned instance is the same as the answer property
-   * of the current validator instance.
+   * Creates a new instance of the current validator object and copies
+   * the obtained answer and other properties.
+   * @returns {validator} A new validator instance with the same answer
+   * and other properties as the current instance.
    */
-  absolute_copy() {
+  absoluteCopy() {
     let v = new validator(this.value);
     v.#answer = this.#answer;
     v.#not = this.#not;
@@ -216,16 +211,6 @@ class validator {
     v.#question = this.#question;
     v.required = this.required;
     return v;
-  }
-
-  /**
-   * @method absoluteCopy
-   * @returns {validator}
-   * @description this is a getter variant of the
-   * absolute_copy() method.
-   */
-  get absoluteCopy() {
-    return this.absolute_copy();
   }
 
   /**
