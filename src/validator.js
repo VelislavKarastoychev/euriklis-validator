@@ -56,15 +56,18 @@ class validator {
   // and also according with the encapsulation
   // principle we will define getters and setters
   // for every state of the constructor.
+
   /**
-   * @returns {any} the defined value property.
+   * Gets the current value property.
+   * @returns {any} The value property of the validator instance.
    */
   get value() {
     return this.#value;
   }
+
   /**
    * Sets the value property of the current validator instance.
-   * @param {any} parameter - the "value" property of the current validator instance.
+   * @param {any} parameter - The value to set for the validator instance.
    */
   set value(parameter) {
     try {
@@ -74,9 +77,11 @@ class validator {
       this.value = error;
     }
   }
+
   /**
-   * This getter method obtains the answer from the logical computations and sets to null the operand and question states.
-   * @returns {boolean} the result from the validator logical computations.
+   * Gets the result from the validator's logical computations and reset
+   * the operand and question states to null.
+   * @returns {boolean} The result from the validator's logical computations.
    */
   get answer() {
     this.#not = null;
@@ -84,16 +89,19 @@ class validator {
     this.#question = null;
     return this.#answer;
   }
+
   /**
-   * @description the getter method "show_warnings" retunns the status of showing warning or error messages to the user.
-   * @returns {boolean} if is true, then warning messages will be printed on the console, when an inaccuracy is made from the user.
+   * Gets the status of showing warning or error messages to the user.
+   * @returns {boolean} If true, warning messages will be printed to the console
+   * when an inaccuracy is made by the user.
    */
   get show_warnings() {
     return this.#warnings;
   }
+
   /**
-   * @param {boolean} warnings - the status value which has to be set.
-   * @description the setter method "show_warnings" sets the value of the status for error or warning printing in the console.
+   * Sets the value of the status for error or warning printing in the console.
+   * @param {boolean} warnings - The status value to set.
    */
   set show_warnings(warnings) {
     new validator(warnings)
