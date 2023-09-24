@@ -210,31 +210,7 @@ class validator {
     return v;
   }
 
-
-  /**
-   * A callback function which will be executed
-   * from the validator benchmark method in order
-   * to measure its performance.
-   *
-   * @callback benchmarkCallback
-   * @param {any} parameters the value of the current
-   * validator instance.
-   */
-  /**
-   * @param {benchmarkCallback} f a functin which will
-   * be executed "iteration" times.
-   * @param {number} iterations - a positive integer, which
-   * is set to 100 by default. The number of iterations needed
-   * to measure the benchmark of the benchmark callback function.
-   * @returns {{mean: number, std: number, iterations: number}} an object
-   * with keys "mean", "std" (standard deviation) and iterations.
-   */
-  benchmark(f, iterations = 100) {
-    if (new validator(iterations).Not.isInteger.answer) {
-      errors.IncorrectIterationsParameterInBenchmark();
-    }
-    return models.Benchmark(this.value, f, iterations);
-  }
+  
   /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
@@ -2424,6 +2400,34 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
+  
+  /**
+   * A callback function that will be executed
+   * during the validator benchmark to measure its performance.
+   *
+   * @callback benchmarkCallback
+   * @param {any} parameter - The value of the current
+   * validator instance.
+   */
+
+  /**
+   * Measures the execution time of a given callback function
+   * when called with the current validator instance's value.
+   *
+   * @param {benchmarkCallback} f - The function to benchmark.
+   * @param {number} iterations - The number of iterations to run
+   *                             the benchmark (default is 100).
+   * @returns {{mean: number, std: number, iterations: number}} An object
+   *          with keys "mean" (average time), "std" (standard deviation),
+   *          and "iterations" (number of iterations).
+   */
+  benchmark(f, iterations = 100) {
+    if (new validator(iterations).Not.isInteger.answer) {
+      errors.IncorrectIterationsParameterInBenchmark();
+    }
+    return models.Benchmark(this.value, f, iterations);
+  }
+  
   test() {
     if (this.answer) {
       validator.successMessage(this.description);
