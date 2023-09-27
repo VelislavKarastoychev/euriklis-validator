@@ -266,10 +266,8 @@ class validator {
   }
 
   /**
-   * @method isFloat
-   * @returns {validator}
-   * @description this method is the getter variant of
-   * the is_float() method of the validator library.
+   * Checks if the value property of the current validator instance is a non-integer number (float).
+   * @returns {validator} The updated current validator instance.
    */
   get isFloat() {
     this.#question = this.copy()
@@ -413,7 +411,7 @@ class validator {
       .answer;
     return this.#set_answer();
   }
-  
+
   /**
    * @method is_negative
    * @returns {validator}
