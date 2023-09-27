@@ -217,7 +217,21 @@ class validator {
    * @returns {validator} The current validator instance.
    */
   get isBoolean() {
-    this.#question = models.IsBoolean(this.value);
+    this.#question = models.CheckType(this.value, 'Boolean');
+    return this.#set_answer();
+  }
+
+  /**
+   * @method is_undefined()
+   * @returns {validator}
+   * @description this method checks if the
+   * current value property is undefined and if this
+   * condition is fulfilled returns true, otherwise
+   * returns false.
+   */
+  get isUndefined() {
+    let q = models.CheckType(this.value, 'Undefined');
+    this.#question = q;
     return this.#set_answer();
   }
 
@@ -299,27 +313,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-  /**
-   * @method is_undefined()
-   * @returns {validator}
-   * @description this method checks if the
-   * current value property is undefined and if this
-   * condition is fulfilled returns true, otherwise
-   * returns false.
-   */
-  is_undefined() {
-    let q = models.IsUndefined(this.value);
-    this.#question = q;
-    return this.#set_answer();
-  }
-  /**
-   * @method isUndefined
-   * @returns {validator}
-   * @description this method simulates the is_undefined method.
-   */
-  get isUndefined() {
-    return this.is_undefined();
   }
   /**
    * @method is_string()
