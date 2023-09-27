@@ -217,20 +217,16 @@ class validator {
    * @returns {validator} The current validator instance.
    */
   get isBoolean() {
-    this.#question = models.CheckType(this.value, 'Boolean');
+    this.#question = models.CheckType(this.value, "Boolean");
     return this.#set_answer();
   }
 
   /**
-   * @method is_undefined()
-   * @returns {validator}
-   * @description this method checks if the
-   * current value property is undefined and if this
-   * condition is fulfilled returns true, otherwise
-   * returns false.
+   * Checks if the value property of the current validator instance is undefined.
+   * @returns {validator} The current validator instance.
    */
   get isUndefined() {
-    let q = models.CheckType(this.value, 'Undefined');
+    let q = models.CheckType(this.value, "Undefined");
     this.#question = q;
     return this.#set_answer();
   }
