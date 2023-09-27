@@ -210,7 +210,17 @@ class validator {
     return v;
   }
 
-  
+  // test conditions for primary data types:
+
+  /**
+   * Checks if the value property of the current validator instance is a boolean.
+   * @returns {validator} The current validator instance.
+   */
+  get isBoolean() {
+    this.#question = models.IsBoolean(this.value);
+    return this.#set_answer();
+  }
+
   /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
@@ -310,24 +320,6 @@ class validator {
    */
   get isUndefined() {
     return this.is_undefined();
-  }
-  /**
-   * @method is_boolean()
-   * @returns {validator}
-   * @description This method checks if the value property
-   * of the current validator instance is of boolean type.
-   */
-  is_boolean() {
-    this.#question = models.IsBoolean(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * @method isBoolean
-   * @returns {validator}
-   * @description this method simulates the is_boolean() method.
-   */
-  get isBoolean() {
-    return this.is_boolean();
   }
   /**
    * @method is_string()
@@ -2400,7 +2392,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  
+
   /**
    * A callback function that will be executed
    * during the validator benchmark to measure its performance.
@@ -2427,7 +2419,7 @@ class validator {
     }
     return models.Benchmark(this.value, f, iterations);
   }
-  
+
   test() {
     if (this.answer) {
       validator.successMessage(this.description);
