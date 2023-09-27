@@ -239,6 +239,15 @@ class validator {
   }
 
   /**
+   * Checks if the value property of the current validator instance is a string.
+   * @returns {validator} The updated current validator instance.
+   */
+  get isString() {
+    this.#question = models.CheckType(this.value, "String");
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -317,26 +326,7 @@ class validator {
     }
     return this;
   }
-  /**
-   * @method is_string()
-   * @returns {validator}
-   * @description This method estimates if the
-   * value property of the current validator instance
-   * is string and return true if this condition is
-   * fulfilled, otherwise returns false.
-   */
-  is_string() {
-    this.#question = models.IsString(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * @method isString
-   * @returns {validator}
-   * @description this method simulates the is_string() method.
-   */
-  get isString() {
-    return this.is_string();
-  }
+  
   /**
    * This method sets the "answer" property
    * of the current validator instance to
