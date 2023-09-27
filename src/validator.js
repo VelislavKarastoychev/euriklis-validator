@@ -248,6 +248,24 @@ class validator {
   }
 
   /**
+   * Checks if the value property of the current validator instance is a number.
+   * @returns {validator} The updated current validator instance.
+   */
+  get isNumber() {
+    this.#question = models.CheckType(this.value, "Number");
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the value property of the current validator instance is an integer.
+   * @returns {validator} The updated current validator instance.
+   */
+  get isInteger() {
+    this.#question = models.IsInteger(this.value);
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -326,52 +344,7 @@ class validator {
     }
     return this;
   }
-  
-  /**
-   * This method sets the "answer" property
-   * of the current validator instance to
-   * true if the "value" property is a number.
-   * @method is_number()
-   * @returns {validator}
-   */
-  is_number() {
-    return this.isNumber;
-  }
-  /**
-   * This method sets the "answer" property
-   * of the current validator instance to
-   * true if the "value" property is a number.
-   * @method isNumber
-   * @returns {validator}
-   */
 
-  get isNumber() {
-    this.#question = models.IsNumber(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * This method sets the "answer" property of the
-   * current validator instance to true if the "value"
-   * property is an integer number, otherwise sets it
-   * to false.
-   * @method is_integer()
-   * @returns {validator}
-   */
-  is_integer() {
-    return this.isInteger;
-  }
-  /**
-   * This method sets the "answer" property
-   * of the current validator instance to true
-   * if the "value" is an integer number, otherwise
-   * sets it to false.
-   * @method isInteger
-   * @returns {validator}
-   */
-  get isInteger() {
-    this.#question = models.IsInteger(this.value);
-    return this.#set_answer();
-  }
   /**
    * @method is_positive_integer
    * @returns {validator}
