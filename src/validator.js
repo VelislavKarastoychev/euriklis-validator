@@ -266,6 +266,19 @@ class validator {
   }
 
   /**
+   * @method isFloat
+   * @returns {validator}
+   * @description this method is the getter variant of
+   * the is_float() method of the validator library.
+   */
+  get isFloat() {
+    this.#question = this.copy()
+      .isNumber.And.Not.isInteger
+      .answer;
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -400,30 +413,7 @@ class validator {
       .answer;
     return this.#set_answer();
   }
-  /**
-   * @method is_float()
-   * @returns {validator}
-   * @description a void method that checks if
-   * the value property of the current validator
-   * instance is floating point number or not and
-   * sets the answer property of the returned instance
-   * to true or false respectively.
-   */
-  is_float() {
-    return this.isFloat;
-  }
-  /**
-   * @method isFloat
-   * @returns {validator}
-   * @description this method is the getter variant of
-   * the is_float() method of the validator library.
-   */
-  get isFloat() {
-    this.#question = this.copy()
-      .isNumber.And.Not.isInteger
-      .answer;
-    return this.#set_answer();
-  }
+  
   /**
    * @method is_negative
    * @returns {validator}
