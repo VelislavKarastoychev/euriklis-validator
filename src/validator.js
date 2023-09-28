@@ -382,13 +382,32 @@ class validator {
    * instance to true or false respectively.
    */
   isGreaterThanOrEqual(a) {
-    
     if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsEqualOrBiggerThan();
     }
-    
-    this.#question = models.TestCondition(this.value, undefined, a, "geq"); 
-    
+
+    this.#question = models.TestCondition(this.value, undefined, a, "geq");
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the value property of the current validator
+   * instance is less than or equal to a given real number, 'a'.
+   *
+   * @method isLessThanOrEqual
+   * @param {number} a - A real number that has to be greater
+   * or equal to the current value property of the validator instance.
+   * @returns {validator} A validator instance with the answer
+   * property set to true or false based on the comparison.
+   */
+  isLessThanOrEqual(a) {
+    if (new validator(a).Not.isNumber.answer) {
+      errors.IncorrectArgumentInIsEqualOrLesserThan();
+    }
+
+    this.#question = models.TestCondition(this.value, undefined, a, "leq");
+
     return this.#set_answer();
   }
 
@@ -729,26 +748,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method equal_or_lesser_than
-   * @param {number} a a real number that has
-   * to be greater or equal to the current value
-   * property of the validator instance.
-   * @returns {validator}
-   * @description a method that checks if the value
-   * property of the current validator instance is
-   * lesser or equal to a real number say a and sets
-   * the answer property of the returned validator
-   * instance to true or false respectively.
-   */
-  is_equal_or_lesser_than(a) {
-    if (new validator(a).Not.isNumber.answer) {
-      errors.IncorrectArgumentInIsEqualOrLesserThan();
-    }
-    this.#question = this.copy()
-      .is_same(a).Or.is_lesser_than(a).answer;
-    return this.#set_answer();
-  }
   /**
    * Checks if the current validator value is instanceof
    * the "instance" parameter.
