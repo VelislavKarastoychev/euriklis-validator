@@ -42,6 +42,7 @@ class validator {
   #warnings = false;
   /**
    * The constructor initializes a new `validator` instance with the given parameter.
+   *
    * @param {any} parameter - A JavaScript valid variable or expression. The
    * type of the parameter can be any valid JavaScript expression or a type
    * defined in this language.
@@ -58,6 +59,7 @@ class validator {
 
   /**
    * Gets the current value property.
+   *
    * @returns {any} The value property of the validator instance.
    */
   get value() {
@@ -66,6 +68,7 @@ class validator {
 
   /**
    * Sets the value property of the current validator instance.
+   *
    * @param {any} parameter - The value to set for the validator instance.
    */
   set value(parameter) {
@@ -97,6 +100,7 @@ class validator {
 
   /**
    * Gets the status of showing warning or error messages to the user.
+   *
    * @returns {boolean} If true, warning messages will be printed to the console
    * when an inaccuracy is made by the user.
    */
@@ -106,6 +110,7 @@ class validator {
 
   /**
    * Sets the value of the status for error or warning printing in the console.
+   *
    * @param {boolean} warnings - The status value to set.
    */
   set show_warnings(warnings) {
@@ -125,6 +130,7 @@ class validator {
   /**
    * @private Internal method for computing the result of logical operations.
    * This method is crucial for the validator library's logic.
+   *
    * @returns {validator} The current validator instance, allowing method chaining.
    */
   #set_answer() {
@@ -159,6 +165,7 @@ class validator {
    * Enables logical negation for the current validator instance.
    * When combined with other methods, it performs logical negation
    * of the result.
+   *
    * @returns {validator} The current validator instance.
    */
   get not() {
@@ -169,6 +176,7 @@ class validator {
   /**
    * Sets the current validator instance to use logical AND (&&)
    * for subsequent validations.
+   *
    * @returns {validator} The current validator instance.
    */
   get and() {
@@ -179,6 +187,7 @@ class validator {
   /**
    * Sets the current validator instance to use logical OR (||)
    * for subsequent validations.
+   *
    * @returns {validator} The current validator instance.
    */
   get or() {
@@ -189,6 +198,7 @@ class validator {
   /**
    * Creates a new instance with the current value of the validator and
    * discards the obtained answer.
+   *
    * @returns {validator} A new validator instance with an undefined answer.
    */
   copy() {
@@ -198,6 +208,7 @@ class validator {
   /**
    * Creates a new instance of the current validator object and copies
    * the obtained answer and other properties.
+   *
    * @returns {validator} A new validator instance with the same answer
    * and other properties as the current instance.
    */
@@ -214,6 +225,7 @@ class validator {
 
   /**
    * Checks if the value property of the current validator instance is a boolean.
+   *
    * @returns {validator} The current validator instance.
    */
   get isBoolean() {
@@ -223,6 +235,7 @@ class validator {
 
   /**
    * Checks if the value property of the current validator instance is undefined.
+   *
    * @returns {validator} The current validator instance.
    */
   get isUndefined() {
@@ -231,6 +244,7 @@ class validator {
   }
   /**
    * Checks if the value property of the current validator instance is null.
+   *
    * @returns {validator} The updated current validator instance.
    */
   get isNull() {
@@ -249,6 +263,7 @@ class validator {
 
   /**
    * Checks if the value property of the current validator instance is a number.
+   *
    * @returns {validator} The updated current validator instance.
    */
   get isNumber() {
@@ -258,6 +273,7 @@ class validator {
 
   /**
    * Checks if the value property of the current validator instance is an integer.
+   *
    * @returns {validator} The updated current validator instance.
    */
   get isInteger() {
@@ -277,12 +293,26 @@ class validator {
   }
 
   /**
-   * Checks if the value property of the current validator 
+   * Checks if the value property of the current validator
    * instance is convertible to a number.
+   *
    * @returns {validator} The updated current validator instance.
    */
   get isConvertibleToNumber() {
     this.#question = models.IsNumberLike(this.value);
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the value property of the 
+   * current validator instance is an integer 
+   * or a string that may be converted 
+   * to an integer.
+   *
+   * @returns {validator} The updated current validator instance.
+   */
+  get isConvertibleToInteger() {
+    this.#question = models.IsIntegerLike(this.value);
     return this.#set_answer();
   }
 
@@ -479,29 +509,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method is_integer_like
-   * @description this method tests if the value
-   * property of the current validator instance is
-   * an integer or a string which may be converted
-   * to integer.
-   * @returns {validator}
-   */
-  is_integer_like() {
-    return this.isIntegerLike;
-  }
-  /**
-   * @method isIntegerLike
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is an integer or a string which
-   * may be converted to integer.
-   * @returns {validator}
-   */
-  get isIntegerLike() {
-    this.#question = models.IsIntegerLike(this.value);
-    return this.#set_answer();
-  }
   /**
    * @method is_negative_number_like
    * @description this method tests if the value
