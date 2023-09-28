@@ -9,6 +9,7 @@ export const IllegalUsageOfArgumentInIsArrayAndForEveryTxt = 'Illegal usage of t
 export const IncorrectArgumentInIsArrayAndForAnyTxt = 'Error in the is_array_and_for_any(). Illegal argument in the parameter of the method.';
 export const IncorrectArgumentInBindMethodTxt = 'The argument has to be validator type.';
 export const IncorrectArgumentInIsEmptyTxt = 'This method can be used only for string, array and object types.';
+export const IncorrectArgumentInIsEqual = "The argument of the method isEqual is not a valid real number";
 export const IncorrectArgumentInIsEqualOrBiggerThanTxt = 'Incorrect argument in the is_equal_or_bigger_than() method. Note that this argument has to be an arbitrary number.';
 export const IncorrectArgumentInIsEqualOrLesserThanTxt = 'Incorrect argument in is_equal_or_lesser_than() method. Note that the parameter has to be an arbitrary number.';
 export const IncorrectArgumentInIsNotEqual = "The argument of the method has to be a valid real number.";
