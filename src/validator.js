@@ -351,13 +351,13 @@ class validator {
    * Checks if the value property of the current validator
    * instance is less than a given real number, 'a'.
    *
-   * @method isLesserThan
+   * @method isLessThan
    * @param {number} a - A real number that must be
    * greater or equal to the validator instance value property.
    * @returns {validator} A validator instance with the answer
    * property set to true or false based on the comparison.
    */
-  isLesserThan(a) {
+  isLessThan(a) {
     if (new validator(a).Not.isNumber.answer) {
       errors.IncorrectArgumentInIsLesserThan();
     }
