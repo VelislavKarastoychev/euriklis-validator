@@ -410,6 +410,23 @@ class validator {
 
     return this.#set_answer();
   }
+  /**
+   * Checks if the value property of the current validator instance
+   * is not equal to some real number, "a".
+   * 
+   * @method isNotEqual
+   * @returns {validator} the updated validator instance with
+   * the answer property set to true or false based on the comparison.
+   */
+  isNotEqual (a) {
+    if (new validator(a).isNumber.not.answer) {
+      errors.IncorrectArgumentInIsNotEqual();
+    }
+
+    this.#question = models.TestCondition(this.value, undefined, a, "neq");
+
+    return this.#set_answer();
+  }
 
   /**
    * Implements the is_error() method or as getter isError.
