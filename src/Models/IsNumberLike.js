@@ -4,5 +4,7 @@
  * Utility function for isNumberLike method.
  * @param {number | string} value
  * @returns {boolean}
- **/
-export const IsNumberLike = (value) => !Number.isNaN(value);
+ */
+export const IsNumberLike = (value) =>
+  typeof value === "number" ||
+  (typeof value === "string" && !Number.isNaN(Number(value)));
