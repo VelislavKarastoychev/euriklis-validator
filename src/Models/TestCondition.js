@@ -2,7 +2,7 @@
 /**
  * @param {any} value
  * @param {string | number} property
- * @param {string} condition
+ * @param {"eq" | "lt" | "gt" | "neq" | "leq" | "geq"} condition
  * @param {number | string} item
  */
 export const TestCondition = (value, property = "", item, condition = "eq") => {
