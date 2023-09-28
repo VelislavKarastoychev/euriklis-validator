@@ -277,6 +277,16 @@ class validator {
   }
 
   /**
+   * Checks if the value property of the current validator 
+   * instance is convertible to a number.
+   * @returns {validator} The updated current validator instance.
+   */
+  get isConvertibleToNumber() {
+    this.#question = models.IsNumberLike(this.value);
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -468,29 +478,7 @@ class validator {
       .answer;
     return this.#set_answer();
   }
-  /**
-   * @method is_number_like
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is number or a string which may
-   * be converted to number.
-   * @returns {validator}
-   */
-  is_number_like() {
-    return this.isNumberLike;
-  }
-  /**
-   * @method isNumberLike
-   * @returns {validator}
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is number or string which may
-   * be converted to number.
-   */
-  get isNumberLike() {
-    this.#question = models.IsNumberLike(this.value);
-    return this.#set_answer();
-  }
+
   /**
    * @method is_integer_like
    * @description this method tests if the value
