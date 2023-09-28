@@ -316,28 +316,37 @@ class validator {
     return this.#set_answer();
   }
 
+  // We use an utility function named "TestCondtions",
+  // which is nicely written and encapsulates
+  // the comparison logic in a clean and reusable way.
+  // This will indeed facilitate the reuse of the logic
+  // in other methods, promoting consistency and reducing
+  // redundancy. This function is modified to be used
+  // in the isBigger/Lesser/Equals as well as in the
+  // methods in the form hasLength.
+
   /**
    * Checks if the value property of the current validator
    * instance is greater than a given real number, 'a'.
    *
-   * @method isBiggerThan
+   * @method isGreaterThan
    * @param {number} a - A real number that must be
    * lesser or equal to the validator instance value property.
    * @returns {validator} A validator instance with the answer
    * property set to true or false based on the comparison.
    */
-  isBiggerThan(a) {
+  isGreaterThan(a) {
     if (new validator(a).Not.isNumber.answer) {
       errors.IncorrectArgumentInIsBiggerThan();
     }
 
     if (this.copy().isNumber.answer) {
-      this.#question = this.value > a;
+      this.#question = models.TestCondition(this.value, undefined, a, "gt");
     } else this.#question = false;
 
     return this.#set_answer();
   }
-  
+
   /**
    * Checks if the value property of the current validator
    * instance is less than a given real number, 'a'.
@@ -354,9 +363,32 @@ class validator {
     }
 
     if (this.copy().isNumber.answer) {
-      this.#question = this.value < a;
+      this.#question = models.TestCondition(this.value, undefined, a, "lt");
     } else this.#question = false;
 
+    return this.#set_answer();
+  }
+
+  /**
+   * @method isGreaterThanOrEqual
+   * @param {number} a a real number that
+   * has to be smaller or equal to the value
+   * property of the current validator instance
+   * @returns {validator}
+   * @description a method that checks if the value
+   * property of the current validator instance is
+   * greater or equals to a real number , say a and
+   * sets the answer property of the returned validator
+   * instance to true or false respectively.
+   */
+  isGreaterThanOrEqual(a) {
+    
+    if (new validator(a).not.isNumber.answer) {
+      errors.IncorrectArgumentInIsEqualOrBiggerThan();
+    }
+    
+    this.#question = models.TestCondition(this.value, undefined, a, "geq"); 
+    
     return this.#set_answer();
   }
 
@@ -696,26 +728,7 @@ class validator {
       .And.is_equal_or_bigger_than(a).answer;
     return this.#set_answer();
   }
-  /**
-   * @method equal_or_bigger_than
-   * @param {number} a a real number that
-   * has to be smaller or equal to the value
-   * property of the current validator instance
-   * @returns {validator}
-   * @description a method that checks if the value
-   * property of the current validator instance is
-   * greater or equals to a real number , say a and
-   * sets the answer property of the returned validator
-   * instance to true or false respectively.
-   */
-  is_equal_or_bigger_than(a) {
-    if (new validator(a).Not.isNumber.answer) {
-      errors.IncorrectArgumentInIsEqualOrBiggerThan();
-    }
-    this.#question = this.copy()
-      .is_same(a).Or.is_bigger_than(a).answer;
-    return this.#set_answer();
-  }
+
   /**
    * @method equal_or_lesser_than
    * @param {number} a a real number that has
