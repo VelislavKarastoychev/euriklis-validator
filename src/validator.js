@@ -336,7 +336,7 @@ class validator {
    * property set to true or false based on the comparison.
    */
   isGreaterThan(a) {
-    if (new validator(a).Not.isNumber.answer) {
+    if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsBiggerThan();
     }
 
@@ -358,7 +358,7 @@ class validator {
    * property set to true or false based on the comparison.
    */
   isLessThan(a) {
-    if (new validator(a).Not.isNumber.answer) {
+    if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsLesserThan();
     }
 
@@ -402,7 +402,7 @@ class validator {
    * property set to true or false based on the comparison.
    */
   isLessThanOrEqual(a) {
-    if (new validator(a).Not.isNumber.answer) {
+    if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsEqualOrLesserThan();
     }
 
@@ -410,6 +410,28 @@ class validator {
 
     return this.#set_answer();
   }
+  
+  /**
+   * Checks if the value property of the current validator
+   * instance is a number which is equals to some real number
+   * say "a".
+   *
+   * @method isEqual
+   * @returns {validator} the updated validator instance 
+   * with the answer property set to true or false based
+   * on the comparison.
+   */
+  isEqual (a) {
+    if (new validator(a).not.isNumber.answer) {
+      errors.IncorrectArgumentInIsEqual();
+    }
+    
+    this.#question = models.TestCondition(this.value, undefined, a, "eq");
+    
+    return this.#set_answer();
+  }
+  
+  
   /**
    * Checks if the value property of the current validator instance
    * is not equal to some real number, "a".
