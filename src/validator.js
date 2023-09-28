@@ -419,7 +419,7 @@ class validator {
    * the answer property set to true or false based on the comparison.
    */
   isNotEqual (a) {
-    if (new validator(a).isNumber.not.answer) {
+    if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsNotEqual();
     }
 
