@@ -410,42 +410,60 @@ class validator {
 
     return this.#set_answer();
   }
-  
+
   /**
    * Checks if the value property of the current validator
    * instance is a number which is equals to some real number
    * say "a".
    *
    * @method isEqual
-   * @returns {validator} the updated validator instance 
+   * @returns {validator} the updated validator instance
    * with the answer property set to true or false based
    * on the comparison.
    */
-  isEqual (a) {
+  isEqual(a) {
     if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsEqual();
     }
-    
+
     this.#question = models.TestCondition(this.value, undefined, a, "eq");
-    
+
     return this.#set_answer();
   }
-  
-  
+
   /**
    * Checks if the value property of the current validator instance
    * is not equal to some real number, "a".
-   * 
+   *
    * @method isNotEqual
    * @returns {validator} the updated validator instance with
    * the answer property set to true or false based on the comparison.
    */
-  isNotEqual (a) {
+  isNotEqual(a) {
     if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsNotEqual();
     }
 
     this.#question = models.TestCondition(this.value, undefined, a, "neq");
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the value property of the current 
+   * validator instance is a positive number.
+   *
+   * @method isPositive
+   * @returns {validator} The updated validator 
+   * instance with the answer property set to 
+   * true or false based on the comparison with zero.
+   */
+  get isPositive() {
+    if (this.copy().not.isNumber.answer) {
+      if (this.show_warnings) warnings.IncorrectValueInIsPositive();
+    }
+
+    this.#question = models.TestCondition(this.value, undefined, 0, "geq");
 
     return this.#set_answer();
   }
@@ -613,32 +631,6 @@ class validator {
     }
     this.#question = this.copy()
       .is_lesser_than(0)
-      .answer;
-    return this.#set_answer();
-  }
-  /**
-   * @method is_positive
-   * @returns {validator}
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is equals or bigger than 0.
-   */
-  is_positive() {
-    return this.isPositive;
-  }
-  /**
-   * @method isPositive
-   * @returns {validator}
-   * @description this method tests if the value
-   * property of the current validator instance
-   * is positive number.
-   */
-  get isPositive() {
-    if (this.copy().not.isNumber.answer) {
-      if (this.show_warnings) warnings.IncorrectValueInIsPositive();
-    }
-    this.#question = this.copy()
-      .is_equal_or_bigger_than(0)
       .answer;
     return this.#set_answer();
   }
