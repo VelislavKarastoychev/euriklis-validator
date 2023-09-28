@@ -22,6 +22,7 @@ export const IncorrectArgumentInIsArrayAndForAny = () => executeError(texts.Inco
 export const IncorrectArgumentInIsBiggerThan = () => executeError(texts.IncorrectArgumentInIsBiggerThanTxt);
 export const IncorrectArgumentInIsEmpty = () => executeError(texts.IncorrectArgumentInIsEmptyTxt);
 export const IncorrectArgumentInIsEqualOrBiggerThan = () => executeError(texts.IncorrectArgumentInIsEqualOrBiggerThanTxt);
+export const IncorrectArgumentInIsEqual = () => executeError(texts.IncorrectArgumentInIsEqual);
 export const IncorrectArgumentInIsEqualOrLesserThan = () => executeError(texts.IncorrectArgumentInIsEqualOrLesserThanTxt);
 export const IncorrectArgumentInIsLesserThan = () => executeError(texts.IncorrectArgumentInIsLesserThanTxt);
 export const IncorrectArgumentInIsNotEqual = () => executeError(texts.IncorrectArgumentInIsNotEqual);
