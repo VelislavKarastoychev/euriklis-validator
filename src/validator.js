@@ -330,9 +330,33 @@ class validator {
     if (new validator(a).Not.isNumber.answer) {
       errors.IncorrectArgumentInIsBiggerThan();
     }
+
     if (this.copy().isNumber.answer) {
       this.#question = this.value > a;
     } else this.#question = false;
+
+    return this.#set_answer();
+  }
+  
+  /**
+   * Checks if the value property of the current validator
+   * instance is less than a given real number, 'a'.
+   *
+   * @method isLesserThan
+   * @param {number} a - A real number that must be
+   * greater or equal to the validator instance value property.
+   * @returns {validator} A validator instance with the answer
+   * property set to true or false based on the comparison.
+   */
+  isLesserThan(a) {
+    if (new validator(a).Not.isNumber.answer) {
+      errors.IncorrectArgumentInIsLesserThan();
+    }
+
+    if (this.copy().isNumber.answer) {
+      this.#question = this.value < a;
+    } else this.#question = false;
+
     return this.#set_answer();
   }
 
@@ -621,27 +645,7 @@ class validator {
     this.#question = models.IsPositiveIntegerLike(this.value);
     return this.#set_answer();
   }
-  /**
-   * @method is_lesser_than(a)
-   * @param {number} a a real number that
-   * has to be greater or equal to the current
-   * value property of the validator instance.
-   * @returns {validator}
-   * @description this method checks if the value
-   * property of the current validator instance is
-   * lesser than a real number say a, and sets the
-   * answer property of the returned validator instance
-   * to true or false respectively.
-   */
-  is_lesser_than(a) {
-    if (new validator(a).Not.isNumber.answer) {
-      errors.IncorrectArgumentInIsLesserThan();
-    }
-    if (this.copy().isNumber.answer) {
-      this.#question = this.value < a;
-    } else this.#question = false;
-    return this.#set_answer();
-  }
+
   /**
    * @method is_in_range(a, b)
    * @param {number} a a real number that has to
