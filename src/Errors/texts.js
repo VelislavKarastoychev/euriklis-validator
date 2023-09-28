@@ -11,6 +11,7 @@ export const IncorrectArgumentInBindMethodTxt = 'The argument has to be validato
 export const IncorrectArgumentInIsEmptyTxt = 'This method can be used only for string, array and object types.';
 export const IncorrectArgumentInIsEqualOrBiggerThanTxt = 'Incorrect argument in the is_equal_or_bigger_than() method. Note that this argument has to be an arbitrary number.';
 export const IncorrectArgumentInIsEqualOrLesserThanTxt = 'Incorrect argument in is_equal_or_lesser_than() method. Note that the parameter has to be an arbitrary number.';
+export const IncorrectArgumentInIsNotEqual = "The argument of the method has to be a valid real number.";
 export const IncorrectArgumentInHasLengthTxt = 'The argument of the has length method is not integer.';
 export const IncorrectArgumentInHasLengthBiggerThanTxt = 'Incorrect argument parameter in the has_length_bigger_than() method. Note that the parameter has to be an Integer.';
 export const IncorrectArgumentInHasLengthEqualsOrBiggerThanTxt = 'Incorrect argument in the has_length_equals_or_bigger_than() method of the current validator instance. Note that this parameter has to be an integer.';
