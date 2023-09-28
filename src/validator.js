@@ -304,15 +304,35 @@ class validator {
   }
 
   /**
-   * Checks if the value property of the 
-   * current validator instance is an integer 
-   * or a string that may be converted 
+   * Checks if the value property of the
+   * current validator instance is an integer
+   * or a string that may be converted
    * to an integer.
    *
    * @returns {validator} The updated current validator instance.
    */
   get isConvertibleToInteger() {
     this.#question = models.IsIntegerLike(this.value);
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the value property of the current validator
+   * instance is greater than a given real number, 'a'.
+   *
+   * @method isBiggerThan
+   * @param {number} a - A real number that must be
+   * lesser or equal to the validator instance value property.
+   * @returns {validator} A validator instance with the answer
+   * property set to true or false based on the comparison.
+   */
+  isBiggerThan(a) {
+    if (new validator(a).Not.isNumber.answer) {
+      errors.IncorrectArgumentInIsBiggerThan();
+    }
+    if (this.copy().isNumber.answer) {
+      this.#question = this.value > a;
+    } else this.#question = false;
     return this.#set_answer();
   }
 
@@ -599,27 +619,6 @@ class validator {
    */
   get isPositiveIntegerLike() {
     this.#question = models.IsPositiveIntegerLike(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * @method is_bigger_than()
-   * @param {number} a a real number that
-   * has to be lesser or equal to than the
-   * validator instance value property.
-   * @returns {validator}
-   * @description a method that checks if the
-   * value property of the current validator
-   * instance is bigger than a real number, say a
-   * and sets the answer property of the returned
-   * validator instance to true or false respectively.
-   */
-  is_bigger_than(a) {
-    if (new validator(a).Not.isNumber.answer) {
-      errors.IncorrectArgumentInIsBiggerThan();
-    }
-    if (this.copy().isNumber.answer) {
-      this.#question = this.value > a;
-    } else this.#question = false;
     return this.#set_answer();
   }
   /**
