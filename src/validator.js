@@ -287,7 +287,7 @@ class validator {
    */
   get isFloat() {
     this.#question = this.copy()
-      .isNumber.And.Not.isInteger
+      .isNumber.and.not.isInteger
       .answer;
     return this.#set_answer();
   }
@@ -554,7 +554,7 @@ class validator {
   get isPositiveInteger() {
     this.#question = this.copy()
       .isInteger
-      .And
+      .and
       .is_equal_or_bigger_than(0)
       .answer;
     return this.#set_answer();
@@ -580,7 +580,7 @@ class validator {
   get isNegativeInteger() {
     this.#question = this.copy()
       .isInteger
-      .And
+      .and
       .is_lesser_than(0)
       .answer;
     return this.#set_answer();
@@ -606,7 +606,7 @@ class validator {
    * negative number (smaller than 0).
    */
   get isNegative() {
-    if (this.copy().Not.isNumber.answer) {
+    if (this.copy().not.isNumber.answer) {
       if (this.show_warnings) {
         warnings.IncorrectValueInIsNegative();
       }
@@ -634,7 +634,7 @@ class validator {
    * is positive number.
    */
   get isPositive() {
-    if (this.copy().Not.isNumber.answer) {
+    if (this.copy().not.isNumber.answer) {
       if (this.show_warnings) warnings.IncorrectValueInIsPositive();
     }
     this.#question = this.copy()
@@ -751,15 +751,15 @@ class validator {
    * instance to true or false respectively.
    */
   is_in_range(a, b) {
-    if (new validator([a, b]).Not.isNumberArray.answer) {
+    if (new validator([a, b]).not.isNumberArray.answer) {
       errors.IncorrectArgumentsInIsInRange();
     }
     if (a >= b) errors.IncorrectArgumentsInIsInRange();
     this.#question = this.copy()
       .isNumber
-      .And
+      .and
       .is_bigger_than(a)
-      .And
+      .and
       .is_lesser_than(b).answer;
     return this.#set_answer();
   }
@@ -777,13 +777,13 @@ class validator {
    * of the validator instance to true or false respectively.
    */
   is_in_closed_range(a, b) {
-    if (new validator([a, b]).Not.isNumberArray.answer) {
+    if (new validator([a, b]).not.isNumberArray.answer) {
       errors.IncorrectArgumentsInIsInClosedRange();
     }
     if (a >= b) errors.IncorrectArgumentsInIsInClosedRange();
     this.#question = this.copy()
       .is_equal_or_lesser_than(b)
-      .And.is_equal_or_bigger_than(a).answer;
+      .and.is_equal_or_bigger_than(a).answer;
     return this.#set_answer();
   }
 
@@ -1044,12 +1044,12 @@ class validator {
   get isIntegerTypedArray() {
     this.#question = this.copy()
       .isInt8Array
-      .Or.isUint8Array
-      .Or.isUint8ClampedArray
-      .Or.isInt16Array
-      .Or.isUint16Array
-      .Or.isInt32Array
-      .Or.isUint32Array.answer;
+      .or.isUint8Array
+      .or.isUint8ClampedArray
+      .or.isInt16Array
+      .or.isUint16Array
+      .or.isInt32Array
+      .or.isUint32Array.answer;
     return this.#set_answer();
   }
   /**
@@ -1094,7 +1094,7 @@ class validator {
    * @returns {validator} the updated current validator instance.
    */
   get isFloatTypedArray() {
-    this.#question = this.copy().isFloat32Array.Or.isFloat64Array.answer;
+    this.#question = this.copy().isFloat32Array.or.isFloat64Array.answer;
     return this.#set_answer();
   }
   /**
@@ -1151,7 +1151,7 @@ class validator {
    */
   get isArrayOfPositiveIntegers() {
     const cp = this.copy();
-    if (cp.isArray.Or.isTypedArray.answer) {
+    if (cp.isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfPositiveIntegers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1174,7 +1174,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfNegativeIntegers() {
-    if (this.copy().isArray.Or.isTypedArray.answer) {
+    if (this.copy().isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNegativeIntegers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1197,7 +1197,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfPositiveNumbers() {
-    if (this.copy().isArray.Or.isTypedArray.answer) {
+    if (this.copy().isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfPositiveNumbers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1221,7 +1221,7 @@ class validator {
    * @returns {validator}
    */
   get isArrayOfNegativeNumbers() {
-    if (this.copy().isArray.Or.isTypedArray.answer) {
+    if (this.copy().isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNegativeNumbers(this.value);
     } else this.#question = false;
     return this.#set_answer();
@@ -1236,10 +1236,10 @@ class validator {
    */
   is_array_of_integers_in_range(a, b) {
     new validator([a, b]).isIntegerArray
-      .And.bind(
+      .and.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfIntegersInRange());
-    if (this.copy().Not.isArray.And.Not.isTypedArray.answer) {
+    if (this.copy().not.isArray.and.not.isTypedArray.answer) {
       this.#question = false;
     } else this.#question = models.IsArrayOfIntegersInRange(this.value, a, b);
     return this.#set_answer();
@@ -1256,13 +1256,13 @@ class validator {
    */
   is_array_of_integers_in_closed_range(a, b) {
     new validator([a, b]).isNumberArray
-      .And.bind(
+      .and.bind(
         new validator(a).is_lesser_than(b),
       ).on(
         false,
         () => errors.IllegalParametersInIsArrayOfIntegersInClosedRange(),
       );
-    if (this.copy().isArray.Or.isTypedArray.answer) {
+    if (this.copy().isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfIntegersInClosedRange(this.value, a, b);
     } else this.#question = true;
     return this.#set_answer();
@@ -1277,10 +1277,10 @@ class validator {
    */
   is_array_of_numbers_in_range(a, b) {
     new validator([a, b]).isNumberArray
-      .And.bind(
+      .and.bind(
         new validator(a).is_lesser_than(b),
       ).on(false, () => errors.IllegalParametersInIsArrayOfNumbersInRange());
-    if (this.copy().isArray.Or.isTypedArray.answer) {
+    if (this.copy().isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNumbersInRange(this.value, a, b);
     } else this.#question = false;
     return this.#set_answer();
@@ -1296,14 +1296,14 @@ class validator {
    */
   is_array_of_numbers_in_closed_range(a, b) {
     new validator([a, b]).isNumberArray
-      .And.bind(
+      .and.bind(
         new validator(a).is_lesser_than(b),
       ).on(
         false,
         () => errors.IllegalParametersInIsArrayOfNumbersInClosedRange(),
       );
     // check if every element of the array is number in the interval [a, b].
-    if (this.copy().isArray.Or.isTypedArray.answer) {
+    if (this.copy().isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfNumbersInClosedRange(this.value, a, b);
     } else this.#question = false;
     return this.#set_answer();
@@ -1533,12 +1533,12 @@ class validator {
       if (
         test
           .isArray
-          .Or.isArrayBuffer
-          .Or.isMap
-          .Or.isObject
-          .Or.isSet
-          .Or.isString
-          .Or.isTypedArray
+          .or.isArrayBuffer
+          .or.isMap
+          .or.isObject
+          .or.isSet
+          .or.isString
+          .or.isTypedArray
       ) this.#question = test.has_length(0).answer;
       else errors.IncorrectArgumentInIsEmpty();
     }
@@ -1564,16 +1564,16 @@ class validator {
     // initialization
     const val = this.copy();
     const callback_val = new validator(callback);
-    if (callback_val.Not.isFunction.answer) {
+    if (callback_val.not.isFunction.answer) {
       errors.IncorrectFunctionArgumentInForAll();
     }
-    if (val.isArray.And.Not.isEmpty.answer) {
+    if (val.isArray.and.not.isEmpty.answer) {
       this.#question = models.ForAllArrayEdition(val.value, callback);
-    } else if (val.isObject.And.Not.isEmpty) {
+    } else if (val.isObject.and.not.isEmpty) {
       this.#question = models.ForAllObjectEdition(val.value, callback);
-    } else if (val.isSet.And.Not.isEmpty.answer) {
+    } else if (val.isSet.and.not.isEmpty.answer) {
       this.#question = models.ForAllSetEdition(val.value, callback);
-    } else if (val.isMap.And.Not.isEmpty.answer) {
+    } else if (val.isMap.and.not.isEmpty.answer) {
       this.#question = models.ForAllMapEdition(this.value, callback);
     } else this.#question = false;
     return this.#set_answer();
@@ -1599,17 +1599,17 @@ class validator {
    */
   for_any(callback) {
     const val = this.copy();
-    const callbackIsNotFunction = new validator(callback).Not.isFunction.answer;
+    const callbackIsNotFunction = new validator(callback).not.isFunction.answer;
     if (callbackIsNotFunction) {
       errors.IncorrectFunctionArgumentInForAny();
     }
-    if (val.isArray.Or.isTypedArray.answer) {
+    if (val.isArray.or.isTypedArray.answer) {
       this.#question = models.ForAnyArrayEdition(val.value, callback);
-    } else if (val.isObject.And.Not.isEmpty.answer) {
+    } else if (val.isObject.and.not.isEmpty.answer) {
       this.#question = models.ForAnyObjectEdition(val.value, callback);
-    } else if (val.isSet.And.Not.isEmpty.answer) {
+    } else if (val.isSet.and.not.isEmpty.answer) {
       this.#question = models.ForAnySetEdition(this.value, callback);
-    } else if (val.isMap.And.Not.isEmpty.answer) {
+    } else if (val.isMap.and.not.isEmpty.answer) {
       this.#question = models.ForAnyMapEdition(this.value, callback);
     } else this.#question = false;
     return this.#set_answer();
@@ -1629,7 +1629,7 @@ class validator {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLength();
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isTypedArray.Or.isString.answer) {
+    if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
       this.#question = models.TestCondition(this.value, "length", n);
     } else if (cp_instance.isObject.answer) {
       this.#question = models.TestCondition(
@@ -1639,7 +1639,7 @@ class validator {
       );
     } else if (cp_instance.isArrayBuffer.answer) {
       this.#question = models.TestCondition(this.value, "byteLength", n);
-    } else if (cp_instance.isMap.Or.isSet.answer) {
+    } else if (cp_instance.isMap.or.isSet.answer) {
       this.#question = models.TestCondition(this.value, "size", n);
     } else this.#question = false;
     return this.#set_answer();
@@ -1659,7 +1659,7 @@ class validator {
     let cp_instance = this.copy();
     if (cp_instance.isArrayBuffer.answer) {
       this.#question = models.TestCondition(this.value, "byteLength", n, "gt");
-    } else if (cp_instance.isArray.Or.Or.isTypedArray.isString.answer) {
+    } else if (cp_instance.isArray.or.isTypedArray.isString.answer) {
       this.#question = models.TestCondition(this.value, "length", n, "gt");
     } else if (cp_instance.isObject.answer) {
       this.#question = models.TestCondition(
@@ -1668,7 +1668,7 @@ class validator {
         n,
         "gt",
       );
-    } else if (cp_instance.isSet.Or.isMap.answer) {
+    } else if (cp_instance.isSet.or.isMap.answer) {
       this.#question = models.TestCondition(this.value, "size", n, "gt");
     } else this.#question = false;
     return this.#set_answer();
@@ -1689,7 +1689,7 @@ class validator {
     let cp_instance = this.copy();
     if (cp_instance.isArrayBuffer.answer) {
       this.#question = models.TestCondition(this.value, "byteLength", n, "geq");
-    } else if (cp_instance.isArray.Or.isTypedArray.Or.isString.answer) {
+    } else if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
       this.#question = models.TestCondition(this.value, "length", n, "geq");
     } else if (cp_instance.isObject.answer) {
       this.#question = models.TestCondition(
@@ -1698,7 +1698,7 @@ class validator {
         n,
         "geq",
       );
-    } else if (cp_instance.isSet.Or.isMap.answer) {
+    } else if (cp_instance.isSet.or.isMap.answer) {
       this.#question = models.TestCondition(this.value, "size", n, "geq");
     } else this.#question = false;
     return this.#set_answer();
@@ -1717,7 +1717,7 @@ class validator {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLengthLesserThan();
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isString.answer) {
+    if (cp_instance.isArray.or.isString.answer) {
       this.#question = this.value.length < n;
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length < n;
@@ -1737,7 +1737,7 @@ class validator {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLengthEqualsOrLesserThan();
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isString.answer) {
+    if (cp_instance.isArray.or.isString.answer) {
       this.#question = this.value.length <= n;
     } else if (cp_instance.isObject.answer) {
       this.#question = Object.keys(cp_instance.value).length <= n;
@@ -1751,7 +1751,7 @@ class validator {
       if (a >= b) errors.IncorrectArgumentsInHasLengthInRange();
     } else errors.IncorrectArgumentsInHasLengthInRange();
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isString.answer) {
+    if (cp_instance.isArray.or.isString.answer) {
       this.#question = this.value.length > a && this.value.length < b;
     } else if (cp_instance.isObject.answer) {
       const len = Object.keys(cp_instance.value).length;
@@ -1766,7 +1766,7 @@ class validator {
       if (a >= b) errors.IncorrectArgumentsInHasLengthInClosedRange();
     } else errors.IncorrectArgumentsInHasLengthInClosedRange();
     let cp_instance = this.copy();
-    if (cp_instance.isArray.Or.isString.answer) {
+    if (cp_instance.isArray.or.isString.answer) {
       this.#question = this.value.length >= a && this.value.length <= b;
     } else if (cp_instance.isObject.answer) {
       const len = Object.keys(cp_instance.value).length;
@@ -1803,12 +1803,12 @@ class validator {
    */
   get isPrimitiveType() {
     this.#question = this.copy().isString
-      .Or.isNumber
-      .Or.isBigInt
-      .Or.isBoolean
-      .Or.isUndefined
-      .Or.isNull
-      .Or.isSymbol.answer;
+      .or.isNumber
+      .or.isBigInt
+      .or.isBoolean
+      .or.isUndefined
+      .or.isNull
+      .or.isSymbol.answer;
     return this.#set_answer();
   }
   /**
@@ -1947,9 +1947,9 @@ class validator {
   contains(elements) {
     const cp = this.copy();
     const elementsValidator = new validator(elements);
-    const isInstanceArray = cp.isArray.Or.isTypedArray.answer;
+    const isInstanceArray = cp.isArray.or.isTypedArray.answer;
     if (isInstanceArray) {
-      if (elementsValidator.isArray.Or.isTypedArray.Or.isSet.answer) {
+      if (elementsValidator.isArray.or.isTypedArray.or.isSet.answer) {
         this.#question = cp.for_all((item) => {
           const ans = elementsValidator.for_any((element) => {
             return element.is_same(item.value);
@@ -1973,13 +1973,13 @@ class validator {
   is_same(param) {
     let param_type = new validator(param);
     this.#question = false;
-    if (param_type.is_string().or().is_number().answer) {
+    if (param_type.is_string().or.is_number().answer) {
       this.#question = this.value === param;
     }
     if (
       param_type.copy()
         .is_array()
-        .or().is_object()
+        .or.is_object()
         .answer
     ) {
       this.#question = JSON.stringify(this.value) === JSON.stringify(param);
@@ -2050,8 +2050,8 @@ class validator {
    * of the returned validator instance to true or false respectively.
    * @example
    * let a = new validator(7.9889).is_float()
-   *     .and().bind(
-   *         new validator('Alias').is_string().and().not().is_empty()
+   *     .and.bind(
+   *         new validator('Alias').is_string().and.not().is_empty()
    *     )
    * console.log(a.answer) // true
    */
@@ -2256,18 +2256,18 @@ class validator {
    * @example
    * new validator({a : 12, rand : Math.random, sqrt : Math.sqrt })
    *     .instance2({
-   *         a : a => {return a.is_number().and().is_integer()},
+   *         a : a => {return a.is_number().and.is_integer()},
    *         rand : r => {return r.is_function()},
    *         sqrt : sqrt => {return sqrt.is_function()}
    *     }).answer // true
    */
   interface2(params) {
-    new validator(params).is_object().and()
+    new validator(params).is_object().and
       .bind(this.copy().is_object())
       .on(false, () => this.#question = false)
       .on(true, () => {
         new validator(Object.keys(params)).not().is_empty()
-          .and().bind(
+          .and.bind(
             new validator(Object.values(params)).not()
               .for_any((parameter) => {
                 return parameter.not().is_function();
@@ -2314,7 +2314,7 @@ class validator {
    * @example
    * new validator([1, 2, 3, 4, 5, 6, 7])
    *     .is_array_and_for_any(element => {
-   *         return element.is_integer().and().is_in_range(0, 8)
+   *         return element.is_integer().and.is_in_range(0, 8)
    *     }) // true value.
    */
   is_array_and_for_any(callback) {
@@ -2340,15 +2340,15 @@ class validator {
    */
   on(state, callback) {
     let incorrectState = new validator(state)
-      .Not
+      .not
       .isBoolean
-      .And.Not
+      .and.not
       .is_same("true")
-      .And.Not
+      .and.not
       .is_same("false")
       .answer;
     let incorrectFunction = new validator(callback)
-      .Not.isFunction
+      .not.isFunction
       .answer;
     if (!incorrectState && !incorrectFunction) {
       if (state === this.answer) {
@@ -2399,7 +2399,7 @@ class validator {
    *          and "iterations" (number of iterations).
    */
   benchmark(f, iterations = 100) {
-    if (new validator(iterations).Not.isInteger.answer) {
+    if (new validator(iterations).not.isInteger.answer) {
       errors.IncorrectIterationsParameterInBenchmark();
     }
     return models.Benchmark(this.value, f, iterations);
