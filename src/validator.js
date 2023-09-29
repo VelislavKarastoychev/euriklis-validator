@@ -450,12 +450,12 @@ class validator {
   }
 
   /**
-   * Checks if the value property of the current 
+   * Checks if the value property of the current
    * validator instance is a positive number.
    *
    * @method isPositive
-   * @returns {validator} The updated validator 
-   * instance with the answer property set to 
+   * @returns {validator} The updated validator
+   * instance with the answer property set to
    * true or false based on the comparison with zero.
    */
   get isPositive() {
@@ -464,6 +464,26 @@ class validator {
     }
 
     this.#question = models.TestCondition(this.value, undefined, 0, "geq");
+
+    return this.#set_answer();
+  }
+  
+  /**
+   * Checks if the "value" property is a number, which is
+   * lesser than zero (negative number).
+   * 
+   * @method isNegative
+   * @returns {validator} the updated validator instance
+   * with the "answer" property to be true or false based
+   * on the comparision with 0.
+   */
+  get isNegative() {
+    if (this.copy().not.isNumber.answer) {
+      if (this.show_warnings) warnings.IncorrectValueInIsNegative();
+      this.#question = false;
+    } else {
+      this.#question = models.TestCondition(this.value, undefined, 0, "lt");
+    }
 
     return this.#set_answer();
   }
@@ -603,38 +623,7 @@ class validator {
       .answer;
     return this.#set_answer();
   }
-
-  /**
-   * @method is_negative
-   * @returns {validator}
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is a negative number.
-   */
-  is_negative() {
-    return this.isNegative;
-  }
-  /**
-   * @method isNegative
-   * @returns {validator}
-   * @description this method is a getter
-   * variant of the is_negative() method
-   * and tests if the value property of
-   * the current validator instance is
-   * negative number (smaller than 0).
-   */
-  get isNegative() {
-    if (this.copy().not.isNumber.answer) {
-      if (this.show_warnings) {
-        warnings.IncorrectValueInIsNegative();
-      }
-    }
-    this.#question = this.copy()
-      .is_lesser_than(0)
-      .answer;
-    return this.#set_answer();
-  }
-
+ 
   /**
    * @method is_negative_number_like
    * @description this method tests if the value
