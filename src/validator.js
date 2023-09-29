@@ -502,7 +502,21 @@ class validator {
 
     return this.#set_answer();
   }
+  /**
+   * Checks if the "value" property is integer, which is less than zero.
+   * 
+   * @method isNegativeInteger
+   * @returns {validator} the updated validator instance with the
+   * "answer" property to be set to true or false based on the 
+   * comparison with 0.
+   */
+  get isNegativeInteger () {
+    if (this.copy().isInteger.answer) {
+      this.#question = models.TestCondition(this.value, undefined, 0, "lt");
+    } else this.#question = false;
 
+    return this.#set_answer();
+  } 
   /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
