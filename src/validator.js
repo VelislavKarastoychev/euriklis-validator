@@ -487,6 +487,21 @@ class validator {
 
     return this.#set_answer();
   }
+  /**
+   * Checks if the "value" property is a positive integer.
+   *
+   * @method isPositiveInteger
+   * @returns {validator} the updated validator instance
+   * with the "answer" property to be true or false based
+   * on the comparison with 0.
+   **/
+  get isPositiveInteger () {
+    if (this.copy().isInteger.answer) {
+      this.#question = models.TestCondition(this.value, undefined, 0, "geq");
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
 
   /**
    * Implements the is_error() method or as getter isError.
@@ -566,62 +581,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-
-  /**
-   * @method is_positive_integer
-   * @returns {validator}
-   * @description this method tests
-   * if the value parameter of the
-   * current validator instance is
-   * integer which is equals or bigger
-   * than 0.
-   */
-  is_positive_integer() {
-    return this.isPositiveInteger;
-  }
-  /**
-   * @method isPositiveInteger
-   * @returns {validator}
-   * @description this method is a getter
-   * variant of the is_positive_integer method
-   * and tests if the value property of the
-   * current validator instance is equals or
-   * bigger than 0.
-   */
-  get isPositiveInteger() {
-    this.#question = this.copy()
-      .isInteger
-      .and
-      .is_equal_or_bigger_than(0)
-      .answer;
-    return this.#set_answer();
-  }
-  /**
-   * @method is_negative_integer
-   * @returns {validator}
-   * @description this method tests if the
-   * value property of the current validator
-   * instance integer which is smaller than 0.
-   */
-  is_negative_integer() {
-    return this.isNegativeInteger;
-  }
-  /**
-   * @method isNegativeInteger
-   * @returns {validator}
-   * @description this method is a getter
-   * variant and tests if the value property
-   * of the current validator instance is
-   * integer which is smaller than 0.
-   */
-  get isNegativeInteger() {
-    this.#question = this.copy()
-      .isInteger
-      .and
-      .is_lesser_than(0)
-      .answer;
-    return this.#set_answer();
   }
  
   /**
