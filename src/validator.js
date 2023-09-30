@@ -467,11 +467,11 @@ class validator {
 
     return this.#set_answer();
   }
-  
+
   /**
    * Checks if the "value" property is a number, which is
    * lesser than zero (negative number).
-   * 
+   *
    * @method isNegative
    * @returns {validator} the updated validator instance
    * with the "answer" property to be true or false based
@@ -494,8 +494,8 @@ class validator {
    * @returns {validator} the updated validator instance
    * with the "answer" property to be true or false based
    * on the comparison with 0.
-   **/
-  get isPositiveInteger () {
+   */
+  get isPositiveInteger() {
     if (this.copy().isInteger.answer) {
       this.#question = models.TestCondition(this.value, undefined, 0, "geq");
     } else this.#question = false;
@@ -504,19 +504,36 @@ class validator {
   }
   /**
    * Checks if the "value" property is integer, which is less than zero.
-   * 
+   *
    * @method isNegativeInteger
    * @returns {validator} the updated validator instance with the
-   * "answer" property to be set to true or false based on the 
+   * "answer" property to be set to true or false based on the
    * comparison with 0.
    */
-  get isNegativeInteger () {
+  get isNegativeInteger() {
     if (this.copy().isInteger.answer) {
       this.#question = models.TestCondition(this.value, undefined, 0, "lt");
     } else this.#question = false;
 
     return this.#set_answer();
-  } 
+  }
+
+  /**
+   * Checks if the "value" property is a positive number
+   * or if it is a string which may be converted to a positive
+   * number.
+   *
+   * @method isConvertibleToPositiveNumber
+   * @returns {validator} the updated validator instance with
+   * "answer" property set to true or false based on whether
+   * the "value" property is a positive number or if it is a
+   * string which may be converted to a positive number.
+   */
+  get isConvertibleToPositiveNumber() {
+    this.#question = models.IsPositiveNumberLike(this.value);
+    return this.#set_answer();
+  }
+
   /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
@@ -596,7 +613,7 @@ class validator {
     }
     return this;
   }
- 
+
   /**
    * @method is_negative_number_like
    * @description this method tests if the value
@@ -618,29 +635,6 @@ class validator {
    */
   get isNegativeNumberLike() {
     this.#question = models.IsNegativeNumberLike(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * @method is_positive_number_like
-   * @description this method tests if the value
-   * property of the current validator instance
-   * is positive number or string which may be
-   * converted to positive number.
-   * @returns {validator}
-   */
-  is_positive_number_like() {
-    return this.isPositiveNumberLike;
-  }
-  /**
-   * @method isPositiveNumberLike
-   * @description this method tests if the value
-   * property of the current validator instance is positive
-   * number or a string which may be converted to
-   * positive number.
-   * @returns {validator}
-   */
-  get isPositiveNumberLike() {
-    this.#question = models.IsPositiveNumberLike(this.value);
     return this.#set_answer();
   }
   /**
