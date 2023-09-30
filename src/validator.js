@@ -531,6 +531,23 @@ class validator {
    */
   get isConvertibleToPositiveNumber() {
     this.#question = models.IsPositiveNumberLike(this.value);
+    
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property is a negative number or
+   * a string which may be converted to a negative number.
+   * 
+   * @method isConvertibleToNegativeNumber
+   * @returns {validator} the updated validator instance with 
+   * "answer" property set to true or false based on whether
+   * the "value" property is a negative number or a string
+   * which may be converted to a negative number.
+   */
+  get isConvertibleToNegativeNumber() {
+    this.#question = models.IsNegativeNumberLike(this.value);
+    
     return this.#set_answer();
   }
 
@@ -625,18 +642,7 @@ class validator {
   is_negative_number_like() {
     return this.isNegativeNumberLike;
   }
-  /**
-   * @method isNegativeNumberLike
-   * @description this method tests if the value
-   * property of the current validator instance is
-   * number or string which may be converted to number
-   * and is negative.
-   * @returns {validator}
-   */
-  get isNegativeNumberLike() {
-    this.#question = models.IsNegativeNumberLike(this.value);
-    return this.#set_answer();
-  }
+
   /**
    * @method is_negative_integer_like
    * @description this method tests if the value
