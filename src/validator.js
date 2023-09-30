@@ -555,7 +555,7 @@ class validator {
    * Checks if the "value" property is a positive
    * integer or a string which may be converted to
    * a positive integer.
-   * 
+   *
    * @method isConvertibleToPositiveInteger
    * @returns {validator} the updated validator instance with
    * "answer" property set to true or false based on the
@@ -564,7 +564,24 @@ class validator {
    */
   get isConvertibleToPositiveInteger() {
     this.#question = models.IsPositiveIntegerLike(this.value);
-    
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the validator instance
+   * is a negative integer or a string which may be converted
+   * to negative integer.
+   *
+   * @method isConvertedToNegativeInteger
+   * @returns {validator} the updated validator instance with
+   * "answer" property set to true or false based on whether
+   * the "value" is negative integer or a string which may be
+   * converted to negative integer.
+   */
+  get isConvertibleToNegativeInteger() {
+    this.#question = models.IsNegativeIntegerLike(this.value);
+
     return this.#set_answer();
   }
 
@@ -646,41 +663,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-
-  /**
-   * @method is_negative_integer_like
-   * @description this method tests if the value
-   * property of the current validator instance is
-   * negative integer or a string which may be
-   * converted to negative integer.
-   * @returns {validator}
-   */
-  is_negative_integer_like() {
-    return this.isNegativeIntegerLike;
-  }
-  /**
-   * @method isNegativeIntegerLike
-   * @description this method tests if the value
-   * property of the current validator instance is
-   * negative integer or a string which may be
-   * converted to negative integer.
-   * @returns {validator}
-   */
-  get isNegativeIntegerLike() {
-    this.#question = models.IsNegativeIntegerLike(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * @method is_positive_integer_like
-   * @description this method tests if the value
-   * property of the current validator instance is
-   * positive integer or is a string which may be
-   * converted to positive integer.
-   * @returns {validator}
-   */
-  is_positive_integer_like() {
-    return this.isPositiveIntegerLike;
   }
 
   /**
