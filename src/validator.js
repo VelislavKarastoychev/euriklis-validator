@@ -478,6 +478,34 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property is in the closed range [a, b].
+   *
+   * @method isInClosedRange
+   * @param {number} a - A real number that must be smaller than or equal to
+   * the "value" property of the validator instance.
+   * @param {number} b - A real number that must be greater or equal to
+   * the "value" property of the validator instance.
+   * @returns {validator} The updated validator instance with the "answer"
+   * property set to true if the "value" is in the closed range [a, b], or false
+   * otherwise.
+   * @throws {Error} If the provided arguments are not valid numbers, or if 'a'
+   * is greater than 'b'.
+   */
+  isInClosedRange(a, b) {
+    if (new validator([a, b]).not.isNumberArray.answer) {
+      errors.IncorrectArgumentsInIsInClosedRange();
+    }
+    if (a >= b) errors.IncorrectArgumentsInIsInClosedRange();
+
+    this.#question = this.copy().isNumber.answer
+      ? models.TestCondition(this.value, undefined, a, "geq") &&
+        models.TestCondition(this.value, undefined, b, "leq")
+      : false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Checks if the value property of the current
    * validator instance is a positive number.
    *
@@ -691,30 +719,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-
-  /**
-   * @method is_in_closed_range
-   * @param {number} a a real number that has to
-   * be smaller than or equal to the current value
-   * property of the validator instance.
-   * @param {number} b a real number that has to be
-   * greater or equal to the current value property
-   * of the validator instance.
-   * @description  a method that checks if the value of
-   * the current value property is in the closed range
-   * of the real numbers , say [a, b] and sets the answer property
-   * of the validator instance to true or false respectively.
-   */
-  isInClosedRange(a, b) {
-    if (new validator([a, b]).not.isNumberArray.answer) {
-      errors.IncorrectArgumentsInIsInClosedRange();
-    }
-    if (a >= b) errors.IncorrectArgumentsInIsInClosedRange();
-    this.#question = this.copy()
-      .is_equal_or_lesser_than(b)
-      .and.is_equal_or_bigger_than(a).answer;
-    return this.#set_answer();
   }
 
   /**
