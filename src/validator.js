@@ -450,6 +450,34 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is a number within the open interval (a, b).
+   *
+   * @method isInRange
+   * @param {number} a - A real number that must be smaller than
+   * the "value" property of the validator instance.
+   * @param {number} b - A real number that must be greater than
+   * the "value" property of the validator instance.
+   * @returns {validator} The updated validator instance with the
+   * "answer" property set to true if the "value" is in the specified
+   * range, or false otherwise.
+   * @throws {Error} If the provided arguments are not valid numbers,
+   * or if 'a' is greater than or equal to 'b'.
+   */
+  isInRange(a, b) {
+    if (new validator([a, b]).not.isNumberArray.answer) {
+      errors.IncorrectArgumentsInIsInRange();
+    }
+    if (a >= b) errors.IncorrectArgumentsInIsInRange();
+    this.#question = this.copy().isNumber.answer
+      ? models.TestCondition(this.value, undefined, a, "gt") &&
+        models.TestCondition(this.value, undefined, b, "lt")
+      : false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Checks if the value property of the current
    * validator instance is a positive number.
    *
@@ -666,33 +694,6 @@ class validator {
   }
 
   /**
-   * @method is_in_range(a, b)
-   * @param {number} a a real number that has to
-   * be smaller than the value property
-   * of the current validator instance.
-   * @param {number} b a real number that has to be
-   * greater than the value property of the current
-   * validator instance.
-   * @returns {validator}
-   * @description a method that checks if the validator
-   * value property is in the open interval range (a, b)
-   * and sets the answer property of the returned validator
-   * instance to true or false respectively.
-   */
-  is_in_range(a, b) {
-    if (new validator([a, b]).not.isNumberArray.answer) {
-      errors.IncorrectArgumentsInIsInRange();
-    }
-    if (a >= b) errors.IncorrectArgumentsInIsInRange();
-    this.#question = this.copy()
-      .isNumber
-      .and
-      .is_bigger_than(a)
-      .and
-      .is_lesser_than(b).answer;
-    return this.#set_answer();
-  }
-  /**
    * @method is_in_closed_range
    * @param {number} a a real number that has to
    * be smaller than or equal to the current value
@@ -705,7 +706,7 @@ class validator {
    * of the real numbers , say [a, b] and sets the answer property
    * of the validator instance to true or false respectively.
    */
-  is_in_closed_range(a, b) {
+  isInClosedRange(a, b) {
     if (new validator([a, b]).not.isNumberArray.answer) {
       errors.IncorrectArgumentsInIsInClosedRange();
     }
