@@ -267,6 +267,19 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property is a BigInt data type.
+   *
+   * @method isBigInt
+   * @returns {validator} The updated current validator instance
+   * with the "answer" property set to true if the value is a BigInt,
+   * otherwise set to false.
+   */
+  get isBigInt() {
+    this.#question = models.CheckType(this.value, "BigInt");
+    return this.#set_answer();
+  }
+
+  /**
    * Checks if the value property of the current validator instance is a string.
    * @returns {validator} The updated current validator instance.
    */
@@ -1713,18 +1726,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  /**
-   * Checks if the "value" property is a BigInt data type.
-   *
-   * @method isBigInt
-   * @returns {validator} The updated current validator instance
-   * with the "answer" property set to true if the value is a BigInt,
-   * otherwise set to false.
-   */
-  get isBigInt() {
-    this.#question = models.CheckType(this.value, "BigInt");
-    return this.#set_answer();
-  }
+  
   /**
    * This method sets the "answer" property to true if the
    * "value" of the current validator instance is a primitive
