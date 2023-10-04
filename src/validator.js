@@ -251,6 +251,8 @@ class validator {
     this.#question = models.CheckType(this.value, "Null");
     return this.#set_answer();
   }
+  
+  
 
   /**
    * Checks if the value property of the current validator instance is a string.
@@ -650,15 +652,6 @@ class validator {
   get isError() {
     this.#question = models.IsError(this.value, this.#error);
     return this.#set_answer();
-  }
-  /**
-   * Implements the is_error() method or as getter isError.
-   * If the current "value" property is of Error type and this error is not thrown,
-   * then the method sets the answer property to true accounting the other constraints.
-   * @returns {validator} the updated validator property.
-   */
-  is_error() {
-    return this.isError;
   }
   /**
    * Implements the throwsError method.
