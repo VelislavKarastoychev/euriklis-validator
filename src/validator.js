@@ -669,6 +669,28 @@ class validator {
   }
 
   /**
+   * Checks if the "value" of the current validator instance
+   * is a primitive data type.
+   *
+   * @method isPrimitiveType
+   * @returns {validator} The updated current validator instance.
+   * The "answer" property is set to true if the "value" is a primitive
+   * type (string, number, bigInt, symbol, boolean, undefined, or null),
+   * otherwise, it is set to false.
+   */
+  get isPrimitiveType() {
+    this.#question = this.copy().isString
+      .or.isNumber
+      .or.isBigInt
+      .or.isBoolean
+      .or.isUndefined
+      .or.isNull
+      .or.isSymbol.answer;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1726,24 +1748,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  
-  /**
-   * This method sets the "answer" property to true if the
-   * "value" of the current validator instance is a primitive
-   * data type, i.e. if it is some of the types:
-   * string, number, bigInt, symbol, boolean, undefined or null.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isPrimitiveType() {
-    this.#question = this.copy().isString
-      .or.isNumber
-      .or.isBigInt
-      .or.isBoolean
-      .or.isUndefined
-      .or.isNull
-      .or.isSymbol.answer;
-    return this.#set_answer();
-  }
+
   /**
    * A method that checks if
    * the value property of the current validator
