@@ -1714,10 +1714,12 @@ class validator {
     return this.#set_answer();
   }
   /**
-   * This method sets the "answer" property of the current validator
-   * instance to true if the "value" is a BigInt data type, otherwise
-   * sets the "answer" to false.
-   * @returns {validator} the updated current validator property.
+   * Checks if the "value" property is a BigInt data type.
+   *
+   * @method isBigInt
+   * @returns {validator} The updated current validator instance
+   * with the "answer" property set to true if the value is a BigInt,
+   * otherwise set to false.
    */
   get isBigInt() {
     this.#question = models.CheckType(this.value, "BigInt");
