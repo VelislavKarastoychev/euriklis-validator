@@ -251,8 +251,20 @@ class validator {
     this.#question = models.CheckType(this.value, "Null");
     return this.#set_answer();
   }
-  
-  
+
+  /**
+   * Checks if the "value" property of the current validator instance
+   * is a Symbol data type in JavaScript.
+   *
+   * @method isSymbol
+   * @returns {validator} The updated current validator instance
+   * with the "answer" property set to true if the "value" is a Symbol,
+   * otherwise, sets the "answer" to false.
+   */
+  get isSymbol() {
+    this.#question = models.CheckType(this.value, "Symbol");
+    return this.#set_answer();
+  }
 
   /**
    * Checks if the value property of the current validator instance is a string.
@@ -1709,16 +1721,6 @@ class validator {
    */
   get isBigInt() {
     this.#question = models.CheckType(this.value, "BigInt");
-    return this.#set_answer();
-  }
-  /**
-   * This method sets the "answer" property of the current validator
-   * instance to true if the "value" is a Symbol data type in JavaScript
-   * otherwise sets the "answer" to false.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isSymbol() {
-    this.#question = models.CheckType(this.value, "Symbol");
     return this.#set_answer();
   }
   /**
