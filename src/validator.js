@@ -690,6 +690,32 @@ class validator {
     return this.#set_answer();
   }
 
+  // Implementation of methods which tests the type of
+  // reference data types in JavaScript.
+  // First we will implement the methods of the family
+  // "isArrayBuffer" which deals with buffers 
+  // and typed arrays.
+  // Then we will implement the methods which are
+  // related to the "isArray" family.
+  // Finally we will implement the so called Object
+  // methods (isObject, isFunction, isPromise etc) 
+  // as well as the utility methods (isSame, throwsErrorWith, 
+  // executeWith etc).
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is an ArrayBuffer data type in JavaScript.
+   *
+   * @returns {validator} The updated validator instance with
+   * the "answer" property set to true or false based on the
+   * type of the "value" property.
+   */
+  get isArrayBuffer() {
+    this.#question = models.CheckType(this.value, "ArrayBuffer");
+
+    return this.#set_answer();
+  }
+
   /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
@@ -773,26 +799,7 @@ class validator {
     } else errors.IncorrectArgumentInIsInstanceof();
     return this.#set_answer();
   }
-  /**
-   * This method tests if the "value" property of the current
-   * validator instance is ArrayBuffer. If the condition is satisfied,
-   * then sets the "answer" property to true, otherwise sets it to false.
-   * @returns {validator} the updated validator instance.
-   */
-  get isArrayBuffer() {
-    this.#question = models.IsArrayBuffer(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * This method tests if the "value" property of the current
-   * validator instance is ArrayBuffer. If the condition is satisfied,
-   * then sets the "answer" property to true, otherwise sets it to false.
-   * @returns {validator} the updated validator instance.
-   */
 
-  is_array_buffer() {
-    return this.isArrayBuffer;
-  }
   /**
    * @method is_array()
    * @returns {validator}
