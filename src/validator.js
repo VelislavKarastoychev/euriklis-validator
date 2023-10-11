@@ -693,13 +693,13 @@ class validator {
   // Implementation of methods which tests the type of
   // reference data types in JavaScript.
   // First we will implement the methods of the family
-  // "isArrayBuffer" which deals with buffers 
+  // "isArrayBuffer" which deals with buffers
   // and typed arrays.
   // Then we will implement the methods which are
   // related to the "isArray" family.
   // Finally we will implement the so called Object
-  // methods (isObject, isFunction, isPromise etc) 
-  // as well as the utility methods (isSame, throwsErrorWith, 
+  // methods (isObject, isFunction, isPromise etc)
+  // as well as the utility methods (isSame, throwsErrorWith,
   // executeWith etc).
 
   /**
@@ -712,6 +712,20 @@ class validator {
    */
   get isArrayBuffer() {
     this.#question = models.CheckType(this.value, "ArrayBuffer");
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current 
+   * validator instance is an Int8Array in JavaScript.
+   *
+   * @returns {validator} The updated validator instance with
+   * the "answer" property set to true if the type is Int8Array, 
+   * false otherwise.
+   */
+  get isInt8Array() {
+    this.#question = models.CheckType(this.value, "Int8Array");
 
     return this.#set_answer();
   }
@@ -800,7 +814,6 @@ class validator {
     return this.#set_answer();
   }
 
-  
   /**
    * @method isArray
    * @returns {validator}
@@ -903,15 +916,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  /**
-   * This method tests if the current "value" property is Int8Array.
-   * @returns {validator} the current validator instance with updated answer.
-   */
-  get isInt8Array() {
-    this.#question = models.IsInt8Array(this.value);
-    return this.#set_answer();
-  }
-  
+
   /**
    * This method sets the "answer" property of the current validator instance if the "value" property is Uint8Array. Note that the method does not ensures that all the elements of the typed array are not NaN. Use isIntegerArray if you have to ensure that every element of the array are numbers.
    * @returns {validator} the updated current validator instance.
