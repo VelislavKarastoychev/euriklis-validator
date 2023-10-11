@@ -911,13 +911,7 @@ class validator {
     this.#question = models.IsInt8Array(this.value);
     return this.#set_answer();
   }
-  /**
-   * This method tests if the current "value" property is Int8Array.
-   * @returns {validator} the current validator instance with updated answer.
-   */
-  is_int8_array() {
-    return this.isInt8Array;
-  }
+  
   /**
    * This method sets the "answer" property of the current validator instance if the "value" property is Uint8Array. Note that the method does not ensures that all the elements of the typed array are not NaN. Use isIntegerArray if you have to ensure that every element of the array are numbers.
    * @returns {validator} the updated current validator instance.
