@@ -800,19 +800,7 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method is_array()
-   * @returns {validator}
-   * @description a method that checks if
-   * the value of the current validator instance
-   * is of array type and sets the answer property
-   * of the returned validator instance to true or
-   * false respectively.
-   */
-  is_array() {
-    this.#question = models.IsArray(this.value);
-    return this.#set_answer();
-  }
+  
   /**
    * @method isArray
    * @returns {validator}
@@ -823,7 +811,9 @@ class validator {
    * false respectively.
    */
   get isArray() {
-    return this.is_array();
+    this.#question = models.CheckType(this.value, "Array");
+
+    return this.#set_answer();
   }
   get isTypedArray() {
     this.#question = models.IsTypedArray(this.value);
