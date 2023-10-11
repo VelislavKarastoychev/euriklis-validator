@@ -719,6 +719,8 @@ class validator {
   /**
    * Checks if the "value" property of the current
    * validator instance is an Int8Array in JavaScript.
+   * Note: This method does not ensure that all elements
+   * of the "array" are not NaN.
    *
    * @returns {validator} The updated validator instance with
    * the "answer" property set to true if the type is Int8Array,
@@ -731,11 +733,17 @@ class validator {
   }
 
   /**
-   * This method sets the "answer" property of the current validator instance if the "value" property is Uint8Array. Note that the method does not ensures that all the elements of the typed array are not NaN. Use isIntegerArray if you have to ensure that every element of the array are numbers.
-   * @returns {validator} the updated current validator instance.
+   * Checks if the "value" property of the current validator
+   * instance is a Uint8Array in JavaScript. Note: This method
+   * does not ensure that all elements of the "array" are not NaN.
+   *
+   * @returns {validator} the updated validator instance with
+   * the "answer" property set to true if the type is Uint8Array,
+   * false otherwise.
    */
   get isUint8Array() {
-    this.#question = models.IsUint8Array(this.value);
+    this.#question = models.CheckType(this.value, "Uint8Array");
+
     return this.#set_answer();
   }
 
