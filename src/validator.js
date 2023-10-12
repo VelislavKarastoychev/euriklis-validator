@@ -943,13 +943,6 @@ class validator {
     return this.#set_answer();
   }
   /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false. The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_uint8_clamped_array() {
-    return this.isUint8ClampedArray;
-  }
-  /**
    * The method sets the "answer" property of the current validator instance to true if the "value" is an Int16Array. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
    */
