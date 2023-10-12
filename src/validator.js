@@ -732,7 +732,7 @@ class validator {
 
     return this.#set_answer();
   }
- 
+
   /**
    * Checks if the "value" property of the current validator
    * instance is a Uint8Array in JavaScript.
@@ -773,17 +773,17 @@ class validator {
    *
    * Note: This method does not ensure that all the elements of
    * the "array" are not NaN.
-   * 
+   *
    * @returns {validator} The updated current validator instance
    * with the "answer" property set to true if the "value" is Int16Array,
    * false otherwise.
    */
   get isInt16Array() {
     this.#question = models.CheckType(this.value, "Int16Array");
-    
+
     return this.#set_answer();
   }
- 
+
   /**
    * Checks if the "value" property of the current validator instance
    * is Uint16Array in JavaScript.
@@ -798,6 +798,15 @@ class validator {
   get isUint16Array() {
     this.#question = models.CheckType(this.value, "Uint16Array");
 
+    return this.#set_answer();
+  }
+
+  /**
+   * This method sets the "answer" property of the current validator instance to true if the "value" property is Int32Array instance, otherwise sets the answer to false.The method does not ensures that every element of the typed array is not NaN.
+   * @returns {validator} the updated current validator instance.
+   */
+  get isInt32Array() {
+    this.#question = models.IsInt32Array(this.value);
     return this.#set_answer();
   }
 
@@ -988,21 +997,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Int32Array instance, otherwise sets the answer to false.The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isInt32Array() {
-    this.#question = models.IsInt32Array(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Int32Array instance, otherwise sets the answer to false.The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_int32_array() {
-    return this.isInt32Array;
-  }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint32Array instance. The method does ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
