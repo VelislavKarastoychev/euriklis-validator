@@ -913,6 +913,23 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is likely to be some kind of a TypedArray in JavaScript.
+   *
+   * Note: This method does not ensure that all elements of the "array"
+   * are not NaN.
+   *
+   * @returns {validator} The updated validator instance with
+   * "answer" property set to true if the "value" is likely to be
+   * a typed array, false otherwise.
+   */
+  get isTypedArray() {
+    this.#question = models.IsTypedArray(this.value);
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1009,13 +1026,6 @@ class validator {
     this.#question = models.CheckType(this.value, "Array");
 
     return this.#set_answer();
-  }
-  get isTypedArray() {
-    this.#question = models.IsTypedArray(this.value);
-    return this.#set_answer();
-  }
-  is_typed_array() {
-    return this.isTypedArray;
   }
   /**
    * @description this method tests if the
