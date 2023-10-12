@@ -679,7 +679,8 @@ class validator {
    * otherwise, it is set to false.
    */
   get isPrimitiveType() {
-    this.#question = this.copy().isString
+    this.#question = this.copy()
+      .isString
       .or.isNumber
       .or.isBigInt
       .or.isBoolean
@@ -822,19 +823,43 @@ class validator {
    * Checks if the "value" property of the current validator instance
    * is a Uint332Array in JavaScript.
    *
-   * Note: This method does not ensure that all elements of the 
+   * Note: This method does not ensure that all elements of the
    * "array" are not NaN.
-   * 
+   *
    * @returns {validator} the updated current validator instance with
    * answer property set to true if the "value" is Uint32Array, false
    * otherwise.
    */
   get isUint32Array() {
     this.#question = models.CheckType(this.value, "Uint32Array");
-    
+
     return this.#set_answer();
   }
 
+  /**
+   * Checks if the "value" property of the current validator instance
+   * is an integer typed array (Int8Array, Uint8Array, Uint8ClampedArray,
+   * Int16Array, Uint16Array, Int32Array, or Uint32Array).
+   *
+   * Note: This method does not ensure that all elements of the "array"
+   * are not NaN.
+   *
+   * @returns {validator} The updated current validator instance with
+   * "answer" property set to true if the "value" is an integer typed array,
+   * false otherwise.
+   */
+  get isIntegerTypedArray() {
+    this.#question = this.copy()
+      .isInt8Array
+      .or.isUint8Array
+      .or.isUint8ClampedArray
+      .or.isInt16Array
+      .or.isUint16Array
+      .or.isInt32Array
+      .or.isUint32Array.answer;
+
+    return this.#set_answer();
+  }
 
   /**
    * Implements the is_error() method or as getter isError.
@@ -1023,29 +1048,6 @@ class validator {
     return this.#set_answer();
   }
 
-    
-  /**
-   * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
-   * @returns {validator} the current validator property with updated "answer" property.
-   */
-  get isIntegerTypedArray() {
-    this.#question = this.copy()
-      .isInt8Array
-      .or.isUint8Array
-      .or.isUint8ClampedArray
-      .or.isInt16Array
-      .or.isUint16Array
-      .or.isInt32Array
-      .or.isUint32Array.answer;
-    return this.#set_answer();
-  }
-  /**
-   * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
-   * @returns {validator} the current validator property with updated "answer" property.
-   */
-  is_integer_typed_array() {
-    return this.isIntegerTypedArray;
-  }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
@@ -1793,6 +1795,7 @@ class validator {
    */
   get isAsync() {
     this.#question = models.CheckType(this.value, "AsyncFunction");
+
     return this.#set_answer();
   }
   /**
@@ -2030,7 +2033,7 @@ class validator {
    * @example
    * let a = new validator({
    *         "name" : "Stephan",
-   *         "age" : "23",
+   *         "age" : 23,
    *         "courses" : ['Mathematics', 'Economics', 'Econometrics']
    *     }).interface({
    *         "name" : "is_string()",
