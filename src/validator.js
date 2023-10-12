@@ -862,6 +862,40 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is Float32Array in JavaScript.
+   *
+   * Note: This method does not ensure that all elements of the "array"
+   * are not NaN.
+   *
+   * @returns {validator} The updated current validator instance with
+   * "answer" property set to true if the "value" is Float32Array,
+   * false otherwise.
+   */
+  get isFloat32Array() {
+    this.#question = models.CheckType(this.value, "Float32Array");
+    
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator instance
+   * is Float64Array in JavaScript.
+   *
+   * Note: This method does not ensure that all elements of the "array"
+   * are not NaN.
+   * 
+   * @returns {validator} the updated current validator instance
+   * with "answer" property set to true if the "value" is Float64Array,
+   * false otherwise.
+   */
+  get isFloat64Array() {
+    this.#question = models.CheckType(this.value, "Float64Array");
+    
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1048,36 +1082,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array. The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isFloat32Array() {
-    this.#question = models.IsFloat32Array(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array. The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_float_32_array() {
-    return this.isFloat32Array;
-  }
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" is an Float64Array instance, otherwise sets the "answer" to false. The method does not ensures that every element of the typed array is nto NaN
-   * @returns {validator} the updated current validator instance.
-   */
-  get isFloat64Array() {
-    this.#question = models.IsFloat64Array(this.value);
-    return this.#set_answer();
-  }
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" is an Float64Array instance, otherwise sets the "answer" to false. The method does not ensures that every element of the typed array is nto NaN
-   * @returns {validator} the updated current validator instance.
-   */
-  is_float64_array() {
-    return this.isFloat64Array;
-  }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array or Float64Array instance. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
