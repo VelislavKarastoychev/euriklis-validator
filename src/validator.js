@@ -734,7 +734,9 @@ class validator {
 
   /**
    * Checks if the "value" property of the current validator
-   * instance is a Uint8Array in JavaScript. Note: This method
+   * instance is a Uint8Array in JavaScript. 
+   *
+   * Note: This method
    * does not ensure that all elements of the "array" are not NaN.
    *
    * @returns {validator} the updated validator instance with
@@ -743,6 +745,23 @@ class validator {
    */
   get isUint8Array() {
     this.#question = models.CheckType(this.value, "Uint8Array");
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is a Uint8CLampedArray in JavaScript. 
+   *
+   * Note: This method
+   * does not ensure that all elements of the "array" are not NaN.
+   *
+   * @returns {validator} the updated current validator instance with
+   * the "answer" property set to true if the type is Uint8ClampedArray,
+   * false otherwise.
+   */
+  get isUint8ClampedArray() {
+    this.#question = models.CheckType(this.value, "Uint8ClampedArray");
 
     return this.#set_answer();
   }
@@ -934,14 +953,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint8ClampedArray otherwise sets it to false. The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isUint8ClampedArray() {
-    this.#question = models.IsUint8ClampedArray(this.value);
-    return this.#set_answer();
-  }
   /**
    * The method sets the "answer" property of the current validator instance to true if the "value" is an Int16Array. The method does not ensures that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
