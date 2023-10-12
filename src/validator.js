@@ -802,11 +802,19 @@ class validator {
   }
 
   /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Int32Array instance, otherwise sets the answer to false.The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
+   * Checks if the "value" property of the current validator
+   * instance is Int32Array in JavaScript.
+   *
+   * Note: This method does not ensure that all the elements of
+   * the "array" are not NaN.
+   *
+   * @returns {validator} The updated current validator instance
+   * with "answer" property set to true if the "value" is Int32Array,
+   * false otherwise.
    */
   get isInt32Array() {
-    this.#question = models.IsInt32Array(this.value);
+    this.#question = models.CheckType(this.value, "Int32Array");
+    
     return this.#set_answer();
   }
 
