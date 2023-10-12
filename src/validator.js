@@ -874,7 +874,7 @@ class validator {
    */
   get isFloat32Array() {
     this.#question = models.CheckType(this.value, "Float32Array");
-    
+
     return this.#set_answer();
   }
 
@@ -884,7 +884,7 @@ class validator {
    *
    * Note: This method does not ensure that all elements of the "array"
    * are not NaN.
-   * 
+   *
    * @returns {validator} the updated current validator instance
    * with "answer" property set to true if the "value" is Float64Array,
    * false otherwise.
@@ -1089,13 +1089,6 @@ class validator {
   get isFloatTypedArray() {
     this.#question = this.copy().isFloat32Array.or.isFloat64Array.answer;
     return this.#set_answer();
-  }
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Float32Array or Float64Array instance. The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_float_typed_array() {
-    return this.isFloatTypedArray;
   }
   /**
    * @method is_integer_array
