@@ -719,6 +719,7 @@ class validator {
   /**
    * Checks if the "value" property of the current
    * validator instance is an Int8Array in JavaScript.
+   * 
    * Note: This method does not ensure that all elements
    * of the "array" are not NaN.
    *
