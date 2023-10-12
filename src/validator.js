@@ -791,7 +791,7 @@ class validator {
    * Note: This method does not ensure that all elements of the
    * "array" are not NaN.
    *
-   * @returns {validator} the updated current validator instance
+   * @returns {validator} The updated current validator instance
    * with the "answer" property set to true if the type is Uint16Array,
    * false otherwise.
    */
