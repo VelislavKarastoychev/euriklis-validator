@@ -719,7 +719,7 @@ class validator {
   /**
    * Checks if the "value" property of the current
    * validator instance is an Int8Array in JavaScript.
-   * 
+   *
    * Note: This method does not ensure that all elements
    * of the "array" are not NaN.
    *
@@ -735,7 +735,7 @@ class validator {
 
   /**
    * Checks if the "value" property of the current validator
-   * instance is a Uint8Array in JavaScript. 
+   * instance is a Uint8Array in JavaScript.
    *
    * Note: This method
    * does not ensure that all elements of the "array" are not NaN.
@@ -752,7 +752,7 @@ class validator {
 
   /**
    * Checks if the "value" property of the current validator
-   * instance is a Uint8CLampedArray in JavaScript. 
+   * instance is a Uint8CLampedArray in JavaScript.
    *
    * Note: This method
    * does not ensure that all elements of the "array" are not NaN.
@@ -962,13 +962,7 @@ class validator {
     this.#question = models.IsInt16Array(this.value);
     return this.#set_answer();
   }
-  /**
-   * The method sets the "answer" property of the current validator instance to true if the "value" is an Int16Array. The method does not ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_int16_array() {
-    return this.isInt16Array;
-  }
+
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" propety is Uint16Array, otherwise sets it to false. The method does not ensure that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
