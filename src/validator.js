@@ -774,7 +774,7 @@ class validator {
    * @returns {validator} the updated validator property.
    */
   get isError() {
-    this.#question = models.IsError(this.value, this.#error);
+    this.#question = models.CheckType(this.value, "Error");
     return this.#set_answer();
   }
   /**
