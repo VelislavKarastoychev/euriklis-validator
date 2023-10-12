@@ -768,6 +768,23 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is Uint16Array in JavaScript.
+   *
+   * Note: This method does not ensure that all elements of the
+   * "array" are not NaN.
+   * 
+   * @returns {validator} the updated current validator instance
+   * with the "answer" property set to true if the type is Uint16Array,
+   * false otherwise.
+   */
+  get isUint16Array() {
+    this.#question = models.CheckType(this.value, "Uint16Array");
+    
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -963,14 +980,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" propety is Uint16Array, otherwise sets it to false. The method does not ensure that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isUint16Array() {
-    this.#question = models.IsUint16Array(this.value);
-    return this.#set_answer();
-  }
   /**
    * This method sets the "answer" property of the current validator instance to true if the "value" propety is Uint16Array, otherwise sets it to false. The method does not ensure that every element of the typed array is not NaN.
    * @returns {validator} the updated current validator instance.
