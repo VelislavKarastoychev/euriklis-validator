@@ -5,9 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'to run the tests download the code on github and run it: https://github.com/VelislavKarastoychev/tests-for-validator'",
-    "start": "node index.js",
-    "test": "bin/validator.sh"
+    "test": "bin/validator.sh",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -39,4 +38,5 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0"
   }
+  
 }
