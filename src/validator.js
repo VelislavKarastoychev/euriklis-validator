@@ -814,7 +814,7 @@ class validator {
    */
   get isInt32Array() {
     this.#question = models.CheckType(this.value, "Int32Array");
-    
+
     return this.#set_answer();
   }
 
@@ -1013,13 +1013,7 @@ class validator {
     this.#question = models.IsUint32Array(this.value);
     return this.#set_answer();
   }
-  /**
-   * This method sets the "answer" property of the current validator instance to true if the "value" property is Uint32Array instance. The method does ensures that every element of the typed array is not NaN.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_uint32_array() {
-    return this.isUint32Array;
-  }
+  
   /**
    * This method sets the current "answer" property to true if the "value" property is instance of the [U]Int[8,16, 32]Array or Uint8clampedArray. Note that it is possible some of the elements of the typed array to be NaN, so if you want to test if the array is correct integer array use isIntegerArray method.
    * @returns {validator} the current validator property with updated "answer" property.
