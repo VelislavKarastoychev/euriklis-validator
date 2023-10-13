@@ -930,6 +930,19 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is a generic array type in JavaScript.
+   *
+   * @returns {validator} The updated validator instance with "answer"
+   * property set to true if the "value" is an array, false otherwise.
+   */
+  get isArray() {
+    this.#question = models.CheckType(this.value, "Array");
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1013,20 +1026,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method isArray
-   * @returns {validator}
-   * @description a method that checks if
-   * the value of the current validator instance
-   * is of array type and sets the answer property
-   * of the returned validator instance to true or
-   * false respectively.
-   */
-  get isArray() {
-    this.#question = models.CheckType(this.value, "Array");
-
-    return this.#set_answer();
-  }
   /**
    * @description this method tests if the
    * current validator instance is an array
