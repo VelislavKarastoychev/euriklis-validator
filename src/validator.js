@@ -959,6 +959,25 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current
+   * validator instance is an array of number elements.
+   *
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * a number array, false otherwise.
+   */
+  get isNumberArray() {
+    const cp = this.copy();
+    if (cp.isArray.answer) {
+      this.#question = models.IsNumberArray(this.value);
+    } else if (cp.isTypedArray.answer) {
+      this.#question = !models.HasNaNInTypedArray(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1068,24 +1087,6 @@ class validator {
   get isStringArray() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsStringArray(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-
-    /**
-   * @method isNumberArray
-   * @returns {validator}
-   * @description this is a getter variant of the
-   * method is_number_array of the validator library.
-   * Note that this method is faster than the conventional method,
-   * because we use different approach.
-   */
-  get isNumberArray() {
-    const cp = this.copy();
-    if (cp.isArray.answer) {
-      this.#question = models.IsNumberArray(this.value);
-    } else if (cp.isTypedArray.answer) {
-      this.#question = !models.HasNaNInTypedArray(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
