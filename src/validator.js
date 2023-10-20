@@ -978,6 +978,25 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current
+   * validator instance is an array of integer numbers.
+   *
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * an integer array, false otherwise.
+   */
+  get isIntegerArray() {
+    const copy = this.copy();
+    if (copy.isArray.answer) {
+      this.#question = models.IsIntegerArray(this.value);
+    } else if (copy.isIntegerTypedArray.answer) {
+      this.#question = !models.HasNaNInTypedArray(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1091,22 +1110,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method isIntegerArray
-   * @returns {validator}
-   * @description this method tests if the value
-   * property of the current validator instance is
-   * array each element of which is integer.
-   */
-  get isIntegerArray() {
-    const copy = this.copy();
-    if (copy.isArray.answer) {
-      this.#question = models.IsIntegerArray(this.value);
-    } else if (copy.isIntegerTypedArray.answer) {
-      this.#question = !models.HasNaNInTypedArray(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @method is_array_of_positive_integers
    * @description this method tests if the
