@@ -1072,20 +1072,7 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method is_number_array()
-   * @returns {validator}
-   * @description a method that checks if
-   * the value property of the current
-   * validator instance is an array, all
-   * elements of which are arbitrary numbers
-   * and sets the answer property of the returned
-   * validator instance to true or false respectively.
-   */
-  is_number_array() {
-    return this.isNumberArray;
-  }
-  /**
+    /**
    * @method isNumberArray
    * @returns {validator}
    * @description this is a getter variant of the
