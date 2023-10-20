@@ -1,66 +1,35 @@
 "use strict";
 /**
- * Returns true if the "value" parameter is an array of integers and false otherwise.
- * 
+ * Checks if all the elements of the array are integers.
+ * Utility function used in isIntegerArray method.
+ *
  * @param {number []} value
- * @returns {boolean}
- **/
+ * @returns {boolean} if all values are integers, then it will be
+ * set to true, otherwise the output will be false.
+ */
 export const IsIntegerArray = (value) => {
   const n = value.length;
-  let i, j, question = true;
+  let i, j, isAllIntegers = true;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
-      typeof value[j] !== "number" || !Number.isInteger(value[j])
+      (typeof value[j] !== "number" || !Number.isInteger(value[j])) 
+      (typeof value[j + 1] !== "number" || !Number.isInteger(value[j + 1]))
+      (typeof value[j + 2] !== "number" || !Number.isInteger(value[j + 2]))
+      (typeof value[j + 3] !== "number" || !Number.isInteger(value[j + 3]))
     ) {
-      question = false;
-      break;
-    }
-    ++j;
-    if (
-      typeof value[j] !== "number" || !Number.isInteger(value[j])
-    ) {
-      question = false;
-      break;
-    }
-    ++j;
-    if (
-      typeof value[j] !== "number" || !Number.isInteger(value[j])
-    ) {
-      question = false;
-      break;
-    }
-    ++j;
-    if (
-      typeof value[j] !== "number" || !Number.isInteger(value[j])
-    ) {
-      question = false;
+      isAllIntegers = false;
       break;
     }
   }
-  if (question && (n % 4 >= 3)) {
-    j = n - 3;
-    if (
-      typeof value[j] !== "number" || !Number.isInteger(value[j])
-    ) {
-      question = false;
+  if (isAllIntegers) {
+    j = i << 2;
+    for (; j < n; j++) {
+      if (typeof value[j] !== "number" || !Number.isInteger(value[j])) {
+        isAllIntegers = false;
+        break;
+      }
     }
   }
-  if (question && (n % 4 >= 2)) {
-    j = n - 2;
-    if (
-      typeof value[j] !== "number" || !Number.isInteger(value[j])
-    ) {
-      question = false;
-    }
-  }
-  if (question && (n % 4 >= 1)) {
-    j = n - 1;
-    if (
-      typeof value[j] !== "number" || !Number.isInteger(value[j])
-    ) {
-      question = false;
-    }
-  }
-  return question;
+  return isAllIntegers;
 };
