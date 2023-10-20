@@ -1032,15 +1032,6 @@ class validator {
    * of boolean elements.
    * @returns {validator}
    */
-  is_boolean_array() {
-    return this.isBooleanArray;
-  }
-  /**
-   * @description this method tests if the
-   * current validator instance is an array
-   * of boolean elements.
-   * @returns {validator}
-   */
   get isBooleanArray() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsBooleanArray(this.value, this.#question);
