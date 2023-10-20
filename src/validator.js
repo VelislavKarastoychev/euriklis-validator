@@ -1092,17 +1092,6 @@ class validator {
   }
 
   /**
-   * @method is_integer_array
-   * @returns {validator}
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is array of which each element
-   * is integer number.
-   */
-  is_integer_array() {
-    return this.isIntegerArray;
-  }
-  /**
    * @method isIntegerArray
    * @returns {validator}
    * @description this method tests if the value
