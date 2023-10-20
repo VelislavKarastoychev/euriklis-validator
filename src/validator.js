@@ -943,6 +943,22 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of boolean elements.
+   *
+   * @returns {validator} The updated validator instance with
+   * the "answer" property set to true if the "value" is an array
+   * of boolean elements and false otherwise.
+   */
+  get isBooleanArray() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsBooleanArray(this.value, this.#question);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1026,18 +1042,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @description this method tests if the
-   * current validator instance is an array
-   * of boolean elements.
-   * @returns {validator}
-   */
-  get isBooleanArray() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsBooleanArray(this.value, this.#question);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @method is_string_array()
    * @returns {validator}
