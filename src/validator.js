@@ -1015,7 +1015,7 @@ class validator {
   /**
    * Checks if the "value" property of the current validator
    * instance is an array whose elements are negative numbers.
-   * 
+   *
    * @returns {validator} The updated validator instance with
    * the "answer" property set to true if all the elements of
    * the "value" array are negative numbers.
@@ -1026,7 +1026,6 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-
 
   /**
    * Implements the is_error() method or as getter isError.
@@ -1191,7 +1190,7 @@ class validator {
     return this.#set_answer();
   }
 
-    /**
+  /**
    * @param {number} a
    * @param {number} b
    * @returns {validator}
