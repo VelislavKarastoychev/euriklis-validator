@@ -1045,6 +1045,22 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is an array of negative integer number elements.
+   *
+   * @returns {validator} The updated validator instance with the
+   * "answer" property set to true if the "value" is an array of
+   * negative integers.
+   */
+  get isArrayOfNegativeIntegers() {
+    if (this.copy().isArray.or.isTypedArray.answer) {
+      this.#question = models.IsArrayOfNegativeIntegers(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1154,20 +1170,6 @@ class validator {
   get isStringArray() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsStringArray(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-
-  /**
-   * @method isArrayOfNegativeIntegers
-   * @description this method tests if the value
-   * property of the current validator instance
-   * is an array of negative integers.
-   * @returns {validator}
-   */
-  get isArrayOfNegativeIntegers() {
-    if (this.copy().isArray.or.isTypedArray.answer) {
-      this.#question = models.IsArrayOfNegativeIntegers(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
