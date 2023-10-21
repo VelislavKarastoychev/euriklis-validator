@@ -1142,16 +1142,6 @@ class validator {
   }
 
   /**
-   * @method is_array_of_positive_integers
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is array of positive integers.
-   * @returns {validator}
-   */
-  is_array_of_positive_integers() {
-    return this.isArrayOfPositiveIntegers;
-  }
-  /**
    * @method isArrayOfPositiveIntegers
    * @description this method tests if
    * the value property of the current
@@ -1166,16 +1156,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  /**
-   * @method is_array_of_negative_integers
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is an array of negative integers.
-   * @returns {validator}
-   */
-  is_array_of_negative_integers() {
-    return this.isArrayOfNegativeIntegers;
-  }
+
   /**
    * @method isArrayOfNegativeIntegers
    * @description this method tests if the value
