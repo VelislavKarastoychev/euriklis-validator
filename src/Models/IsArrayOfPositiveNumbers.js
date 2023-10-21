@@ -1,71 +1,35 @@
 "use strict";
 /**
- * 
- * Implementation of isArrayOfPositiveNumbers.
- * 
+ * Checks if the value is positive numeric array.
+ * Utility funciont for isArrayOfPositiveNumbers.
+ *
  * @param {number []} value
- * @returns {boolean} if the "value" is numeric array with positive elements, then returns true, otherwise returns false.
- **/
+ * @returns {boolean} if the "value" is numeric array
+ * with positive elements,returns true, otherwise returns false.
+ */
 export const IsArrayOfPositiveNumbers = (value) => {
   const n = value.length;
-  let i, j, question = true;
+  let i, j, areAllPositiveNumbers = true;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (typeof value[j] !== "number") {
-      question = false;
-      break;
-    } else if (value[j] < 0) {
-      question = false;
-      break;
-    }
-    ++j;
-    if (typeof value[j] !== "number") {
-      question = false;
-      break;
-    } else if (value[j] < 0) {
-      question = false;
-      break;
-    }
-    ++j;
-    if (typeof value[j] !== "number") {
-      question = false;
-      break;
-    } else if (value[j] < 0) {
-      question = false;
-      break;
-    }
-    ++j;
-    if (typeof value[j] !== "number") {
-      question = false;
-      break;
-    } else if (value[j] < 0) {
-      question = false;
+    if (
+      (typeof value[j] !== "number" || value[j] < 0) ||
+      (typeof value[j + 1] !== "number" || value[j + 1] < 0) ||
+      (typeof value[j + 2] !== "number" || value[j + 2] < 0) ||
+      (typeof value[j + 3] !== "number" || value[j + 3] < 0)
+    ) {
+      areAllPositiveNumbers = false;
       break;
     }
   }
-  if (question && (n % 4 >= 3)) {
-    j = n - 3;
-    if (typeof value[j] !== "number") {
-      question = false;
-    } else if (value[j] < 0) {
-      question = false;
+  if (areAllPositiveNumbers) {
+    j = i << 2;
+    for (; j < n; j++) {
+      if (typeof value[j] !== "number" || value[j] < 0) {
+        areAllPositiveNumbers = true;
+        break;
+      }
     }
   }
-  if (question && (n % 4 >= 2)) {
-    j = n - 2;
-    if (typeof value[j] !== "number") {
-      question = false;
-    } else if (value[j] < 0) {
-      question = false;
-    }
-  }
-  if (question && (n % 4 >= 1)) {
-    j = n - 1;
-    if (typeof value[j] !== "number") {
-      question = false;
-    } else if (value[j] < 0) {
-      question = false;
-    }
-  }
-  return question;
+  return areAllPositiveNumbers;
 };
