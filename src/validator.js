@@ -987,7 +987,7 @@ class validator {
    */
   get isIntegerArray() {
     const copy = this.copy();
-    if (copy.isArray.answer) {
+    if (copy.isArray.or.isFloatTypedArray.answer) {
       this.#question = models.IsIntegerArray(this.value);
     } else if (copy.isIntegerTypedArray.answer) {
       this.#question = !models.HasNaNInTypedArray(this.value);
@@ -995,6 +995,23 @@ class validator {
 
     return this.#set_answer();
   }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of positive numbers.
+   * 
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is 
+   * positive numeric array, false otherwise.
+   */
+  get isArrayOfPositiveNumbers() {
+    if (this.copy().isArray.or.isTypedArray.answer) {
+      this.#question = models.IsArrayOfPositiveNumbers(this.value);
+    } else this.#question = false;
+    
+    return this.#set_answer();
+  }
+
 
   /**
    * Implements the is_error() method or as getter isError.
@@ -1158,30 +1175,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  /**
-   * @method is_array_of_positive_numbers
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is an array of positive numbers.
-   * @returns {validator}
-   */
-  is_array_of_positive_numbers() {
-    return this.isArrayOfPositiveNumbers;
-  }
-  /**
-   * @method isArrayOfPositiveNumbers
-   * @description this method tests if the
-   * value property of the current validator
-   * instance is an array of positive numbers.
-   * @returns {validator}
-   */
-  get isArrayOfPositiveNumbers() {
-    if (this.copy().isArray.or.isTypedArray.answer) {
-      this.#question = models.IsArrayOfPositiveNumbers(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-  /**
+    /**
    * @method is_array_of_negative_numbers
    * @description this method tests if
    * the value property of the current
