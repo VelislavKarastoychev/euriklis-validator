@@ -1028,6 +1028,23 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of positive integers.
+   *
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value"
+   * is an array of positive integers.
+   */
+  get isArrayOfPositiveIntegers() {
+    const cp = this.copy();
+    if (cp.isArray.or.isTypedArray.answer) {
+      this.#question = models.IsArrayOfPositiveIntegers(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1137,22 +1154,6 @@ class validator {
   get isStringArray() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsStringArray(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-
-  /**
-   * @method isArrayOfPositiveIntegers
-   * @description this method tests if
-   * the value property of the current
-   * validator instance is an array of
-   * positive integers.
-   * @returns {validator}
-   */
-  get isArrayOfPositiveIntegers() {
-    const cp = this.copy();
-    if (cp.isArray.or.isTypedArray.answer) {
-      this.#question = models.IsArrayOfPositiveIntegers(this.value);
     } else this.#question = false;
     return this.#set_answer();
   }
