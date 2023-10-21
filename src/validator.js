@@ -999,19 +999,18 @@ class validator {
   /**
    * Checks if the "value" property of the current validator
    * instance is an array of positive numbers.
-   * 
+   *
    * @returns {validator} The updated validator instance
-   * with "answer" property set to true if the "value" is 
+   * with "answer" property set to true if the "value" is
    * positive numeric array, false otherwise.
    */
   get isArrayOfPositiveNumbers() {
     if (this.copy().isArray.or.isTypedArray.answer) {
       this.#question = models.IsArrayOfPositiveNumbers(this.value);
     } else this.#question = false;
-    
+
     return this.#set_answer();
   }
-
 
   /**
    * Implements the is_error() method or as getter isError.
@@ -1175,7 +1174,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-    /**
+  /**
    * @method is_array_of_negative_numbers
    * @description this method tests if
    * the value property of the current
