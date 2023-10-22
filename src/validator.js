@@ -1061,6 +1061,34 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current
+   * validator instance is an array and in addition
+   * if all elements of the array are numbers which
+   * belongs to the open interval (a, b), where "a"
+   * and "b" are the parameters of the method.
+   *
+   * @param {number} a
+   * @param {number} b
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * numeric array with elements in an open interval (a, b),
+   * false otherwise.
+   */
+  isArrayOfNumbersInRange(a, b) {
+    const isInputCorrect = new validator([a, b]).isNumberArray
+      .and.bind(
+        new validator(a).isLessThan(b),
+      ).answer;
+
+    if (!isInputCorrect) errors.IllegalParametersInIsArrayOfNumbersInRange();
+    if (this.copy().isArray.or.isTypedArray.answer) {
+      this.#question = models.IsArrayOfNumbersInRange(this.value, a, b);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1215,24 +1243,7 @@ class validator {
     } else this.#question = true;
     return this.#set_answer();
   }
-  /**
-   * @param {number} a
-   * @param {number} b
-   * @returns {validator}
-   * @description this method checks if the
-   * current validator instance is an array with elements
-   * which are numbers in an open interval (a, b).
-   */
-  is_array_of_numbers_in_range(a, b) {
-    new validator([a, b]).isNumberArray
-      .and.bind(
-        new validator(a).is_lesser_than(b),
-      ).on(false, () => errors.IllegalParametersInIsArrayOfNumbersInRange());
-    if (this.copy().isArray.or.isTypedArray.answer) {
-      this.#question = models.IsArrayOfNumbersInRange(this.value, a, b);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
+
   /**
    * @param {number} a
    * @param {number} b
