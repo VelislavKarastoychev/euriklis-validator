@@ -1,7 +1,9 @@
 "use strict";
 /**
- * Implements the isArrayOfNumbersInClosedRange.
- *
+ * Checks if the value parameter is an array of numbers in
+ * the closed range [a, b].
+ * Utility function for the isArrayOfNumbersInClosedRange.
+ * 
  * @param {number []} value - an array of nubers, probably in the closed range [a, b].
  * @param {number} a - the lower bound of the elements of the "value" array.
  * @param {number} b - the upper bound of the elements of the "value" array.
@@ -9,66 +11,29 @@
  */
 export const IsArrayOfNumbersInClosedRange = (value, a, b) => {
   const n = value.length;
-  let i, j, question = true;
-  for (i = 0; i < n >> 2; i++) {
+  let i, j, areAllNumbersInClosedRange = true;
+  for (i = 0;i < n >> 2;i++) {
     j = i << 2;
-    if (typeof value[j] === "number" && !isNaN(value[j])) {
-      if (value[j] < a || value[j] > b) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (typeof value[j] === "number" && !isNaN(value[j])) {
-      if (value[j] < a || value[j] > b) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (typeof value[j] === "number" && !isNaN(value[j])) {
-      if (value[j] < a || value[j] > b) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (typeof value[j] === "number" && !isNaN(value[j])) {
-      if (value[j] < a || value[j] > b) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
+    if (
+      (typeof value[j] !== "number" || isNaN(value[j]) || value[j] < a || value[j] > b) ||
+      (typeof value[j + 1] !== "number" || isNaN(value[j + 1]) || value[j + 1] < a || value[j + 1] > b) || 
+      (typeof value[j + 2] !== "number" || isNaN(value[j + 2]) || value[j + 2] < a || value[j + 2] > b) ||
+      (typeof value[j + 3] !== "number" || isNaN(value[j + 3]) || value[j + 3] < a || value[j + 3] > b)
+    ) {
+      areAllNumbersInClosedRange = false;
       break;
     }
   }
-  if (n % 4 >= 3 && question) {
-    j = n - 3;
-    if (typeof value[j] === "number" && !isNaN(value[j])) {
-      question = !(question < a || question > b);
-    } else question = false;
+  
+  if (areAllNumbersInClosedRange) {
+    j = i << 2;
+    for (;j < n;j++) {
+      if (typeof value[j] !== "number" || isNaN(value[j]) || value[j] < a || value[j] > b) {
+        areAllNumbersInClosedRange = false;
+        break;
+      }
+    }
   }
-  if (n % 4 >= 2 && question) {
-    j = n - 2;
-    if (typeof value[j] === "number" && !isNaN(value[j])) {
-      question = !(question < a || question > b);
-    } else question = false;
-  }
-  if (n % 4 >= 1 && question) {
-    j = n - 1;
-    if (typeof value[j] === "number" && !isNaN(value[j])) {
-      question = !(question < a || question > b);
-    } else question = false;
-  }
-  return question;
+  
+  return areAllNumbersInClosedRange;
 };
