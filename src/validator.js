@@ -1069,6 +1069,8 @@ class validator {
    *
    * @param {number} a
    * @param {number} b
+   * @throws {Error} if "a" and "b" are not numbers or "a"
+   * is not less than "b". 
    * @returns {validator} The updated validator instance
    * with "answer" property set to true if the "value" is
    * numeric array with elements in an open interval (a, b),
@@ -1085,6 +1087,36 @@ class validator {
       this.#question = models.IsArrayOfNumbersInRange(this.value, a, b);
     } else this.#question = false;
 
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of numbers in the closed range [a, b],
+   * where "a" and "b" are the parameters of the method.
+   * 
+   * @param {number} a
+   * @param {number} b
+   * @throws {Error} if "a" and "b" are not numbers or "a" 
+   * is not less than "b".
+   * @returns {validator} The updated validator instance
+   * with "answer" proeprty set to true if the "value" is
+   * an array of numbers in an closed range [a, b] 
+   */
+  isArrayOfNumbersInClosedRange(a, b) {
+    const isInputIncorrect = new validator([a, b]).not.isNumberArray
+      .or.not.bind(
+        new validator(a).not.isLessThan(b),
+      ).answer;
+    
+    if (isInputIncorrect) {
+      errors.IllegalParametersInIsArrayOfNumbersInClosedRange();
+    }
+    
+    if (this.copy().isArray.or.isTypedArray.answer) {
+      this.#question = models.IsArrayOfNumbersInClosedRange(this.value, a, b);
+    } else this.#question = false;
+    
     return this.#set_answer();
   }
 
@@ -1244,29 +1276,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @param {number} a
-   * @param {number} b
-   * @returns {validator}
-   * @description this method checks if
-   * the current validator instance is an
-   * array of numbers which lies on the closed
-   * interval [a, b].
-   */
-  is_array_of_numbers_in_closed_range(a, b) {
-    new validator([a, b]).isNumberArray
-      .and.bind(
-        new validator(a).is_lesser_than(b),
-      ).on(
-        false,
-        () => errors.IllegalParametersInIsArrayOfNumbersInClosedRange(),
-      );
-    // check if every element of the array is number in the interval [a, b].
-    if (this.copy().isArray.or.isTypedArray.answer) {
-      this.#question = models.IsArrayOfNumbersInClosedRange(this.value, a, b);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @description this method checks if the
    * current validator instance is an array
