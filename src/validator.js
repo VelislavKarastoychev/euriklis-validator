@@ -1214,6 +1214,22 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of object elements.
+   *
+   * @returns {validator} The updated current validator instance
+   * with "answer" property set to true if the "value" is an
+   * array of object elements, false otherwise.
+   */
+  get isObjectArray() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsObjectArray(this.value);
+    } else this.#question = false;
+    
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1320,31 +1336,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  /**
-   * @method is_object_array
-   * @returns {validator}
-   * @description this method tests
-   * if the value property of the current
-   * validator instance is array each element
-   * of which is object.
-   */
-  is_object_array() {
-    return this.isObjectArray;
-  }
-  /**
-   * @method isObjectArray
-   * @returns {validator}
-   * @description this method tests if
-   * the value property of the current
-   * validator instance is array, each element
-   * of which is object.
-   */
-  get isObjectArray() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsObjectArray(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
+
   /**
    * @description this method checks if the
    * current validator instance is an array
