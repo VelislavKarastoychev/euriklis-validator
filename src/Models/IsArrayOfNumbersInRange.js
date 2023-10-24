@@ -2,7 +2,7 @@
 /**
  * Checks if the "value" is an array of numbers in some open range (a, b).
  * Utility function for the isArrayOfNumbersInRange method.
- * 
+ *
  * @param {number []} value - the current validator instance value.
  * @param {number} a - the lower bound of the elements of the "value" array.
  * @param {number} b - the upper bound of the "value" elements in the array.
@@ -11,7 +11,7 @@
 
 export const IsArrayOfNumbersInRange = (value, a, b) => {
   const n = value.length;
-  let i, j, areAllNumbersInRange = true;
+  let i, j;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
@@ -24,23 +24,20 @@ export const IsArrayOfNumbersInRange = (value, a, b) => {
       (typeof value[j + 3] !== "number" || isNaN(value[j + 3]) ||
         value[j + 3] <= a || value[j + 3] >= b)
     ) {
+      return false;
+    }
+  }
+
+  j = i << 2;
+  for (; j < n; j++) {
+    if (
+      (typeof value[j] !== "number" || isNaN(value[j]) || value[j] <= a ||
+        value[j] >= b)
+    ) {
       areAllNumbersInRange = false;
       break;
     }
   }
 
-  if (areAllNumbersInRange) {
-    j = i << 2;
-    for (; j < n; j++) {
-      if (
-        (typeof value[j] !== "number" || isNaN(value[j]) || value[j] <= a ||
-          value[j] >= b)
-      ) {
-        areAllNumbersInRange = false;
-        break;
-      }
-    }
-  }
-
-  return areAllNumbersInRange;
+  return true;
 };
