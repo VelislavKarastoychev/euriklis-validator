@@ -23,12 +23,10 @@ export const IsObjectArray = (value) => {
     }
   }
 
-  if (areAllObjects) {
-    j = i << 2;
-    for (;j < n;j++) {
-      if (!CheckType(value[j], "object")) {
-        return false;
-      }
+  j = i << 2;
+  for (; j < n; j++) {
+    if (!CheckType(value[j], "object")) {
+      return false;
     }
   }
 
