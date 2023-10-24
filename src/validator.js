@@ -600,7 +600,7 @@ class validator {
 
     return this.#set_answer();
   }
-  
+
   /**
    * Checks if the "value" property of the current validator
    * instance is a number or if it is a string, which may be
@@ -610,7 +610,7 @@ class validator {
    * "answer" property set to true if the "value" is a number
    * or if it is a string which may be converted to a number.
    */
-  get isConvertibleToNumber () {
+  get isConvertibleToNumber() {
     this.#question = models.IsNumberLike(this.value);
 
     return this.#set_answer();
@@ -1198,6 +1198,22 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of string elements.
+   *
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value"
+   * is array of string elements.
+   */
+  get isStringArray() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsStringArray(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1278,23 +1294,6 @@ class validator {
     if (models.IsInstanceType(instance)) {
       this.#question = models.IsInstanceof(this.value, instance);
     } else errors.IncorrectArgumentInIsInstanceof();
-    return this.#set_answer();
-  }
-
-  /**
-   * @method isStringArray
-   * @returns {validator}
-   * @description this method is the getter variant of the
-   * is_string_array() kkkmethod of the validator library.
-   * Note that this method is faster than the equivalent
-   * is_string_array() normal method. In this case we do not
-   * recall the corresponded method but implement an other
-   * approach.
-   */
-  get isStringArray() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsStringArray(this.value);
-    } else this.#question = false;
     return this.#set_answer();
   }
 
