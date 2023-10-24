@@ -3,7 +3,7 @@
  * Checks if the "value" property is an array of integers, which lies
  * in the closed interval [a, b].
  * Utility function for the isArrayOfIntegersInClosedRange.
- * 
+ *
  * @param {number []} value
  * @param {number} a - the lower bound of the array elements.
  * @param {number} b - the upper bound of the array elements.
@@ -11,7 +11,7 @@
  */
 export const IsArrayOfIntegersInClosedRange = (value, a, b) => {
   const n = value.length;
-  let i, j, areAllIntegersInClosedRange = true;
+  let i, j;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
@@ -22,22 +22,18 @@ export const IsArrayOfIntegersInClosedRange = (value, a, b) => {
         value[j + 2] > b) ||
       (!Number.isInteger(value[j + 3]) || value[j + 3] < a || value[j + 3] > b)
     ) {
-      areAllIntegersInClosedRange = false;
-      break;
+      return false;
     }
   }
 
-  if (areAllIntegersInClosedRange) {
-    j = i << 2;
-    for (; j < n; j++) {
-      if (
-        (!Number.isInteger(value[j]) || value[j] < a || value[j] > b)
-      ) {
-        areAllIntegersInClosedRange = false;
-        break;
-      }
+  j = i << 2;
+  for (; j < n; j++) {
+    if (
+      (!Number.isInteger(value[j]) || value[j] < a || value[j] > b)
+    ) {
+      return false;
     }
   }
 
-  return areAllIntegersInClosedRange;
+  return true;
 };
