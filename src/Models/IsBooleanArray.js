@@ -8,7 +8,7 @@
  */
 export const IsBooleanArray = (value) => {
   const n = value.length;
-  let i, j, isAllBoolean = true;
+  let i, j;
 
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
@@ -18,20 +18,16 @@ export const IsBooleanArray = (value) => {
       typeof value[j + 2] !== "boolean" ||
       typeof value[j + 3] !== "boolean"
     ) {
-      isAllBoolean = false;
-      break;
+      return false;
     }
   }
 
-  if (isAllBoolean) {
-    j = i << 2;
-    for (;j < n;j++) {
-      if (typeof value[j] !== 'boolean') {
-        isAllBoolean = false;
-        break;
-      }
+  j = i << 2;
+  for (; j < n; j++) {
+    if (typeof value[j] !== "boolean") {
+      return false;
     }
   }
-  
-  return isAllBoolean;
+
+  return true;
 };
