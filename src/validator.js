@@ -1363,16 +1363,6 @@ class validator {
   }
 
   /**
-   * @description this method checks if the
-   * current validator instance value is an
-   * array, which contains only number arrays.
-   * The length of every array is not interested.
-   * @returns {validator}
-   */
-  is_array_of_number_arrays() {
-    return this.isArrayOfNumberArrays;
-  }
-  /**
    * @description this method checks if the current
    * validator instance is an array which consists
    * of number arrays.
