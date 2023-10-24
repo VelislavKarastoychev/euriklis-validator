@@ -1313,16 +1313,7 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @description this method checks if the
-   * current validator instance is an array
-   * with elements that satisfy the condition
-   * to be a javascript function type.
-   * @returns {validator}
-   */
-  is_array_of_functions() {
-    return this.isArrayOfFunctions;
-  }
+  
   /**
    * @description this method checks if the
    * current validator instance is an array
