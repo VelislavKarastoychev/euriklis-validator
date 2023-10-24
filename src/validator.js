@@ -600,6 +600,21 @@ class validator {
 
     return this.#set_answer();
   }
+  
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is a number or if it is a string, which may be
+   * converted to a number.
+   *
+   * @returns {validator} The updated validator property with
+   * "answer" property set to true if the "value" is a number
+   * or if it is a string which may be converted to a number.
+   */
+  get isConvertibleToNumber () {
+    this.#question = models.IsNumberLike(this.value);
+
+    return this.#set_answer();
+  }
 
   /**
    * Checks if the "value" property is a positive number
@@ -1266,19 +1281,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method is_string_array()
-   * @returns {validator}
-   * @description a method that checks if the
-   * value property of the current validator
-   * instance is an array, all elements of which
-   * are strings and set the answer property of the
-   * returned validator instance to true or false
-   * respectively.
-   */
-  is_string_array() {
-    return this.isStringArray;
-  }
   /**
    * @method isStringArray
    * @returns {validator}
