@@ -8,8 +8,9 @@
  * true, otherwise returns false.
  */
 export const IsNumberArray = (value) => {
-  let i, j, isAllNumbers = true;
   const n = value.length;
+  let i, j;
+  
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
@@ -18,19 +19,16 @@ export const IsNumberArray = (value) => {
       (typeof value[j + 2] !== "number" && isNaN(value[j + 2])) ||
       (typeof value[j + 3] !== "number" && isNaN(value[j + 3]))
     ) {
-      isAllNumbers = false;
-      break;
-    }
-  }
-  if (isAllNumbers) {
-    j = i << 2;
-    for (;j < n;j++) {
-      if (typeof value[j] !== "number" && isNaN(value[j])) {
-        isAllNumbers = false;
-        break;
-      }
+      return false;
     }
   }
   
-  return isAllNumbers;
+  j = i << 2;
+  for (; j < n; j++) {
+    if (typeof value[j] !== "number" && isNaN(value[j])) {
+      return false;
+    }
+  }
+
+  return true;
 };
