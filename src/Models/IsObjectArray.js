@@ -14,10 +14,10 @@ export const IsObjectArray = (value) => {
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
-      !CheckType(value[j], "object") ||
-      !CheckType(value[j + 1], "object") ||
-      !CheckType(value[j + 2], "object") ||
-      !CheckType(value[j + 3], "object")
+      !CheckType(value[j], "Object") ||
+      !CheckType(value[j + 1], "Object") ||
+      !CheckType(value[j + 2], "Object") ||
+      !CheckType(value[j + 3], "Object")
     ) {
       return false;
     }
@@ -25,7 +25,7 @@ export const IsObjectArray = (value) => {
 
   j = i << 2;
   for (; j < n; j++) {
-    if (!CheckType(value[j], "object")) {
+    if (!CheckType(value[j], "Object")) {
       return false;
     }
   }
