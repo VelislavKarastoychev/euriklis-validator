@@ -10,7 +10,7 @@ import { CheckType } from "./CheckType";
  * @returns {boolean} if the "value" is an array whoose
  * elements are all arbitrary arrays.
  */
-export const IsArrayOfArray = (value) => {
+export const IsArrayOfArrays = (value) => {
   const n = value.length;
   let i, j;
   for (i = 0;i < n >> 2;i++) {
