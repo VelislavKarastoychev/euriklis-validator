@@ -1,55 +1,39 @@
 "use strict";
 /**
+ * Checks if every element of "value" is a string array.
  * Utility function for the isStringArray method.
- * This funciton sets the value of the private question
- * property of the current validator instance.
  *
  * @param {string []} value - the current validator value
  * property, which has to be a string array.
- * @returns {boolean} question or the private property question of the
- * current validator instance.
- *
- })
+ * @returns {boolean} if every element of the value is a
+ * string element, then returns true, otherwise return
+ * false.
  **/
 export const IsStringArray = (value) => {
-  let i, j, n = value.length;
-  let question = true;
+  const n = value.length;
+  let i, j, areAllStrings = true;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (typeof value[j] !== "string") {
-      question = false;
+    if (
+      typeof value[j] !== "string" ||
+      typeof value[j + 1] !== "string" ||
+      typeof value[j + 2] !== "string" ||
+      typeof value[j + 3] !== "string"
+    ) {
+      areAllStrings = false;
       break;
-    } else question = true;
-    ++j;
-    if (typeof value[j] !== "string") {
-      question = false;
-      break;
-    } else question = true;
-    ++j;
-    if (typeof value[j] !== "string") {
-      question = false;
-      break;
-    } else question = true;
-    ++j;
-    if (typeof value[j] !== "string") {
-      question = false;
-      break;
-    } else question = true;
+    }
   }
-  if (question && n % 4 >= 1) {
-    j = n - 1;
-    if (typeof value[j] !== "string") question = false;
-    else question = true;
+
+  if (areAllStrings) {
+    j = i << 2;
+    for (; j < n; j++) {
+      if (typeof value[j] !== "string") {
+        areAllStrings = false;
+        break;
+      }
+    }
   }
-  if (question && n % 4 >= 2) {
-    j = n - 2;
-    if (typeof value[j] !== "string") question = false;
-    else question = true;
-  }
-  if (question && n % 4 >= 3) {
-    j = n - 3;
-    if (typeof value[j] !== "string") question = false;
-    else question = true;
-  }
-  return question;
+
+  return areAllStrings;
 };
