@@ -1248,18 +1248,36 @@ class validator {
   /**
    * Checks if the "value" property is an array of arbitrary
    * array elements.
-   * 
+   *
    * @returns {validator} The updated validator instance
    * witht the "answer" property set to true if the "value"
    * porpeorty is an array of arbitrary array elements.
    */
-  get isArrayOfArrays () {
+  get isArrayOfArrays() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfArrays(this.value);
     } else this.#question = false;
 
     return this.#set_answer();
   }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of arbitrary arrays with equal size.
+   *
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value"
+   * is an array of arrays and every element of the "value"
+   * has the same length, false otherwise.
+   */
+  get isArrayOfArraysWithEqualSize() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfArraysWithEqualSize(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
   /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
@@ -1344,31 +1362,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @description this method checks if the
-   * current validator instance is an array
-   * with elements which are arrays with equal
-   * size (length). The elements of the nested
-   * arrays may be of arbitrary type.
-   * @returns {validator}
-   */
-  is_array_of_arrays_with_equal_size() {
-    return this.isArrayOfArraysWithEqualSize;
-  }
-  /**
-   * @description this method checks if the
-   * current validator instance is an array
-   * with elements which are arrays with equal
-   * size (length). The elements of the nested
-   * arrays may be of arbitrary type.
-   * @returns {validator}
-   */
-  get isArrayOfArraysWithEqualSize() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsArrayOfArraysWithEqualSize(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @description this method checks if the
    * current validator instance value is an
