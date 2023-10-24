@@ -9,7 +9,7 @@
  */
 export const IsArrayOfPositiveNumbers = (value) => {
   const n = value.length;
-  let i, j, areAllPositiveNumbers = true;
+  let i, j;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
@@ -18,18 +18,14 @@ export const IsArrayOfPositiveNumbers = (value) => {
       (typeof value[j + 2] !== "number" || value[j + 2] < 0) ||
       (typeof value[j + 3] !== "number" || value[j + 3] < 0)
     ) {
-      areAllPositiveNumbers = false;
-      break;
+      return false;
     }
   }
-  if (areAllPositiveNumbers) {
-    j = i << 2;
-    for (; j < n; j++) {
-      if (typeof value[j] !== "number" || value[j] < 0) {
-        areAllPositiveNumbers = true;
-        break;
-      }
+  j = i << 2;
+  for (; j < n; j++) {
+    if (typeof value[j] !== "number" || value[j] < 0) {
+      return false;
     }
   }
-  return areAllPositiveNumbers;
+  return true;
 };
