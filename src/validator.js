@@ -1225,7 +1225,23 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsObjectArray(this.value);
     } else this.#question = false;
-    
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is an array whoose elements are all functions.
+   *
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value"
+   * is an array of function components, false otherwise.
+   */
+  get isArrayOfFunctions() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfFunctions(this.value);
+    } else this.#question = false;
+
     return this.#set_answer();
   }
 
@@ -1310,21 +1326,6 @@ class validator {
     if (models.IsInstanceType(instance)) {
       this.#question = models.IsInstanceof(this.value, instance);
     } else errors.IncorrectArgumentInIsInstanceof();
-    return this.#set_answer();
-  }
-
-  
-  /**
-   * @description this method checks if the
-   * current validator instance is an array
-   * with elements that satisfy the condition
-   * to be a javascript function type.
-   * @returns {validator}
-   */
-  get isArrayOfFunctions() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsArrayOfFunctions(this.value);
-    } else this.#question = false;
     return this.#set_answer();
   }
 
