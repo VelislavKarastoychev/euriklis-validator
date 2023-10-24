@@ -1279,6 +1279,24 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is an array of numeric arrays with have arbitrary
+   * length.
+   * 
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value"
+   * is an array of numeric arrays with arbitrary length,
+   * false otherwise.
+   */
+  get isArrayOfNumberArrays() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfNumberArrays(this.value);
+    } else this.#question = false;
+    
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1362,18 +1380,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @description this method checks if the current
-   * validator instance is an array which consists
-   * of number arrays.
-   * @returns {validator}
-   */
-  get isArrayOfNumberArrays() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsArrayOfNumberArrays(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   is_array_of_number_arrays_with_equal_size() {
     return this.isArrayOfNumberArraysWithEqualSize;
   }
