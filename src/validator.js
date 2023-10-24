@@ -1282,7 +1282,7 @@ class validator {
    * Checks if the "value" property of the current validator
    * instance is an array of numeric arrays with have arbitrary
    * length.
-   * 
+   *
    * @returns {validator} The updated validator instance
    * with the "answer" property set to true if the "value"
    * is an array of numeric arrays with arbitrary length,
@@ -1292,7 +1292,23 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfNumberArrays(this.value);
     } else this.#question = false;
-    
+
+    return this.#set_answer();
+  }
+  
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is a numeric matrix.
+   * 
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value"
+   * is a numeric matrix, false otherwise.
+   */
+  get isArrayOfNumberArraysWithEqualSize() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfNumberArraysWithEqualSize(this.value);
+    } else this.#question = false;
+
     return this.#set_answer();
   }
 
@@ -1380,12 +1396,6 @@ class validator {
     return this.#set_answer();
   }
 
-  get isArrayOfNumberArraysWithEqualSize() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsArrayOfNumberArraysWithEqualSize(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @description this method checks if the
    * current validator instance is an array
