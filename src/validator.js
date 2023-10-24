@@ -1380,9 +1380,6 @@ class validator {
     return this.#set_answer();
   }
 
-  is_array_of_number_arrays_with_equal_size() {
-    return this.isArrayOfNumberArraysWithEqualSize;
-  }
   get isArrayOfNumberArraysWithEqualSize() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfNumberArraysWithEqualSize(this.value);
