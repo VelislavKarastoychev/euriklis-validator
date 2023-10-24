@@ -1,50 +1,36 @@
 "use strict";
-import { IsObject } from "./IsObject.js";
+import { CheckType } from "./CheckType.js";
 /**
- * Implements the isObjectArray method.
+ * Checks if the "value" is an array of object elements.
+ * Utility function for the isObjectArray method.
  *
- * @param {object []} value - an array of object elements (the current validator value).
- * @returns {boolean} if the "value" is an array of object elements returns true, otherwise false.
+ * @param {object []} value - an array of object elements
+ * @returns {boolean} if the "value" is an array of object
+ * elements returns true, otherwise false.
  */
 export const IsObjectArray = (value) => {
-  let i, j, question = true;
   const n = value.length;
+  let i, j;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (!IsObject(value[j])) {
-      question = false;
-      break;
+    if (
+      !CheckType(value[j], "object") ||
+      !CheckType(value[j + 1], "object") ||
+      !CheckType(value[j + 2], "object") ||
+      !CheckType(value[j + 3], "object")
+    ) {
+      return false;
     }
-    ++j;
-    if (!IsObject(value[j])) {
-      question = false;
-      break;
-    }
-    ++j;
-    if (!IsObject(value[j])) {
-      question = false;
-      break;
-    }
+  }
 
-    ++j;
-    
-if (!IsObject(value[j])) {
-      question = false;
-      break;
+  if (areAllObjects) {
+    j = i << 2;
+    for (;j < n;j++) {
+      if (!CheckType(value[j], "object")) {
+        return false;
+      }
     }
+  }
 
-  }
-  if (n % 4 >= 3 && question) {
-    j = n - 3;
-    question = IsObject(value[j]);
-  }
-  if (n % 4 >= 2 && question) {
-    j = n - 2;
-    question = IsObject(value[j]);
-  }
-  if (n % 4 >= 1 && question) {
-    j = n - 1;
-    question = IsObject(value[j]);
-  }
-  return question;
+  return true;
 };
