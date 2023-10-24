@@ -8,10 +8,10 @@
  * @returns {boolean} if every element of the value is a
  * string element, then returns true, otherwise return
  * false.
- **/
+ */
 export const IsStringArray = (value) => {
   const n = value.length;
-  let i, j, areAllStrings = true;
+  let i, j;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
@@ -20,20 +20,16 @@ export const IsStringArray = (value) => {
       typeof value[j + 2] !== "string" ||
       typeof value[j + 3] !== "string"
     ) {
-      areAllStrings = false;
-      break;
+      return false;
     }
   }
 
-  if (areAllStrings) {
-    j = i << 2;
-    for (; j < n; j++) {
-      if (typeof value[j] !== "string") {
-        areAllStrings = false;
-        break;
-      }
+  j = i << 2;
+  for (; j < n; j++) {
+    if (typeof value[j] !== "string") {
+      return false;
     }
   }
 
-  return areAllStrings;
+  return true;
 };
