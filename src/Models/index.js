@@ -17,6 +17,7 @@ export {
 export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
 export { IsArray } from "./IsArray.js";
 export { IsArrayBuffer } from "./IsArrayBuffer.js";
+export { IsArrayOfArrays } from "./IsArrayOfArrays.js";
 export { IsArrayOfArraysWithEqualSize } from "./IsArrayOfArraysWithEqualSize.js";
 export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
 export { IsArrayOfIntegerArrays } from "./IsArrayOfIntegerArrays.js";
