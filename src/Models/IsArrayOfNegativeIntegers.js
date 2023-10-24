@@ -9,7 +9,7 @@
  */
 export const IsArrayOfNegativeIntegers = (value) => {
   const n = value.length;
-  let i, j, areAllNegativeIntegers = true;
+  let i, j;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
@@ -25,23 +25,19 @@ export const IsArrayOfNegativeIntegers = (value) => {
             !(value[j + 3] < 0),
         )
     ) {
-      areAllNegativeIntegers = false;
-      break;
+      return false;
     }
   }
 
-  if (areAllNegativeIntegers) {
-    j = i << 2;
-    for (; j < n; j++) {
-      if (
-        (typeof value[j] !== "number" || !Number.isInteger(value[j]) ||
-          !(value[j] < 0))
-      ) {
-        areAllNegativeIntegers = false;
-        break;
-      }
+  j = i << 2;
+  for (; j < n; j++) {
+    if (
+      (typeof value[j] !== "number" || !Number.isInteger(value[j]) ||
+        !(value[j] < 0))
+    ) {
+      return false;
     }
   }
 
-  return areAllNegativeIntegers;
+  return true;
 };
