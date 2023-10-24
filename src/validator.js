@@ -1246,6 +1246,21 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property is an array of arbitrary
+   * array elements.
+   * 
+   * @returns {validator} The updated validator instance
+   * witht the "answer" property set to true if the "value"
+   * porpeorty is an array of arbitrary array elements.
+   */
+  get isArrayOfArrays () {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfArrays(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
