@@ -1,73 +1,31 @@
 "use strict";
 import { IsIntegerArray } from "./IsIntegerArray.js";
 /**
- * Implements the isArrayOfIntegerArrays method.
+ * Checks if the "value" is an array of integer arrays.
+ * Utility function for isArrayOfIntegerArrays method.
  *
- * @param {number [][]} value - the current validator instance value property.
- * @returns {boolean} if the "value" is an arrray of integer arrays returns true, otherwise returns false.
+ * @param {number [][]} value - the current validator
+ * instance value property.
+ * @returns {boolean} if the "value" is an arrray of
+ * integer arrays returns true, otherwise returns false.
  */
 export const IsArrayOfIntegerArrays = (value) => {
-  let i, j, question = true;
   const n = value.length;
+  let i, j;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (value[j] instanceof Array) {
-      if (!IsIntegerArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsIntegerArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsIntegerArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsIntegerArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
+    if (
+      !IsIntegerArray(value[j]) ||
+      !IsIntegerArray(value[j + 1]) ||
+      !IsIntegerArray(value[j + 2]) ||
+      !IsIntegerArray(value[j + 3])
+    ) return false;
   }
-  if (n % 4 >= 3 && question) {
-    j = n - 3;
-    if (value[j] instanceof Array) {
-      question = IsIntegerArray(value[j]);
-    } else question = false;
+
+  j = i << 2;
+  for (; j < n; j++) {
+    if (!IsIntegerArray(value[j])) return false;
   }
-  if (n % 4 >= 2 && question) {
-    j = n - 2;
-    if (value[j] instanceof Array) {
-      question = IsIntegerArray(value[j]);
-    } else question = false;
-  }
-  if (n % 4 >= 1 && question) {
-    j = n - 1;
-    if (value[j] instanceof Array) {
-      question = IsIntegerArray(value[j]);
-    } else question = false;
-  }
-  return question;
+
+  return true;
 };
