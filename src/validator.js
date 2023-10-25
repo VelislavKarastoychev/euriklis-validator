@@ -1341,7 +1341,7 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfIntegerArraysWithEqualSize(this.value);
     } else this.#question = false;
-    
+
     return this.#set_answer();
   }
 
@@ -1429,9 +1429,6 @@ class validator {
     return this.#set_answer();
   }
 
-  is_array_of_string_arrays() {
-    return this.isArrayOfStringArrays;
-  }
   get isArrayOfStringArrays() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfStringArrays(this.value);
