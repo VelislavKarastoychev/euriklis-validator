@@ -1344,10 +1344,11 @@ class validator {
 
     return this.#set_answer();
   }
+
   /**
    * Checks if the "value" property of the current validator
    * instance is an array of string arrays with arbitrary length.
-   * 
+   *
    * @returns {validator} The updated validator instance
    * with "answer" property set to true if the "value" is
    * an array of string arrays with arbitrary length.
@@ -1356,10 +1357,10 @@ class validator {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfStringArrays(this.value);
     } else this.#question = false;
-    
+
     return this.#set_answer();
   }
-  
+
   /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
@@ -1444,16 +1445,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @description this method checks if the current
-   * validator instance is an array contained from
-   * string arrays with every array to has the same
-   * length with the other arrays.
-   * @returns {validator}
-   */
-  is_array_of_string_arrays_with_equal_size() {
-    return this.isArrayOfStringArraysWithEqualSize;
-  }
   get isArrayOfStringArraysWithEqualSize() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfStringArraysWithEqualSize(this.value);
