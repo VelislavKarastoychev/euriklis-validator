@@ -1360,10 +1360,11 @@ class validator {
 
     return this.#set_answer();
   }
+
   /**
    * Checks if the "value" property of the current validator
    * instance is a string matrix.
-   * 
+   *
    * @returns {validator} The updated validator isntance
    * with "answer" property set to true if the "value" is
    * a string matrix, false otherwies.
