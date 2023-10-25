@@ -1313,6 +1313,23 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is an array whoose elements are integer arrays
+   * with arbitrary length.
+   *
+   * @returns {validator} The updated validator instance with
+   * "answer" property set to true if the "value" is an array
+   * of integer arrays, false otherwise.
+   */
+  get isArrayOfIntegerArrays() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfIntegerArrays(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1396,12 +1413,6 @@ class validator {
     return this.#set_answer();
   }
 
-  get isArrayOfIntegerArrays() {
-    if (this.copy().isArray.answer) {
-      /*   */ this.#question = models.IsArrayOfIntegerArrays(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * This getter method checks if the current validator
    * property is integer matrix.
