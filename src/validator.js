@@ -1330,6 +1330,22 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is an integer matrix.
+   *
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * an array of integer arrays with equal size (integer matrix).
+   */
+  get isArrayOfIntegerArraysWithEqualSize() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfIntegerArraysWithEqualSize(this.value);
+    } else this.#question = false;
+    
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1413,20 +1429,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * Checks if the "value" property of the current validator
-   * instance is an integer matrix.
-   * 
-   * @returns {validator} The updated validator instance 
-   * with "answer" property set to true if the "value" is
-   * an array of integer arrays with equal size (integer matrix).
-   */
-  get isArrayOfIntegerArraysWithEqualSize() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsArrayOfIntegerArraysWithEqualSize(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   is_array_of_string_arrays() {
     return this.isArrayOfStringArrays;
   }
