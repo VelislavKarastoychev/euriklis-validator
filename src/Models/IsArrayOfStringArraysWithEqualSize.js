@@ -1,4 +1,5 @@
 "use strict";
+import { CheckType } from "./CheckType.js";
 import { IsStringArray } from "./IsStringArray.js";
 /**
  * Implements the isArrayOfStringArraysWithEqualSize method.
@@ -7,67 +8,30 @@ import { IsStringArray } from "./IsStringArray.js";
  */
 export const IsArrayOfStringArraysWithEqualSize = (value) => {
   const n = value.length;
-  const l = value[0] instanceof Array ? value[0].length : -1;
-  let i, j, question = true;
+  let i, j, l;
+  if (!CheckType(value[0], "Array")) return false;
+  else l = value[0].length;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j]) || value[j].length !== l) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j]) || value[j].length !== l) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j]) || value[j].length !== l) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j]) || value[j].length !== l) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
+    if (
+      !CheckType(value[j], "Array") || !IsStringArray(value[j]) ||
+      value[j].length !== l ||
+      !CheckType(value[j], "Array") || !IsStringArray(value[j + 1]) ||
+      value[j + 1].length !== l ||
+      !CheckType(value[j + 2], "Array") || !IsStringArray(value[j + 2]) ||
+      value[j + 2].length !== l ||
+      !CheckType(value[j + 3], "Array") || !IsStringArray(value[j + 3]) ||
+      value[j + 3].length !== l
+    ) return false;
   }
-  if (n % 4 >= 3 && question) {
-    j = n - 3;
-    question = value[j] instanceof Array
-      ? IsStringArray(value[j]) && value[j].length === l
-      : false;
+
+  j = i << 2;
+  for (; j < n; j++) {
+    if (
+      !CheckType(value[j], "Array") || !IsStringArray(value[j]) ||
+      value[j].length !== l
+    ) return false;
   }
-  if (n % 4 >= 2 && question) {
-    j = n - 2;
-    question = value[j] instanceof Array
-      ? IsStringArray(value[j]) && value[j].length === l
-      : false;
-  }
-  if (n % 4 >= 1 && question) {
-    j = n - 1;
-    question = value[j] instanceof Array
-      ? IsStringArray(value[j]) && value[j].length === l
-      : false;
-  }
-  return question;
+
+  return true;
 };
