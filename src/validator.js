@@ -1414,28 +1414,12 @@ class validator {
   }
 
   /**
-   * This getter method checks if the current validator
-   * property is integer matrix.
-   *
-   * @returns {validator} if the current value property
-   * is an array of integer arrays with equal size or
-   * integer matrix, then the current validator answer
-   * property will be set to true, otherwese, the
-   * answer property will be set to false.
-   */
-
-  is_array_of_integer_arrays_with_equal_size() {
-    return this.isArrayOfIntegerArraysWithEqualSize;
-  }
-  /**
-   * This getter method checks if the current validator
-   * property is integer matrix.
-   *
-   * @returns {validator} if the current value property
-   * is an array of integer arrays with equal size or
-   * integer matrix, then the current validator answer
-   * property will be set to true, otherwese, the
-   * answer property will be set to false.
+   * Checks if the "value" property of the current validator
+   * instance is an integer matrix.
+   * 
+   * @returns {validator} The updated validator instance 
+   * with "answer" property set to true if the "value" is
+   * an array of integer arrays with equal size (integer matrix).
    */
   get isArrayOfIntegerArraysWithEqualSize() {
     if (this.copy().isArray.answer) {
