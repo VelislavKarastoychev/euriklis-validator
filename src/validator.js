@@ -1295,11 +1295,11 @@ class validator {
 
     return this.#set_answer();
   }
-  
+
   /**
    * Checks if the "value" property of the current validator
    * instance is a numeric matrix.
-   * 
+   *
    * @returns {validator} The updated validator instance
    * with the "answer" property set to true if the "value"
    * is a numeric matrix, false otherwise.
@@ -1396,15 +1396,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @description this method checks if the
-   * current validator instance is an array
-   * in which every element is array of integers.
-   * @returns {validator}
-   */
-  is_array_of_integer_arrays() {
-    return this.isArrayOfIntegerArrays;
-  }
   get isArrayOfIntegerArrays() {
     if (this.copy().isArray.answer) {
       /*   */ this.#question = models.IsArrayOfIntegerArrays(this.value);
