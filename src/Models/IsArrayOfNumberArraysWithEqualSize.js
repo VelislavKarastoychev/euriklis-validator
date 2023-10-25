@@ -1,5 +1,5 @@
 "use strict";
-import { IsArray } from "./IsArray.js";
+import { CheckType } from "./CheckType.js";
 import { IsNumberArray } from "./IsNumberArray.js";
 
 /**
@@ -12,7 +12,7 @@ import { IsNumberArray } from "./IsNumberArray.js";
 export const IsArrayOfNumberArraysWithEqualSize = (value) => {
   const n = value.length;
   let i, j, l;
-  if (!IsArray(value[0])) return false;
+  if (!CheckType(value[0], "Array")) return false;
   else l = value[0].length;
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
