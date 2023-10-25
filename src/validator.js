@@ -1351,11 +1351,26 @@ class validator {
    *
    * @returns {validator} The updated validator instance
    * with "answer" property set to true if the "value" is
-   * an array of string arrays with arbitrary length.
+   * an array of string arrays with arbitrary length, false otherwise.
    */
   get isArrayOfStringArrays() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfStringArrays(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is a string matrix.
+   * 
+   * @returns {validator} The updated validator isntance
+   * with "answer" property set to true if the "value" is
+   * a string matrix, false otherwies.
+   */
+  get isArrayOfStringArraysWithEqualSize() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfStringArraysWithEqualSize(this.value);
     } else this.#question = false;
 
     return this.#set_answer();
@@ -1445,12 +1460,6 @@ class validator {
     return this.#set_answer();
   }
 
-  get isArrayOfStringArraysWithEqualSize() {
-    if (this.copy().isArray.answer) {
-      this.#question = models.IsArrayOfStringArraysWithEqualSize(this.value);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * This method tests if the
    * "value" property of the current validator
