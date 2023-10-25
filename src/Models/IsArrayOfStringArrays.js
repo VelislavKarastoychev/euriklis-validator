@@ -1,67 +1,32 @@
 "use strict";
+import { CheckType } from "./CheckType.js";
 import { IsStringArray } from "./IsStringArray.js";
 /**
- * Implements isArrayOfStringArrays.
- *
- * @param {string [][]} value - the "value" property of the current validator instance.
- * @returns {boolean} if the "value" is an array of string arrays, returns true, otherwise returns false.
+ * Checks if the "value" is an array of string
+ * arrays with arbitrary length.
+ * Utility function for the isArrayOfStringArrays method.
+ * @param {string [][]} value - the "value" property
+ * of the current validator instance.
+ * @returns {boolean} if the "value" is an array of
+ * string arrays, returns true, otherwise returns false.
  */
 export const IsArrayOfStringArrays = (value) => {
   const n = value.length;
-  let i, j, question = true;
-  for (i = 0;i < n >> 2;i++) {
+  let i, j;
+  for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-     ++j;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
-    ++j;
-    if (value[j] instanceof Array) {
-      if (!IsStringArray(value[j])) {
-        question = false;
-        break;
-      }
-    } else {
-      question = false;
-      break;
-    }
+    if (
+      !CheckType(value[j], "Array") || !IsStringArray(value[j]) ||
+      !CheckType(value[j + 1], "Array") || !IsStringArray(value[j + 1]) ||
+      !CheckType(value[j + 2], "Array") || !IsStringArray(value[j + 2]) ||
+      !CheckType(value[j + 3], "Array") || !IsStringArray(value[j + 3])
+    ) return false;
   }
-  if (n % 4 >= 3 && question) {
-    j = n - 3;
-    question = value[j] instanceof Array ? IsStringArray(value[j]) : false;
+
+  j = i << 2;
+  for (; j < n; j++) {
+    if (!CheckType(value[j], "Array") || !IsStringArray(value[j])) return false;
   }
-  if (n % 4 >= 2 && question) {
-    j = n - 2;
-    question = value[j] instanceof Array ? IsStringArray(value[j]) : false;
-  }
-  if (n % 4 >= 1 && question) {
-    j = n - 1;
-    question = value[j] instanceof Array ? IsStringArray(value[j]) : false;
-  }
-  return question;
+
+  return true;
 };
