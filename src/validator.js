@@ -1834,13 +1834,17 @@ class validator {
   }
 
   /**
-   * This method sets the "answer" property to true if the "value" property
-   * is GeneratorFunction or Generator object, otherwise sets it to false.
-   * @returns {validator} the updated current validator instance.
+   * Checks if the "value" property of the current validator
+   * instance is a Generator or GeneratorFunction in JavaScript.
+   *
+   * @returns {validator} The updated current validator instance
+   * with "answer" property set to true if the "value" is a Generator
+   * or Generator function, false otherwise.
    */
   get isGenerator() {
     this.#question = models.CheckType(this.value, "GeneratorFunction") ||
       models.CheckType(this.value, "Generator");
+
     return this.#set_answer();
   }
 
