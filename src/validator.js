@@ -1411,7 +1411,7 @@ class validator {
   /**
    * Checks if the "value" property of the current validator
    * instance is an object.
-   * 
+   *
    * @returns {validator} The updated current validator instance
    * with the "answer" property set to true if the "value" is an
    * object type, false otherwise.
