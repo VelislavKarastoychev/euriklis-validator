@@ -1376,7 +1376,7 @@ class validator {
 
     return this.#set_answer();
   }
-  
+
   /**
    * Checks if the "value" property of the current
    * validator instance is an array of object arrays
@@ -1384,11 +1384,26 @@ class validator {
    *
    * @returns {validator} The updated validator instances
    * with "answer" property set to true if the "value" is
-   * an array of object arrays.
+   * an array of object arrays, false otherwise.
    */
-  get isArrayOfObjectArrays () {
-    if (this.copy().not.isArray.answer) this.#question = false; 
+  get isArrayOfObjectArrays() {
+    if (this.copy().not.isArray.answer) this.#question = false;
     else this.#question = models.IsArrayOfObjectArrays(this.value);
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance is a matrix of object elements.
+   *
+   * @returns {validator} The updated validator instance with
+   * "answer" property set to true if the "value"is an matrix of
+   * object elements, false otherwise.
+   */
+  get isArrayOfObjectArraysWithEqualSize() {
+    if (this.copy().not.isArray.answer) this.#question = false;
+    else this.#question = models.IsArrayOfObjectArraysWithEqualSize(this.value);
 
     return this.#set_answer();
   }
