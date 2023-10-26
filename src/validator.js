@@ -1873,15 +1873,7 @@ class validator {
     this.#question = models.CheckType(this.value, "Map");
     return this.#set_answer();
   }
-  /**
-   * This method sets the "answer" property of the current validator
-   * instance to true if the "value" property is a Map instance,
-   * otherwise sets the "answer" to false.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_map() {
-    return this.isMap;
-  }
+
   /**
    * This method sets the "answer" property to true if the "value"
    * property is a Set instance, otherwise sets the "answer" to false.
