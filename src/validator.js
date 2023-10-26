@@ -1428,6 +1428,19 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is a Map data type in JavaScript.
+   *
+   * @returns {validator} The updated current validator instance
+   * with "answer" property set to true if the "value" is a Map
+   * data type, false otherwise.
+   */
+  get isMap() {
+    this.#question = models.CheckType(this.value, "Map");
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1862,16 +1875,6 @@ class validator {
    */
   is_promise() {
     return this.isPromise;
-  }
-  /**
-   * This method sets the "answer" property of the current validator
-   * instance to true if the "value" property is a Map instance,
-   * otherwise sets the "answer" to false.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isMap() {
-    this.#question = models.CheckType(this.value, "Map");
-    return this.#set_answer();
   }
 
   /**
