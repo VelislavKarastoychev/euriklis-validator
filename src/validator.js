@@ -1829,14 +1829,7 @@ class validator {
 
     return this.#set_answer();
   }
-  /**
-   * This method sets the "answer" property of the current validator instance
-   * to true if the "value" property is asyncronous function otherwise set it to false..
-   * @returns {validator} the updated current validator instance.
-   */
-  is_async() {
-    return this.isAsync;
-  }
+
   /**
    * This method sets the "answer" property to true if the "value" property
    * is GeneratorFunction or Generator object, otherwise sets it to false.
