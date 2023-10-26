@@ -1481,6 +1481,21 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is a Generator or GeneratorFunction in JavaScript.
+   *
+   * @returns {validator} The updated current validator instance
+   * with "answer" property set to true if the "value" is a Generator
+   * or Generator function, false otherwise.
+   */
+  get isGenerator() {
+    this.#question = models.CheckType(this.value, "GeneratorFunction") ||
+      models.CheckType(this.value, "Generator");
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1830,21 +1845,6 @@ class validator {
       const len = Object.keys(cp_instance.value).length;
       this.#question = len >= a && len <= b;
     } else this.#question = false;
-    return this.#set_answer();
-  }
-
-  /**
-   * Checks if the "value" property of the current validator
-   * instance is a Generator or GeneratorFunction in JavaScript.
-   *
-   * @returns {validator} The updated current validator instance
-   * with "answer" property set to true if the "value" is a Generator
-   * or Generator function, false otherwise.
-   */
-  get isGenerator() {
-    this.#question = models.CheckType(this.value, "GeneratorFunction") ||
-      models.CheckType(this.value, "Generator");
-
     return this.#set_answer();
   }
 
