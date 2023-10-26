@@ -1498,18 +1498,6 @@ class validator {
    * instance is an object and sets the "answer"
    * property of the returned validator instance to
    * true or false respectively.
-   * @method is_object()
-   * @returns {validator} the updated current validator instance.
-   */
-  is_object() {
-    return this.isObject;
-  }
-  /**
-   * This method tests if the
-   * "value" property of the current validator
-   * instance is an object and sets the "answer"
-   * property of the returned validator instance to
-   * true or false respectively.
    * @returns {validator} the updated current validator instance.
    */
   get isObject() {
