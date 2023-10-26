@@ -31,6 +31,7 @@ export { IsArrayOfNumberArraysWithEqualSize } from "./IsArrayOfNumberArraysWithE
 export { IsArrayOfNumbersInClosedRange } from "./IsArrayOfNumbersInClosedRange.js";
 export { IsArrayOfNumbersInRange } from "./IsArrayOfNumbersInRange.js";
 export { IsArrayOfObjectArrays } from "./IsArrayOfObjectArrays.js";
+export { IsArrayOfObjectArraysWithEqualSize } from "./IsArrayOfObjectArraysWithEqualSize.js";
 export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js";
 export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { IsArrayOfStringArrays } from "./IsArrayOfStringArrays.js";
