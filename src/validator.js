@@ -1409,6 +1409,17 @@ class validator {
   }
 
   /**
+   * Checks if the 
+   * @returns {validator} The updated current validator instance
+   * with the "answer" property set to true if the "value" is an
+   * object type, false otherwise.
+   */
+  get isObject() {
+    this.#question = models.CheckType(this.value, "Object");
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1492,18 +1503,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * This method tests if the
-   * "value" property of the current validator
-   * instance is an object and sets the "answer"
-   * property of the returned validator instance to
-   * true or false respectively.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isObject() {
-    this.#question = models.CheckType(this.value, "Object");
-    return this.#set_answer();
-  }
   /**
    * @method is_empty()
    * @returns {validator}
