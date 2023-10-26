@@ -1886,14 +1886,7 @@ class validator {
     this.#question = models.CheckType(this.value, "Set");
     return this.#set_answer();
   }
-  /**
-   * This method sets the "answer" property to true if the "value"
-   * property is a Set instance, otherwise sets the "answer" to false.
-   * @returns {validator} the updated current validator instance.
-   */
-  is_set() {
-    return this.isSet;
-  }
+
   /**
    * @todo TO BE IMPLEMENTED WITH MORE EFFICIENT WAY.
    * @param {any} elements an array
