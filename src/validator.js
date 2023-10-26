@@ -1812,18 +1812,6 @@ class validator {
    * instance is a javascript function object and
    * sets the answer property of the returned validator
    * instance to true or false respectively.
-   * @method is_function()
-   * @returns {validator} the updated validator property.
-   */
-  is_function() {
-    return this.isFunction;
-  }
-  /**
-   * A method that checks if
-   * the value property of the current validator
-   * instance is a javascript function object and
-   * sets the answer property of the returned validator
-   * instance to true or false respectively.
    * @returns {validator} the updated validator property.
    */
   get isFunction() {
