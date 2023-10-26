@@ -1454,6 +1454,19 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance is a Function data type in JavaScript.
+   *
+   * @returns {validator} The updated validator instance with
+   * "answer" property set to true if the "value" is a Function,
+   * false otherwise.
+   */
+  get isFunction() {
+    this.#question = models.CheckType(this.value, "Function");
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1806,18 +1819,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * A method that checks if
-   * the value property of the current validator
-   * instance is a javascript function object and
-   * sets the answer property of the returned validator
-   * instance to true or false respectively.
-   * @returns {validator} the updated validator property.
-   */
-  get isFunction() {
-    this.#question = models.CheckType(this.value, "Function");
-    return this.#set_answer();
-  }
   /**
    * This method sets the "answer" property of the current validator instance
    * to true if the "value" property is asyncronous function otherwise set it to false..
