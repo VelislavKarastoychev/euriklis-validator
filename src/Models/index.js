@@ -30,6 +30,7 @@ export { IsArrayOfNumberArrays } from "./IsArrayOfNumberArrays.js";
 export { IsArrayOfNumberArraysWithEqualSize } from "./IsArrayOfNumberArraysWithEqualSize.js";
 export { IsArrayOfNumbersInClosedRange } from "./IsArrayOfNumbersInClosedRange.js";
 export { IsArrayOfNumbersInRange } from "./IsArrayOfNumbersInRange.js";
+export { IsArrayOfObjectArrays } from "./IsArrayOfObjectArrays.js";
 export { IsArrayOfPositiveIntegers } from "./IsArrayOfPositiveIntegers.js";
 export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { IsArrayOfStringArrays } from "./IsArrayOfStringArrays.js";
