@@ -1496,6 +1496,20 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance
+   * is a Promise in JavaScript.
+   *
+   * @returns {validator} The updated current validator instance
+   * with "answer" property set to true if the "value" is a Promise,
+   * false otherwise.
+   */
+  get isPromise() {
+    this.#question = models.CheckType(this.value, "Promise");
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the is_error() method or as getter isError.
    * If the current "value" property is of Error type and this error is not thrown,
    * then the method sets the answer property to true accounting the other constraints.
@@ -1845,19 +1859,6 @@ class validator {
       const len = Object.keys(cp_instance.value).length;
       this.#question = len >= a && len <= b;
     } else this.#question = false;
-    return this.#set_answer();
-  }
-
-  /**
-   * This method tests if the "value" property of the current validator instance
-   * is Promise type and sets the "answer" property to true or false respectively.
-   * Note that if the "value" property is an async function then the method will set
-   * the "answer" to false. To check if the function is asynchronous you have to use
-   * the isAsync method.
-   * @returns {validator} the updated current validator instance.
-   */
-  get isPromise() {
-    this.#question = models.CheckType(this.value, "Promise");
     return this.#set_answer();
   }
 
