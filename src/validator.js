@@ -1376,6 +1376,22 @@ class validator {
 
     return this.#set_answer();
   }
+  
+  /**
+   * Checks if the "value" property of the current
+   * validator instance is an array of object arrays
+   * with arbitrary length.
+   *
+   * @returns {validator} The updated validator instances
+   * with "answer" property set to true if the "value" is
+   * an array of object arrays.
+   */
+  get isArrayOfObjectArrays () {
+    if (this.copy().not.isArray.answer) this.#question = false; 
+    else this.#question = models.IsArrayOfObjectArrays(this.value);
+
+    return this.#set_answer();
+  }
 
   /**
    * Implements the is_error() method or as getter isError.
