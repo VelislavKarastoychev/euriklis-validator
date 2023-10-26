@@ -1408,6 +1408,12 @@ class validator {
     return this.#set_answer();
   }
 
+  // Methods for more abstract data types.
+  // Methods for validation of Objects,
+  // maps, sets, functions, asyncronous 
+  // functions, generators, promises, 
+  // errors and instances. 
+  
   /**
    * Checks if the "value" property of the current validator
    * instance is an object.
