@@ -1618,6 +1618,7 @@ class validator {
     } else if (cp_instance.isSet.or.isMap.answer) {
       this.#question = models.TestCondition(this.value, "size", n, "gt");
     } else this.#question = false;
+
     return this.#set_answer();
   }
 
@@ -1649,6 +1650,39 @@ class validator {
     } else if (cp_instance.isSet.or.isMap.answer) {
       this.#question = models.TestCondition(this.value, "size", n, "geq");
     } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance has a length-like property (e.g., length, byteLength, size)
+   * and if that property is less than the specified value "n".
+   *
+   * @param {number} n - An integer value to compare with the length-like property.
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value" has a
+   * length-like property that is less than the "n" parameter.
+   */
+  hasLengthLessThan(n) {
+    if (Number.isInteger(n)) n = Number(n);
+    else errors.IncorrectArgumentInHasLengthEqualsOrBiggerThan(n);
+    let cp_instance = this.copy();
+    if (cp_instance.isArrayBuffer.answer) {
+      this.#question = models.TestCondition(this.value, "byteLength", n, "lt");
+    } else if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
+      this.#question = models.TestCondition(this.value, "length", n, "lt");
+    } else if (cp_instance.isObject.answer) {
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+        "lt",
+      );
+    } else if (cp_instance.isSet.or.isMap.answer) {
+      this.#question = models.TestCondition(this.value, "size", n, "lt");
+    } else this.#question = false;
+
     return this.#set_answer();
   }
 
@@ -1822,27 +1856,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method has_length_lesser_than
-   * @param {number} n
-   * @returns {validator}
-   * @description this method tests if a string or
-   * an array has length which is smaller than an
-   * integer number n. If n is not integer, then
-   * an error message will be thrown for incorrect
-   * argument.
-   */
-  has_length_lesser_than(n) {
-    if (Number.isInteger(n)) n = Number(n);
-    else errors.IncorrectArgumentInHasLengthLesserThan();
-    let cp_instance = this.copy();
-    if (cp_instance.isArray.or.isString.answer) {
-      this.#question = this.value.length < n;
-    } else if (cp_instance.isObject.answer) {
-      this.#question = Object.keys(cp_instance.value).length < n;
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @method has_length_equals_or_lesser_than
    * @param {number} n
