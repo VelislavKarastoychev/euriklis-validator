@@ -1899,19 +1899,53 @@ class validator {
     return this.#set_answer();
   }
 
+  /**
+   * Checks if the current validator instance's value
+   * is an array and if a given callback function
+   * returns a truthy result for every element in the array.
+   *
+   * @param {function(validator, number | string): validator} callback - A
+   * function that takes a validator instance and an optional
+   * key or index and returns a validator instance.
+   * @throws {Error} If the "callback" parameter is not a function.
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the current
+   * instance's value is an array and the callback function
+   * returns "truthy" for every element,false otherwise.
+   */
   isArrayAndForEvery(callback) {
+    if (new validator(callback).not.isFunction.answer) {
+      errors.IncorrectFunctionArgumentInForAll();
+    }
     if (this.copy().isArray.answer) {
       this.#question = models.ForEveryArrayEdition(this.value, callback);
     } else this.#question = false;
-    
+
     return this.#set_answer();
   }
 
+  /**
+   * Checks if the current validator instance's value 
+   * is an array and if a given callback function returns 
+   * a truthy result for at least one element in the array.
+   *
+   * @param {function(validator, number | string): validator} callback - A 
+   * function that takes a validator instance and an optional 
+   * key or index and returns a validator instance.
+   * @throws {Error} If the "callback" parameter is not a function.
+   * @returns {validator} The updated validator instance 
+   * with the "answer" property set to true if the current 
+   * instance's value is an array and the callback function 
+   * returns "truthy" for at least one element, false otherwise.
+   */
   isArrayAndForAny(callback) {
+    if (new validator(callback).not.isFunction.answer) {
+      errors.IncorrectFunctionArgumentInForAny();
+    }
     if (this.copy().isArray.answer) {
       this.#question = models.ForAnyArrayEdition(this.value, callback);
     } else this.#question = false;
-    
+
     return this.#set_answer();
   }
 
@@ -2153,7 +2187,7 @@ class validator {
       });
     return this.#set_answer();
   }
-   
+
   /**
    * @callback eventCallback
    * @param {validator} value - the current validator property.
