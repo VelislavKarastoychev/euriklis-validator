@@ -1833,18 +1833,85 @@ class validator {
     // initialization
     const val = this.copy();
     const callback_val = new validator(callback);
+
     if (callback_val.not.isFunction.answer) {
       errors.IncorrectFunctionArgumentInForAll();
     }
-    if (val.isArray.and.not.isEmpty.answer) {
-      this.#question = models.ForEveryArrayEdition(val.value, callback);
-    } else if (val.isObject.and.not.isEmpty) {
-      this.#question = models.ForEveryObjectEdition(val.value, callback);
-    } else if (val.isSet.and.not.isEmpty.answer) {
-      this.#question = models.ForEverySetEdition(val.value, callback);
-    } else if (val.isMap.and.not.isEmpty.answer) {
-      this.#question = models.ForEveryMapEdition(this.value, callback);
+
+    if (val.isEmpty.answer) {
+      if (val.isArray.answer) {
+        this.#question = models.ForEveryArrayEdition(val.value, callback);
+      } else if (val.isObject.answer) {
+        this.#question = models.ForEveryObjectEdition(val.value, callback);
+      } else if (val.isSet.answer) {
+        this.#question = models.ForEverySetEdition(val.value, callback);
+      } else if (val.isMap.answer) {
+        this.#question = models.ForEveryMapEdition(this.value, callback);
+      } else this.#question = false;
     } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Iterates through the elements of the current
+   * validator's "value" property and checks if the
+   * provided callback function returns a "truthy"
+   * validator instance for any of the elements.
+   *
+   * @param {function(validator, number): validator} callback - A
+   * function that jtakes a validator instance and an optional key
+   * or index and returns a validator instance.
+   *
+   * @example
+   * let a = new validator([12, 32, 998.3, 89, 0.9839])
+   *     .forAny(element => {
+   *         return element.isFloat();
+   *     });
+   * console.log(a.answer); // true
+   *
+   * @throws {Error} if the "callback" parameter is not a function.
+   *
+   * @returns {validator} The updated validator instance with the "answer"
+   * property set to true if the "callback" function returns a "truthy"
+   * validator instance for any of the elements, false otherwise.
+   */
+  forAny(callback) {
+    const val = this.copy();
+    const callbackIsNotFunction = new validator(callback).not.isFunction.answer;
+
+    if (callbackIsNotFunction) {
+      errors.IncorrectFunctionArgumentInForAny();
+    }
+
+    if (val.not.isEmpty.answer) {
+      if (val.isArray.or.isTypedArray.answer) {
+        this.#question = models.ForAnyArrayEdition(val.value, callback);
+      } else if (val.isObject.answer) {
+        this.#question = models.ForAnyObjectEdition(val.value, callback);
+      } else if (val.isSet.answer) {
+        this.#question = models.ForAnySetEdition(this.value, callback);
+      } else if (val.isMap.answer) {
+        this.#question = models.ForAnyMapEdition(this.value, callback);
+      } else this.#question = false;
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  isArrayAndForEvery(callback) {
+    if (this.copy().isArray.answer) {
+      this.#question = models.ForEveryArrayEdition(this.value, callback);
+    } else this.#question = false;
+    
+    return this.#set_answer();
+  }
+
+  isArrayAndForAny(callback) {
+    if (this.copy().isArray.answer) {
+      this.#question = models.ForAnyArrayEdition(this.value, callback);
+    } else this.#question = false;
+    
     return this.#set_answer();
   }
 
@@ -1907,43 +1974,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-
-  /**
-   * @method for_any
-   * @param {function(validator, number | string)} callback
-   * @description this method is
-   * valid for array and object
-   * and compute if some item of the
-   * this.value satisfy the condition
-   * defined in the callback function.
-   * The callback function gets as
-   * argument an validator type and
-   * have to return a validator value.
-   * @returns {validator}
-   * @example
-   * let a = new validator([1, 2, ,3, 4, 5])
-   *     .for_any((element) => {
-   *         return element.is_undefined()
-   *     })
-   * console.log(a.answer) // true
-   */
-  for_any(callback) {
-    const val = this.copy();
-    const callbackIsNotFunction = new validator(callback).not.isFunction.answer;
-    if (callbackIsNotFunction) {
-      errors.IncorrectFunctionArgumentInForAny();
-    }
-    if (val.isArray.or.isTypedArray.answer) {
-      this.#question = models.ForAnyArrayEdition(val.value, callback);
-    } else if (val.isObject.and.not.isEmpty.answer) {
-      this.#question = models.ForAnyObjectEdition(val.value, callback);
-    } else if (val.isSet.and.not.isEmpty.answer) {
-      this.#question = models.ForAnySetEdition(this.value, callback);
-    } else if (val.isMap.and.not.isEmpty.answer) {
-      this.#question = models.ForAnyMapEdition(this.value, callback);
-    } else this.#question = false;
-    return this.#set_answer();
   }
 
   /**
@@ -2123,42 +2153,7 @@ class validator {
       });
     return this.#set_answer();
   }
-  /**
-   * @method is_array_and_for_every(func_arg)
-   * @param {function (validator, number):validator} callback
-   * @description this method gets as argument
-   * a function with validator argument and returns
-   * true if the function is true for every elements of
-   * the array. If the value property of the validator
-   * is not array or the func_arg parameter is not a function
-   * then the function returns false.
-   */
-  is_array_and_for_every(callback) {
-    if (this.copy().isArray.answer) {
-      this.#question = models.ForAllArrayEdition(this.value, callback);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-  /**
-   * @method is_array_and_for_any
-   * @param {function (validator, number)} callback
-   * @returns {validator}
-   * @description returns a validator instance that is
-   * the result of the execution of the function of
-   * all elements. The method stops if for some element the
-   * validator is true.
-   * @example
-   * new validator([1, 2, 3, 4, 5, 6, 7])
-   *     .is_array_and_for_any(element => {
-   *         return element.is_integer().and.is_in_range(0, 8)
-   *     }) // true value.
-   */
-  is_array_and_for_any(callback) {
-    if (this.copy().isArray.answer) {
-      this.#question = models.ForAnyArrayEdition(this.value, callback);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
+   
   /**
    * @callback eventCallback
    * @param {validator} value - the current validator property.
