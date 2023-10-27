@@ -1560,6 +1560,39 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance has length or similar to it property which is
+   * equals to the "n" input parameter of the method.
+   *
+   * @param {number} n an integer number that
+   * describes the length of the array/string/Object
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value"
+   * property has length or similar to it property which
+   * is equal to the "n" parameter, false otherwise.
+   */
+  hasLength(n) {
+    if (Number.isInteger(n)) n = Number(n);
+    else errors.IncorrectArgumentInHasLength();
+    let cp_instance = this.copy();
+    if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
+      this.#question = models.TestCondition(this.value, "length", n);
+    } else if (cp_instance.isObject.answer) {
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+      );
+    } else if (cp_instance.isArrayBuffer.answer) {
+      this.#question = models.TestCondition(this.value, "byteLength", n);
+    } else if (cp_instance.isMap.or.isSet.answer) {
+      this.#question = models.TestCondition(this.value, "size", n);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
    * instance is function, then the method executes the
@@ -1728,36 +1761,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  /**
-   * @method has_length
-   * @param {number} n an integer number that
-   * describes the length of the array/string/Object
-   * @returns {validator}
-   * @description a method that checks if the
-   * value property of the current validator instance
-   * is String or Array or Object javascript type that
-   * has length n and sets the answer property of the
-   * returned validator instance to true or false respectively.
-   */
-  has_length(n) {
-    if (Number.isInteger(n)) n = Number(n);
-    else errors.IncorrectArgumentInHasLength();
-    let cp_instance = this.copy();
-    if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
-      this.#question = models.TestCondition(this.value, "length", n);
-    } else if (cp_instance.isObject.answer) {
-      this.#question = models.TestCondition(
-        Object.keys(cp_instance.value),
-        "length",
-        n,
-      );
-    } else if (cp_instance.isArrayBuffer.answer) {
-      this.#question = models.TestCondition(this.value, "byteLength", n);
-    } else if (cp_instance.isMap.or.isSet.answer) {
-      this.#question = models.TestCondition(this.value, "size", n);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
+
   /**
    * @method has_length_bigger_than
    * @param {number} n
