@@ -52,16 +52,16 @@ export const ForEveryObjectEdition = (value, callback) => {
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
-      (v.reset(), v.value = value[keys[j]], !callback(v, keys[j])) ||
-      (v.reset(), v.value = value[keys[j + 1]], !callback(v, keys[j + 1])) ||
-      (v.reset(), v.value = value[keys[j + 2]], !callback(v, keys[j + 2])) ||
-      (v.reset(), v.value = value[keys[j + 3]], !callback(v, keys[j + 3]))
+      (v.reset(), v.value = value[keys[j]], !callback(v, keys[j]).answer) ||
+      (v.reset(), v.value = value[keys[j + 1]], !callback(v, keys[j + 1]).answer) ||
+      (v.reset(), v.value = value[keys[j + 2]], !callback(v, keys[j + 2]).answer) ||
+      (v.reset(), v.value = value[keys[j + 3]], !callback(v, keys[j + 3]).answer)
     ) return false;
   }
 
   j = i << 2;
   for (; j < n; j++) {
-    if ((v.reset(), v.value = value[keys[j]], !callback(v, keys[j]))) {
+    if ((v.reset(), v.value = value[keys[j]], !callback(v, keys[j]).answer)) {
       return false;
     }
   }
