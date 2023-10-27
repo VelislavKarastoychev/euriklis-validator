@@ -1622,6 +1622,37 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance has a length-like property (e.g., length, byteLength, size)
+   * and if that property is equal to or greater than the specified value "n".
+   *
+   * @param {number} n - An integer value to compare with the length-like property.
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value" has a
+   * length-like property that is equal to or greater than the "n" parameter.
+   */
+  hasLengthEqualsOrGreaterThan(n) {
+    if (Number.isInteger(n)) n = Number(n);
+    else errors.IncorrectArgumentInHasLengthEqualsOrBiggerThan(n);
+    let cp_instance = this.copy();
+    if (cp_instance.isArrayBuffer.answer) {
+      this.#question = models.TestCondition(this.value, "byteLength", n, "geq");
+    } else if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
+      this.#question = models.TestCondition(this.value, "length", n, "geq");
+    } else if (cp_instance.isObject.answer) {
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+        "geq",
+      );
+    } else if (cp_instance.isSet.or.isMap.answer) {
+      this.#question = models.TestCondition(this.value, "size", n, "geq");
+    } else this.#question = false;
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
    * instance is function, then the method executes the
@@ -1791,36 +1822,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method has_length_equals_or_bigger_than
-   * @param {number} n
-   * @returns {validator}
-   * @description this method tests if a string
-   * or an array has length which is equals or
-   * bigger than the integer number n. If the n
-   * is not integer, then an error message for
-   * incorrect argument will be thrown.
-   */
-  has_length_equals_or_bigger_than(n) {
-    if (Number.isInteger(n)) n = Number(n);
-    else errors.IncorrectArgumentInHasLengthEqualsOrBiggerThan(n);
-    let cp_instance = this.copy();
-    if (cp_instance.isArrayBuffer.answer) {
-      this.#question = models.TestCondition(this.value, "byteLength", n, "geq");
-    } else if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
-      this.#question = models.TestCondition(this.value, "length", n, "geq");
-    } else if (cp_instance.isObject.answer) {
-      this.#question = models.TestCondition(
-        Object.keys(cp_instance.value),
-        "length",
-        n,
-        "geq",
-      );
-    } else if (cp_instance.isSet.or.isMap.answer) {
-      this.#question = models.TestCondition(this.value, "size", n, "geq");
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @method has_length_lesser_than
    * @param {number} n
