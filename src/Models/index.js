@@ -3,10 +3,10 @@
 export { Benchmark } from "./Benchmark.js";
 export { CheckType } from "./CheckType.js";
 export {
-  ForAllArrayEdition,
-  ForAllMapEdition,
-  ForAllObjectEdition,
-  ForAllSetEdition,
+  ForEveryArrayEdition,
+  ForEveryMapEdition,
+  ForEveryObjectEdition,
+  ForEverySetEdition,
 } from "./ForAll.js";
 export {
   ForAnyArrayEdition,
