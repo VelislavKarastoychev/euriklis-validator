@@ -1561,15 +1561,13 @@ class validator {
 
   /**
    * Checks if the "value" property of the current validator
-   * instance has length or similar to it property which is
-   * equals to the "n" input parameter of the method.
+   * instance has a length-like property (e.g., length, byteLength, size)
+   * and if that property is equals to the specified value "n".
    *
-   * @param {number} n an integer number that
-   * describes the length of the array/string/Object
+   * @param {number} n - An integer value to compare with the length-like property.
    * @returns {validator} The updated validator instance
-   * with "answer" property set to true if the "value"
-   * property has length or similar to it property which
-   * is equal to the "n" parameter, false otherwise.
+   * with the "answer" property set to true if the "value" has a
+   * length-like property that is equals to the "n" parameter.
    */
   hasLength(n) {
     if (Number.isInteger(n)) n = Number(n);
@@ -1589,6 +1587,37 @@ class validator {
       this.#question = models.TestCondition(this.value, "size", n);
     } else this.#question = false;
 
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance has a length-like property (e.g., length, byteLength, size)
+   * and if that property is greater than the specified value "n".
+   *
+   * @param {number} n - An integer value to compare with the length-like property.
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value" has a
+   * length-like property that is greater than the "n" parameter.
+   */
+  hasLengthGreaterThan(n) {
+    if (Number.isInteger(n)) n = Number(n);
+    else errors.IncorrectArgumentInHasLengthBiggerThan(n);
+    let cp_instance = this.copy();
+    if (cp_instance.isArrayBuffer.answer) {
+      this.#question = models.TestCondition(this.value, "byteLength", n, "gt");
+    } else if (cp_instance.isArray.or.isTypedArray.isString.answer) {
+      this.#question = models.TestCondition(this.value, "length", n, "gt");
+    } else if (cp_instance.isObject.answer) {
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+        "gt",
+      );
+    } else if (cp_instance.isSet.or.isMap.answer) {
+      this.#question = models.TestCondition(this.value, "size", n, "gt");
+    } else this.#question = false;
     return this.#set_answer();
   }
 
@@ -1762,35 +1791,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method has_length_bigger_than
-   * @param {number} n
-   * @returns {validator}
-   * @description this method tests if a string or an array
-   * has length which is bigger than the integer number n.
-   * If the n is not integer, then the method will throw an
-   * error for incorrect argument.
-   */
-  has_length_bigger_than(n) {
-    if (Number.isInteger(n)) n = Number(n);
-    else errors.IncorrectArgumentInHasLengthBiggerThan(n);
-    let cp_instance = this.copy();
-    if (cp_instance.isArrayBuffer.answer) {
-      this.#question = models.TestCondition(this.value, "byteLength", n, "gt");
-    } else if (cp_instance.isArray.or.isTypedArray.isString.answer) {
-      this.#question = models.TestCondition(this.value, "length", n, "gt");
-    } else if (cp_instance.isObject.answer) {
-      this.#question = models.TestCondition(
-        Object.keys(cp_instance.value),
-        "length",
-        n,
-        "gt",
-      );
-    } else if (cp_instance.isSet.or.isMap.answer) {
-      this.#question = models.TestCondition(this.value, "size", n, "gt");
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @method has_length_equals_or_bigger_than
    * @param {number} n
