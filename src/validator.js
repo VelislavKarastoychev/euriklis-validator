@@ -1780,6 +1780,35 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator instance is empty,
+   * depending on the data type. For undefined or null values, it's considered empty.
+   * For arrays, array buffers, maps, objects, sets, strings, and typed arrays,
+   * it checks if the length or similar property is equal to 0.
+   *
+   * @throws {Error} If the "value" is an incorrect argument.
+   * @returns {validator} The updated validator instance with the "answer" property
+   * set to true if the "value" is empty according to its data type, false otherwise.
+   */
+  get isEmpty() {
+    const test = this.copy();
+    if (test.isUndefined.or.isNull.answer) {
+      this.#question = true;
+    } else if (
+      test
+        .isArray
+        .or.isArrayBuffer
+        .or.isMap
+        .or.isObject
+        .or.isSet
+        .or.isString
+        .or.isTypedArray
+    ) this.#question = test.hasLength(0).answer;
+    else errors.IncorrectArgumentInIsEmpty();
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
    * instance is function, then the method executes the
@@ -1840,33 +1869,6 @@ class validator {
     return this;
   }
 
-  /**
-   * @method is_empty()
-   * @returns {validator}
-   * @description this method checks if the value
-   * property of the current validator instance is
-   * an empty object or an empty array or a empty
-   * string or is an undefined type.
-   */
-  get isEmpty() {
-    const test = this.copy();
-    if (test.isUndefined.answer) {
-      this.#question = true;
-    } else {
-      if (
-        test
-          .isArray
-          .or.isArrayBuffer
-          .or.isMap
-          .or.isObject
-          .or.isSet
-          .or.isString
-          .or.isTypedArray
-      ) this.#question = test.has_length(0).answer;
-      else errors.IncorrectArgumentInIsEmpty();
-    }
-    return this.#set_answer();
-  }
   /**
    * @method for_all
    * @param {function(validator, number | string)} callback
