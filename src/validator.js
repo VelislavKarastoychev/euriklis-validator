@@ -1519,7 +1519,43 @@ class validator {
    */
   get isError() {
     this.#question = models.CheckType(this.value, "Error");
-    
+
+    return this.#set_answer();
+  }
+
+  // Higher order utility methods.
+  // Implementation of methods which
+  // are realated with more than one
+  // data types or classes and which
+  // allows as to extract information
+  // for properties of generalized and
+  // abstract objects.
+  // The methods which we will be implemented
+  // are isInstanceOf, hasLength, hasLengthLessThan,
+  // hasLengthGreaterThan, hasLengthLessThanOrEqualTo,
+  // hasLengthGreaterThanOrEqualTo, hasLengthInRange,
+  // hasLengthInClosedRange, isEmpty (may be applied
+  // on different data types as strings, arrays, objects,
+  // array buffers, typed arrays, sets and maps among all),
+  // forEvery, forAny, isArrayAndForEvery, isArrayAndForAny,
+  // contains, isSame, isSameWithAnyOf methods etc.
+
+  /**
+   * Checks if the current validator value is instanceof
+   * the "instance" parameter. The "instance" can be
+   * defined with its constructor or as a string, equal
+   * to the name of the instance type.
+   *
+   * @param {InstanceType | string} instance
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * instance of the "instance" parameter, false otherwise.
+   */
+  isInstanceof(instance) {
+    if (models.IsInstanceType(instance)) {
+      this.#question = models.IsInstanceof(this.value, instance);
+    } else errors.IncorrectArgumentInIsInstanceof();
+
     return this.#set_answer();
   }
 
@@ -1582,19 +1618,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-
-  /**
-   * Checks if the current validator value is instanceof
-   * the "instance" parameter.
-   * @param {InstanceType} instance
-   * @returns {validator}
-   */
-  is_instanceof(instance) {
-    if (models.IsInstanceType(instance)) {
-      this.#question = models.IsInstanceof(this.value, instance);
-    } else errors.IncorrectArgumentInIsInstanceof();
-    return this.#set_answer();
   }
 
   /**
