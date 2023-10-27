@@ -1925,17 +1925,17 @@ class validator {
   }
 
   /**
-   * Checks if the current validator instance's value 
-   * is an array and if a given callback function returns 
+   * Checks if the current validator instance's value
+   * is an array and if a given callback function returns
    * a truthy result for at least one element in the array.
    *
-   * @param {function(validator, number | string): validator} callback - A 
-   * function that takes a validator instance and an optional 
+   * @param {function(validator, number | string): validator} callback - A
+   * function that takes a validator instance and an optional
    * key or index and returns a validator instance.
    * @throws {Error} If the "callback" parameter is not a function.
-   * @returns {validator} The updated validator instance 
-   * with the "answer" property set to true if the current 
-   * instance's value is an array and the callback function 
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the current
+   * instance's value is an array and the callback function
    * returns "truthy" for at least one element, false otherwise.
    */
   isArrayAndForAny(callback) {
@@ -1946,6 +1946,50 @@ class validator {
       this.#question = models.ForAnyArrayEdition(this.value, callback);
     } else this.#question = false;
 
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property the current
+   * validator instance is equals to (same with)
+   * the "param" argument of the method.
+   *
+   * @param {any} param
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * same with the "param" argument of the method.
+   */
+  isSame(param) {
+    let param_type = new validator(param);
+    this.#question = false;
+    if (param_type.isString.or.isNumber.or.isPrimitiveType.answer) {
+      this.#question = this.value === param;
+    }
+    if (
+      param_type.copy()
+        .isArray
+        .or.isObject
+        .answer
+    ) {
+      this.#question = JSON.stringify(this.value) === JSON.stringify(param);
+    }
+    if (param_type.copy().isFunction.answer) {
+      this.#question = this.value.toString() === param.toString();
+    }
+    if (
+      this.copy().isUndefined.answer &&
+      param_type.copy().isUndefined.answer
+    ) {
+      this.#question = true;
+    }
+    if (
+      this.copy().isBoolean.answer && param_type.copy().isBoolean.answer
+    ) {
+      this.#question = this.value === param_type.value;
+    }
+    if (param_type.value === null) {
+      this.#question = param_type.value === this.value;
+    }
     return this.#set_answer();
   }
 
@@ -2043,47 +2087,7 @@ class validator {
     } else this.#question = false;
     return this.#set_answer();
   }
-  /**
-   * @method is_same(param)
-   * @param {String | Number | Array | Object | boolean} param
-   * @returns {validator}
-   * @description This method checks if the
-   * current value of the validator constructor
-   * is equal to the param argument of the method.
-   */
-  is_same(param) {
-    let param_type = new validator(param);
-    this.#question = false;
-    if (param_type.is_string().or.is_number().answer) {
-      this.#question = this.value === param;
-    }
-    if (
-      param_type.copy()
-        .is_array()
-        .or.is_object()
-        .answer
-    ) {
-      this.#question = JSON.stringify(this.value) === JSON.stringify(param);
-    }
-    if (param_type.copy().is_function().answer) {
-      this.#question = this.value.toString() === param.toString();
-    }
-    if (
-      this.copy().is_undefined().answer &&
-      param_type.copy().is_undefined().answer
-    ) {
-      this.#question = true;
-    }
-    if (
-      this.copy().is_boolean().answer && param_type.copy().is_boolean().answer
-    ) {
-      this.#question = this.value === param_type.value;
-    }
-    if (param_type.value === null) {
-      this.#question = param_type.value === this.value;
-    }
-    return this.#set_answer();
-  }
+
   /**
    * @method is_same_with_any
    * @param {Array} arr_param an array
