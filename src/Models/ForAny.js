@@ -1,126 +1,136 @@
 "use strict";
 import validator from "../validator.js";
+
 /**
- * Utility function used in the implementation of the
- * for_any method.
- * @param {Array} value
- * @param {function(any, number):validator} callback
- * @returns {boolean}
- **/
+ * Implementation of the forAny method
+ * when the "value" property of the current
+ * validator instance is an array.
+ *
+ * @param {any} value - The "value" property
+ * of the current validator instance.
+ * @param {function(validator, number): validator} callback - A
+ * function that takes a validator instance and an optional key
+ * or index and returns a validator instance.
+ *
+ * @returns {boolean} True if the callback function returns
+ * a "truthy" validator instance for any element in the array,
+ * false otherwise.
+ */
 export const ForAnyArrayEdition = (value, callback) => {
-  let i, j, question = false;
   const n = value.length;
+  const v = new validator();
+  let i, j;
+
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (callback(new validator(value[j]), j).answer) {
-      question = true;
-      break;
-    }
-    ++j;
-    if (callback(new validator(value[j]), j).answer) {
-      question = true;
-      break;
-    }
-    ++j;
-    if (callback(new validator(value[j]), j).answer) {
-      question = true;
-      break;
-    }
-    ++j;
-    if (callback(new validator(value[j]), j).answer) {
-      question = true;
-      break;
-    }
+    if (
+      (v.reset(), v.value = value[j], callback(v, j).answer) ||
+      (v.reset(), v.value = value[j + 1], callback(v, j + 1).answer) ||
+      (v.reset(), v.value = value[j + 2], callback(v, j + 2).answer) ||
+      (v.reset(), v.value = value[j + 3], callback(v, j + 3).answer)
+    ) return true;
   }
-  if (n % 4 >= 3 && !question) {
-    j = n - 3;
-    question = callback(new validator(value[j]), j).answer;
+
+  j = i << 2;
+  for (; j < n; j++) {
+    if (v.reset(), v.value = value[j], callback(v, j).answer) return true;
   }
-  if (n % 4 >= 2 && !question) {
-    j = n - 2;
-    question = callback(new validator(value[j]), j).answer;
-  }
-  if (n % 4 >= 1 && !question) {
-    j = n - 1;
-    question = callback(new validator(value[j]), j).answer;
-  }
-  return question;
+
+  return false;
 };
+
 /**
- * Utility function used in the for_any method.
- * @param {Object} value
- * @param {function(any, number | string):validator} callback
- * @returns {boolean}
- **/
+ * Implementation of the forAny method
+ * when the "value" property of the current
+ * validator instance is an object.
+ *
+ * @param {any} value - The "value" property
+ * of the current validator instance.
+ * @param {function(validator, number): validator} callback - A
+ * function that takes a validator instance and an optional key
+ * or index and returns a validator instance.
+ *
+ * @returns {boolean} True if the callback function returns
+ * a "truthy" validator instance for any value of the object,
+ * false otherwise.
+ */
 export const ForAnyObjectEdition = (value, callback) => {
-  let i, j, question = false;
+  let i, j;
   const keys = Object.keys(value);
   const n = keys.length;
+  const v = new validator();
+
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
-    if (callback(new validator(value[keys[j]]), j).answer) {
-      question = true;
-      break;
-    }
-    ++j;
-    if (callback(new validator(value[keys[j]]), j).answer) {
-      question = true;
-      break;
-    }
-    ++j;
-    if (callback(new validator(value[keys[j]]), j).answer) {
-      question = true;
-      break;
-    }
-    ++j;
-    if (callback(new validator(value[keys[j]]), j).answer) {
-      question = true;
-      break;
+    if (
+      (v.reset(), v.value = value[keys[j]], callback(v, keys[j]).answer) ||
+      (v.reset(),
+        v.value = value[keys[j + 1]],
+        callback(v, keys[j + 1]).answer) ||
+      (v.reset(),
+        v.value = value[keys[j + 2]],
+        callback(v, keys[j + 2]).answer) ||
+      (v.reset(), v.value = value[keys[j + 3]], callback(v, keys[j + 3]).answer)
+    ) return true;
+  }
+
+  j = i << 2;
+  for (; j < n; j++) {
+    if (v.reset(), v.value = value[keys[j]], callback(v, keys[j]).answer) {
+      return true;
     }
   }
-  if (n % 4 >= 3 && !question) {
-    j = n - 3;
-    question = callback(new validator(value[keys[j]]), j).answer;
-  }
-  if (n % 4 >= 2 && !question) {
-    j = n - 2;
-    question = callback(new validator(value[keys[j]]), j).answer;
-  }
-  if (n % 4 >= 1 && !question) {
-    j = n - 1;
-    question = callback(new validator(value[keys[j]]), j).answer;
-  }
-  return question;
+
+  return false;
 };
+
 /**
- * Utility function which is used in the implementation of
- * the for_any method.
- * @param {Set} value
- * @param {function(validator):validator} callback
- * @returns {boolean}
- **/
+ * Implementation of the forAny method
+ * when the "value" property of the current
+ * validator instance is a set.
+ *
+ * @param {any} value - The "value" property
+ * of the current validator instance.
+ * @param {function(validator, number): validator} callback - A
+ * function that takes a validator instance and an optional key
+ * or index and returns a validator instance.
+ *
+ * @returns {boolean} True if the callback function returns
+ * a "truthy" validator instance for any element in the set,
+ * false otherwise.
+ */
 export const ForAnySetEdition = (value, callback) => {
-  let question = false;
+  const v = new validator();
+  let index = 0;
+
   for (const element of value) {
-    if (callback(new validator(element)).answer) {
-      return !question;
-    }
+    if (v.reset(), v.value = element, callback(v, index++).answer) return true;
   }
-  return question;
+
+  return false;
 };
+
 /**
- * Utility function which is used in the implementation of
- * for_any method.
- * @param {Map} map
- * @param {function(validator, string | number):validator} callback
- * @returns {boolean}
- **/
+ * Implementation of the forAny method
+ * when the "value" property of the current
+ * validator instance is a map.
+ *
+ * @param {any} value - The "value" property
+ * of the current validator instance.
+ * @param {function(validator, number): validator} callback - A
+ * function that takes a validator instance and an optional key
+ * or index and returns a validator instance.
+ *
+ * @returns {boolean} True if the callback function returns
+ * a "truthy" validator instance for any element in the map,
+ * false otherwise.
+ */
 export const ForAnyMapEdition = (map, callback) => {
-  let question = false;
+  const v = new validator();
+
   for (const [key, value] of map) {
-    if (callback(new validator(value), key).answer) {
-      return !question;
-    }
+    if (v.reset(), v.value = value, callback(v, key).answer) return true;
   }
-  return question;
+
+  return false;
 };
