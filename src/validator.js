@@ -1666,7 +1666,7 @@ class validator {
    */
   hasLengthLessThan(n) {
     if (Number.isInteger(n)) n = Number(n);
-    else errors.IncorrectArgumentInHasLengthEqualsOrBiggerThan(n);
+    else errors.IncorrectArgumentInHasLengthLesserThan(n);
     let cp_instance = this.copy();
     if (cp_instance.isArrayBuffer.answer) {
       this.#question = models.TestCondition(this.value, "byteLength", n, "lt");
@@ -1686,6 +1686,29 @@ class validator {
     return this.#set_answer();
   }
 
+   hasLengthEqualsOrLessThan(n) {
+    if (Number.isInteger(n)) n = Number(n);
+    else errors.IncorrectArgumentInHasLengthEqualsOrLesserThan();
+    let cp_instance = this.copy();
+    if (cp_instance.isArrayBuffer.answer) {
+      this.#question = models.TestCondition(this.value, "byteLength", n, "leq");
+    } else if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
+      this.#question = models.TestCondition(this.value, "length", n, "leq");
+    } else if (cp_instance.isObject.answer) {
+      this.#question = models.TestCondition(
+        Object.keys(cp_instance.value),
+        "length",
+        n,
+        "leq",
+      );
+    } else if (cp_instance.isSet.or.isMap.answer) {
+      this.#question = models.TestCondition(this.value, "size", n, "leq");
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  
   /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
@@ -1856,26 +1879,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * @method has_length_equals_or_lesser_than
-   * @param {number} n
-   * @returns {validator}
-   * @description this method tests if the current value
-   * of the validator instance is string or array with
-   * length which is equals or lesser than n. If n is
-   * not integer, then an error message will be thrown.
-   */
-  has_length_equals_or_lesser_than(n) {
-    if (Number.isInteger(n)) n = Number(n);
-    else errors.IncorrectArgumentInHasLengthEqualsOrLesserThan();
-    let cp_instance = this.copy();
-    if (cp_instance.isArray.or.isString.answer) {
-      this.#question = this.value.length <= n;
-    } else if (cp_instance.isObject.answer) {
-      this.#question = Object.keys(cp_instance.value).length <= n;
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   has_length_in_range(a, b) {
     if (Number.isInteger(a) && Number.isInteger(b)) {
       a = Number(a);
