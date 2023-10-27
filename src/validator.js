@@ -1809,6 +1809,46 @@ class validator {
   }
 
   /**
+   * Iterates over the elements of the "value" property of the current validator instance,
+   * applying the provided callback function to each element. The callback function should
+   * return a validator instance. This method returns true if the callback function returns
+   * a "truthy" validator instance for all elements in the value, false otherwise.
+   *
+   * @param {function(validator, number | string): validator} callback - A function that
+   * takes a validator instance and an optional key or index and returns a validator instance.
+   *
+   * @example
+   * let a = new validator([12, 32, 998.3, 89, 0.9839])
+   *     .forEvery(element => {
+   *         return element.isFloat();
+   *     });
+   * console.log(a.answer) // true
+   *
+   * @throws {Error} If the "callback" parameter is not a function.
+   *
+   * @returns {validator} The updated validator instance with the "answer" property set to true
+   * if the callback function returns "truthy" validator instances for all elements, false otherwise.
+   */
+  forEvery(callback) {
+    // initialization
+    const val = this.copy();
+    const callback_val = new validator(callback);
+    if (callback_val.not.isFunction.answer) {
+      errors.IncorrectFunctionArgumentInForAll();
+    }
+    if (val.isArray.and.not.isEmpty.answer) {
+      this.#question = models.ForEveryArrayEdition(val.value, callback);
+    } else if (val.isObject.and.not.isEmpty) {
+      this.#question = models.ForEveryObjectEdition(val.value, callback);
+    } else if (val.isSet.and.not.isEmpty.answer) {
+      this.#question = models.ForEverySetEdition(val.value, callback);
+    } else if (val.isMap.and.not.isEmpty.answer) {
+      this.#question = models.ForEveryMapEdition(this.value, callback);
+    } else this.#question = false;
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
    * instance is function, then the method executes the
@@ -1869,40 +1909,6 @@ class validator {
     return this;
   }
 
-  /**
-   * @method for_all
-   * @param {function(validator, number | string)} callback
-   * @description This method can
-   * be active if and only if the
-   * this.value is of type arraiiiiiiiiiiiiiiiiiiiiiiikkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkjy
-   * or object. The callback is a
-   * function with argument that is
-   * of validator type (instance).
-   * @example
-   * let a = new validator([12, 32, 998.3, 89, 0.9839])
-   *     .for_all(elements => {
-   *         return elements.is_float()
-   *     })
-   * console.log(a.answer) // true
-   */
-  for_all(callback) {
-    // initialization
-    const val = this.copy();
-    const callback_val = new validator(callback);
-    if (callback_val.not.isFunction.answer) {
-      errors.IncorrectFunctionArgumentInForAll();
-    }
-    if (val.isArray.and.not.isEmpty.answer) {
-      this.#question = models.ForAllArrayEdition(val.value, callback);
-    } else if (val.isObject.and.not.isEmpty) {
-      this.#question = models.ForAllObjectEdition(val.value, callback);
-    } else if (val.isSet.and.not.isEmpty.answer) {
-      this.#question = models.ForAllSetEdition(val.value, callback);
-    } else if (val.isMap.and.not.isEmpty.answer) {
-      this.#question = models.ForAllMapEdition(this.value, callback);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
   /**
    * @method for_any
    * @param {function(validator, number | string)} callback
