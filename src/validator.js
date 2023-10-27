@@ -1848,17 +1848,6 @@ class validator {
    * an empty object or an empty array or a empty
    * string or is an undefined type.
    */
-  is_empty() {
-    return this.isEmpty;
-  }
-  /**
-   * @method is_empty()
-   * @returns {validator}
-   * @description this method checks if the value
-   * property of the current validator instance is
-   * an empty object or an empty array or a empty
-   * string or is an undefined type.
-   */
   get isEmpty() {
     const test = this.copy();
     if (test.isUndefined.answer) {
