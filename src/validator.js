@@ -1565,6 +1565,7 @@ class validator {
    * and if that property is equals to the specified value "n".
    *
    * @param {number} n - An integer value to compare with the length-like property.
+   * @throws {Error} if the "n" parameter is not an integer number.
    * @returns {validator} The updated validator instance
    * with the "answer" property set to true if the "value" has a
    * length-like property that is equals to the "n" parameter.
@@ -1596,6 +1597,7 @@ class validator {
    * and if that property is greater than the specified value "n".
    *
    * @param {number} n - An integer value to compare with the length-like property.
+   * @throws {Error} if "n" parameter is not an integer number.
    * @returns {validator} The updated validator instance
    * with the "answer" property set to true if the "value" has a
    * length-like property that is greater than the "n" parameter.
@@ -1628,6 +1630,7 @@ class validator {
    * and if that property is equal to or greater than the specified value "n".
    *
    * @param {number} n - An integer value to compare with the length-like property.
+   * @throws {Error} if "n" parameter is not an integer number.
    * @returns {validator} The updated validator instance
    * with the "answer" property set to true if the "value" has a
    * length-like property that is equal to or greater than the "n" parameter.
@@ -1660,6 +1663,7 @@ class validator {
    * and if that property is less than the specified value "n".
    *
    * @param {number} n - An integer value to compare with the length-like property.
+   * @throws {Error} if "n" parameter is not an integer number.
    * @returns {validator} The updated validator instance
    * with the "answer" property set to true if the "value" has a
    * length-like property that is less than the "n" parameter.
@@ -1686,7 +1690,7 @@ class validator {
     return this.#set_answer();
   }
 
-   hasLengthEqualsOrLessThan(n) {
+  hasLengthEqualsOrLessThan(n) {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLengthEqualsOrLesserThan();
     let cp_instance = this.copy();
@@ -1708,7 +1712,6 @@ class validator {
     return this.#set_answer();
   }
 
-  
   /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
