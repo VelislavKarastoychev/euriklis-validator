@@ -1690,6 +1690,17 @@ class validator {
     return this.#set_answer();
   }
 
+  /**
+   * Checks if the "value" property of the current validator
+   * instance has a length-like property (e.g., length, byteLength, size)
+   * and if that property is equal to or less than the specified value "n".
+   *
+   * @param {number} n - An integer value to compare with the length-like property.
+   * @throws {TypeError} If the "n" parameter is not an integer number.
+   * @returns {validator} The updated validator instance
+   * with the "answer" property set to true if the "value" has a
+   * length-like property that is equal to or less than the "n" parameter.
+   */
   hasLengthEqualsOrLessThan(n) {
     if (Number.isInteger(n)) n = Number(n);
     else errors.IncorrectArgumentInHasLengthEqualsOrLesserThan();
