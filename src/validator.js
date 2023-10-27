@@ -1510,15 +1510,19 @@ class validator {
   }
 
   /**
-   * Implements the is_error() method or as getter isError.
-   * If the current "value" property is of Error type and this error is not thrown,
-   * then the method sets the answer property to true accounting the other constraints.
-   * @returns {validator} the updated validator property.
+   * Checks if the "value" property of the current validator
+   * instance is an Error object.
+   *
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * an Error object in JavaScript, false otherwise.
    */
   get isError() {
     this.#question = models.CheckType(this.value, "Error");
+    
     return this.#set_answer();
   }
+
   /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
