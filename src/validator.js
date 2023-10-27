@@ -1724,6 +1724,62 @@ class validator {
   }
 
   /**
+   * Checks if the "value" property of the current validator
+   * instance has a length-like property (e.g., length) that falls within
+   * the specified open range defined by "a" and "b".
+   *
+   * @param {number} a - An integer representing the lower bound of the range.
+   * @param {number} b - An integer representing the upper bound of the range.
+   * @throws {TypeError} If either "a" or "b" is not an integer, or if "a" is greater than or equal to "b".
+   * @returns {validator} The updated validator instance with the "answer" property
+   * set to true if the length-like property is within the open range (a < length < b),
+   * false otherwise.
+   */
+  hasLengthInRange(a, b) {
+    if (Number.isInteger(a) && Number.isInteger(b)) {
+      a = Number(a);
+      b = Number(b);
+      if (a >= b) errors.IncorrectArgumentsInHasLengthInRange();
+    } else errors.IncorrectArgumentsInHasLengthInRange();
+    let cp_instance = this.copy();
+    if (cp_instance.isArray.or.isString.answer) {
+      this.#question = this.value.length > a && this.value.length < b;
+    } else if (cp_instance.isObject.answer) {
+      const len = Object.keys(cp_instance.value).length;
+      this.#question = len > a && len < b;
+    } else this.#question = false;
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current validator
+   * instance has a length-like property (e.g., length) that falls within
+   * the specified closed range defined by "a" and "b".
+   *
+   * @param {number} a - An integer representing the lower bound of the closed range.
+   * @param {number} b - An integer representing the upper bound of the closed range.
+   * @returns {validator} The updated validator instance with the "answer" property
+   * set to true if the length-like property is within the closed range (a ≤ length ≤ b),
+   * false otherwise.
+   * @throws {TypeError} If either "a" or "b" is not an integer, or if "a" is greater than or equal to "b".
+   */
+  hasLengthInClosedRange(a, b) {
+    if (Number.isInteger(a) && Number.isInteger(b)) {
+      a = Number(a);
+      b = Number(b);
+      if (a >= b) errors.IncorrectArgumentsInHasLengthInClosedRange();
+    } else errors.IncorrectArgumentsInHasLengthInClosedRange();
+    let cp_instance = this.copy();
+    if (cp_instance.isArray.or.isString.answer) {
+      this.#question = this.value.length >= a && this.value.length <= b;
+    } else if (cp_instance.isObject.answer) {
+      const len = Object.keys(cp_instance.value).length;
+      this.#question = len >= a && len <= b;
+    } else this.#question = false;
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
    * instance is function, then the method executes the
@@ -1889,37 +1945,6 @@ class validator {
       this.#question = models.ForAnySetEdition(this.value, callback);
     } else if (val.isMap.and.not.isEmpty.answer) {
       this.#question = models.ForAnyMapEdition(this.value, callback);
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-
-  has_length_in_range(a, b) {
-    if (Number.isInteger(a) && Number.isInteger(b)) {
-      a = Number(a);
-      b = Number(b);
-      if (a >= b) errors.IncorrectArgumentsInHasLengthInRange();
-    } else errors.IncorrectArgumentsInHasLengthInRange();
-    let cp_instance = this.copy();
-    if (cp_instance.isArray.or.isString.answer) {
-      this.#question = this.value.length > a && this.value.length < b;
-    } else if (cp_instance.isObject.answer) {
-      const len = Object.keys(cp_instance.value).length;
-      this.#question = len > a && len < b;
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-  has_length_in_closed_range(a, b) {
-    if (Number.isInteger(a) && Number.isInteger(b)) {
-      a = Number(a);
-      b = Number(b);
-      if (a >= b) errors.IncorrectArgumentsInHasLengthInClosedRange();
-    } else errors.IncorrectArgumentsInHasLengthInClosedRange();
-    let cp_instance = this.copy();
-    if (cp_instance.isArray.or.isString.answer) {
-      this.#question = this.value.length >= a && this.value.length <= b;
-    } else if (cp_instance.isObject.answer) {
-      const len = Object.keys(cp_instance.value).length;
-      this.#question = len >= a && len <= b;
     } else this.#question = false;
     return this.#set_answer();
   }
