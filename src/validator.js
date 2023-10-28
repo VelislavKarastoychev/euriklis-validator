@@ -2075,14 +2075,14 @@ class validator {
     const isInstanceArray = cp.isArray.or.isTypedArray.answer;
     if (isInstanceArray) {
       if (elementsValidator.isArray.or.isTypedArray.or.isSet.answer) {
-        this.#question = cp.for_all((item) => {
-          const ans = elementsValidator.for_any((element) => {
-            return element.is_same(item.value);
+        this.#question = cp.forEvery((item) => {
+          const ans = elementsValidator.forAny((element) => {
+            return element.isSame(item.value);
           });
           return ans;
         }).answer;
       } else {
-        this.#question = cp.for_any((item) => item.is_same(elements)).answer;
+        this.#question = cp.forAny((item) => item.isSame(elements)).answer;
       }
     } else this.#question = false;
     return this.#set_answer();
@@ -2105,7 +2105,7 @@ class validator {
    */
   is_same_with_any(arr_param) {
     let q, n, i = 0, ans;
-    new validator(arr_param).is_array()
+    new validator(arr_param).isArray
       .on(false, () => {
         q = false;
       }).on(true, () => {
@@ -2113,7 +2113,7 @@ class validator {
         while (1) {
           if (i === n) break;
           else {
-            q = this.copy().is_same(arr_param[i]).answer;
+            q = this.copy().isSame(arr_param[i]).answer;
             if (q) break;
             else i += 1;
           }
@@ -2166,22 +2166,22 @@ class validator {
    *     }).answer // true
    */
   interface2(params) {
-    new validator(params).is_object().and
-      .bind(this.copy().is_object())
+    new validator(params).isObject.and
+      .bind(this.copy().isObject)
       .on(false, () => this.#question = false)
       .on(true, () => {
-        new validator(Object.keys(params)).not().is_empty()
+        new validator(Object.keys(params)).not.isEmpty
           .and.bind(
-            new validator(Object.values(params)).not()
-              .for_any((parameter) => {
-                return parameter.not().is_function();
+            new validator(Object.values(params)).not
+              .forAny((parameter) => {
+                return parameter.not.isFunction;
               }),
           )
           .on(true, () => {
             for (let key of Object.keys(params)) {
               this.#question =
                 params[key](new validator(this.value[key])).answer;
-              new validator(this.#question).not().is_boolean()
+              new validator(this.#question).not.isBoolean
                 .on(true, () => errors.IncorrectArgumentsInInterface2());
               if (this.#question) continue;
               else break;
@@ -2212,9 +2212,9 @@ class validator {
       .not
       .isBoolean
       .and.not
-      .is_same("true")
+      .isSame("true")
       .and.not
-      .is_same("false")
+      .isSame("false")
       .answer;
     let incorrectFunction = new validator(callback)
       .not.isFunction
