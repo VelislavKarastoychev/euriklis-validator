@@ -2004,10 +2004,10 @@ class validator {
    * @returns {validator} the current validator with "value" property
    * which is equals to the result of the previous "value" property.
    */
-  throws_error_with(...params) {
+  throwsErrorWith(...params) {
     let value = null;
     try {
-      value = this.copy().execute_with(...params).value;
+      value = this.copy().executeWith(...params).value;
     } catch (error) {
       value = error;
     }
@@ -2030,7 +2030,7 @@ class validator {
    * @param {...any} params
    * @returns {validator}
    */
-  execute_with(...params) {
+  executeWith(...params) {
     if (this.copy().isFunction.answer) {
       try {
         this.#value = this.copy().value(...params);
