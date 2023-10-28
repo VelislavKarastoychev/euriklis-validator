@@ -2239,11 +2239,8 @@ class validator {
    * the returned validator instance to true or false
    * respectively.
    */
-  is_date() {
-    let cp = this.copy();
-    if (cp.value instanceof Date || cp.value.toString() === "[object Date]") {
-      this.#question = true;
-    } else this.#question = false;
+  get isDate() {
+    this.#question = models.CheckType(this.value, "Date");
     return this.#set_answer();
   }
 
