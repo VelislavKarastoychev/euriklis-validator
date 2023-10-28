@@ -2103,7 +2103,7 @@ class validator {
    * contains more than one times the given parameter
    * this could not be verified with this method.
    */
-  is_same_with_any(arr_param) {
+  isSameWithAny(arr_param) {
     let q, n, i = 0, ans;
     new validator(arr_param).isArray
       .on(false, () => {
