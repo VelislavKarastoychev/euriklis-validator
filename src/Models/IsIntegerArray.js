@@ -13,10 +13,11 @@ export const IsIntegerArray = (value) => {
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
-      (typeof value[j] !== "number" || !Number.isInteger(value[j]))(
-        typeof value[j + 1] !== "number" || !Number.isInteger(value[j + 1]),
-      )(typeof value[j + 2] !== "number" || !Number.isInteger(value[j + 2]))(
-        typeof value[j + 3] !== "number" || !Number.isInteger(value[j + 3]),
+      (typeof value[j] !== "number" || !Number.isInteger(value[j])) || (
+        typeof value[j + 1] !== "number" || !Number.isInteger(value[j + 1])
+      ) ||
+      (typeof value[j + 2] !== "number" || !Number.isInteger(value[j + 2])) || (
+        typeof value[j + 3] !== "number" || !Number.isInteger(value[j + 3])
       )
     ) {
       return false;
