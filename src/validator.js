@@ -1950,26 +1950,26 @@ class validator {
   }
 
   /**
-   * Define an interface for validating 
-   * properties of the current validator 
+   * Define an interface for validating
+   * properties of the current validator
    * instance's object value.
-   * This method works when the "value" 
-   * property is an object. It accepts 
-   * functions as values in the object 
+   * This method works when the "value"
+   * property is an object. It accepts
+   * functions as values in the object
    * argument.
-   * Use this method to define an interface 
-   * for validating the properties of the 
-   * current validator instance's object value. 
-   * Each property in the object argument 
-   * represents a property in the object, 
-   * and the associated function should 
+   * Use this method to define an interface
+   * for validating the properties of the
+   * current validator instance's object value.
+   * Each property in the object argument
+   * represents a property in the object,
+   * and the associated function should
    * validate that property.
 
-   * @param {Object<string, function(validator): validator>} params - An 
-   * object where keys represent properties 
-   * of the object and values are functions. 
-   * The function argument is assumed to be 
-   * a validator instance corresponding to 
+   * @param {Object<string, function(validator): validator>} params - An
+   * object where keys represent properties
+   * of the object and values are functions.
+   * The function argument is assumed to be
+   * a validator instance corresponding to
    * the property and should return a validator.
    * @example
    * const user = {
@@ -1987,9 +1987,9 @@ class validator {
    *
    * console.log(interfaceValidator.answer); // true (if all properties pass validation)
    *
-   * @returns {validator} A new validator 
-   * instance with the "answer" property 
-   * set to true if all property validations 
+   * @returns {validator} A new validator
+   * instance with the "answer" property
+   * set to true if all property validations
    * pass, or false if any validation fails.
    */
   interface(params) {
