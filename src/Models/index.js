@@ -71,4 +71,5 @@ export { IsUint32Array } from "./IsUint32Array.js";
 export { IsUint8Array } from "./IsUint8Array.js";
 export { IsUint8ClampedArray } from "./IsUint8ClampedArray.js";
 export { IsUndefined } from "./IsUndefined.js";
+export { IsValidEmail } from "./IsValidEmail.js";
 export { TestCondition } from "./TestCondition.js";
