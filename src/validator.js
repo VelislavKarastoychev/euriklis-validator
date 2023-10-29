@@ -2128,6 +2128,50 @@ class validator {
   }
 
   /**
+   * @callback eventCallback
+   * @param {validator} value - the current validator property.
+   */
+
+  /**
+   * Executes a callback function depending on
+   * the state ("answer") of the current validator
+   * instance.
+   *
+   * @param {boolean} state - The expected state.
+   * @param {eventCallback} callback - The
+   * function to be executed when the "answer"
+   * property matches the specified state.
+   * @example
+   * const numberValidator = new validator(42);
+   * numberValidator.isInteger.and.isLessThan(50).on(true, (v) => {
+   *   console.log(`The number ${v.value} is a n integer and is less than 50!`);
+   *   v.value = 0; // avoid to make this!
+   * });
+   *
+   * @returns {validator} The current validator instance.
+   * It remains unchanged if the callback doesn't modify it.
+   */
+  on(state, callback) {
+    let incorrectState = new validator(state)
+      .not.isBoolean.and.not.isSame("true")
+      .and.not.isSame("false").answer;
+    let incorrectFunction = new validator(callback)
+      .not.isFunction.answer;
+
+    if (!incorrectState && !incorrectFunction) {
+      if (state === this.answer) {
+        callback(this);
+      }
+    } else if (incorrectFunction) {
+      if (this.show_warnings) warnings.IncorrectFunctionInOnMethod();
+    } else if (incorrectState) {
+      if (this.show_warnings) warnings.IncorrectStateInOnMethod();
+    }
+
+    return this;
+  }
+
+  /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
    * instance is function, then the method executes the
@@ -2188,44 +2232,6 @@ class validator {
     return this;
   }
 
-  /**
-   * @callback eventCallback
-   * @param {validator} value - the current validator property.
-   */
-  /**
-   * @method on()
-   * @param {boolean} state - true or false
-   * @param {eventCallback} callback
-   * the function that will be run when the condition of the
-   * answer property has value equals to state.
-   * @returns {validator}
-   * @description This method is very significant for the
-   * library. It execute a function recorded in the input
-   * argument callback when the answer property is in state.
-   */
-  on(state, callback) {
-    let incorrectState = new validator(state)
-      .not
-      .isBoolean
-      .and.not
-      .isSame("true")
-      .and.not
-      .isSame("false")
-      .answer;
-    let incorrectFunction = new validator(callback)
-      .not.isFunction
-      .answer;
-    if (!incorrectState && !incorrectFunction) {
-      if (state === this.answer) {
-        callback(this);
-      }
-    } else if (incorrectFunction) {
-      if (this.show_warnings) warnings.IncorrectFunctionInOnMethod();
-    } else if (incorrectState) {
-      if (this.show_warnings) warnings.IncorrectStateInOnMethod();
-    }
-    return this;
-  }
   /**
    * @method is_date()
    * @returns {validator}
