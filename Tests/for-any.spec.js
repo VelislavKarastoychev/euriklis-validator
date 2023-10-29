@@ -2,11 +2,11 @@
 import validator from "../index.js";
 import { print, matrix } from "./data.js";
 new validator(matrix)
-  .for_any((v) => {
-    return v.is_array_of_numbers_in_range(0, 1);
+  .forAny((v) => {
+    return v.isArrayOfNumbersInRange(0, 1);
   }).on(true, (v) => {
     const t1 = v.benchmark((n) =>
-      new validator(n).for_any((k) => k.is_array_of_numbers_in_range(0, 1))
+      new validator(n).forAny((k) => k.isArrayOfNumbersInRange(0, 1))
         .answer, 1000
     );
     const t2 = v.benchmark((m) => {
@@ -20,6 +20,6 @@ new validator(matrix)
         })
         : false;
     });
-    print('for_any', t1, t2);
+    print('for any', t1, t2);
   });
 
