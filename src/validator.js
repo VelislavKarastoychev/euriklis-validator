@@ -2233,15 +2233,24 @@ class validator {
   }
 
   /**
-   * Implements the throwsError method.
-   * If the "value" property of the current validator
-   * instance is function, then the method executes the
-   * function with arguments the inserted parameters in the
-   * method. It is good practice to use the copy method before
-   * this method.
-   * @param {...any} params
-   * @returns {validator} the current validator with "value" property
-   * which is equals to the result of the previous "value" property.
+   * Execute the current validator's "value"
+   * function with the specified parameters.
+   * If the "value" property is a function,
+   * the method executes it with the provided parameters.
+   * 
+   * The `throwsErrorWith` method executes
+   * the  "value" function and checks whether
+   * it throws an error.
+   *
+   * It is recommended to use the `copy`
+   * method before calling this method.
+   *
+   * @param {...any} params - Parameters
+   * to be passed to the "value" function
+   * when executed.
+   * @returns {validator} The current validator instance
+   * with the "answer" property indicating whether the
+   * execution resulted in an error (true) or not (false).
    */
   throwsErrorWith(...params) {
     let value = null;
@@ -2251,6 +2260,7 @@ class validator {
       value = error;
     }
     this.#question = models.IsError(value);
+
     return this.#set_answer();
   }
 
