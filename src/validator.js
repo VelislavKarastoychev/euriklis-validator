@@ -40,6 +40,9 @@ class validator {
    * setter value.
    */
   #warnings = false;
+
+  #description = "";
+
   /**
    * The constructor initializes a new `validator` instance with the given parameter.
    *
@@ -49,7 +52,7 @@ class validator {
    */
   constructor(parameter) {
     this.value = parameter;
-    this.description = "";
+    this.#description = "";
   }
   // In order to keep the code more clear and
   // to achieve logical and functional cohesion
@@ -77,6 +80,26 @@ class validator {
     } catch (error) {
       this.value = error;
     }
+  }
+
+  /**
+   * @returns {string} The description property of the
+   * current validator instance.
+   */
+  get description() {
+    return this.#description;
+  }
+  
+  /**
+   * Sets the description property of the current validator instance.
+   * 
+   * @param {string} text - the description of the validator instance.
+   * @throws {Error} if the "text" parameter is not a string or a number.
+   **/
+  set description(text) {
+    if (new validator(text).isString.or.isNumber.answer) {
+      this.#description = text;
+    } else errors.IncorrectlyDefinedDescriptionProperty();
   }
 
   /**
@@ -1537,7 +1560,7 @@ class validator {
 
     return this.#set_answer();
   }
-  
+
   /**
    * Checks if the "value" property of the current
    * validator instance is a valid email.
@@ -1552,7 +1575,7 @@ class validator {
     } else this.#question = false;
 
     return this.#set_answer();
-  } 
+  }
 
   // Higher order utility methods.
   // Implementation of methods which
