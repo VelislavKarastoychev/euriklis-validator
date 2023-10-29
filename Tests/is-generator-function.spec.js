@@ -11,7 +11,7 @@ const generatorFunction = function* (i = 10) {
 };
 const g = generatorFunction();
 new validator(generatorFunction).isGenerator
-  .And.bind(new validator(g).isGenerator).on(true, (v) => {
+  .and.bind(new validator(g).isGenerator).on(true, (v) => {
     const t1 = v.benchmark((f) => new validator(f).isGenerator.answer);
     const t2 = v.benchmark((f) =>
       f instanceof Function
