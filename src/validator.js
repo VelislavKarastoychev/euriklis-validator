@@ -99,7 +99,7 @@ class validator {
   set description(text) {
     if (new validator(text).isString.or.isNumber.answer) {
       this.#description = text;
-    } else errors.IncorrectlyDefinedDescriptionProperty();
+    } else errors.IncorrectDescriptionProperty();
   }
 
   /**
