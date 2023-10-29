@@ -62,6 +62,8 @@ export const IncorrectArgumentsInIsInRange = () =>
   executeError(texts.IncorrectArgumentsInIsInRangeTxt);
 export const IncorrectArgumentInIsInstanceof = () =>
   executeError(texts.IncorrectArgumentInIsInstanceofTxt);
+export const IncorrectDescriptionProperty = () =>
+  executeError(texts.IncorrectDescriptionPropertyTxt);
 export const IncorrectFunctionArgumentInForAll = () =>
   executeError(texts.IncorrectFunctionArgumentInForAllTxt);
 export const IncorrectFunctionArgumentInForAny = () =>
