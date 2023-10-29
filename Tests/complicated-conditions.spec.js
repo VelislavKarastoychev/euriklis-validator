@@ -10,19 +10,19 @@ const tests = {
   "is integer": test.isInteger.answer,
   "is negative integer": test.isNegativeInteger.answer,
   "is numeric array": test.isNumberArray.answer,
-  "is number like": test.isNumberLike.answer,
+  "is number like": test.isConvertibleToNumber.answer,
   "is integer and is in range (0, 200) or is string":
-    test.isInteger.And.is_in_range(0, 200).Or.isString.answer,
-  "is object + And": test.isObjectArray.And.answer,
+    test.isInteger.and.isInRange(0, 200).or.isString.answer,
+  "is object + And": test.isObjectArray.and.answer,
   "is positive (number)": test.isPositive.answer,
 };
 console.table(tests);
 
-new validator(Math.PI + "").isString.Or.isPositive.And.Not.isBoolean.on(
+new validator(Math.PI + "").isString.or.isPositive.and.not.isBoolean.on(
   true,
   (v) => {
     const t1 = v.benchmark((n) =>
-      new validator(n).isString.Or.isPositive.And.Not.isBoolean.answer
+      new validator(n).isString.or.isPositive.and.not.isBoolean.answer
     );
     const t2 = v.benchmark((n) =>
       typeof n === "number"
