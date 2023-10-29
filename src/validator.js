@@ -1537,6 +1537,22 @@ class validator {
 
     return this.#set_answer();
   }
+  
+  /**
+   * Checks if the "value" property of the current
+   * validator instance is a valid email.
+   *
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * a valid email, false otherwise.
+   */
+  get isEmail() {
+    if (this.copy().isString.answer) {
+      this.#question = models.IsValidEmail(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  } 
 
   // Higher order utility methods.
   // Implementation of methods which
