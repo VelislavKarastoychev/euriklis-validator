@@ -332,8 +332,15 @@ class validator {
   }
 
   /**
-   * Checks if the value property of the current validator instance is a non-integer number (float).
-   * @returns {validator} The updated current validator instance.
+   * Checks if the value property of 
+   * the current validator instance 
+   * is a non-integer number (float).
+   * 
+   * @returns {validator} The updated 
+   * current validator instance with
+   * "answer" property set to true if
+   * the "value" is a floating point
+   * number, false otherwise.
    */
   get isFloat() {
     this.#question = this.copy()
