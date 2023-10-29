@@ -1962,56 +1962,75 @@ class validator {
   isSame(param) {
     const v = new validator(param);
     const t = this.copy();
-    /*let param_type = new validator(param);
-    this.#question = false;
-    if (param_type.isString.or.isNumber.or.isPrimitiveType.answer) {
-      this.#question = this.value === param;
-    }
-    if (
-      param_type.copy()
-        .isArray
-        .or.isObject
-        .answer
-    ) {
-      this.#question = JSON.stringify(this.value) === JSON.stringify(param);
-    }
-    if (param_type.copy().isFunction.answer) {
-      this.#question = this.value.toString() === param.toString();
-    }
-    if (
-      this.copy().isUndefined.answer &&
-      param_type.copy().isUndefined.answer
-    ) {
-      this.#question = true;
-    }
-    if (
-      this.copy().isBoolean.answer && param_type.copy().isBoolean.answer
-    ) {
-      this.#question = this.value === param_type.value;
-    }
-    if (param_type.value === null) {
-      this.#question = param_type.value === this.value;
-    }*/
+
     if (t.isPrimitiveType.answer) {
       if (v.isPrimitiveType.answer) {
         this.#question = String(this.value) === String(param);
       } else this.#question = false;
-    } else if (t.isFunction.or.isAsync.or.isGenerator.or.isPromise.answer) {
+    } else if (t.isFunction.or.isAsync.or.isGenerator.answer) {
       if (v.isFunction.or.isAsync.or.isGenerator.answer) {
         this.#question = this.value.toString() === param.toString();
       } else this.#question = false;
     } else if (t.isArray.or.isTypedArray.or.isObject.answer) {
       if (v.isArray.or.isTypedArray.or.isObject.answer) {
-        this.#question = t.forEvery((item, index) => item.isSame(param[index])).answer;
+        this.#question = t.forEvery((item, index) =>
+          item.isSame(param[index])
+        ).answer;
       } else this.#question = false;
     } else if (t.isArrayBuffer.answer) {
       if (v.isArrayBuffer.answer) {
         const tf64 = new validator(new Float64Array(this.value));
         const vf64 = new Float64Array(v.value);
-        this.#question = tf64.forEvery((item, index) => item.isSame(vf64[index])).answer;
+        this.#question = tf64.forEvery((item, index) =>
+          item.isSame(vf64[index])
+        ).answer;
       } else this.#question = false;
+    } else errors.InappropriateValueInIsSame();
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the value of the
+   * current validator instance
+   * is the same as any of the
+   * values in the provided array.
+   *
+   * @param {Array|TypedArray} arrParam - The array to compare with.
+   * @returns {validator} The updated validator
+   * instance with the "answer" property set
+   * to true if there's a match, false otherwise.
+   */
+  isSameWithAny(arrParam) {
+    let i, j;
+    const t = this.copy();
+    const isArrayLike = new validator(arrParam).isArray.or.isTypedArray.answer;
+    this.#question = false;
+
+    if (isArrayLike) {
+      const n = arrParam.length;
+      for (i = 0; i < n >> 2; i++) {
+        j = i << 2;
+        if (
+          (t.isSame(arrParam[j]).answer) ||
+          (t.isSame(arrParam[j + 1]).answer) ||
+          (t.isSame(arrParam[j + 2]).answer) ||
+          (t.isSame(arrParam[j + 3]).answer)
+        ) {
+          this.#question = true;
+          return this.#set_answer();
+        }
+      }
+
+      j = i << 2;
+      for (; j < n; j++) {
+        if (t.isSame(arrParam[j]).answer) {
+          this.#question = true;
+          return this.#set_answer();
+        }
+      }
     }
-    
+
     return this.#set_answer();
   }
 
@@ -2077,74 +2096,6 @@ class validator {
   }
 
   /**
-   * @todo TO BE IMPLEMENTED WITH MORE EFFICIENT WAY.
-   * @param {any} elements an array
-   * or string element has to be compared with
-   * the value property of the current validator
-   * instance.
-   * @returns {validator}
-   * @description a method that checks if the value
-   * property of the current validator instance is array
-   * that contains all the items of the elements when the
-   * elements is of array type or if in this array (the value property)
-   * exists item that is equals to the elements, when the elements
-   * argument is string and sets the answer property of the returned
-   * validator instance to true or false respectively.
-   */
-  contains(elements) {
-    const cp = this.copy();
-    const elementsValidator = new validator(elements);
-    const isInstanceArray = cp.isArray.or.isTypedArray.answer;
-    if (isInstanceArray) {
-      if (elementsValidator.isArray.or.isTypedArray.or.isSet.answer) {
-        this.#question = cp.forEvery((item) => {
-          const ans = elementsValidator.forAny((element) => {
-            return element.isSame(item.value);
-          });
-          return ans;
-        }).answer;
-      } else {
-        this.#question = cp.forAny((item) => item.isSame(elements)).answer;
-      }
-    } else this.#question = false;
-    return this.#set_answer();
-  }
-
-  /**
-   * @method is_same_with_any
-   * @param {Array} arr_param an array
-   * with arbitrary elements.
-   * @returns {validator}
-   * @description This method checks if
-   * the current validator value in the constructor
-   * is identical to one and only one of the elements
-   * of the argument of the method (that is an array
-   * with arbitrary type elements). Note that the method
-   * checking procedure continues until the first equal
-   * element is found and then stops, so if the array
-   * contains more than one times the given parameter
-   * this could not be verified with this method.
-   */
-  isSameWithAny(arr_param) {
-    let q, n, i = 0, ans;
-    new validator(arr_param).isArray
-      .on(false, () => {
-        q = false;
-      }).on(true, () => {
-        n = arr_param.length;
-        while (1) {
-          if (i === n) break;
-          else {
-            q = this.copy().isSame(arr_param[i]).answer;
-            if (q) break;
-            else i += 1;
-          }
-        }
-      });
-    this.#question = q;
-    return this.#set_answer();
-  }
-  /**
    * @method bind(otherValidator)
    * @param {validator} otherValidator
    * an validator expression
@@ -2204,7 +2155,7 @@ class validator {
               this.#question =
                 params[key](new validator(this.value[key])).answer;
               new validator(this.#question).not.isBoolean
-                .on(true, () => errors.IncorrectArgumentsInInterface2());
+                .on(true, () => errors.IncorrectArgumentInInterface());
               if (this.#question) continue;
               else break;
             }
