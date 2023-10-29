@@ -2,13 +2,13 @@
 import validator from "../index.js";
 import { addMatrices, print } from "./data.js";
 const addMatricesValidator = new validator(addMatrices);
-addMatricesValidator.isFunction.And.throws_error_with(null, [[2]]).on(true, () => {
-  console.log('This works correctly!!!')
+addMatricesValidator.isFunction.and.throwsErrorWith(null, [[2]]).on(true, () => {
+  return 0;
 });
 addMatricesValidator
-  .throws_error_with(undefined, undefined).on(true, () => {
+  .throwsErrorWith(undefined, undefined).on(true, () => {
     const t1 = addMatricesValidator.copy().benchmark((f) =>
-      new validator(f).throws_error_with().answer
+      new validator(f).throwsErrorWith().answer
     );
     const t2 = addMatricesValidator.benchmark((f) => {
       try {
@@ -18,7 +18,7 @@ addMatricesValidator
         return error;
       }
     });
-    print("throws_error_with", t1, t2);
+    print("throws error with", t1, t2);
   })
   .on(false, () => console.log('Something went wrong...'));
 ;
