@@ -1,6 +1,6 @@
 "use strict";
 
-import { CheckType } from "./CheckType";
+import { CheckType } from "./CheckType.js";
 
 /**
  * Checks if the "value" is an array of
