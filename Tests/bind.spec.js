@@ -2,12 +2,12 @@
 import validator from "../index.js";
 import { print, matrix, matrix1 } from "./data.js"
 new validator(matrix).isArrayOfNumberArraysWithEqualSize
-  .And.bind(
+  .and.bind(
     new validator(matrix1).isArrayOfNumberArraysWithEqualSize,
   ).on(true, (v) => {
     const t1 = v.benchmark((n) => {
       return new validator(n).isArrayOfNumberArraysWithEqualSize
-        .And.bind(
+        .and.bind(
           new validator(matrix1).isArrayOfNumberArraysWithEqualSize,
         ).answer;
     });
@@ -23,5 +23,5 @@ new validator(matrix).isArrayOfNumberArraysWithEqualSize
         : false;
     });
     print("bind", t1, t2);
-  });
+  }).on(false, () => console.log('Error in bind method'));
 
