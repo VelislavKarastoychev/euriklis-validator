@@ -1523,6 +1523,21 @@ class validator {
     return this.#set_answer();
   }
 
+  /**
+   * Checks if the value
+   * property of the current validator instance is
+   * valid date data type in JavaScript.
+   *
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value" is
+   * a date type, false otherwise.
+   */
+  get isDate() {
+    this.#question = models.CheckType(this.value, "Date");
+
+    return this.#set_answer();
+  }
+
   // Higher order utility methods.
   // Implementation of methods which
   // are realated with more than one
@@ -2192,6 +2207,7 @@ class validator {
     this.#question = models.IsError(value);
     return this.#set_answer();
   }
+  
   /**
    * This method sets the current validator value
    * property to the result of the execution of the
@@ -2230,20 +2246,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-
-  /**
-   * @method is_date()
-   * @returns {validator}
-   * @description a method that checks if the value
-   * property of the current validator instance is
-   * valid date or not and sets the answer property of
-   * the returned validator instance to true or false
-   * respectively.
-   */
-  get isDate() {
-    this.#question = models.CheckType(this.value, "Date");
-    return this.#set_answer();
   }
 
   /**
