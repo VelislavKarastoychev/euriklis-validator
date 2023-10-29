@@ -2237,7 +2237,7 @@ class validator {
    * function with the specified parameters.
    * If the "value" property is a function,
    * the method executes it with the provided parameters.
-   * 
+   *
    * The `throwsErrorWith` method executes
    * the  "value" function and checks whether
    * it throws an error.
@@ -2289,14 +2289,6 @@ class validator {
       errors.IncorrectIterationsParameterInBenchmark();
     }
     return models.Benchmark(this.value, f, iterations);
-  }
-
-  test() {
-    if (this.answer) {
-      validator.successMessage(this.description);
-    } else if (this.answer === false) {
-      validator.errorMessage(this.description);
-    } else validator.info(this.description);
   }
 }
 export default validator;
