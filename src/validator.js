@@ -1838,7 +1838,7 @@ class validator {
       errors.IncorrectFunctionArgumentInForAll();
     }
 
-    if (val.isEmpty.answer) {
+    if (val.not.isEmpty.answer) {
       if (val.isArray.answer) {
         this.#question = models.ForEveryArrayEdition(val.value, callback);
       } else if (val.isObject.answer) {
@@ -1960,7 +1960,9 @@ class validator {
    * same with the "param" argument of the method.
    */
   isSame(param) {
-    let param_type = new validator(param);
+    const v = new validator(param);
+    const t = this.copy();
+    /*let param_type = new validator(param);
     this.#question = false;
     if (param_type.isString.or.isNumber.or.isPrimitiveType.answer) {
       this.#question = this.value === param;
@@ -1989,7 +1991,27 @@ class validator {
     }
     if (param_type.value === null) {
       this.#question = param_type.value === this.value;
+    }*/
+    if (t.isPrimitiveType.answer) {
+      if (v.isPrimitiveType.answer) {
+        this.#question = String(this.value) === String(param);
+      } else this.#question = false;
+    } else if (t.isFunction.or.isAsync.or.isGenerator.or.isPromise.answer) {
+      if (v.isFunction.or.isAsync.or.isGenerator.answer) {
+        this.#question = this.value.toString() === param.toString();
+      } else this.#question = false;
+    } else if (t.isArray.or.isTypedArray.or.isObject.answer) {
+      if (v.isArray.or.isTypedArray.or.isObject.answer) {
+        this.#question = t.forEvery((item, index) => item.isSame(param[index])).answer;
+      } else this.#question = false;
+    } else if (t.isArrayBuffer.answer) {
+      if (v.isArrayBuffer.answer) {
+        const tf64 = new validator(new Float64Array(this.value));
+        const vf64 = new Float64Array(v.value);
+        this.#question = tf64.forEvery((item, index) => item.isSame(vf64[index])).answer;
+      } else this.#question = false;
     }
+    
     return this.#set_answer();
   }
 
