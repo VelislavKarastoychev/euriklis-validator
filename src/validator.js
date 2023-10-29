@@ -2187,42 +2187,25 @@ class validator {
   }
 
   /**
-   * Implements the throwsError method.
-   * If the "value" property of the current validator
-   * instance is function, then the method executes the
-   * function with arguments the inserted parameters in the
-   * method. It is good practice to use the copy method before
-   * this method.
-   * @param {...any} params
-   * @returns {validator} the current validator with "value" property
-   * which is equals to the result of the previous "value" property.
-   */
-  throwsErrorWith(...params) {
-    let value = null;
-    try {
-      value = this.copy().executeWith(...params).value;
-    } catch (error) {
-      value = error;
-    }
-    this.#question = models.IsError(value);
-    return this.#set_answer();
-  }
-  
-  /**
-   * This method sets the current validator value
-   * property to the result of the execution of the
-   * current "value" property if it is a function.
-   * If the current "value" property is asynchronous
-   * function, then the it will be changed to the executeion
-   * of this async function and will return promise.
-   * If the "value" is neither function or async function,
-   * then returns the current "value" property
-   * without any changes. If the show_warnings property
-   * is set to true for this instance, then when the "value"
-   * is not function or asyncchronous function, the
-   * method  prints a warning message.
-   * @param {...any} params
-   * @returns {validator}
+   * Update the current validator's "value"
+   * property by executing the "value"
+   * function if it is a function.
+   * If the "value" property is an
+   * asynchronous function, it will
+   * be executed and updated.
+   * If the "value" is neither a function
+   * nor an asynchronous function, it remains unchanged.
+   * If the `show_warnings` property is
+   * set to true for this instance, a
+   * warning message is printed when
+   * the "value" is neither a function
+   * nor an asynchronous function.
+   *
+   * @param {...any} params - Parameters
+   * to be passed to the "value" function when executed.
+   * @returns {validator} The updated validator instance
+   * with the "value" property set to the result of the
+   * executed function.
    */
   executeWith(...params) {
     if (this.copy().isFunction.answer) {
@@ -2245,7 +2228,30 @@ class validator {
     } else if (this.show_warnings) {
       warnings.IncorrectTypeInExecuteWith();
     }
+
     return this;
+  }
+
+  /**
+   * Implements the throwsError method.
+   * If the "value" property of the current validator
+   * instance is function, then the method executes the
+   * function with arguments the inserted parameters in the
+   * method. It is good practice to use the copy method before
+   * this method.
+   * @param {...any} params
+   * @returns {validator} the current validator with "value" property
+   * which is equals to the result of the previous "value" property.
+   */
+  throwsErrorWith(...params) {
+    let value = null;
+    try {
+      value = this.copy().executeWith(...params).value;
+    } catch (error) {
+      value = error;
+    }
+    this.#question = models.IsError(value);
+    return this.#set_answer();
   }
 
   /**
