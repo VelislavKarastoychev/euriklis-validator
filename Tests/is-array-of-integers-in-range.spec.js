@@ -1,8 +1,8 @@
 import validator from '../index.js';
 import { print, intArray } from './data.js';
-new validator(intArray).is_array_of_integers_in_range(-1, 100).on(true, (v) => {
+new validator(intArray).isArrayOfIntegersInRange(-1, 100).on(true, (v) => {
   const t1 = v.benchmark((n) =>
-    new validator(n).is_array_of_integers_in_range(-1, 100).answer
+    new validator(n).isArrayOfIntegersInRange(-1, 100).answer
   );
   const t2 = v.benchmark((n) =>
     n instanceof Array
