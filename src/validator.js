@@ -1538,7 +1538,7 @@ class validator {
   // on different data types as strings, arrays, objects,
   // array buffers, typed arrays, sets and maps among all),
   // forEvery, forAny, isArrayAndForEvery, isArrayAndForAny,
-  // contains, isSame, isSameWithAnyOf methods etc.
+  // isSame, isSameWithAnyOf, bind and interface methods.
 
   /**
    * Checks if the current validator value is instanceof
@@ -1950,6 +1950,72 @@ class validator {
   }
 
   /**
+   * Define an interface for validating 
+   * properties of the current validator 
+   * instance's object value.
+   * This method works when the "value" 
+   * property is an object. It accepts 
+   * functions as values in the object 
+   * argument.
+   * Use this method to define an interface 
+   * for validating the properties of the 
+   * current validator instance's object value. 
+   * Each property in the object argument 
+   * represents a property in the object, 
+   * and the associated function should 
+   * validate that property.
+
+   * @param {Object<string, function(validator): validator>} params - An 
+   * object where keys represent properties 
+   * of the object and values are functions. 
+   * The function argument is assumed to be 
+   * a validator instance corresponding to 
+   * the property and should return a validator.
+   * @example
+   * const user = {
+   *   name: 'John',
+   *   age: 30,
+   *   email: 'john@example.com'
+   * };
+   * const userValidator = new validator(user);
+   *
+   * const interfaceValidator = userValidator.interface({
+   *   name: (name) => name.isString.not.isEmpty,
+   *   age: (age) => age.isNumber().isInteger.and.isGreaterThan(18),
+   *   email: (email) => email.isString,
+   * });
+   *
+   * console.log(interfaceValidator.answer); // true (if all properties pass validation)
+   *
+   * @returns {validator} A new validator 
+   * instance with the "answer" property 
+   * set to true if all property validations 
+   * pass, or false if any validation fails.
+   */
+  interface(params) {
+    const p = new validator(params);
+    const areValueAndParamsCorrect = p.isObject && this.copy().isObject.answer;
+    this.#question = false;
+
+    if (areValueAndParamsCorrect) {
+      const isParamsCorrect = p.forEvery((parameter) =>
+        parameter.isFunction
+      ).answer;
+      if (isParamsCorrect) {
+        for (let key of Object.keys(params)) {
+          this.#question = params[key](new validator(this.value[key])).answer;
+          if (new validator(this.#question).not.isBoolean.answer) {
+            errors.IncorrectArgumentInInterface();
+          }
+          if (!this.#question) return this.#set_answer();
+        }
+      }
+    }
+
+    return this.#set_answer();
+  }
+
+  /**
    * Checks if the "value" property the current
    * validator instance is equals to (same with)
    * the "param" argument of the method.
@@ -2120,45 +2186,6 @@ class validator {
       warnings.IncorrectTypeInExecuteWith();
     }
     return this;
-  }
-
-  /**
-   * @param {{keys : function(validator)}} params
-   * @description This method is a variation of the
-   * interface method. The difference between these two
-   * methods is that the second accept arrow functions as
-   * value. The argument of the arrow (or the conventional)
-   * javascript function is assumed to be the validaor instance of
-   * the key value of the this.value object.
-   * @example
-   * new validator({a : 12, rand : Math.random, sqrt : Math.sqrt })
-   *     .instance2({
-   *         a : a => {return a.is_number().and.is_integer()},
-   *         rand : r => {return r.is_function()},
-   *         sqrt : sqrt => {return sqrt.is_function()}
-   *     }).answer // true
-   */
-  interface(params) {
-    const p = new validator(params);
-    const areValueAndParamsCorrect = p.isObject && this.copy().isObject.answer;
-    this.#question = false;
-
-    if (areValueAndParamsCorrect) {
-      const isParamsCorrect = p.forEvery((parameter) =>
-        parameter.isFunction
-      ).answer;
-      if (isParamsCorrect) {
-        for (let key of Object.keys(params)) {
-          this.#question = params[key](new validator(this.value[key])).answer;
-          if (new validator(this.#question).not.isBoolean.answer) {
-            errors.IncorrectArgumentInInterface();
-          }
-          if (!this.#question) return this.#set_answer();
-        }
-      }
-    }
-
-    return this.#set_answer();
   }
 
   /**
