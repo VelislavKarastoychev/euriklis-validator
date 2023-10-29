@@ -6,6 +6,8 @@
  * in order to be computed their performance.
  **/
 /**
+ * Utility function for the benchmark method.
+ * 
  * @param {any} params - the current validator 
  * value which will be passed as argument in the
  * benchmark callback function.
@@ -32,5 +34,6 @@ export const Benchmark = (params, f, iterations) => {
     return sigma + diff * diff;
   }, 0);
   const std = Math.sqrt(dispersion / (iterations - 1));
+  
   return { mean, std, iterations };
 }
