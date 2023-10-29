@@ -1,5 +1,4 @@
 "use strict";
-import { CheckType } from "./CheckType.js";
 /**
  * Checks if the "value" is an array of object elements.
  * Utility function for the isObjectArray method.
@@ -14,10 +13,14 @@ export const IsObjectArray = (value) => {
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
-      !CheckType(value[j], "Object") ||
-      !CheckType(value[j + 1], "Object") ||
-      !CheckType(value[j + 2], "Object") ||
-      !CheckType(value[j + 3], "Object")
+      (value[j] instanceof Array || typeof value[j] !== "object" ||
+        value[j] === null) ||
+      (value[j + 1] instanceof Array || typeof value[j + 1] !== "object" ||
+        value[j + 1] === null) ||
+      (value[j + 2] instanceof Array || typeof value[j + 2] !== "object" ||
+        value[j + 2] === null) ||
+      (value[j + 3] instanceof Array || typeof value[j + 3] !== "object" ||
+        value[j + 3] === null)
     ) {
       return false;
     }
@@ -25,7 +28,10 @@ export const IsObjectArray = (value) => {
 
   j = i << 2;
   for (; j < n; j++) {
-    if (!CheckType(value[j], "Object")) {
+    if (
+      (value[j] instanceof Array || typeof value[j] !== "object" ||
+        value[j] === null)
+    ) {
       return false;
     }
   }
