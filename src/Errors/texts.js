@@ -54,6 +54,7 @@ export const IncorrectArgumentsInIsInClosedRangeTxt =
   "Incorrect arguments in is_in_closed_range() method. Note that both of these arguments have to be numbers with the first argument to be smaller than the second.";
 export const IncorrectArgumentsInIsInRangeTxt =
   "Incorrect arguments in the is_in_range() method of the validator instance. Note that these parameters have to be arbitrary numbers and in addition the first has to be smaller than the second.";
+export const IncorrectDescriptionPropertyTxt = "Incorrectly defined description property. The description has to be a string or a number.";
 export const IncorrectArgumentInIsInstanceofTxt =
   "Incorrect parameter instance. The instance has to be InstanceType.";
 export const IncorrectFunctionArgumentInForAllTxt =
