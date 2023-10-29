@@ -2035,6 +2035,33 @@ class validator {
   }
 
   /**
+   * Bind the results of the current validator instance with another validator's results.
+   * The binding operation sets the "answer" property to the result of the comparison.
+   *
+   * This method allows you to combine the results of the current validator
+   * expression and another validator expression using logical AND/OR/NOT.
+   *
+   * @param {validator} otherValidator - Another validator expression to bind with.
+   * @example
+   * const ageValidator = new validator(25).isInteger;
+   * const nameValidator = new validator('John').isString.and.not.isEmpty;
+   *
+   * const resultValidator = ageValidator.and.bind(nameValidator);
+   * console.log(resultValidator.answer); // true
+   *
+   * @returns {validator} A new validator instance representing the combined result
+   * of the binding operation.
+   */
+  bind(otherValidator) {
+    if (!(otherValidator instanceof validator)) {
+      errors.IncorrectArgumentInBindMethod();
+    }
+    this.#question = otherValidator.answer;
+
+    return this.#set_answer();
+  }
+
+  /**
    * Implements the throwsError method.
    * If the "value" property of the current validator
    * instance is function, then the method executes the
@@ -2096,33 +2123,6 @@ class validator {
   }
 
   /**
-   * @method bind(otherValidator)
-   * @param {validator} otherValidator
-   * an validator expression
-   * @description this is a crucial method in the
-   * validator library. The method gets in the arguments a
-   * valid validator expression and estimates/checks if the
-   * two validator instances are true (the first one is the
-   * current validator instance and the second is the validator
-   * expression in the bind method). The method sets the answer property
-   * of the returned validator instance to true or false respectively.
-   * @example
-   * let a = new validator(7.9889).is_float()
-   *     .and.bind(
-   *         new validator('Alias').is_string().and.not().is_empty()
-   *     )
-   * console.log(a.answer) // true
-   */
-  bind(otherValidator) {
-    if (!(otherValidator instanceof validator)) {
-      errors.IncorrectArgumentInBindMethod();
-    }
-    this.#question = otherValidator.answer;
-    return this.#set_answer();
-  }
-
-  /**
-   * @method interface2
    * @param {{keys : function(validator)}} params
    * @description This method is a variation of the
    * interface method. The difference between these two
@@ -2138,30 +2138,26 @@ class validator {
    *         sqrt : sqrt => {return sqrt.is_function()}
    *     }).answer // true
    */
-  interface2(params) {
-    new validator(params).isObject.and
-      .bind(this.copy().isObject)
-      .on(false, () => this.#question = false)
-      .on(true, () => {
-        new validator(Object.keys(params)).not.isEmpty
-          .and.bind(
-            new validator(Object.values(params)).not
-              .forAny((parameter) => {
-                return parameter.not.isFunction;
-              }),
-          )
-          .on(true, () => {
-            for (let key of Object.keys(params)) {
-              this.#question =
-                params[key](new validator(this.value[key])).answer;
-              new validator(this.#question).not.isBoolean
-                .on(true, () => errors.IncorrectArgumentInInterface());
-              if (this.#question) continue;
-              else break;
-            }
-          })
-          .on(false, () => this.#question = false);
-      });
+  interface(params) {
+    const p = new validator(params);
+    const areValueAndParamsCorrect = p.isObject && this.copy().isObject.answer;
+    this.#question = false;
+
+    if (areValueAndParamsCorrect) {
+      const isParamsCorrect = p.forEvery((parameter) =>
+        parameter.isFunction
+      ).answer;
+      if (isParamsCorrect) {
+        for (let key of Object.keys(params)) {
+          this.#question = params[key](new validator(this.value[key])).answer;
+          if (new validator(this.#question).not.isBoolean.answer) {
+            errors.IncorrectArgumentInInterface();
+          }
+          if (!this.#question) return this.#set_answer();
+        }
+      }
+    }
+
     return this.#set_answer();
   }
 
