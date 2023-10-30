@@ -89,13 +89,13 @@ class validator {
   get description() {
     return this.#description;
   }
-  
+
   /**
    * Sets the description property of the current validator instance.
-   * 
+   *
    * @param {string} text - the description of the validator instance.
    * @throws {Error} if the "text" parameter is not a string or a number.
-   **/
+   */
   set description(text) {
     if (new validator(text).isString.or.isNumber.answer) {
       this.#description = text;
@@ -332,11 +332,11 @@ class validator {
   }
 
   /**
-   * Checks if the value property of 
-   * the current validator instance 
+   * Checks if the value property of
+   * the current validator instance
    * is a non-integer number (float).
-   * 
-   * @returns {validator} The updated 
+   *
+   * @returns {validator} The updated
    * current validator instance with
    * "answer" property set to true if
    * the "value" is a floating point
@@ -346,17 +346,6 @@ class validator {
     this.#question = this.copy()
       .isNumber.and.not.isInteger
       .answer;
-    return this.#set_answer();
-  }
-
-  /**
-   * Checks if the value property of the current validator
-   * instance is convertible to a number.
-   *
-   * @returns {validator} The updated current validator instance.
-   */
-  get isConvertibleToNumber() {
-    this.#question = models.IsNumberLike(this.value);
     return this.#set_answer();
   }
 
