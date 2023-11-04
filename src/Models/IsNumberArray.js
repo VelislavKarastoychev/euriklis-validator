@@ -14,10 +14,10 @@ export const IsNumberArray = (value) => {
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
-      (typeof value[j] !== "number" && isNaN(value[j])) ||
-      (typeof value[j + 1] !== "number" && isNaN(value[j + 1])) ||
-      (typeof value[j + 2] !== "number" && isNaN(value[j + 2])) ||
-      (typeof value[j + 3] !== "number" && isNaN(value[j + 3]))
+      (typeof value[j] !== "number" || isNaN(value[j])) ||
+      (typeof value[j + 1] !== "number" || isNaN(value[j + 1])) ||
+      (typeof value[j + 2] !== "number" || isNaN(value[j + 2])) ||
+      (typeof value[j + 3] !== "number" || isNaN(value[j + 3]))
     ) {
       return false;
     }
@@ -25,7 +25,7 @@ export const IsNumberArray = (value) => {
   
   j = i << 2;
   for (; j < n; j++) {
-    if (typeof value[j] !== "number" && isNaN(value[j])) {
+    if (typeof value[j] !== "number" || isNaN(value[j])) {
       return false;
     }
   }
