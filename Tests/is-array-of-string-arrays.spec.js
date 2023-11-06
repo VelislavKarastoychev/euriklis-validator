@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { stringMatrix, print } from "./data.js";
 stringMatrix[0].push("Hello");
 new validator(stringMatrix).isArrayOfStringArrays.on(true, (v) => {

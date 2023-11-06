@@ -1,4 +1,4 @@
-import validator from '../index.js';
+import validator from "../src/validator.js";
 import { print, intArray } from './data.js';
 new validator(intArray).isArrayOfIntegersInRange(-1, 100).on(true, (v) => {
   const t1 = v.benchmark((n) =>

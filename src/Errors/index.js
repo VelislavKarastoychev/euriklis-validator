@@ -70,5 +70,5 @@ export const IncorrectFunctionArgumentInForAny = () =>
   executeError(texts.IncorrectFunctionArgumentInForAnyTxt);
 export const IncorrectIterationsParameterInBenchmark = () =>
   executeError(texts.IncorrectIterationsParameterInBenchmarkTxt);
-export const IncorrectTypeInStringContains = () =>
-  executeError(texts.IncorrectTypeInStringContainsTxt);
+export const IncorrectParameterInDescribe = () =>
+  executeError(texts.IncorrectParameterInDescribeTxt);

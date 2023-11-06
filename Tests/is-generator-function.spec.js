@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { print } from "./data.js";
 const generatorFunction = function* (i = 10) {
   // return 10 20 30 ... 100.
@@ -11,7 +11,9 @@ const generatorFunction = function* (i = 10) {
 };
 const g = generatorFunction();
 new validator(generatorFunction).isGenerator
-  .and.bind(new validator(g).isGenerator).on(true, (v) => {
+  .and.bind(new validator(g).isGenerator)
+  .and.bind(new validator(() => {}).not.isGenerator)
+  .on(true, (v) => {
     const t1 = v.benchmark((f) => new validator(f).isGenerator.answer);
     const t2 = v.benchmark((f) =>
       f instanceof Function

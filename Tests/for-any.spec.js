@@ -1,10 +1,11 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { print, matrix } from "./data.js";
 new validator(matrix)
   .forAny((v) => {
     return v.isArrayOfNumbersInRange(0, 1);
-  }).on(true, (v) => {
+  }).describe("The forAny method has to pass through all elements of an iterable.").test()
+  .on(true, (v) => {
     const t1 = v.benchmark((n) =>
       new validator(n).forAny((k) => k.isArrayOfNumbersInRange(0, 1))
         .answer, 1000

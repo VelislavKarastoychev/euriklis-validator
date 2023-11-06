@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { print } from "./data.js";
 new validator({
   name: "Dubatur",

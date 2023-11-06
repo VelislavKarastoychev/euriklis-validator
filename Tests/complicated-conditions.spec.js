@@ -1,4 +1,4 @@
-import validator from '../index.js';  
+import validator from '../src/validator.js';  
 import { print } from "./data.js";
 const test = new validator(123);
 
@@ -18,7 +18,9 @@ const tests = {
 };
 console.table(tests);
 
-new validator(Math.PI + "").isString.or.isPositive.and.not.isBoolean.on(
+new validator(Math.PI + "").isString.or.isPositive.and.not.isBoolean
+  .describe("Logically complicated operations are executed correctly.").test()
+  .on(
   true,
   (v) => {
     const t1 = v.benchmark((n) =>

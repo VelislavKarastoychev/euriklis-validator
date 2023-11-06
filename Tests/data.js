@@ -2,7 +2,9 @@ export const print = (method, t1, t2) => {
   console.log(`Testing of ${method} method/s:`);
   console.table({ "@euriklis/validator": t1, "inner js methods": t2 });
 };
-export const booleanArray = Array.from({ length: 1000000 }).map((_) => Math.random() > 0.5);
+export const booleanArray = Array.from({ length: 1000000 }).map((_) =>
+  Math.random() > 0.5
+);
 export const numericArray = Array.from({ length: 1000000 }).map(Math.random);
 export const intArray = numericArray.map((item) => item * 100 | 0);
 export const negativeNumericArray = numericArray.map((item) => -item);
@@ -17,7 +19,7 @@ export const matrix = Array.from({ length: 100 }).map((_) =>
   Array.from({ length: 1000 }).map(Math.random)
 );
 export const matrix1 = Array.from({ length: 100 }).map((_) =>
-  Array.from({ length: 100 }).map(Math.random)
+  Array.from({ length: 1000 }).map(Math.random)
 );
 export const addMatrices = (m1, m2) => {
   if (!m1 || !m2) {
@@ -36,8 +38,16 @@ export const addMatrices = (m1, m2) => {
   }
   return sum;
 };
-export const integerMatrix = matrix.map((row) => row.map((el) => el * 100 >> 0));
+export const integerMatrix = matrix.map((row) =>
+  row.map((el) => el * 100 >> 0)
+);
 export const stringMatrix = integerMatrix.map((row) =>
   row.map((el) => String.fromCharCode(el))
 );
-
+export const objectMatrix = Array.from({ length: 1000 }).map((_) =>
+  Array.from({ length: 1000 }).map((_) => ({
+    id: Math.random(),
+    number: Math.random() * Math.E,
+  }))
+);
+export const map = new Map([["a", 1], ["b", 2]]);

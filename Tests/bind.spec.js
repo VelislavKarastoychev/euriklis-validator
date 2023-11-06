@@ -1,10 +1,12 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { print, matrix, matrix1 } from "./data.js"
-new validator(matrix).isArrayOfNumberArraysWithEqualSize
+new validator(matrix)
+  .isArrayOfNumberArraysWithEqualSize
   .and.bind(
     new validator(matrix1).isArrayOfNumberArraysWithEqualSize,
-  ).on(true, (v) => {
+  ).describe("The bind method has to execute logically correct the operations.").test()
+  .on(true, (v) => {
     const t1 = v.benchmark((n) => {
       return new validator(n).isArrayOfNumberArraysWithEqualSize
         .and.bind(
@@ -23,5 +25,5 @@ new validator(matrix).isArrayOfNumberArraysWithEqualSize
         : false;
     });
     print("bind", t1, t2);
-  }).on(false, () => console.log('Error in bind method'));
+  });
 

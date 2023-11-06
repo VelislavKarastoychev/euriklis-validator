@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { objectArray, print } from "./data.js";
 new validator(objectArray).isObjectArray.on(true, (v) => {
   const t1 = v.benchmark((n) => new validator(n).isObjectArray.answer);

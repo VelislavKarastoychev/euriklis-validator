@@ -1,4 +1,4 @@
-import validator from '../index.js';
+import validator from '../src/validator.js';
 import { print, negativeIntArray } from "./data.js"
 new validator(negativeIntArray).isArrayOfNegativeIntegers.on(true, (v) => {
   const t1 = v.benchmark((n) =>

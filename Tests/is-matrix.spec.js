@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { matrix, print } from "./data.js";
 new validator(matrix).isArrayOfNumberArraysWithEqualSize.on(true, (v) => {
   const t1 = v.benchmark((m) =>

@@ -1,7 +1,9 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { print, matrix } from "./data.js";
-new validator(matrix).forEvery((item) => item.isArrayOfNumbersInRange(0, 1)).on(true, (v) => {
+new validator(matrix).forEvery((item) => item.isArrayOfNumbersInRange(0, 1))
+  .describe("The forEvery test has to pass through all elements of an iterable").test()
+  .on(true, (v) => {
   const t1 = v.benchmark((n) =>
     new validator(n).forEvery((el) => el.isNumberArray).answer
   );

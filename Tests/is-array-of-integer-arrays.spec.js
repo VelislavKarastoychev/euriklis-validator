@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { integerMatrix, print } from "./data.js";
 integerMatrix[0].push(Math.PI >> 0);
 new validator(integerMatrix).isArrayOfIntegerArrays.on(true, (v) => {

@@ -19,6 +19,7 @@ export const IsNumberArray = (value) => {
       (typeof value[j + 2] !== "number" || isNaN(value[j + 2])) ||
       (typeof value[j + 3] !== "number" || isNaN(value[j + 3]))
     ) {
+      console.log(j);
       return false;
     }
   }

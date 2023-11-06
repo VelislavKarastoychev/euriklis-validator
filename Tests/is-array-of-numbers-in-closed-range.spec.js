@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { numericArray,print } from "./data.js";
 new validator(numericArray).isArrayOfNumbersInClosedRange(0, 100).on(
   true,

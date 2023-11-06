@@ -17,7 +17,10 @@ export const IsArrayOfNumberArrays = (value) => {
       !IsNumberArray(value[j + 1]) ||
       !IsNumberArray(value[j + 2]) ||
       !IsNumberArray(value[j + 3])
-    ) return false;
+    ) {
+      console.log(j)
+    return false;
+    }
   }
 
   j = i << 2;

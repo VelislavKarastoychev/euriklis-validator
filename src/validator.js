@@ -1,17 +1,20 @@
 " use strict";
+import message from "@euriklis/message";
 import * as errors from "./Errors/index.js";
 import * as warnings from "./Warnings/index.js";
 import * as models from "./Models/index.js";
-
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const packageFile = require("../package.json");
 /**
  * The `validator` class is a JavaScript library for conditional verification.
  * It allows you to create expressions and perform various tests on them.
  * Each validator instance has properties such as `answer`, `value`, and
  * description.
  */
-class validator {
-  static author = "Velislav S. Karastoychev";
-  static version = "3.0.0";
+export default class validator {
+  static author = packageFile.author;
+  static version = packageFile.version;
   /**
    * @private {any} #value - field that stores the current parameter
    * of the validator instance.
@@ -100,6 +103,28 @@ class validator {
     if (new validator(text).isString.or.isNumber.answer) {
       this.#description = text;
     } else errors.IncorrectDescriptionProperty();
+  }
+
+  /**
+   * Sets the "description" property
+   * of the current validator instance
+   * to the "message" parameter if it
+   * is a string type.
+   *
+   * @param {string} message - the
+   * description of the current
+   * validator instance.
+   *
+   * @returns {validator} The updated validator
+   * instance with the "description" property set
+   * to the "message" argument.
+   */
+  describe(message) {
+    if (new validator(message).isString.and.not.isEmpty.answer) {
+      this.#description = message;
+    } else errors.IncorrectParameterInDescribe();
+
+    return this;
   }
 
   /**
@@ -279,7 +304,6 @@ class validator {
    * Checks if the "value" property of the current validator instance
    * is a Symbol data type in JavaScript.
    *
-   * @method isSymbol
    * @returns {validator} The updated current validator instance
    * with the "answer" property set to true if the "value" is a Symbol,
    * otherwise, sets the "answer" to false.
@@ -292,7 +316,6 @@ class validator {
   /**
    * Checks if the "value" property is a BigInt data type.
    *
-   * @method isBigInt
    * @returns {validator} The updated current validator instance
    * with the "answer" property set to true if the value is a BigInt,
    * otherwise set to false.
@@ -349,19 +372,6 @@ class validator {
     return this.#set_answer();
   }
 
-  /**
-   * Checks if the value property of the
-   * current validator instance is an integer
-   * or a string that may be converted
-   * to an integer.
-   *
-   * @returns {validator} The updated current validator instance.
-   */
-  get isConvertibleToInteger() {
-    this.#question = models.IsIntegerLike(this.value);
-    return this.#set_answer();
-  }
-
   // We use an utility function named "TestCondtions",
   // which is nicely written and encapsulates
   // the comparison logic in a clean and reusable way.
@@ -375,11 +385,11 @@ class validator {
    * Checks if the value property of the current validator
    * instance is greater than a given real number, 'a'.
    *
-   * @method isGreaterThan
    * @param {number} a - A real number that must be
    * lesser or equal to the validator instance value property.
    * @returns {validator} A validator instance with the answer
    * property set to true or false based on the comparison.
+   * @throws {Error} If the "a" parameter is not a valid number.
    */
   isGreaterThan(a) {
     if (new validator(a).not.isNumber.answer) {
@@ -397,11 +407,11 @@ class validator {
    * Checks if the value property of the current validator
    * instance is less than a given real number, 'a'.
    *
-   * @method isLessThan
    * @param {number} a - A real number that must be
    * greater or equal to the validator instance value property.
    * @returns {validator} A validator instance with the answer
    * property set to true or false based on the comparison.
+   * @throws {Error} If "a" parameter is not a valid number.
    */
   isLessThan(a) {
     if (new validator(a).not.isNumber.answer) {
@@ -416,23 +426,27 @@ class validator {
   }
 
   /**
-   * @method isGreaterThanOrEqual
-   * @param {number} a a real number that
-   * has to be smaller or equal to the value
-   * property of the current validator instance
-   * @returns {validator}
-   * @description a method that checks if the value
-   * property of the current validator instance is
-   * greater or equals to a real number , say a and
-   * sets the answer property of the returned validator
-   * instance to true or false respectively.
+   * Checks if the "value" property of the
+   * current validator instance is greater
+   * than or equals to the "a" parameter of
+   * the method
+   *
+   * @param {number} a a real number
+   * @returns {validator} The updated validator
+   * instance with "answer" property set to true
+   * if the "value" is greater than or equals to
+   * the "a" input parameter of the method, false
+   * otherwise.
+   * @throws {Error} If "a" parameter is not a valid number.
    */
   isGreaterThanOrEqual(a) {
     if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsEqualOrBiggerThan();
     }
 
-    this.#question = models.TestCondition(this.value, undefined, a, "geq");
+    if (this.copy().isNumber.answer) {
+      this.#question = models.TestCondition(this.value, undefined, a, "geq");
+    } else this.#question = false;
 
     return this.#set_answer();
   }
@@ -441,18 +455,19 @@ class validator {
    * Checks if the value property of the current validator
    * instance is less than or equal to a given real number, 'a'.
    *
-   * @method isLessThanOrEqual
    * @param {number} a - A real number that has to be greater
    * or equal to the current value property of the validator instance.
    * @returns {validator} A validator instance with the answer
    * property set to true or false based on the comparison.
+   * @throws {Error} if "a" parameter is not a valid number.
    */
   isLessThanOrEqual(a) {
     if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsEqualOrLesserThan();
     }
-
-    this.#question = models.TestCondition(this.value, undefined, a, "leq");
+    if (this.copy().isNumber.answer) {
+      this.#question = models.TestCondition(this.value, undefined, a, "leq");
+    } else this.#question = false;
 
     return this.#set_answer();
   }
@@ -462,17 +477,19 @@ class validator {
    * instance is a number which is equals to some real number
    * say "a".
    *
-   * @method isEqual
+   * @param {number} a - a real number
    * @returns {validator} the updated validator instance
    * with the answer property set to true or false based
    * on the comparison.
+   * @throws {Error} If "a" parameter is not a valid number.
    */
   isEqual(a) {
     if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsEqual();
     }
-
-    this.#question = models.TestCondition(this.value, undefined, a, "eq");
+    if (this.copy().isNumber.answer) {
+      this.#question = models.TestCondition(this.value, undefined, a, "eq");
+    } else this.#question = false;
 
     return this.#set_answer();
   }
@@ -481,16 +498,17 @@ class validator {
    * Checks if the value property of the current validator instance
    * is not equal to some real number, "a".
    *
-   * @method isNotEqual
    * @returns {validator} the updated validator instance with
-   * the answer property set to true or false based on the comparison.
+   * "answer" property set to true or false based on the comparison.
+   * @throws {Error} if "a" parameter is not a valid number.
    */
   isNotEqual(a) {
     if (new validator(a).not.isNumber.answer) {
       errors.IncorrectArgumentInIsNotEqual();
     }
-
-    this.#question = models.TestCondition(this.value, undefined, a, "neq");
+    if (this.copy().isNumber.answer) {
+      this.#question = models.TestCondition(this.value, undefined, a, "neq");
+    } else this.#question = false;
 
     return this.#set_answer();
   }
@@ -499,7 +517,6 @@ class validator {
    * Checks if the "value" property of the current validator instance
    * is a number within the open interval (a, b).
    *
-   * @method isInRange
    * @param {number} a - A real number that must be smaller than
    * the "value" property of the validator instance.
    * @param {number} b - A real number that must be greater than
@@ -526,7 +543,6 @@ class validator {
   /**
    * Checks if the "value" property is in the closed range [a, b].
    *
-   * @method isInClosedRange
    * @param {number} a - A real number that must be smaller than or equal to
    * the "value" property of the validator instance.
    * @param {number} b - A real number that must be greater or equal to
@@ -555,7 +571,6 @@ class validator {
    * Checks if the value property of the current
    * validator instance is a positive number.
    *
-   * @method isPositive
    * @returns {validator} The updated validator
    * instance with the answer property set to
    * true or false based on the comparison with zero.
@@ -563,10 +578,10 @@ class validator {
   get isPositive() {
     if (this.copy().not.isNumber.answer) {
       if (this.show_warnings) warnings.IncorrectValueInIsPositive();
+      this.#question = false;
+    } else {
+      this.#question = models.TestCondition(this.value, undefined, 0, "geq");
     }
-
-    this.#question = models.TestCondition(this.value, undefined, 0, "geq");
-
     return this.#set_answer();
   }
 
@@ -574,8 +589,7 @@ class validator {
    * Checks if the "value" property is a number, which is
    * lesser than zero (negative number).
    *
-   * @method isNegative
-   * @returns {validator} the updated validator instance
+   * @returns {validator} The updated validator instance
    * with the "answer" property to be true or false based
    * on the comparision with 0.
    */
@@ -592,8 +606,7 @@ class validator {
   /**
    * Checks if the "value" property is a positive integer.
    *
-   * @method isPositiveInteger
-   * @returns {validator} the updated validator instance
+   * @returns {validator} The updated validator instance
    * with the "answer" property to be true or false based
    * on the comparison with 0.
    */
@@ -604,11 +617,11 @@ class validator {
 
     return this.#set_answer();
   }
+
   /**
    * Checks if the "value" property is integer, which is less than zero.
    *
-   * @method isNegativeInteger
-   * @returns {validator} the updated validator instance with the
+   * @returns {validator} The updated validator instance with the
    * "answer" property to be set to true or false based on the
    * comparison with 0.
    */
@@ -636,11 +649,23 @@ class validator {
   }
 
   /**
+   * Checks if the value property of the
+   * current validator instance is an integer
+   * or a string that may be converted
+   * to an integer.
+   *
+   * @returns {validator} The updated current validator instance.
+   */
+  get isConvertibleToInteger() {
+    this.#question = models.IsIntegerLike(this.value);
+    return this.#set_answer();
+  }
+
+  /**
    * Checks if the "value" property is a positive number
    * or if it is a string which may be converted to a positive
    * number.
    *
-   * @method isConvertibleToPositiveNumber
    * @returns {validator} the updated validator instance with
    * "answer" property set to true or false based on whether
    * the "value" property is a positive number or if it is a
@@ -656,7 +681,6 @@ class validator {
    * Checks if the "value" property is a negative number or
    * a string which may be converted to a negative number.
    *
-   * @method isConvertibleToNegativeNumber
    * @returns {validator} the updated validator instance with
    * "answer" property set to true or false based on whether
    * the "value" property is a negative number or a string
@@ -673,7 +697,6 @@ class validator {
    * integer or a string which may be converted to
    * a positive integer.
    *
-   * @method isConvertibleToPositiveInteger
    * @returns {validator} the updated validator instance with
    * "answer" property set to true or false based on the
    * whether the "value" is positive integer or a string,
@@ -690,7 +713,6 @@ class validator {
    * is a negative integer or a string which may be converted
    * to negative integer.
    *
-   * @method isConvertedToNegativeInteger
    * @returns {validator} the updated validator instance with
    * "answer" property set to true or false based on whether
    * the "value" is negative integer or a string which may be
@@ -706,7 +728,6 @@ class validator {
    * Checks if the "value" of the current validator instance
    * is a primitive data type.
    *
-   * @method isPrimitiveType
    * @returns {validator} The updated current validator instance.
    * The "answer" property is set to true if the "value" is a primitive
    * type (string, number, bigInt, symbol, boolean, undefined, or null),
@@ -1552,7 +1573,9 @@ class validator {
    * a date type, false otherwise.
    */
   get isDate() {
-    this.#question = models.CheckType(this.value, "Date");
+    this.#question = models.CheckType(this.value, "Date")
+      ? this.value.toString() !== "Invalid Date"
+      : false;
 
     return this.#set_answer();
   }
@@ -1604,6 +1627,9 @@ class validator {
   isInstanceof(instance) {
     if (models.IsInstanceType(instance)) {
       this.#question = models.IsInstanceof(this.value, instance);
+    } else if (typeof instance === "string") {
+      this.#question = new validator((a) => a.constructor.name === instance)
+        .executeWith(this.value).value;
     } else errors.IncorrectArgumentInIsInstanceof();
 
     return this.#set_answer();
@@ -1658,7 +1684,7 @@ class validator {
     let cp_instance = this.copy();
     if (cp_instance.isArrayBuffer.answer) {
       this.#question = models.TestCondition(this.value, "byteLength", n, "gt");
-    } else if (cp_instance.isArray.or.isTypedArray.isString.answer) {
+    } else if (cp_instance.isArray.or.isTypedArray.or.isString.answer) {
       this.#question = models.TestCondition(this.value, "length", n, "gt");
     } else if (cp_instance.isObject.answer) {
       this.#question = models.TestCondition(
@@ -1870,7 +1896,7 @@ class validator {
    * @example
    * let a = new validator([12, 32, 998.3, 89, 0.9839])
    *     .forEvery(element => {
-   *         return element.isFloat();
+   *         return element.isFloat;
    *     });
    * console.log(a.answer) // true
    *
@@ -1916,7 +1942,7 @@ class validator {
    * @example
    * let a = new validator([12, 32, 998.3, 89, 0.9839])
    *     .forAny(element => {
-   *         return element.isFloat();
+   *         return element.isFloat;
    *     });
    * console.log(a.answer); // true
    *
@@ -2030,9 +2056,9 @@ class validator {
    * const userValidator = new validator(user);
    *
    * const interfaceValidator = userValidator.interface({
-   *   name: (name) => name.isString.not.isEmpty,
-   *   age: (age) => age.isNumber().isInteger.and.isGreaterThan(18),
-   *   email: (email) => email.isString,
+   *   name: (name) => name.isString.and.not.isEmpty,
+   *   age: (age) => age.isNumber.and.isGreaterThan(18),
+   *   email: (email) => email.isEmail,
    * });
    *
    * console.log(interfaceValidator.answer); // true (if all properties pass validation)
@@ -2325,5 +2351,43 @@ class validator {
     }
     return models.Benchmark(this.value, f, iterations);
   }
+
+  /**
+   * Prints the description message of the current
+   * validator instance with green color if the "answer"
+   * property is true and with red color if the "answer"
+   * property is false.
+   * if the "answer" property is not boolean, then no
+   * messages will be printed.
+   *
+   * @param {{
+   *   title: boolean,
+   *   success: string,
+   *   error: string
+   * }} options
+   * @returns {validator} The current validator property.
+   */
+  test(options = { title: false, success: "green", error: "red" }) {
+    if (options.title) {
+      new message()
+        .bold().underline()
+        .setBgColor("rgb(66, 55, 233)")
+        .setColor("rgb(10, 10, 10)")
+        .append(this.description)
+        .reset().log();
+    } else {this
+        .on(true, () => {
+          new message().bold().italic().setColor(options.success)
+            .append_check_mark()
+            .append(" " + this.description)
+            .reset().log();
+        })
+        .on(false, () => {
+          new message().bold().italic()
+            .setColor(options.error)
+            .append_warning_sign()
+            .append(" " + this.description).reset().log();
+        });}
+    return this;
+  }
 }
-export default validator;

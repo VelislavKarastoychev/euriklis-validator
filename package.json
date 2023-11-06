@@ -3,17 +3,17 @@
   "version": "3.1.0",
   "description": "A javascript package for testing and managing of type coonditions.",
   "type": "module",
-  "main": "index.js",
+  "main": "./src/validator.js",
   "scripts": {
-    "test": "bin/validator.sh",
-    "start": "node index.js"
+    "test": "./bin/validator-cli.js",
+    "start": "node ./src/validator.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VelislavKarastoychev/euriklis-validator.git"
   },
   "bin": {
-    "validator": "./bin/validator.sh $(pwd)"
+    "validator": "bin/validator-cli.js"
   },
   "keywords": [
     "validator",
@@ -36,7 +36,10 @@
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.2.0"
+    "eslint-plugin-promise": "^5.2.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@euriklis/message": "^2.1.2"
   }
-  
 }

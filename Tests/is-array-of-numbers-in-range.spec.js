@@ -1,6 +1,6 @@
 "use strict";
 import { numericArray, print } from "./data.js";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 new validator(numericArray).isArrayOfNumbersInRange(-1, 100).on(
   true,
   (v) => {

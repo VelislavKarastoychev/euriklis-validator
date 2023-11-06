@@ -1,4 +1,4 @@
-import validator from '../index.js';
+import validator from '../src/validator.js';
 import { print, numericArray } from './data.js';
 new validator(numericArray).isNumberArray.on(true, (v) => {
   const t1 = v.benchmark((n) => new validator(n).isNumberArray.answer);

@@ -1,5 +1,5 @@
 "use strict";
-import validator from "../index.js";
+import validator from "../src/validator.js";
 import { print } from "./data.js";
 const set = new Set();
 set.add(1234);
