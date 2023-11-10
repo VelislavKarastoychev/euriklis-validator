@@ -3,9 +3,6 @@ import message from "@euriklis/message";
 import * as errors from "./Errors/index.js";
 import * as warnings from "./Warnings/index.js";
 import * as models from "./Models/index.js";
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const packageFile = require("../package.json");
 /**
  * The `validator` class is a JavaScript library for conditional verification.
  * It allows you to create expressions and perform various tests on them.
@@ -13,8 +10,6 @@ const packageFile = require("../package.json");
  * description.
  */
 export default class validator {
-  static author = packageFile.author;
-  static version = packageFile.version;
   /**
    * @private {any} #value - field that stores the current parameter
    * of the validator instance.
