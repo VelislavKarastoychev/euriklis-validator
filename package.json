@@ -5,7 +5,6 @@
   "type": "module",
   "main": "./src/validator.js",
   "scripts": {
-    "test": "./bin/validator-cli.js",
     "start": "node ./src/validator.js"
   },
   "repository": {
