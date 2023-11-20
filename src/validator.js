@@ -1380,6 +1380,10 @@ export default class validator {
     return this.#set_answer();
   }
 
+  get isArrayOfTypedArrays() {
+    return this.#set_answer();
+  }
+
   /**
    * Checks if the "value" property of the current validator
    * instance is an array of string arrays with arbitrary length.
