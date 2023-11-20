@@ -1380,10 +1380,37 @@ export default class validator {
     return this.#set_answer();
   }
 
+  /**
+   * Checks if the "value" property of the current
+   * validator instance is a collection of typed
+   * arrays.
+   *
+   * @returns {validator} The updated validator
+   * instance with "answer" property set to
+   * true if the "value" is an array of typed
+   * arrays, false otherwise.
+   */
   get isArrayOfTypedArrays() {
     if (this.copy().isArray.answer) {
       this.#question = models.IsArrayOfTypedArrays(this.value);
     } else this.#question = false;
+
+    return this.#set_answer();
+  }
+
+  /**
+   * Checks if the "value" property of the current 
+   * validator instance is a typed matrix.
+   *
+   * @returns {validator} The updated validator instance
+   * with "answer" property set to true if the "value"
+   * is an typed matrix, false otherwise.
+   */
+  get isArrayOfTypedArraysWithEqualSize () {
+    if (this.copy().isArray.answer) {
+      this.#question = models.isArrayOfTypedArraysWithEqualSize(this.value);
+    } else this.#question = false;
+
     return this.#set_answer();
   }
 

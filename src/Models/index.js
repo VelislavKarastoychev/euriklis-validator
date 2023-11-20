@@ -37,6 +37,7 @@ export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { IsArrayOfStringArrays } from "./IsArrayOfStringArrays.js";
 export { IsArrayOfStringArraysWithEqualSize } from "./IsArrayOfStringArraysWithEqualSize.js";
 export { IsArrayOfTypedArrays } from "./IsArrayOfTypedArrays.js";
+export { IsArrayOfTypedArraysWithEqualSize} from "./IsArrayOfTypedArraysWithEqualSize.js";
 export { IsAsyncFunction } from "./IsAsyncFunction.js";
 export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
