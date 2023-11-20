@@ -1,12 +1,13 @@
 "use strict";
 import { IsTypedArray } from "./IsTypedArray.js";
+
 /**
  * Checks if the "value" property is an array of
  * typed arrays.
  * Utility function for the isArrayOfTypedArrays 
  * method.
  * 
- * @param {Array} value - The "value" property of
+ * @param {Array []} value - The "value" property of
  * the current validator instance, which has to be
  * an array.
  * @returns {boolean} True if the value is array
