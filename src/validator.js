@@ -1381,6 +1381,9 @@ export default class validator {
   }
 
   get isArrayOfTypedArrays() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfTYpedArrays(this.value);
+    } else this.#question = false;
     return this.#set_answer();
   }
 
