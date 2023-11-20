@@ -63,7 +63,6 @@ export { IsObjectArray } from "./IsObjectArray.js";
 export { IsPositiveIntegerLike } from "./IsPositiveIntegerLike.js";
 export { IsPositiveNumberLike } from "./IsPositiveNumberLike.js";
 export { IsPromiseFunction } from "./IsPromiseFunction.js";
-export { IsString } from "./IsString.js";
 export { IsStringArray } from "./IsStringArray.js";
 export { IsTypedArray } from "./IsTypedArray.js";
 export { IsUint16Array } from "./IsUint16Array.js";
