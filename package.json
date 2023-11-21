@@ -6,7 +6,7 @@
   "main": "./src/validator.js",
   "scripts": {
     "start": "node ./src/validator.js",
-    "build": "tsc"
+    "types": "tsc"
   },
   "repository": {
     "type": "git",
