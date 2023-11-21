@@ -24,21 +24,22 @@ export const IsArrayOfAbstractArraysWithEqualSize = (value) => {
   for (i = 0; i < n >> 2; i++) {
     j = i << 2;
     if (
-      (!CheckType(value[j], "Array") ||
-        !IsTypedArray(value[j]) ||
-        value[j].length !== l)(
-          !CheckType(value[j + 1], "Array") ||
-            !IsTypedArray(value[j + 1]) ||
-            value[j + 1].length !== l,
-        )(
-          !CheckType(value[j + 2], "Array") ||
-            !IsTypedArray(value[j + 2]) ||
-            value[j + 2].length !== l,
-        )(
-          !CheckType(value[j + 3], "Array") ||
-            !IsTypedArray(value[j + 3]) ||
-            value[j + 3].length !== l,
-        )
+      ((!CheckType(value[j], "Array") &&
+        !IsTypedArray(value[j])) ||
+        value[j].length !== l) ||
+      (
+        (!CheckType(value[j + 1], "Array") &&
+          !IsTypedArray(value[j + 1])) ||
+        value[j + 1].length !== l
+      ) || (
+        (!CheckType(value[j + 2], "Array") &&
+          !IsTypedArray(value[j + 2])) ||
+        value[j + 2].length !== l
+      ) || (
+        (!CheckType(value[j + 3], "Array") &&
+          !IsTypedArray(value[j + 3])) ||
+        value[j + 3].length !== l
+      )
     ) {
       return false;
     }
@@ -47,8 +48,8 @@ export const IsArrayOfAbstractArraysWithEqualSize = (value) => {
   j = i << 2;
   for (; j < n; j++) {
     if (
-      !CheckType(value[j], "Array") ||
-      !IsTypedArray(value[j]) ||
+      (!CheckType(value[j], "Array") &&
+        !IsTypedArray(value[j])) ||
       value[j].length !== l
     ) {
       return false;

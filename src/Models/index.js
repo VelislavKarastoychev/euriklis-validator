@@ -17,6 +17,7 @@ export {
 export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
 export { IsArrayBuffer } from "./IsArrayBuffer.js";
 export { IsArrayOfAbstractArrays } from "./IsArrayOfAbstractArrays.js";
+export { IsArrayOfAbstractArraysWithEqualSize } from "./IsArrayOfAbstractArraysWithEqualSize.js";
 export { IsArrayOfArrays } from "./IsArrayOfArrays.js";
 export { IsArrayOfArraysWithEqualSize } from "./IsArrayOfArraysWithEqualSize.js";
 export { IsArrayOfFunctions } from "./IsArrayOfFunctions.js";
@@ -37,7 +38,7 @@ export { IsArrayOfPositiveNumbers } from "./IsArrayOfPositiveNumbers.js";
 export { IsArrayOfStringArrays } from "./IsArrayOfStringArrays.js";
 export { IsArrayOfStringArraysWithEqualSize } from "./IsArrayOfStringArraysWithEqualSize.js";
 export { IsArrayOfTypedArrays } from "./IsArrayOfTypedArrays.js";
-export { IsArrayOfTypedArraysWithEqualSize} from "./IsArrayOfTypedArraysWithEqualSize.js";
+export { IsArrayOfTypedArraysWithEqualSize } from "./IsArrayOfTypedArraysWithEqualSize.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsFloat64Array } from "./IsFloat64Array.js";
 export { IsGeneratorFunction } from "./IsGeneratorFunction.js";

@@ -18,10 +18,10 @@ export const IsArrayOfAbstractArrays = (value) => {
   for (i = 0;i < n >> 2;i++) {
     j = i << 2;
     if (
-      (!CheckType(value[j], "Array") || !IsTypedArray(value[j])) ||
-      (!CheckType(value[j + 1], "Array") || !IsTypedArray(value[j + 1])) ||
-      (!CheckType(value[j + 2], "Array") || !IsTypedArray(value[j + 2])) ||
-      (!CheckType(value[j + 3], "Array") || !IsTypedArray(value[j + 3]))
+      (!CheckType(value[j], "Array") && !IsTypedArray(value[j])) ||
+      (!CheckType(value[j + 1], "Array") && !IsTypedArray(value[j + 1])) ||
+      (!CheckType(value[j + 2], "Array") && !IsTypedArray(value[j + 2])) ||
+      (!CheckType(value[j + 3], "Array") && !IsTypedArray(value[j + 3]))
     ) {
       return false;
     }
@@ -29,7 +29,7 @@ export const IsArrayOfAbstractArrays = (value) => {
 
   j = i << 2;
   for (;j < n;j++) {
-    if (!CheckType(value[j], "Array") || !IsTypedArray(value[j])) {
+    if (!CheckType(value[j], "Array") && !IsTypedArray(value[j])) {
       return false;
     }
   }
