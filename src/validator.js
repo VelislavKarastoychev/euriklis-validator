@@ -1399,21 +1399,58 @@ export default class validator {
   }
 
   /**
-   * Checks if the "value" property of the current 
+   * Checks if the "value" property of the current
    * validator instance is a typed matrix.
    *
    * @returns {validator} The updated validator instance
    * with "answer" property set to true if the "value"
    * is an typed matrix, false otherwise.
    */
-  get isArrayOfTypedArraysWithEqualSize () {
+  get isArrayOfTypedArraysWithEqualSize() {
     if (this.copy().isArray.answer) {
-      this.#question = models.isArrayOfTypedArraysWithEqualSize(this.value);
+      this.#question = models.IsArrayOfTypedArraysWithEqualSize(this.value);
     } else this.#question = false;
 
     return this.#set_answer();
   }
 
+  /**
+   * Checks if the "value" property of the current
+   * validator instance is an array of generic or
+   * typed arrays.
+   *
+   * @returns {validator} The updated validator
+   * instance with "answer" property set to true
+   * if the "value" is an array of arrays or an
+   * array of typed arrays.
+   */
+  get isArrayOfAbstractArrays() {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfAbstractArrays(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+  
+ /**
+  * Checks if the "value" property of the
+  * current validator instance is a matrix or
+  * a typed matrix (array of typed arrays with
+  * equal length).
+  *
+  * @returns {validator} The updated validator
+  * instance with the "answer" property set to
+  * true if the "value" is abstract matrix, false
+  * otherwise.
+  */
+ get isArrayOfAbstractArraysWithEqualSize () {
+    if (this.copy().isArray.answer) {
+      this.#question = models.IsArrayOfAbstractArraysWithEqualSize(this.value);
+    } else this.#question = false;
+
+    return this.#set_answer();
+  }
+  
   /**
    * Checks if the "value" property of the current validator
    * instance is an array of string arrays with arbitrary length.
