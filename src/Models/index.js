@@ -15,7 +15,6 @@ export {
   ForAnySetEdition,
 } from "./ForAny.js";
 export { HasNaNInTypedArray } from "./HasNaNInTypedArray.js";
-export { IsArray } from "./IsArray.js";
 export { IsArrayBuffer } from "./IsArrayBuffer.js";
 export { IsArrayOfAbstractArrays } from "./IsArrayOfAbstractArrays.js";
 export { IsArrayOfArrays } from "./IsArrayOfArrays.js";
@@ -41,7 +40,6 @@ export { IsArrayOfTypedArrays } from "./IsArrayOfTypedArrays.js";
 export { IsArrayOfTypedArraysWithEqualSize} from "./IsArrayOfTypedArraysWithEqualSize.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsFloat64Array } from "./IsFloat64Array.js";
-export { IsFunction } from "./IsFunction.js";
 export { IsGeneratorFunction } from "./IsGeneratorFunction.js";
 export { IsInstanceof } from "./IsInstanceof.js";
 export { IsInstanceType } from "./IsInstanceType.js";
@@ -51,10 +49,8 @@ export { IsInt8Array } from "./IsInt8Array.js";
 export { IsInteger } from "./IsInteger.js";
 export { IsIntegerArray } from "./IsIntegerArray.js";
 export { IsIntegerLike } from "./IsIntegerLike.js";
-export { IsMap } from "./IsMap.js";
 export { IsNegativeIntegerLike } from "./IsNegativeIntegerLike.js";
 export { IsNegativeNumberLike } from "./IsNegativeNumberLike.js";
-export { IsNumber } from "./IsNumber.js";
 export { IsNumberArray } from "./IsNumberArray.js";
 export { IsNumberLike } from "./IsNumberLike.js";
 export { IsObject } from "./IsObject.js";
