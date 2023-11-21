@@ -40,7 +40,6 @@ export { IsArrayOfStringArraysWithEqualSize } from "./IsArrayOfStringArraysWithE
 export { IsArrayOfTypedArrays } from "./IsArrayOfTypedArrays.js";
 export { IsArrayOfTypedArraysWithEqualSize} from "./IsArrayOfTypedArraysWithEqualSize.js";
 export { IsAsyncFunction } from "./IsAsyncFunction.js";
-export { IsBoolean } from "./IsBoolean.js";
 export { IsBooleanArray } from "./IsBooleanArray.js";
 export { IsError } from "./IsError.js";
 export { IsFloat32Array } from "./IsFloat32Array.js";
