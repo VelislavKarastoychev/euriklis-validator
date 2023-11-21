@@ -2386,7 +2386,7 @@ export default class validator {
     } catch (error) {
       value = error;
     }
-    this.#question = models.IsError(value);
+    this.#question = models.CheckType(value, "Error");
 
     return this.#set_answer();
   }
